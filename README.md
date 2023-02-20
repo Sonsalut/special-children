@@ -1,2 +1,2 @@
-# Special Children Mobile
+# react-native-template
 
