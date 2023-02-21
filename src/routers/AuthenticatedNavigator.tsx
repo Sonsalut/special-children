@@ -5,6 +5,8 @@ import {Routes} from './Navigation';
 import {createStackNavigator} from '@react-navigation/stack';
 import JoinWordScreen from 'screens/authenticated/join-word/JoinWordScreen';
 import RecordingScreen from 'screens/authenticated/recording/RecordingScreen';
+import HomeScreen from 'screens/authenticated/home/HomeScreen';
+import DrawerNavigator from './DrawerNavigator';
 const Stack = createStackNavigator<Routes>();
 
 const CommonStackNavigator = () => {
@@ -14,8 +16,8 @@ const CommonStackNavigator = () => {
         headerShown: false,
       }}>
       <Stack.Screen
-        name={AuthenticatedScreens.BottomTabs}
-        component={BottomTabNavigator}
+        name={AuthenticatedScreens.DrawerNavigator}
+        component={DrawerNavigator}
       />
        <Stack.Screen
         name={AuthenticatedScreens.RecordingScreen}

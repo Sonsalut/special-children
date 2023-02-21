@@ -13,4 +13,8 @@ export interface Account {
   password : string,
   name : string
 }
+export interface CategoryList {
+  accountInfo: any;
+  data: DataLoginResponse;
+}
 

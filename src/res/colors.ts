@@ -15,7 +15,7 @@ const colors = new (class {
   text1 = '#2F2F2F';
   text2 = '#ADAEC2';
   redLive = '#FF471F';
-  'FDF8EF';
+  white_gray='#FDF8EF'
 
   whiteWithOpacity = (opacity: number) => `rgba(255, 255, 255, ${opacity})`;
   blackWithOpacity = (opacity: number) => `rgba(0, 0, 0, ${opacity})`;

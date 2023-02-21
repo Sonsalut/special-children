@@ -7,6 +7,7 @@ import { MainScreens } from './ScreenNames';
 import AuthenticatedNavigator from './AuthenticatedNavigator';
 import AuthenticationNavigator from './AuthenticationNavigator';
 import { IRootState } from 'redux/rootReducer';
+import 'react-native-gesture-handler'
 
 const MainStack = createStackNavigator();
 

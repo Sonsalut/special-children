@@ -4,6 +4,12 @@ export type GetWordByCateID = {
     word: string,
     categoryId: number
 };
+export type GetFullCategory = {
+    pageIndex: number,
+    pageSize: number,
+    pageTotal: number,
+    categories: any
+};
 
 // export type ForgotPassword = {
 //     username: string;
