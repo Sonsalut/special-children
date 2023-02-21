@@ -6,10 +6,12 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
+    
   },
   header: {
     borderBottomWidth: ratioW(1),
     borderColor: colors.light_violet,
+    
   },
   titleHeader: {
     alignSelf: 'flex-start',
@@ -19,7 +21,7 @@ export default StyleSheet.create({
     backgroundColor: colors.light_violet,
   },
   itemView: {
-    width: '40%',
+    width: '30%',
     height: sizeHeight(20),
     borderRadius: sizeHeight(2),
 

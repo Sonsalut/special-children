@@ -7,8 +7,8 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
   },
   textInput: {
-    height: sizeHeight(6),
-    borderRadius:0,
+    height: sizeHeight(7),
+    borderRadius:15,
     alignSelf:'center',
     width:'90%'
   }

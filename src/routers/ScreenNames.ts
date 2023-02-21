@@ -19,4 +19,6 @@ export enum AuthenticatedScreens {
   CreatePostScreen = 'CreatePostScreen',
   MessageScreen = 'MessageScreen',
   ProfileTabScreen = 'ProfileTabScreen',
+  DrawerNavigator = 'DrawerNavigator',
+
 }

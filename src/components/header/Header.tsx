@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: ratioW(22),
     paddingRight: ratioW(22),
-    backgroundColor: colors.white,
+    backgroundColor: colors.violet,
   },
   viewIconHorizontal: {
     flexDirection: 'row',

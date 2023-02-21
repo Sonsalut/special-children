@@ -2,6 +2,7 @@ import React from 'react';
 import {Container, Text} from 'components';
 import {Routes, StackNavigationProps} from 'routers/Navigation';
 import {AuthenticatedScreens} from 'routers/ScreenNames';
+import { DevSettings, TouchableOpacity } from 'react-native';
 
 const MessageScreen = ({}: StackNavigationProps<
   Routes,
@@ -9,7 +10,9 @@ const MessageScreen = ({}: StackNavigationProps<
 >) => {
   return (
     <Container>
-      <Text>MessageScreen</Text>
+      <TouchableOpacity onPress={()=>DevSettings.reload()}>
+        <Text>Đăng xuất</Text>
+      </TouchableOpacity>
     </Container>
   );
 };

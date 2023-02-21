@@ -60,7 +60,7 @@ const LoginScreen = ({ }: StackNavigationProps<
           style={{ marginTop: 20 }}
           label='Đăng nhập'
           onPress={handleSubmit(onPressLogin)} />
-        <TouchableOpacity
+        {/* <TouchableOpacity
           activeOpacity={0.7}
           onPress={onNavigateRegister}
         >
@@ -73,7 +73,7 @@ const LoginScreen = ({ }: StackNavigationProps<
               fontSize:fontSize(4)
             }}
           >Đăng ký tài khoản</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View >
     </Container>
   );

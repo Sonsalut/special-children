@@ -137,8 +137,16 @@ const screenOptions: BottomTabNavigationOptions = {
   headerShown: false,
   tabBarStyle: {
     overflow: 'hidden',
-    position: 'absolute',
-    paddingVertical: 1
+   position:'absolute',
+  
+    bottom:15,
+    
+    borderRadius:15,
+    width:'90%',
+    left:20,
+    right:20,
+    height:60
+   
   },
   tabBarLabelStyle: {
     fontWeight: '400',

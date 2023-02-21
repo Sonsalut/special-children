@@ -9,32 +9,48 @@ import { useToast } from 'hooks/useToast';
 const useLogicRegister = () => {
     const showToast = useToast();
     const [hidden, setHidden] = React.useState(true)
-    const changeHiddenStatus = () => {
+    const [hidden1, setHidden1] = React.useState(true)
+
+    const changeHiddenStatus = (values) => {
         setHidden(!hidden)
+        
+
     }
+  
 
     const onPressRegister = async (values: any) => {
-        const response = await AuthenticationApi.registerWithEmail<LoginResponse>({
-            email: values?.username?.trim(),
-            password: values?.password?.trim(),
-            fullName: values?.fullname?.trim(),
-            phone: values?.password?.trim(),
-            address: values?.address?.trim(),
-            genderType : 'Male'
-        });
-        if (response.status === ResponseCode.SUCCESS) {
-            NavigationService.reset(MainScreens.AuthenticationNavigator);
-            showToast('Đăng ký thành công!', 'success');
+        if(values.password!== values.Repasword)
+        {
+            showToast("Mật khẩu không không khớp", "danger")
         }
-        else {
-            showToast('Đăng ký thất bại!', 'danger');
+        else
+        {
+            const response = await AuthenticationApi.registerWithEmail<LoginResponse>({
+                email: values?.username?.trim(),
+                password: values?.password?.trim(),
+                fullName: values?.fullname?.trim(),
+                phone: values?.password?.trim(),
+                address: values?.address?.trim(),
+                genderType : 'Male'
+            });
+            if (response.status === ResponseCode.SUCCESS) {
+                NavigationService.reset(MainScreens.AuthenticationNavigator);
+                showToast('Đăng ký thành công!', 'success');
+            }
+            else {
+                showToast('Đăng ký thất bại!', 'danger');
+            }
         }
+       
+       
     }
 
     return {
         hidden,
         changeHiddenStatus,
-        onPressRegister
+        onPressRegister,
+        hidden1,
+
     };
 };
 

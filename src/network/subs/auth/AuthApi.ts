@@ -1,3 +1,4 @@
+import { DataLoginResponse } from './AuthResponse';
 import { ApiConstants } from 'network/ApiConstants';
 import Api, { RequestMethod, METHOD } from 'network/ApiManager';
 import {
@@ -12,7 +13,7 @@ export const AuthApis = {
   changePassword: ApiConstants.HOST + 'ext/users/password',
   forgotPassword: ApiConstants.HOST + 'ext/users/password/forgot',
   getAvatar: ApiConstants.HOST + 'ext/files',
-  register : ApiConstants.HOST + 'ext/users/register'
+  register : ApiConstants.HOST + 'ext/users/register',
 };
 
 class AuthenticationApi {
@@ -25,6 +26,7 @@ class AuthenticationApi {
       },
     });
   }
+
   registerWithEmail<T>(params: RegisterWithEmailParams) {
     return Api.request<T>({
       options: {
