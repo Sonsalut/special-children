@@ -37,7 +37,7 @@ const Button = ({
   styleLabel,
   iconRight,
   styleIconRight,
-  backgroundColor = [colors.violet],
+  backgroundColor = [colors.orange],
   disabled,
   children,
   ...props
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: ratioW(25),
+    borderRadius: ratioW(12),
   },
   horizontalView: {
     flexDirection: 'row',

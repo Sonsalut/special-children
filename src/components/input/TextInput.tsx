@@ -86,7 +86,7 @@ const TextInput = forwardRef<RNTextInput, TextInputProps>(
       bgDefault = colors.grey,
       bgTouch,
       bgError,
-      borderColorDefault = colors.transparent,
+      borderColorDefault = colors.orange,
       borderColorTouch = colors.violet,
       borderColorError = colors.red,
       textErrorColor = colors.red,
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderWidth: ratioW(1),
     height: ratioW(50),
-    borderRadius: ratioW(25),
+    borderRadius: ratioW(12),
   },
   textInput: {
     flex: 1,

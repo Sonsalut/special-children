@@ -4,7 +4,7 @@ import colors from 'res/colors';
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: colors.white,
+    // backgroundColor: colors.white,
   },
   imageBackground: {
     width: ratioW(375),
@@ -39,6 +39,7 @@ export default StyleSheet.create({
   },
   buttonLogin: {
     width: ratioW(210),
+    // width: '90%',
     marginBottom: ratioW(14),
   },
   viewLine: {
