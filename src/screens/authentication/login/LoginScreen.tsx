@@ -67,7 +67,6 @@ const LoginScreen = ({ }: StackNavigationProps<
             label='Đăng nhập'
             onPress={handleSubmit(onPressLogin)} />
 
-<<<<<<< HEAD
           {/* create touch id */}
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity style={{marginTop: 30, alignItems: 'center', borderRadius: 25, width: 50}}>
@@ -79,43 +78,9 @@ const LoginScreen = ({ }: StackNavigationProps<
           </View>
             
 
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={onNavigateRegister}
-          >
-            <Text
-              style={{
-                color: '#b7deff',
-                textDecorationLine: 'underline',
-                alignSelf: 'center',
-                marginTop: sizeHeight(10),
-                fontSize: fontSize(4),
-              }}
-            >Đăng ký tài khoản</Text>
-          </TouchableOpacity>
+
         </View >
       </View>
-=======
-        <Button
-          style={{ marginTop: 20 }}
-          label='Đăng nhập'
-          onPress={handleSubmit(onPressLogin)} />
-        {/* <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={onNavigateRegister}
-        >
-          <Text
-            style={{
-              color: '#b7deff',
-              textDecorationLine: 'underline',
-              alignSelf: 'center',
-              marginTop: sizeHeight(10),
-              fontSize:fontSize(4)
-            }}
-          >Đăng ký tài khoản</Text>
-        </TouchableOpacity> */}
-      </View >
->>>>>>> Featute/Register-Ngoc
     </Container>
   );
 };
