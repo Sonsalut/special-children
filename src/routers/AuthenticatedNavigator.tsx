@@ -23,10 +23,7 @@ const CommonStackNavigator = () => {
         name={AuthenticatedScreens.RecordingScreen}
         component={RecordingScreen}
       />
-       <Stack.Screen
-        name={AuthenticatedScreens.JoinWordScreen}
-        component={JoinWordScreen}
-      />
+      
     </Stack.Navigator>
   );
 };

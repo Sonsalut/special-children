@@ -20,6 +20,7 @@ import ResponseCode from 'network/ResponseCode';
 import { store } from 'redux/store';
 import SoundPlayer from 'react-native-sound-player';
 
+
 const RecordingScreen = ({ route }: any) => {
     const MAX_IMAGE_WIDTH = 480;
     const MAX_IMAGE_HEIGHT = 480;
@@ -69,7 +70,7 @@ const RecordingScreen = ({ route }: any) => {
 
     React.useEffect(() => {
         loadData();
-        loadImage();
+        // loadImage();
     }, [])
 
 
@@ -78,15 +79,12 @@ const RecordingScreen = ({ route }: any) => {
             pageIndex: 1,
             pageSize: 20,
             word: '',
-            categoryId: route?.params?.title === 'number' ? 3 : 2
+            categoryId: route?.params?.data?.id
         });
         if (response.status === ResponseCode.SUCCESS) {
-            if (route?.params?.title === 'number') {
-                setData(response.data?.words)
-            }
-            else {
-                setAnimal(response.data?.words)
-            }
+          
+            console.log(response.data)
+            setData(response.data?.words)
 
         }
         else {
@@ -152,8 +150,11 @@ const RecordingScreen = ({ route }: any) => {
 
 
     return (
-        <Container >
-            <HeaderWithBack title={route?.params?.title === 'number' ? 'Chữ số' : 'Con vật'} />
+
+
+        <Container style={{ flex: 1 }} >
+            <HeaderWithBack title={route?.params?.data?.name} />
+            {/*             
             <FlatList
                 data={route?.params?.title === 'number' ? data : animal}
                 keyExtractor={(_, index) => index.toString()}
@@ -189,13 +190,45 @@ const RecordingScreen = ({ route }: any) => {
                     )
                 }}
             />
+           */}
+
+            <FlatList
+                data={data}
+                keyExtractor={(_, index) => index.toString()}
+                numColumns={3}
+                renderItem={({ item }) => (
+                    <TouchableOpacity activeOpacity={0.7} onPress={() => { addImgae(item) }}>
+                        <View style={{ flexDirection: 'column' ,borderWidth:1, width:sizeWidth(30) ,justifyContent:'center',paddingHorizontal:8, height:sizeHeight(15),borderRadius:10, marginLeft:5}}>
+                            <Image style={{
+                                resizeMode:'contain',
+                                height: sizeHeight(10), width: sizeWidth(25),
+                                borderRadius: sizeWidth(3)
+                            }}
+                                source={{
+                                    uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFieldId}&file-size=small`,
+                                    method: 'GET',
+                                    headers: {
+                                        Authorization: store.getState().authReducer.user.accessToken
+                                    }
+                                }}
+
+                            />
+                            <Text>{item.word}</Text>
+                        </View>
+                    </TouchableOpacity>
+
+                )}
+            />
+           {/* Màn hình số  */}
             <Modal
                 visible={visible}
                 style={{
                     backgroundColor: '#FFF',
                     borderRadius: 10,
                     height: '50%',
-                    marginTop: sizeHeight(20)
+                    marginTop: sizeHeight(20),
+                    width:'90%',
+                    marginHorizontal:20
                 }}
                 onDismiss={() => {
                     setShow(false)
@@ -223,7 +256,7 @@ const RecordingScreen = ({ route }: any) => {
 
                             />
                         </TouchableOpacity>
-                        <Text style={{alignSelf:'center', color:'black',fontSize:fontSize(7),marginTop : sizeHeight(5),fontWeight:'bold'}}>{item?.word}</Text>
+                        <Text style={{ alignSelf: 'center', color: 'black', fontSize: fontSize(7), marginTop: sizeHeight(5), fontWeight: 'bold' }}>{item?.word}</Text>
                     </View>
 
 
@@ -235,4 +268,5 @@ const RecordingScreen = ({ route }: any) => {
 };
 
 export default RecordingScreen;
+
 

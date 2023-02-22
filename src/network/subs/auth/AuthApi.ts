@@ -9,7 +9,9 @@ import {
 } from './AuthRequest';
 
 export const AuthApis = {
-  loginWithEmail: ApiConstants.HOST + 'ext/login',
+  loginWithEmail: 'https://ais-account-test-api.aisolutions.com.vn/ext/login',
+  logout: 'https://ais-account-test-api.aisolutions.com.vn/ext/logout',
+
   changePassword: ApiConstants.HOST + 'ext/users/password',
   forgotPassword: ApiConstants.HOST + 'ext/users/password/forgot',
   getAvatar: ApiConstants.HOST + 'ext/files',
@@ -61,7 +63,17 @@ class AuthenticationApi {
       ignoreURLBase: true,
     });
   }
-
+  LogOut<T>(params: any) {
+    return Api.request<T>({
+        options: {
+            method: METHOD.POST,
+            url: AuthApis.logout,
+            params: {
+              'Authorization': params
+            },
+        },
+    });
+}
   getAvatar<T>(params: any) {
     return Api.request<T>({
       options: {

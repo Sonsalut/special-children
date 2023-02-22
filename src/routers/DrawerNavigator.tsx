@@ -15,6 +15,8 @@ import { AuthenticatedScreens } from './ScreenNames';
 import HomeScreen from 'screens/authenticated/home/HomeScreen';
 import DiscoveryScreen from 'screens/authenticated/discovery/DiscoveryScreen';
 import MessageScreen from 'screens/authenticated/message/MessageScreen';
+import JoinWordScreen from 'screens/authenticated/join-word/JoinWordScreen';
+import StorageWord from 'screens/authenticated/storageWord/StorageWord';
 import { BottomTabCustom } from 'components';
 import colors from 'res/colors';
 const Drawer = createDrawerNavigator();
@@ -31,6 +33,17 @@ const DrawerNavigator = () => {
         component={DiscoveryScreen}
         options={{title:'Thông báo',headerStyle:{backgroundColor: colors.white_gray}}}
 
+        />
+       
+         <Drawer.Screen name={AuthenticatedScreens.StorageWord}
+        component={StorageWord}
+        options={{title:'Kho ghép từ',headerStyle:{backgroundColor: colors.white_gray}}}
+        
+        />
+         <Drawer.Screen name={AuthenticatedScreens.JoinWordScreen}
+        component={JoinWordScreen}
+        options={{title:'Ghép từ',headerStyle:{backgroundColor: colors.white_gray}}}
+        
         />
         <Drawer.Screen name={AuthenticatedScreens.MessageScreen}
         component={MessageScreen}

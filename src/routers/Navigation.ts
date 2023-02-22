@@ -23,4 +23,6 @@ export type Routes = {
   [AuthenticatedScreens.CreatePostScreen]: undefined;
   [AuthenticatedScreens.MessageScreen]: undefined;
   [AuthenticatedScreens.ProfileTabScreen]: undefined;
+  [AuthenticatedScreens.StorageWord]: undefined;
+
 };

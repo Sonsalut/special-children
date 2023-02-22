@@ -6,9 +6,10 @@ import {
 } from './RecordingRequest';
 
 export const AuthApis = {
-    GetWordByCateID: ApiConstants.HOST + 'ext/word/search',
+    GetWordByCateID: ApiConstants.HOST + 'ext/word/search/by-user',
     GetImage : ApiConstants.HOST + 'ext/files/download',
-  GetFullCate: ApiConstants.HOST + 'ext/category/Seacrch',
+  GetFullCate: ApiConstants.HOST + 'ext/category/search/by-user',
+  GetStorageWord : ApiConstants.HOST + 'ext/word/repo'
 
 };
 
@@ -43,5 +44,24 @@ class RecodingApi {
             },
         });
     }
+    GetStorageWord<T>(params: any) {
+        return Api.request<T>({
+            options: {
+                method: METHOD.GET,
+                url: AuthApis.GetStorageWord,
+                
+            },
+        });
+    }
+    PostStorageWord<T>(params: any) {
+        return Api.request<T>({
+            options: {
+                method: METHOD.GET,
+                url: AuthApis.GetStorageWord,
+                
+            },
+        });
+    }
+    
 }
 export default new RecodingApi();

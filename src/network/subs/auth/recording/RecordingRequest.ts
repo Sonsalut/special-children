@@ -1,4 +1,4 @@
-export type GetWordByCateID = {
+export type     GetWordByCateID = {
     pageIndex: number,
     pageSize: number,
     word: string,
@@ -7,8 +7,12 @@ export type GetWordByCateID = {
 export type GetFullCategory = {
     pageIndex: number,
     pageSize: number,
-    pageTotal: number,
+    name: any,
     categories: any
+};
+export type GetStorageWord = {
+   
+    data: any
 };
 
 // export type ForgotPassword = {
