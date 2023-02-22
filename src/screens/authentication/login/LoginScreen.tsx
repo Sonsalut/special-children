@@ -5,7 +5,7 @@ import { AuthenticationScreens, AuthenticatedScreens, MainScreens } from 'router
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { Controller, useForm } from 'react-hook-form';
-import TouchID from 'react-native-touch-id';
+// import TouchID from 'react-native-touch-id';
 
 import { View, Image, Text, TouchableOpacity, ImageBackground } from 'react-native';
 import NavigationService from 'routers/NavigationService';
@@ -76,7 +76,9 @@ const LoginScreen = ({ }: StackNavigationProps<
               />
             </TouchableOpacity>
           </View>
-          
+            
+
+
         </View >
       </View>
     </Container>
