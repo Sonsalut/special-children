@@ -31,7 +31,7 @@ const useLogicMessage = () => {
         if (!isSwitchOn) {
             TouchID.authenticate('', optionalConfigObject)
                 .then((success: any) => {
-                    dispatch(authSlice.actions.saveFingerPrint({ fingerprint: !isSwitchOn }))
+                    dispatch(authSlice.actions.saveFingerPrint({ fingerPrint: !isSwitchOn }))
                     setIsSwitchOn(!isSwitchOn)
                     console.log(isSwitchOn)
                 })
@@ -40,7 +40,7 @@ const useLogicMessage = () => {
                 });
         }
         else {
-            dispatch(authSlice.actions.saveFingerPrint({ fingerprint: !isSwitchOn }))
+            dispatch(authSlice.actions.saveFingerPrint({ fingerPrint: !isSwitchOn }))
             setIsSwitchOn(!isSwitchOn)
             console.log(isSwitchOn)
         }

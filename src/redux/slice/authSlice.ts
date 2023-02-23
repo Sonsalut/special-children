@@ -11,6 +11,8 @@ export default createSlice({
   name: 'auth',
   initialState: {
     user: {},
+    fingerPrint: {},
+    Account: {}
   } as AuthSliceState,
   reducers: {
     setUser: (state, action) => {
