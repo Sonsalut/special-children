@@ -6,13 +6,15 @@ import { DevSettings, TouchableOpacity, View, Image } from 'react-native';
 import { Switch } from 'react-native-gesture-handler';
 import colors from 'res/colors';
 import {store} from 'redux/store';
+import { useLogicLogin } from 'screens/authentication/login/useLogicLogin';
 import { useLogicMessage } from './useLogicMessage';
 
 const MessageScreen = ({}: StackNavigationProps<
   Routes,
   AuthenticatedScreens.MessageScreen
 >) => {
-  const {
+  const { logOut, 
+    
     onToggleSwitch, cancelLogOut,
     refPopUp, name, setIsSwitchOn, isSwitchOn, onPopUpClose, confirmLogOut } = useLogicMessage();
   React.useEffect(() => {
@@ -29,23 +31,23 @@ const MessageScreen = ({}: StackNavigationProps<
     <Container style={{backgroundColor: '#ADAEC2'}}>
       <View style={{width: '90%', height: 300, alignSelf: 'center', backgroundColor:'#FDF8EF', marginTop: 20, borderRadius: 25}}>
         {/* Touch ID on/off */}
-        <View style={{flexDirection: 'row', paddingTop: 20, paddingHorizontal: 20}}>
+        <View style={{flexDirection: 'row', paddingTop: 20, paddingHorizontal: 15}}>
           <Image
             source={require('../../../assets/images/fingerprint.png')}
             style={{ width: 25, height: 25}}
           />
-          <Text style={{paddingLeft: 10, paddingTop: 2, fontSize: 17}}>Đăng nhập bằng vân tay</Text>
+          <Text style={{paddingLeft: 10, paddingTop: 2, fontSize: 17}}>Đăng nhập bằng Touch ID</Text>
           <Switch
             value={isSwitchOn}
             onValueChange={onToggleSwitch}
             trackColor={{ false: colors.grey, true: colors.blue }}
             thumbColor={colors.white}
-            style={{marginLeft: 35, marginTop: -2}}
+            style={{paddingBottom: 10, marginLeft: 30, }}
           />
         </View>
 
         {/* Sign out button */}
-        <View style={{flexDirection: 'row', paddingTop: 20, paddingHorizontal: 20}}>
+        <View style={{flexDirection: 'row', paddingTop: 20, paddingHorizontal: 15}}>
           <TouchableOpacity style={{flexDirection: 'row'}} onPress={()=>DevSettings.reload()}>
             <Image
               source={require('../../../assets/images/logout.png')}
@@ -55,16 +57,6 @@ const MessageScreen = ({}: StackNavigationProps<
           </TouchableOpacity>
         </View>
       </View>
-      <PopUp ref={refPopUp}
-        description={!confirmLogOut ?'Thiết bị chưa kích hoạt vân tay hoặc không hỗ trợ, vui lòng thử lại sau':'Bạn có chắc chắc muốn đăng xuất không?'}
-        okContainerStyle={{backgroundColor: confirmLogOut ?'red': colors.blue }}
-        okLabel={!confirmLogOut ? 'Đóng' : 'Đăng xuất'}
-        isOk={true}
-        isCancel={confirmLogOut}
-        cancelLabel='Đóng'
-        onCancelPress={cancelLogOut}
-      />
-
     </Container>
   );
 };

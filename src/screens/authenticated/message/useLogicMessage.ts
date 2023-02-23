@@ -7,6 +7,7 @@ import { store } from 'redux/store';
 import authSlice from 'redux/slice/authSlice';
 import { useDispatch } from 'react-redux';
 import NavigationService from 'routers/NavigationService';
+import { Alert } from 'react-native';
 
 const useLogicMessage = () => {
     const refPopUp: any = React.useRef(null);
@@ -36,7 +37,8 @@ const useLogicMessage = () => {
                     console.log(isSwitchOn)
                 })
                 .catch(error => {
-                    console.log("test error")
+                    console.log("test error"),
+                    Alert.alert('Thiết bị không được hỗ trợ tính năng vân tay')
                 });
         }
         else {
