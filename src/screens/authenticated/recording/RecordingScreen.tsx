@@ -168,7 +168,7 @@ const test=[
     return (
 
 
-        <Container style={{ flex: 1 }} >
+        <Container style={{ flex: 1 }} children={undefined} >
             <HeaderWithBack title={route?.params?.data?.name} />
             {/*             
             <FlatList
@@ -213,7 +213,8 @@ const test=[
                 keyExtractor={(_, index) => index.toString()}
                 numColumns={3}
                 renderItem={({ item, index }) => (
-                    <TouchableOpacity activeOpacity={0.7} onPress={() => { addImgae(item, index) }}>
+                  
+                    <TouchableOpacity key={index} activeOpacity={0.7} onPress={() => { addImgae(item, index) }}>
                         <View style={{ flexDirection: 'column' ,borderWidth:1, width:sizeWidth(30) ,justifyContent:'center',paddingHorizontal:8, height:sizeHeight(15),borderRadius:10, marginHorizontal:6, marginVertical:8}}>
                             <Image style={{
                                 resizeMode:'cover',
@@ -288,9 +289,10 @@ const test=[
                    <Swiper showsButtons={true} index={index}>
                           {
 
-                            data.map((item)=>(
-
-                                <View>
+                            data.map((item, index)=>(
+                                 <View key={index}> 
+                                 <Text style={{fontSize:30}}>{item?.word}</Text>
+                                 <View>
                                     <TouchableOpacity onPress={() => playSound(item?.audioFileId)} activeOpacity={0.7}>
                                     <Image style={{
                                 resizeMode:'cover',
@@ -313,6 +315,8 @@ const test=[
                             />
                             </TouchableOpacity>
                                 </View>
+                                 </View>
+                                
                             ))
                           }
                           
