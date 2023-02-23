@@ -9,6 +9,7 @@ import React from 'react'
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import { GetStorageWord, GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
 import { sizeWidth } from 'utils/Utils';
+import NavigationService from 'routers/NavigationService';
 
 const StorageWord = ({}: StackNavigationProps<
     Routes,
@@ -35,7 +36,7 @@ if (response.status === ResponseCode.SUCCESS) {
     
     //   }, [])
     const handle =()=>{
-getStorageWords()
+        NavigationService.navigate(AuthenticatedScreens.Storage)
     }
   return (
     <View>

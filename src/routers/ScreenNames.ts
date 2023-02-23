@@ -20,6 +20,10 @@ export enum AuthenticatedScreens {
   MessageScreen = 'MessageScreen',
   ProfileTabScreen = 'ProfileTabScreen',
   DrawerNavigator = 'DrawerNavigator',
-  StorageWord ='StorageWord'
+  StorageWord ='StorageWord',
+  StorageWords ='StorageWords',
+  HomeScreens = 'HomeScreens',
+
+  Storage='Storage'
 
 }

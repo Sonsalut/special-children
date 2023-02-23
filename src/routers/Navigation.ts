@@ -17,6 +17,8 @@ export type Routes = {
   //* ************************************ Authenticated ************************************* *//
   [AuthenticatedScreens.BottomTabs]: undefined;
   [AuthenticatedScreens.HomeScreen]: undefined;
+  [AuthenticatedScreens.HomeScreens]: undefined;
+
   [AuthenticatedScreens.RecordingScreen]: undefined;
   [AuthenticatedScreens.JoinWordScreen]: undefined;
   [AuthenticatedScreens.DiscoveryScreen]: undefined;
@@ -24,5 +26,10 @@ export type Routes = {
   [AuthenticatedScreens.MessageScreen]: undefined;
   [AuthenticatedScreens.ProfileTabScreen]: undefined;
   [AuthenticatedScreens.StorageWord]: undefined;
+  [AuthenticatedScreens.StorageWords]: undefined;
+
+  [AuthenticatedScreens.Storage]: undefined;
+
+
 
 };
