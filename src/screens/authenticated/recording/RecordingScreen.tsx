@@ -19,12 +19,14 @@ import { RecordingResponse } from 'network/subs/auth/recording/RecordingResponse
 import ResponseCode from 'network/ResponseCode';
 import { store } from 'redux/store';
 import SoundPlayer from 'react-native-sound-player';
+import Swiper from 'react-native-swiper';
 
 
 const RecordingScreen = ({ route }: any) => {
     const MAX_IMAGE_WIDTH = 480;
     const MAX_IMAGE_HEIGHT = 480;
     const IMAGE_QUALITY = 60;
+    const cancel= require('.././../../../src/assets/images/cancel.png')
     const [image, setImage] = React.useState("");
     const [show, setShow] = React.useState(false);
     const [content, setContent] = React.useState("");
@@ -67,13 +69,17 @@ const RecordingScreen = ({ route }: any) => {
     //       console.log('cannot play the song file', e)
     //     }
     //   }
-
+   
     React.useEffect(() => {
         loadData();
+       
         // loadImage();
     }, [])
 
-
+const handle=()=>{
+    setShow(!show)
+    setVisible(!visible)
+}
     const loadData = async () => {
         const response: any = await RecordingAPI.GetWordByCateID<RecordingResponse>({
             pageIndex: 1,
@@ -97,7 +103,9 @@ const RecordingScreen = ({ route }: any) => {
             // or play from url
             SoundPlayer.playUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/${id}`)
         } catch (e) {
+            //showToast
             console.log(`cannot play the sound file`, e)
+            
         }
 
     }
@@ -142,12 +150,20 @@ const RecordingScreen = ({ route }: any) => {
 
 
     const [visible, setVisible] = React.useState(false)
-    const addImgae = (item: any) => {
+    const addImgae = (item: any, index) => {
         setItem(item)
         setVisible(true)
+        setIndex(index)
     }
 
+const [index, setIndex] = React.useState(0)
+const test=[
+    {id:1,name:'1'},
+    {id:2,name:'2'},
+    {id:3,name:'3'},
+    {id:4,name:'4'}
 
+]
 
     return (
 
@@ -196,16 +212,16 @@ const RecordingScreen = ({ route }: any) => {
                 data={data}
                 keyExtractor={(_, index) => index.toString()}
                 numColumns={3}
-                renderItem={({ item }) => (
-                    <TouchableOpacity activeOpacity={0.7} onPress={() => { addImgae(item) }}>
-                        <View style={{ flexDirection: 'column' ,borderWidth:1, width:sizeWidth(30) ,justifyContent:'center',paddingHorizontal:8, height:sizeHeight(15),borderRadius:10, marginLeft:5}}>
+                renderItem={({ item, index }) => (
+                    <TouchableOpacity activeOpacity={0.7} onPress={() => { addImgae(item, index) }}>
+                        <View style={{ flexDirection: 'column' ,borderWidth:1, width:sizeWidth(30) ,justifyContent:'center',paddingHorizontal:8, height:sizeHeight(15),borderRadius:10, marginHorizontal:6, marginVertical:8}}>
                             <Image style={{
-                                resizeMode:'contain',
+                                resizeMode:'cover',
                                 height: sizeHeight(10), width: sizeWidth(25),
                                 borderRadius: sizeWidth(3)
                             }}
                                 source={{
-                                    uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFieldId}&file-size=small`,
+                                    uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
                                     method: 'GET',
                                     headers: {
                                         Authorization: store.getState().authReducer.user.accessToken
@@ -225,8 +241,8 @@ const RecordingScreen = ({ route }: any) => {
                 style={{
                     backgroundColor: '#FFF',
                     borderRadius: 10,
-                    height: '50%',
-                    marginTop: sizeHeight(20),
+                    height: '65%',
+                    marginTop: sizeHeight(15),
                     width:'90%',
                     marginHorizontal:20
                 }}
@@ -236,18 +252,29 @@ const RecordingScreen = ({ route }: any) => {
                 }}
 
             >
+           
                 <View style={{
                     top: 0,
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    width:"100%",
+                    height:"100%",
+                   
                 }}>
-                    <View>
-                        <TouchableOpacity onPress={() => { playSound(item?.audioFieldId) }} activeOpacity={0.7}>
+                    <View style={{ width:'92%', marginBottom:20, height:'8%', flexDirection:'row', justifyContent:'space-between'}}>
+                        <Text style={{alignSelf:'center', fontSize:20, marginLeft:140}}>{item?.word}</Text>
+                        <TouchableOpacity  onPress={handle}>
+                            <Image resizeMode='contain' source={cancel} style={{width:sizeWidth(5), height:sizeHeight(5)}}/>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ height:'88%', bottom:10 }}>
+                        {/* <TouchableOpacity onPress={() => playSound(item?.audioFileId)} activeOpacity={0.7}>
                             <Image style={{
+                                resizeMode:'cover',
                                 height: sizeHeight(30), width: sizeWidth(60),
                                 borderRadius: sizeWidth(3)
                             }}
                                 source={{
-                                    uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFieldId}&file-size=small`,
+                                    uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
                                     method: 'GET',
                                     headers: {
                                         Authorization: store.getState().authReducer.user.accessToken
@@ -256,12 +283,50 @@ const RecordingScreen = ({ route }: any) => {
 
                             />
                         </TouchableOpacity>
-                        <Text style={{ alignSelf: 'center', color: 'black', fontSize: fontSize(7), marginTop: sizeHeight(5), fontWeight: 'bold' }}>{item?.word}</Text>
+                        <Text style={{ alignSelf: 'center', color: 'black', fontSize: fontSize(7), marginTop: sizeHeight(5), fontWeight: 'bold' }}>{item?.word}</Text> */}
+                   
+                   <Swiper showsButtons={true} index={index}>
+                          {
+
+                            data.map((item)=>(
+
+                                <View>
+                                    <TouchableOpacity onPress={() => playSound(item?.audioFileId)} activeOpacity={0.7}>
+                                    <Image style={{
+                                resizeMode:'cover',
+                                height: sizeHeight(60), width: sizeWidth(80),
+                                borderRadius: sizeWidth(3),
+                                marginHorizontal:20,
+                              
+                                
+        
+                
+                            }}
+                                source={{
+                                    uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                                    method: 'GET',
+                                    headers: {
+                                        Authorization: store.getState().authReducer.user.accessToken
+                                    }
+                                }}
+
+                            />
+                            </TouchableOpacity>
+                                </View>
+                            ))
+                          }
+                          
+                     
+
+                   </Swiper>
+                   
                     </View>
 
 
 
                 </View>
+                  
+                
             </Modal>
         </Container>
     );

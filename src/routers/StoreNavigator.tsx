@@ -7,36 +7,27 @@ import JoinWordScreen from 'screens/authenticated/join-word/JoinWordScreen';
 import RecordingScreen from 'screens/authenticated/recording/RecordingScreen';
 import HomeScreen from 'screens/authenticated/home/HomeScreen';
 import DrawerNavigator from './DrawerNavigator';
+import StorageWord from 'screens/authenticated/storageWord/StorageWord';
 import Storage from 'screens/authenticated/storageWord/Storage';
-import colors from 'res/colors';
 const Stack = createStackNavigator<Routes>();
 
-const CommonStackNavigator = () => {
+const StoreNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-      }
-      }
-      >
+      }}>
       <Stack.Screen
-        name={AuthenticatedScreens.DrawerNavigator}
-        component={DrawerNavigator}
+        name={AuthenticatedScreens.StorageWord}
+        component={StorageWord}
       />
-       <Stack.Screen
-        name={AuthenticatedScreens.RecordingScreen}
-        component={RecordingScreen}
-          
-      />
-        <Stack.Screen
+       {/* <Stack.Screen
         name={AuthenticatedScreens.Storage}
         component={Storage}
-        options={{headerShown:true}}
-      />
-      
+      /> */}
       
     </Stack.Navigator>
   );
 };
 
-export default CommonStackNavigator;
+export default StoreNavigator;

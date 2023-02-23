@@ -26,4 +26,5 @@ export default {
   navigate,
   reset,
   goBack,
+  
 };
