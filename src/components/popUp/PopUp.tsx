@@ -16,7 +16,7 @@ export function showPopUp(infoData: InfoPopUpData) {
 
 interface InfoPopUpData {
   title?: string;
-  description: string;
+  description?: string;
   textButton1?: string;
   actionButton1?: () => void;
   textButton2: string;

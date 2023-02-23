@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, TextInput, Button } from 'components';
+import { Container, TextInput, Button, ModalPopUp } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticationScreens, AuthenticatedScreens, MainScreens } from 'routers/ScreenNames';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -17,8 +17,9 @@ const LoginScreen = ({ }: StackNavigationProps<
   AuthenticationScreens.LoginScreen
 >) => {
   const { register, setError, handleSubmit, control, reset, formState: { errors } } = useForm();
-  const { hidden, changeHiddenStatus, onPressLogin, onNavigateRegister } = useLogicLogin();
-
+  const { hidden, changeHiddenStatus, onPressLogin, onNavigateRegister, loginWithBiometric, onSubmit, error, 
+    handleGoForgotPassword, onPopUpClose, refPopUp } = useLogicLogin();
+  
   return (
     <Container>
       <ImageBackground source={require('../../../assets/images/backgr.png')} style={{ width: '100%', height: '100%' }} />
@@ -69,18 +70,19 @@ const LoginScreen = ({ }: StackNavigationProps<
 
           {/* create touch id */}
           <View style={{alignItems: 'center'}}>
-            <TouchableOpacity style={{marginTop: 30, alignItems: 'center', borderRadius: 25, width: 50}}>
+            <TouchableOpacity 
+              style={{marginTop: 30, alignItems: 'center', borderRadius: 25, width: 50}} 
+              onPress={loginWithBiometric}
+            >
               <Image 
                 source={require('../../../assets/images/touch-id.png')} 
                 style={{ width: 50, height: 50}} 
               />
             </TouchableOpacity>
           </View>
-            
-
-
         </View >
       </View>
+      
     </Container>
   );
 };

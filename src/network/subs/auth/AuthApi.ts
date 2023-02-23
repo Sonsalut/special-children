@@ -9,7 +9,7 @@ import {
 } from './AuthRequest';
 
 export const AuthApis = {
-  loginWithEmail: ApiConstants.HOST + 'ext/login',
+  loginWithEmail: 'https://ais-account-test-api.aisolutions.com.vn/ext/login',
   changePassword: ApiConstants.HOST + 'ext/users/password',
   forgotPassword: ApiConstants.HOST + 'ext/users/password/forgot',
   getAvatar: ApiConstants.HOST + 'ext/files',
