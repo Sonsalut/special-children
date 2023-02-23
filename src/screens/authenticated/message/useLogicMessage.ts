@@ -29,16 +29,18 @@ const useLogicMessage = () => {
     }
     const onToggleSwitch = () => {
         if (!isSwitchOn) {
-            TouchID.authenticate('to demo this react-native component', optionalConfigObject)
-                .then(success => {
-                    console.log("123F")
+            TouchID.authenticate('', optionalConfigObject)
+                .then((success: any) => {
+                    dispatch(authSlice.actions.saveFingerPrint({ fingerPrint: !isSwitchOn }))
+                    setIsSwitchOn(!isSwitchOn)
+                    console.log(isSwitchOn)
                 })
                 .catch(error => {
                     console.log("test error")
                 });
         }
         else {
-            dispatch(authSlice.actions.saveFingerPrint({ fingerprint: !isSwitchOn }))
+            dispatch(authSlice.actions.saveFingerPrint({ fingerPrint: !isSwitchOn }))
             setIsSwitchOn(!isSwitchOn)
             console.log(isSwitchOn)
         }
