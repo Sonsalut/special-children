@@ -10,8 +10,6 @@ import {
 
 export const AuthApis = {
   loginWithEmail: 'https://ais-account-test-api.aisolutions.com.vn/ext/login',
-  logout: 'https://ais-account-test-api.aisolutions.com.vn/ext/logout',
-
   changePassword: ApiConstants.HOST + 'ext/users/password',
   forgotPassword: ApiConstants.HOST + 'ext/users/password/forgot',
   getAvatar: ApiConstants.HOST + 'ext/files',
