@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Header, Text, TouchableOpacity } from 'components';
+import { Container, Header, TouchableOpacity } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens, MainScreens } from 'routers/ScreenNames';
 import HeaderWithBack from 'components/header/HeaderWithBack';
@@ -20,7 +20,8 @@ import ResponseCode from 'network/ResponseCode';
 import { store } from 'redux/store';
 import SoundPlayer from 'react-native-sound-player';
 import Swiper from 'react-native-swiper';
-
+import { Text } from 'react-native';
+import colors from 'res/colors';
 
 const RecordingScreen = ({ route }: any) => {
     const MAX_IMAGE_WIDTH = 480;
@@ -107,6 +108,7 @@ const handle=()=>{
             console.log(`cannot play the sound file`, e)
             
         }
+        
 
     }
 
@@ -168,7 +170,7 @@ const test=[
     return (
 
 
-        <Container style={{ flex: 1 }} children={undefined} >
+        <Container style={{ flex: 1 }}  >
             <HeaderWithBack title={route?.params?.data?.name} />
             {/*             
             <FlatList
@@ -218,7 +220,7 @@ const test=[
                         <View style={{ flexDirection: 'column' ,borderWidth:1, width:sizeWidth(30) ,justifyContent:'center',paddingHorizontal:8, height:sizeHeight(15),borderRadius:10, marginHorizontal:6, marginVertical:8}}>
                             <Image style={{
                                 resizeMode:'cover',
-                                height: sizeHeight(10), width: sizeWidth(25),
+                                height: sizeHeight(12), width: sizeWidth(25),
                                 borderRadius: sizeWidth(3)
                             }}
                                 source={{
@@ -230,7 +232,7 @@ const test=[
                                 }}
 
                             />
-                            <Text>{item.word}</Text>
+                            <Text style={{alignSelf:'center', fontSize:14, color:colors.black}}>{item.word}</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -262,12 +264,12 @@ const test=[
                    
                 }}>
                     <View style={{ width:'92%', marginBottom:20, height:'8%', flexDirection:'row', justifyContent:'space-between'}}>
-                        <Text style={{alignSelf:'center', fontSize:20, marginLeft:140}}>{item?.word}</Text>
+                        
                         <TouchableOpacity  onPress={handle}>
                             <Image resizeMode='contain' source={cancel} style={{width:sizeWidth(5), height:sizeHeight(5)}}/>
                         </TouchableOpacity>
                     </View>
-                    <View style={{ height:'88%', bottom:10 }}>
+                    <View style={{ height:'90%', bottom:22 }}>
                         {/* <TouchableOpacity onPress={() => playSound(item?.audioFileId)} activeOpacity={0.7}>
                             <Image style={{
                                 resizeMode:'cover',
@@ -286,12 +288,13 @@ const test=[
                         </TouchableOpacity>
                         <Text style={{ alignSelf: 'center', color: 'black', fontSize: fontSize(7), marginTop: sizeHeight(5), fontWeight: 'bold' }}>{item?.word}</Text> */}
                    
-                   <Swiper showsButtons={true} index={index}>
+                   <Swiper showsButtons={false} index={index}>
                           {
 
                             data.map((item, index)=>(
-                                 <View key={index}> 
-                                 <Text style={{fontSize:30}}>{item?.word}</Text>
+                                 <View key={index} > 
+                                 
+                                 <Text style={{fontSize:30, alignSelf:'center', color:colors.black}}>{item?.word}</Text>
                                  <View>
                                     <TouchableOpacity onPress={() => playSound(item?.audioFileId)} activeOpacity={0.7}>
                                     <Image style={{
