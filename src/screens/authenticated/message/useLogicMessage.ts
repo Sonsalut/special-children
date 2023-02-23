@@ -1,16 +1,16 @@
 import React from 'react';
-import {Container, Text, PopUp} from 'components';
-import {Routes, StackNavigationProps} from 'routers/Navigation';
-import {AuthenticatedScreens} from 'routers/ScreenNames';
+import { Container, Text, PopUp } from 'components';
+import { Routes, StackNavigationProps } from 'routers/Navigation';
+import { AuthenticatedScreens } from 'routers/ScreenNames';
 import TouchID from 'react-native-touch-id';
-import {store} from 'redux/store';
+import { store } from 'redux/store';
 import authSlice from 'redux/slice/authSlice';
 import { useDispatch } from 'react-redux';
 import NavigationService from 'routers/NavigationService';
 
 const useLogicMessage = () => {
     const refPopUp: any = React.useRef(null);
-    
+
     const [supportedBio, setSupportedBio] = React.useState(true)
     const [isSwitchOn, setIsSwitchOn] = React.useState(false);
     const name = store.getState().authReducer.user.accountInfo
@@ -29,14 +29,12 @@ const useLogicMessage = () => {
     }
     const onToggleSwitch = () => {
         if (!isSwitchOn) {
-            TouchID.authenticate('', optionalConfigObject)
-                .then((success: any) => {
-                    dispatch(authSlice.actions.saveFingerPrint({ fingerprint: !isSwitchOn }))
-                    setIsSwitchOn(!isSwitchOn)
-                    console.log(isSwitchOn)
+            TouchID.authenticate('to demo this react-native component', optionalConfigObject)
+                .then(success => {
+                    console.log("123F")
                 })
-                .catch((error: any) => {
-                    console.log('123')
+                .catch(error => {
+                    console.log("test error")
                 });
         }
         else {
@@ -46,7 +44,7 @@ const useLogicMessage = () => {
         }
     };
     const dispatch = useDispatch();
-   
+
     const logOut = () => {
         setConfirmLogOut(true)
         showUp();
@@ -58,8 +56,8 @@ const useLogicMessage = () => {
     }
 
     return {
-        logOut, onToggleSwitch, 
-        refPopUp, name, setIsSwitchOn, isSwitchOn, onPopUpClose, confirmLogOut , cancelLogOut
+        logOut, onToggleSwitch,
+        refPopUp, name, setIsSwitchOn, isSwitchOn, onPopUpClose, confirmLogOut, cancelLogOut
     };
 };
 
