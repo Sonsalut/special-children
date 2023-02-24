@@ -4,7 +4,7 @@ import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens, AuthenticationScreens, MainScreens } from 'routers/ScreenNames';
 import NavigationService from 'routers/NavigationService';
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
-import { View, Image, ImageBackground } from 'react-native';
+import { View, Image, ImageBackground, ScrollView, KeyboardAvoidingView } from 'react-native';
 import styles from './styles';
 import images from 'res/images';
 import AuthenticationApi from 'network/subs/auth/AuthApi';
@@ -15,6 +15,7 @@ import { GetFullCategory } from 'network/subs/auth/recording/RecordingRequest';
 import ResponseCode from 'network/ResponseCode';
 import { FlatList } from 'react-native-gesture-handler';
 import { store } from 'redux/store';
+import colors from 'res/colors';
 
 const HomeScreen = ({ }: StackNavigationProps<
   Routes,
@@ -45,6 +46,7 @@ const HomeScreen = ({ }: StackNavigationProps<
 
 
   return (
+
     <Container>
       {/* <Header iconLeft={require('../../../assets/images/add.png')} title='Màn hình chính' /> */}
       {/* <View style={{ alignContent: 'space-around', flexDirection: 'row', alignSelf: 'center', flexWrap: 'wrap', width: '100%', paddingLeft: 5, marginTop: 30 }}>
@@ -113,27 +115,28 @@ const HomeScreen = ({ }: StackNavigationProps<
           <Text style={{ color: 'white', fontSize: fontSize(5), marginTop: sizeHeight(1), textAlign: 'center' }}>Ghép từ</Text>
         </TouchableOpacity>
       </View> */}
-      <View style={{ height: sizeHeight(90), marginTop: 10, alignSelf:'center' }}>
+      <View style={{ height: sizeHeight(90), width:'90%', marginTop: 10, alignSelf:'center', alignItems:'center' }}>
         <FlatList
           showsVerticalScrollIndicator={false}
           data={data}
           keyExtractor={(_, index) => index.toString()}
-          numColumns={3}
+          numColumns={2}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={()=>NavigationService.navigate(AuthenticatedScreens.RecordingScreen, {data:item})}
             isDoubleTap={false}
             activeOpacity={0.7}
             >
-              <View style={{paddingTop:16,width: sizeWidth(30),borderRadius:10,marginHorizontal:5, height:sizeHeight(18), alignSelf: 'center', marginTop: 10 ,borderWidth:1}}>
+              <View style={{borderColor:colors.blue,width: sizeWidth(40), marginVertical:15, height:sizeHeight(26),borderRadius:10,marginHorizontal:5, alignSelf: 'center', marginTop: 10 ,borderWidth:1}}>
              
                 <Image style={{
-                  resizeMode:'center',
-                  height: sizeHeight(10), width: sizeWidth(20),
+                  resizeMode:'stretch',
+                  height: sizeHeight(20), width: sizeWidth(39),
                   borderRadius: sizeWidth(3),
-                  alignSelf: 'center'
+                  
+                 
                 }}
                   source={item?.pictureFileId!==null?{
-                    uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=small`,
+                    uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=medium`,
                     method: 'GET',
                     headers: {
                       Authorization: store.getState().authReducer.user.accessToken
@@ -145,7 +148,7 @@ const HomeScreen = ({ }: StackNavigationProps<
                 />
   
                
-                <Text style={{ fontSize: fontSize(5), alignSelf: 'center' }}>{item?.name}</Text>
+                <Text style={{ marginTop:8,fontSize: fontSize(5), alignSelf: 'center', fontWeight:'400', color:'black' }}>{item?.name}</Text>
 
               </View>
             </TouchableOpacity>
@@ -157,6 +160,8 @@ const HomeScreen = ({ }: StackNavigationProps<
       </View>
 
     </Container>
+ 
+   
   );
 };
 
