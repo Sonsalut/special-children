@@ -233,8 +233,8 @@ const test=[
                     <TouchableOpacity key={index} activeOpacity={0.7} onPress={() => { addImgae(item, index) }}>
                         <View style={{ flexDirection: 'column' ,borderWidth:1, width:sizeWidth(30) ,justifyContent:'center',paddingHorizontal:8, height:sizeHeight(15),borderRadius:10, marginHorizontal:6, marginVertical:8}}>
                             <Image style={{
-                                resizeMode:'cover',
-                                height: sizeHeight(12), width: sizeWidth(25),
+                                resizeMode:'contain',
+                                height: sizeHeight(10), width: sizeWidth(15),left:10,
                                 borderRadius: sizeWidth(3)
                             }}
                                 source={{
@@ -312,8 +312,8 @@ const test=[
                                  <View>
                                     <TouchableOpacity onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
                                     <Image style={{
-                                resizeMode:'cover',
-                                height: sizeHeight(60), width: sizeWidth(80),
+                                resizeMode:'contain',
+                                height: sizeHeight(50), width: sizeWidth(80),
                                 borderRadius: sizeWidth(3),
                                 marginHorizontal:20,
                               
