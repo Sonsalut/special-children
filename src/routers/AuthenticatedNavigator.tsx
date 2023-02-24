@@ -31,7 +31,7 @@ const CommonStackNavigator = () => {
         <Stack.Screen
         name={AuthenticatedScreens.Storage}
         component={Storage}
-        options={{headerShown:true}}
+        
       />
       
       

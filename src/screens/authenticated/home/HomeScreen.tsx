@@ -39,7 +39,7 @@ const HomeScreen = ({ }: StackNavigationProps<
     }
   }
   React.useEffect(() => {
-    getCategory()
+        getCategory()
 
   }, [])
 
@@ -127,7 +127,7 @@ const HomeScreen = ({ }: StackNavigationProps<
               <View style={{paddingTop:16,width: sizeWidth(30),borderRadius:10,marginHorizontal:5, height:sizeHeight(18), alignSelf: 'center', marginTop: 10 ,borderWidth:1}}>
              
                 <Image style={{
-                  resizeMode:'contain',
+                  resizeMode:'center',
                   height: sizeHeight(12), width: sizeWidth(25),
                   borderRadius: sizeWidth(3),
                   alignSelf: 'center'
