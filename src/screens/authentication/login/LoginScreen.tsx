@@ -7,7 +7,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Controller, useForm } from 'react-hook-form';
 // import TouchID from 'react-native-touch-id';
 
-import { View, Image, Text, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Image, Text, TouchableOpacity, ImageBackground, KeyboardAvoidingView } from 'react-native';
 import NavigationService from 'routers/NavigationService';
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import images from 'res/images';
@@ -21,16 +21,16 @@ const LoginScreen = ({ }: StackNavigationProps<
     handleGoForgotPassword, onPopUpClose, refPopUp } = useLogicLogin();
   
   return (
-    <Container>
-      <ImageBackground source={require('../../../assets/images/backgr.png')} style={{ width: '100%', height: '100%' }} />
+    <Container isBottomTab={false}>
+      <ImageBackground source={require('../../../assets/images/backgr.png')} style={{flex: 1}} resizeMode='stretch'/>
       <View style={{ position: 'absolute', flex: 1, width: '100%', height: '100%' }}>
         <View style={{ marginTop: sizeHeight(4), justifyContent: 'center', alignItems: 'center' }}>
           <Image
             source={require('../../../assets/images/Group207.png')}
-            style={{ height: '57%', width: '70%' }}
+            style={{ width: '70%', height: '59%', marginTop: -20, marginBottom: -70}}
           />
         </View>
-        <View style={{ width: '80%', alignSelf: 'center' }}>
+        <KeyboardAvoidingView style={{ width: '80%', alignSelf: 'center', marginTop: -20}}>
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
@@ -80,9 +80,8 @@ const LoginScreen = ({ }: StackNavigationProps<
               />
             </TouchableOpacity>
           </View>
-        </View >
-      </View>
-      
+        </KeyboardAvoidingView>
+      </View> 
     </Container>
   );
 };

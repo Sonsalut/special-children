@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import authSlice from 'redux/slice/authSlice';
 import { store } from 'redux/store';
 import TouchID from 'react-native-touch-id';
+import { Alert } from 'react-native';
 
 const useLogicLogin = () => {
     const dispatch = useDispatch();
@@ -77,9 +78,11 @@ const useLogicLogin = () => {
             })
             .catch((error: any) => {
               console.log(error);
+              
             });
         } else {
           showUp();
+          Alert.alert('Vui lòng đăng nhập để kích hoạt tính năng');
         }
     };
     return {
