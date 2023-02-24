@@ -30,7 +30,7 @@ const LoginScreen = ({ }: StackNavigationProps<
             style={{ width: '70%', height: '59%', marginTop: -20, marginBottom: -70}}
           />
         </View>
-        <KeyboardAvoidingView style={{ width: '80%', alignSelf: 'center', marginTop: -20}}>
+        <KeyboardAwareScrollView style={{ width: '80%', alignSelf: 'center', marginTop: -20}}>
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
@@ -80,7 +80,7 @@ const LoginScreen = ({ }: StackNavigationProps<
               />
             </TouchableOpacity>
           </View>
-        </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
       </View> 
     </Container>
   );
