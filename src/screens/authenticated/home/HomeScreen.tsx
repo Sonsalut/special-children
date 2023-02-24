@@ -46,6 +46,8 @@ const HomeScreen = ({ }: StackNavigationProps<
 
   return (
     <Container>
+
+      
       {/* <Header iconLeft={require('../../../assets/images/add.png')} title='Màn hình chính' /> */}
       {/* <View style={{ alignContent: 'space-around', flexDirection: 'row', alignSelf: 'center', flexWrap: 'wrap', width: '100%', paddingLeft: 5, marginTop: 30 }}>
         <TouchableOpacity style={[styles.itemView, { backgroundColor: '#9BA8B5' }]}
