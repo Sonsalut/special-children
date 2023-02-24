@@ -104,11 +104,7 @@ const handle=()=>{
    
  
     const playSound = async (audioWord: any) => {
-     const aa= await  SoundPlayer.addEventListener('FinishedLoadingURL', ({success}) => {
-            console.log('Sound is loaded!', success);
-            aa.remove()
-            
-          });
+     
         
         try {
           SoundPlayer.loadUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${audioWord}`)
