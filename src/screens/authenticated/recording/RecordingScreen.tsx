@@ -86,7 +86,8 @@ const handle=()=>{
             pageIndex: 1,
             pageSize: 20,
             word: '',
-            categoryId: route?.params?.data?.id
+            categoryId: route?.params?.data?.id,
+            isActive:true
         });
         if (response.status === ResponseCode.SUCCESS) {
           

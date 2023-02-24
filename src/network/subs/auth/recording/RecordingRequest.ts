@@ -2,12 +2,15 @@ export type     GetWordByCateID = {
     pageIndex: number,
     pageSize: number,
     word: string,
-    categoryId: number
+
+    categoryId: number,
+    isActive: boolean
 };
 export type GetFullCategory = {
     pageIndex: number,
     pageSize: number,
     name: any,
+    isActive: boolean,
     categories: any
 };
 export type GetStorageWord = {

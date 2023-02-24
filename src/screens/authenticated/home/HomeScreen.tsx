@@ -27,6 +27,7 @@ const HomeScreen = ({ }: StackNavigationProps<
       pageIndex: 1,
       pageSize: 20,
       name:null,
+      isActive:true,
       categories: {}
 
     });
