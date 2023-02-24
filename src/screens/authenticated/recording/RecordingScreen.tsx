@@ -23,6 +23,7 @@ import Swiper from 'react-native-swiper';
 import { Text } from 'react-native';
 import colors from 'res/colors';
 import { GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
+import { delay } from '@reduxjs/toolkit/dist/utils';
 
 const RecordingScreen = ({ route }: any) => {
     const MAX_IMAGE_WIDTH = 480;
@@ -103,9 +104,16 @@ const handle=()=>{
    
  
     const playSound = async (audioWord: any) => {
+     const aa= await  SoundPlayer.addEventListener('FinishedLoadingURL', ({success}) => {
+            console.log('Sound is loaded!', success);
+            aa.remove()
+            
+          });
+        
         try {
           SoundPlayer.loadUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${audioWord}`)
           SoundPlayer.play()
+
            
         } catch (e) {
             //showToast
@@ -116,14 +124,8 @@ const handle=()=>{
         //     // SoundPlayer.playUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${audioWord}`)
         //         console.log( success)
         // ))
-    //   const aa=  SoundPlayer.addEventListener('FinishedLoadingURL', ({success}) => {
-    //         console.log('Sound is loaded!', success);
-            
-    //       });
-    //       SoundPlayer.addEventListener('FinishedPlaying', ({success}) => {
-    //         aa.remove()
-            
-    //       });
+    
+         
           
         
     }
