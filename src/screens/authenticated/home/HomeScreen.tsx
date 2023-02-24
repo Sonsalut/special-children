@@ -130,7 +130,7 @@ const HomeScreen = ({ }: StackNavigationProps<
              
                 <Image style={{
                   resizeMode:'center',
-                  height: sizeHeight(12), width: sizeWidth(25),
+                  height: sizeHeight(10), width: sizeWidth(20),
                   borderRadius: sizeWidth(3),
                   alignSelf: 'center'
                 }}

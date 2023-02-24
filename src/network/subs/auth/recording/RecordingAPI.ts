@@ -46,6 +46,7 @@ class RecodingApi {
     }
     GetStorageWord<T>(params: any) {
         return Api.request<T>({
+          
             options: {
                 method: METHOD.GET,
                 url: AuthApis.GetStorageWord,

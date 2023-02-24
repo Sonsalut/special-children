@@ -23,6 +23,7 @@ import Swiper from 'react-native-swiper';
 import { Text } from 'react-native';
 import colors from 'res/colors';
 import { GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
+import { delay } from '@reduxjs/toolkit/dist/utils';
 
 const RecordingScreen = ({ route }: any) => {
     const MAX_IMAGE_WIDTH = 480;
@@ -103,9 +104,12 @@ const handle=()=>{
    
  
     const playSound = async (audioWord: any) => {
+     
+        
         try {
           SoundPlayer.loadUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${audioWord}`)
           SoundPlayer.play()
+
            
         } catch (e) {
             //showToast
@@ -116,14 +120,8 @@ const handle=()=>{
         //     // SoundPlayer.playUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${audioWord}`)
         //         console.log( success)
         // ))
-    //   const aa=  SoundPlayer.addEventListener('FinishedLoadingURL', ({success}) => {
-    //         console.log('Sound is loaded!', success);
-            
-    //       });
-    //       SoundPlayer.addEventListener('FinishedPlaying', ({success}) => {
-    //         aa.remove()
-            
-    //       });
+    
+         
           
         
     }
@@ -229,8 +227,8 @@ const [index, setIndex] = React.useState(0)
                     <TouchableOpacity key={index} activeOpacity={0.7} onPress={() => { addImgae(item, index) }}>
                         <View style={{ flexDirection: 'column' ,borderWidth:1, width:sizeWidth(30) ,justifyContent:'center',paddingHorizontal:8, height:sizeHeight(15),borderRadius:10, marginHorizontal:6, marginVertical:8}}>
                             <Image style={{
-                                resizeMode:'cover',
-                                height: sizeHeight(12), width: sizeWidth(25),
+                                resizeMode:'contain',
+                                height: sizeHeight(10), width: sizeWidth(15),left:10,
                                 borderRadius: sizeWidth(3)
                             }}
                                 source={{
@@ -308,8 +306,8 @@ const [index, setIndex] = React.useState(0)
                                  <View>
                                     <TouchableOpacity onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
                                     <Image style={{
-                                resizeMode:'cover',
-                                height: sizeHeight(60), width: sizeWidth(80),
+                                resizeMode:'contain',
+                                height: sizeHeight(50), width: sizeWidth(80),
                                 borderRadius: sizeWidth(3),
                                 marginHorizontal:20,
                               
