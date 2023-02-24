@@ -100,18 +100,32 @@ const handle=()=>{
             console.log('that bai')
         }
     }
-
-    const playSound = (audioWord: any) => {
+   
+ 
+    const playSound = async (audioWord: any) => {
         try {
-            // or play from url
-            SoundPlayer.playUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${audioWord}`)
+          SoundPlayer.loadUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${audioWord}`)
+          SoundPlayer.play()
+           
         } catch (e) {
             //showToast
             console.log(`cannot play the sound file`, e)
             
         }
+        // SoundPlayer.addEventListener('FinishedLoadingURL',({ success })=>(
+        //     // SoundPlayer.playUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${audioWord}`)
+        //         console.log( success)
+        // ))
+    //   const aa=  SoundPlayer.addEventListener('FinishedLoadingURL', ({success}) => {
+    //         console.log('Sound is loaded!', success);
+            
+    //       });
+    //       SoundPlayer.addEventListener('FinishedPlaying', ({success}) => {
+    //         aa.remove()
+            
+    //       });
+          
         
-
     }
 
 
