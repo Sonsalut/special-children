@@ -22,6 +22,7 @@ import SoundPlayer from 'react-native-sound-player';
 import Swiper from 'react-native-swiper';
 import { Text } from 'react-native';
 import colors from 'res/colors';
+import { GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
 
 const RecordingScreen = ({ route }: any) => {
     const MAX_IMAGE_WIDTH = 480;
@@ -82,7 +83,7 @@ const handle=()=>{
     setVisible(!visible)
 }
     const loadData = async () => {
-        const response: any = await RecordingAPI.GetWordByCateID<RecordingResponse>({
+        const response: any = await RecordingAPI.GetWordByCateID< GetWordByCateID>({
             pageIndex: 1,
             pageSize: 20,
             word: '',
@@ -100,10 +101,10 @@ const handle=()=>{
         }
     }
 
-    const playSound = (id: any) => {
+    const playSound = (audioWord: any) => {
         try {
             // or play from url
-            SoundPlayer.playUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/${id}`)
+            SoundPlayer.playUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${audioWord}`)
         } catch (e) {
             //showToast
             console.log(`cannot play the sound file`, e)
@@ -297,7 +298,7 @@ const test=[
                                  
                                  <Text style={{fontSize:30, alignSelf:'center', color:colors.black}}>{item?.word}</Text>
                                  <View>
-                                    <TouchableOpacity onPress={() => playSound(item?.audioFileId)} activeOpacity={0.7}>
+                                    <TouchableOpacity onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
                                     <Image style={{
                                 resizeMode:'cover',
                                 height: sizeHeight(60), width: sizeWidth(80),
