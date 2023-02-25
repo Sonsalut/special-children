@@ -4,12 +4,16 @@ import colors from 'res/colors';
 
 export default StyleSheet.create({
   container: {
-    // backgroundColor: colors.white,
+    alignItems: 'center', 
+    flex: 1, 
+    justifyContent: 'center' 
   },
-  imageBackground: {
-    width: ratioW(375),
-    height: ratioW(352),
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
   },
+  
   viewEmptyBackground: {
     height: ratioW(332),
     backgroundColor: colors.transparent,
@@ -19,7 +23,7 @@ export default StyleSheet.create({
     width: ratioW(375),
     paddingHorizontal: ratioW(22),
     paddingVertical: ratioW(18),
-    backgroundColor: colors.white,
+    // backgroundColor: colors.white_gray,
     borderTopRightRadius: ratioW(20),
     borderTopLeftRadius: ratioW(20),
   },
