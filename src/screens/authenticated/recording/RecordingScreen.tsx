@@ -4,7 +4,7 @@ import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens, MainScreens } from 'routers/ScreenNames';
 import HeaderWithBack from 'components/header/HeaderWithBack';
 import { fontSize, getExtention, getMime, sizeHeight, sizeWidth } from 'utils/Utils';
-import { Button, FlatList, Image, ScrollView, View, ActivityIndicator } from 'react-native';
+import { Button, FlatList, Image, ScrollView, View, ActivityIndicator, ImageBackground } from 'react-native';
 import images from 'res/images';
 import NavigationService from 'routers/NavigationService';
 import styles from '../home/styles';
@@ -30,7 +30,7 @@ const RecordingScreen = ({ route }: any) => {
     const MAX_IMAGE_WIDTH = 480;
     const MAX_IMAGE_HEIGHT = 480;
     const IMAGE_QUALITY = 60;
-    const cancel= require('.././../../../src/assets/images/cancel.png')
+    const cancel= require('.././../../../src/assets/images/goback.png')
     const [image, setImage] = React.useState("");
     const [show, setShow] = React.useState(false);
     const [content, setContent] = React.useState("");
@@ -108,13 +108,10 @@ const dispatch= useDispatch()
    
  
     const playSound = async (audioWord: any) => {
-     
-        
         try {
           SoundPlayer.loadUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${audioWord}`)
           SoundPlayer.play()
-
-           
+  
         } catch (e) {
             //showToast
             console.log(`cannot play the sound file`, e)
@@ -123,14 +120,8 @@ const dispatch= useDispatch()
         // SoundPlayer.addEventListener('FinishedLoadingURL',({ success })=>(
         //     // SoundPlayer.playUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${audioWord}`)
         //         console.log( success)
-        // ))
-    
-         
-          
-        
+        // ))    
     }
-
-
 
     const loadImage = async () => {
         const response = await RecordingAPI.GetImageByID<any>({ id: 4 })
@@ -170,7 +161,7 @@ const dispatch= useDispatch()
 
 
     const [visible, setVisible] = React.useState(false)
-    const addImgae = (item: any, index) => {
+    const addImage = (item: any, index) => {
         setItem(item)
         setVisible(true)
         setIndex(index)
@@ -178,142 +169,141 @@ const dispatch= useDispatch()
 
 const [index, setIndex] = React.useState(0)
 
-
     return (
-
 
         <Container style={{ flex: 1 }}  >
             <HeaderWithBack title={route?.params?.data?.name} />
-           <View style={{width:sizeWidth(90), height:sizeHeight(90), alignSelf:'center'}}>
-
-          
-            <FlatList
-                data={data}
-                keyExtractor={(_, index) => index.toString()}
-                numColumns={2}
-                renderItem={({ item, index }) => (
-                  
-                    <TouchableOpacity key={index} activeOpacity={0.7} onPress={() => { addImgae(item, index) }}>
-                        <View style={{ flexDirection: 'column' ,borderWidth:1, width:sizeWidth(40), height:sizeHeight(26) ,justifyContent:'center',paddingHorizontal:8,borderRadius:10, marginHorizontal:6, marginVertical:8}}>
-                            <Image style={{
-                                resizeMode:'stretch',
-                                height: sizeHeight(21), width: sizeWidth(39),
-                                alignSelf:'center',
-                                borderRadius: 9
-                            }}
-                                source={{
-                                    uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
-                                    method: 'GET',
-                                    headers: {
-                                        Authorization: store.getState().authReducer.user.accessToken
-                                    }
-                                }}
-
-                            />
-                            <Text style={{ marginTop:8,fontSize: fontSize(5), alignSelf: 'center', fontWeight:'400', color:'black' }}>{item.word}</Text>
-                        </View>
-                    </TouchableOpacity>
-
-                )}
-            />
-             </View>
-           {/* Màn hình số  */}
-            <Modal
-                visible={visible}
-                style={{
-                    backgroundColor: '#FFF',
-                    borderRadius: 10,
-                    height: '65%',
-                    marginTop: sizeHeight(15),
-                    width:'90%',
-                    marginHorizontal:20
-                }}
-                onDismiss={() => {
-                    setShow(false)
-                    setVisible(false)
-                }}
-
-            >
-           
-                <View style={{
-                    top: 0,
-                    alignItems: 'center',
-                    width:"100%",
-                    height:"100%",
-                   
-                }}>
-                    <View style={{ width:'92%', marginBottom:20, height:'8%', flexDirection:'row', justifyContent:'space-between'}}>
+            <ImageBackground source={require('../../../assets/images/backgr.png')} style={styles.background}>
+                <View style={{width:sizeWidth(90), height:sizeHeight(90), alignSelf:'center', alignItems: 'center'}}>
+                    <FlatList
+                        data={data}
+                        keyExtractor={(_, index) => index.toString()}
+                        numColumns={2}
+                        renderItem={({ item, index }) => (
                         
-                        <TouchableOpacity  onPress={handle}>
-                            <Image resizeMode='contain' source={cancel} style={{width:sizeWidth(5), height:sizeHeight(5)}}/>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ height:'90%', bottom:22 }}>
-                        {/* <TouchableOpacity onPress={() => playSound(item?.audioFileId)} activeOpacity={0.7}>
-                            <Image style={{
-                                resizeMode:'cover',
-                                height: sizeHeight(30), width: sizeWidth(60),
-                                borderRadius: sizeWidth(3)
-                            }}
-                                source={{
-                                    uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
-                                    method: 'GET',
-                                    headers: {
-                                        Authorization: store.getState().authReducer.user.accessToken
-                                    }
-                                }}
-
-                            />
-                        </TouchableOpacity>
-                        <Text style={{ alignSelf: 'center', color: 'black', fontSize: fontSize(7), marginTop: sizeHeight(5), fontWeight: 'bold' }}>{item?.word}</Text> */}
-                   
-                   <Swiper showsButtons={false} index={index}>
-                          {
-
-                            data.map((item, index)=>(
-                                 <View key={index} > 
-                                 
-                                 <Text style={{fontSize:30, alignSelf:'center', color:colors.black}}>{item?.word}</Text>
-                                 <View>
-                                    <TouchableOpacity onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
-                                    <Image style={{
-                                resizeMode:'contain',
-                                height: sizeHeight(50), width: sizeWidth(80),
-                                borderRadius: sizeWidth(3),
-                                marginHorizontal:20,
-                              
-                                
-        
-                
-                            }}
-                                source={{
-                                    uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
-                                    method: 'GET',
-                                    headers: {
-                                        Authorization: store.getState().authReducer.user.accessToken
-                                    }
-                                }}
-
-                            />
-                            </TouchableOpacity>
+                            <TouchableOpacity key={index} activeOpacity={0.7} onPress={() => { addImage(item, index) }}>
+                                <View 
+                                    style={{ 
+                                    flexDirection: 'column',
+                                    width:sizeWidth(40), 
+                                    height:sizeHeight(26),
+                                    justifyContent:'center',
+                                    paddingHorizontal:8,
+                                    borderRadius:10, 
+                                    marginHorizontal:6, 
+                                    marginVertical:8,
+                                    backgroundColor:'#E19469'}}>
+                                    <Image 
+                                        style={{
+                                        resizeMode:'stretch',
+                                        height: sizeHeight(21), width: sizeWidth(39),
+                                        alignSelf:'center',
+                                        borderRadius: 9
+                                        }}
+                                        source={{
+                                        uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
+                                        method: 'GET',
+                                        headers: {Authorization: store.getState().authReducer.user.accessToken}
+                                        }}
+                                    />
+                                    <Text style={{ marginTop:8, fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'white' }}>{item.word}</Text>
                                 </View>
-                                 </View>
-                                
-                            ))
-                          }
-                          
-                     
-
-                   </Swiper>
-                   
-                    </View>
-
-
-
+                            </TouchableOpacity>
+                        )}
+                    />
                 </View>
-                  
-                
-            </Modal>
+            {/* Màn hình số  */}
+                <Modal
+                    visible={visible}
+                    style={{
+                        backgroundColor: '#E19469',
+                        borderRadius: 15,
+                        height: '55%',
+                        marginTop: sizeHeight(10),
+                        width:'90%',
+                        marginHorizontal:20,
+                        // borderWidth: 1
+                    }}
+                    onDismiss={() => {
+                        setShow(false)
+                        setVisible(false)
+                    }}
+                >            
+                    <View style={{
+                        top: 0,
+                        alignItems: 'center',
+                        width:"100%",
+                        height:"100%",     
+                        // borderWidth: 1,
+                        borderRadius: 15              
+                    }}>
+                        <View 
+                            style={{
+                                width:'93%', 
+                                marginBottom:20, 
+                                paddingHorizontal:10,
+                                paddingTop: 6, 
+                                height:'15%', 
+                                flexDirection:'row', 
+                                justifyContent:'space-between'
+                                }}>                            
+                            <TouchableOpacity  onPress={handle}>
+                                <Image resizeMode='contain' source={cancel} style={{width:sizeWidth(5), height:sizeHeight(5), }}/>
+                            </TouchableOpacity>
+                            <Text style={{ fontSize: 30, flexDirection:'row', color: colors.white, justifyContent: 'center', paddingTop:3}}>{item?.word}</Text>
+                        </View>
+                        <View style={{ height:'90%', bottom:22 }}>
+                            {/* <TouchableOpacity onPress={() => playSound(item?.audioFileId)} activeOpacity={0.7}>
+                                <Image style={{
+                                    resizeMode:'cover',
+                                    height: sizeHeight(30), width: sizeWidth(60),
+                                    borderRadius: sizeWidth(3)
+                                }}
+                                    source={{
+                                        uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                                        method: 'GET',
+                                        headers: {
+                                            Authorization: store.getState().authReducer.user.accessToken
+                                        }
+                                    }}
+
+                                />
+                            </TouchableOpacity>
+                            <Text style={{ alignSelf: 'center', color: 'black', fontSize: fontSize(7), marginTop: sizeHeight(5), fontWeight: 'bold' }}>{item?.word}</Text> */}                   
+                            <Swiper showsButtons={false} index={index}>
+                                {
+                                    data.map((item, index) => (
+                                        <View key={index} >
+                                            
+                                            <View>
+                                                <TouchableOpacity onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
+                                                    <Image style={{
+                                                        resizeMode: 'contain',
+                                                        height: sizeHeight(60), width: sizeWidth(60),
+                                                        alignSelf: 'center',
+                                                        borderRadius: sizeWidth(14),
+                                                        maxHeight:300,
+                                                        // marginBottom: -12,
+                                                        // borderWidth: 1
+                                                    }}
+                                                        source={{
+                                                            uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                                                            method: 'GET',
+                                                            headers: {
+                                                                Authorization: store.getState().authReducer.user.accessToken
+                                                            }
+                                                        }}
+                                                    />
+                                                </TouchableOpacity>
+                                            </View>
+                                        </View>
+                                    ))
+                                }
+                            </Swiper>
+                        </View>
+                    </View>
+                </Modal>
+            </ImageBackground>
         </Container>
     );
 };

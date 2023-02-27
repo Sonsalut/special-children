@@ -48,7 +48,9 @@ const HomeScreen = ({ }: StackNavigationProps<
   return (
 
     <Container>
-
+      <ImageBackground 
+        source={require('../../../assets/images/backgr.png')} 
+        style={styles.background}>
       
       {/* <Header iconLeft={require('../../../assets/images/add.png')} title='Màn hình chính' /> */}
       {/* <View style={{ alignContent: 'space-around', flexDirection: 'row', alignSelf: 'center', flexWrap: 'wrap', width: '100%', paddingLeft: 5, marginTop: 30 }}>
@@ -117,50 +119,52 @@ const HomeScreen = ({ }: StackNavigationProps<
           <Text style={{ color: 'white', fontSize: fontSize(5), marginTop: sizeHeight(1), textAlign: 'center' }}>Ghép từ</Text>
         </TouchableOpacity>
       </View> */}
-      <View style={{ height: sizeHeight(90), width:'90%', marginTop: 10, alignSelf:'center', alignItems:'center' }}>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={data}
-          keyExtractor={(_, index) => index.toString()}
-          numColumns={2}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={()=>NavigationService.navigate(AuthenticatedScreens.RecordingScreen, {data:item})}
-            isDoubleTap={false}
-            activeOpacity={0.7}
-            >
-              <View style={{borderColor:colors.blue,width: sizeWidth(40), marginVertical:15, height:sizeHeight(26),borderRadius:10,marginHorizontal:5, alignSelf: 'center', marginTop: 10 ,borderWidth:1}}>
-             
-                <Image style={{
-                  resizeMode:'stretch',
-                  height: sizeHeight(20), width: sizeWidth(39),
-                  borderRadius: sizeWidth(3),
+        <View style={{ height: sizeHeight(90), width:'90%', marginTop: 10, alignSelf:'center', alignItems:'center', elevation: 5}}>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={data}
+            keyExtractor={(_, index) => index.toString()}
+            numColumns={2}
+            renderItem={({ item }) => (
+              <TouchableOpacity 
+              onPress={()=>NavigationService.navigate(AuthenticatedScreens.RecordingScreen, {data:item})}
+              isDoubleTap={false}
+              activeOpacity={0.7}             
+              >
+                <View style={{
+                  width: sizeWidth(40), 
+                  marginVertical:15, 
+                  height:sizeHeight(24),
+                  borderRadius:10,
+                  marginHorizontal:5, 
+                  alignSelf: 'center', 
+                  marginTop: 10,
                   
-                 
-                }}
-                  source={item?.pictureFileId!==null?{
-                    uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=medium`,
-                    method: 'GET',
-                    headers: {
-                      Authorization: store.getState().authReducer.user.accessToken
+                  backgroundColor:'#E19469'}}
+                > 
+                  
+                  <Image
+                    style={{
+                      resizeMode: 'stretch',
+                      height: sizeHeight(20), width: sizeWidth(39),
+                      borderRadius: sizeWidth(3),
+                    }}
+                    source={item?.pictureFileId !== null ? {
+                      uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=medium`,
+                      method: 'GET',
+                      headers: { Authorization: store.getState().authReducer.user.accessToken }
+                    } :
+                      require('../../.././assets/images/no.png')
                     }
-                  }
-                :require('../../.././assets/images/no.png')
-                }
-
-                />
-  
-               
-                <Text style={{ marginTop:8,fontSize: fontSize(5), alignSelf: 'center', fontWeight:'400', color:'black' }}>{item?.name}</Text>
-
-              </View>
-            </TouchableOpacity>
-
-
-          )}
-        >
-        </FlatList>
-      </View>
-
+                  />        
+                  <Text style={{ marginTop:5,fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'white' }}>{item?.name}</Text>
+                  
+                </View>
+              </TouchableOpacity>
+            )}>
+          </FlatList>
+        </View>
+      </ImageBackground>
     </Container>
  
    

@@ -3,7 +3,7 @@ import { Container, TextInput, Button, ModalPopUp } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticationScreens, AuthenticatedScreens, MainScreens } from 'routers/ScreenNames';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
+import { SvgUri } from 'react-native-svg';
 import { Controller, useForm } from 'react-hook-form';
 // import TouchID from 'react-native-touch-id';
 

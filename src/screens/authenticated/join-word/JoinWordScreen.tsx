@@ -4,7 +4,7 @@ import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens } from 'routers/ScreenNames';
 import HeaderWithBack from 'components/header/HeaderWithBack';
 import images from 'res/images';
-import { FlatList, Image, View } from 'react-native';
+import { FlatList, Image, ImageBackground, View } from 'react-native';
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import { useToast } from 'hooks/useToast';
 import { Button } from 'react-native-paper';
@@ -14,11 +14,14 @@ import ResponseCode from 'network/ResponseCode';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import { RecordingResponse } from 'network/subs/auth/recording/RecordingResponse';
 import { store } from 'redux/store';
+import styles from 'screens/authentication/login/styles';
+
 
 const JoinWordScreen = ({ }: StackNavigationProps<
     Routes,
     AuthenticatedScreens.RecordingScreen
 >) => {
+    
     const showToast = useToast();
     const MAX_IMAGE_WIDTH = 480;
     const MAX_IMAGE_HEIGHT = 480;
@@ -89,7 +92,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
         const response: any = await RecordingAPI.GetWordByCateID<RecordingResponse>({
             pageIndex: 1,
             pageSize: 20,
-            word: '',
+            // word: '',
             categoryId: 3
         });
         if (response.status === ResponseCode.SUCCESS) {
@@ -99,12 +102,10 @@ const JoinWordScreen = ({ }: StackNavigationProps<
             console.log('that bai')
         }
     }
-
-
-
+    
     return (
-        <Container >
-            <HeaderWithBack title={'Ghép từ'} />
+        <Container isBottomTab={false}>
+            <ImageBackground source={require('../../../assets/images/backgr.png')} style={styles.background}>
             <View style={{ borderWidth: 1, height: sizeHeight(10), justifyContent: 'center' }}>
                 <FlatList
                     data={words}
@@ -179,7 +180,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                 }}
             />
             <TouchableOpacity style={{
-                backgroundColor: 'blue',
+                backgroundColor: 'orange',
                 position: 'absolute',
                 bottom: sizeWidth(20),
                 right: sizeWidth(10),
@@ -190,6 +191,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
             >
                 <Text style={{ paddingVertical: sizeWidth(5), paddingHorizontal: sizeWidth(5), color: 'white' }}>{stop ? 'Dừng' : 'Phát'}</Text>
             </TouchableOpacity>
+            </ImageBackground>
         </Container>
     );
 };
