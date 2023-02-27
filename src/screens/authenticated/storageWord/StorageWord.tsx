@@ -13,6 +13,7 @@ import NavigationService from 'routers/NavigationService';
 import { Container } from 'components';
 import HeaderWithBack from 'components/header/HeaderWithBack';
 import { FlatList } from 'react-native-gesture-handler';
+import { Title } from 'react-native-paper';
 
 
 const StorageWord = ({}: StackNavigationProps<
@@ -45,7 +46,7 @@ if (response.status === ResponseCode.SUCCESS) {
     }
   return (
     <Container>
-     
+   
     <View>
         <TouchableOpacity style={{marginLeft:10,width:sizeWidth(22), height:sizeWidth(18), borderWidth:1, borderRadius:15, marginTop:10}} onPress={handle}>
     <View style={{alignSelf:"center" ,marginTop:10}}>

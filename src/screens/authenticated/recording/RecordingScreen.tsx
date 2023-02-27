@@ -183,7 +183,7 @@ const [index, setIndex] = React.useState(0)
 
 
         <Container style={{ flex: 1 }}  >
-            <HeaderWithBack title={route?.params?.data?.name} />
+            <HeaderWithBack title={route?.params?.data?.name} rightIconShow={false} />
            <View style={{width:sizeWidth(90), height:sizeHeight(90), alignSelf:'center'}}>
 
           

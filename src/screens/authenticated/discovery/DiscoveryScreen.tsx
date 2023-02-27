@@ -2,22 +2,43 @@ import React from 'react';
 import {Container, Text, TouchableOpacity} from 'components';
 import {Routes, StackNavigationProps} from 'routers/Navigation';
 import {AuthenticatedScreens} from 'routers/ScreenNames';
-import { StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View} from 'react-native';
 import Swiper from 'react-native-swiper';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { store } from 'redux/store';
+import { setStorage, updateStorage } from 'redux/storageWord/action';
+import CheckBox from '@react-native-community/checkbox';
 const DiscoveryScreen = ({}: StackNavigationProps<
   Routes,
   AuthenticatedScreens.DiscoveryScreen
 >) => {
+  const fruits = ['Apples', 'Oranges', 'Pears']
+  const [checked, setChecked] = React.useState(false);
+  const state = { selectedFruits: [] }
 
-  // const store = useSelector(store => store.StoreReducer.store)
+  const [toggleCheckBox, setToggleCheckBox] = React.useState(false)
+  const store = useSelector(store => store.storeReducer.store)
+  const dispatch = useDispatch()
+  const handle=()=>{
+  dispatch(setStorage( {id:1, name:'11'}))
+
+  }
   return (
     <Container>
-      <TouchableOpacity>
-      <Text>aaaaa</Text>
-
-      </TouchableOpacity>
+     
+      <FlatList
+      data={store}
+      renderItem={({item})=>(
+        <Text>{item?.id}</Text>
+      )}
+      />
+      <CheckBox
+    // disabled={false}
+    value={toggleCheckBox}
+    onValueChange={(newValue) => setToggleCheckBox(newValue)}
+    
+  />
+  <TouchableOpacity onPress={handle}><Text>ssss</Text></TouchableOpacity>
     </Container>
   );
 };

@@ -9,7 +9,9 @@ export const AuthApis = {
     GetWordByCateID: ApiConstants.HOST + 'ext/word/search/by-user',
     GetImage : ApiConstants.HOST + 'ext/files/download',
   GetFullCate: ApiConstants.HOST + 'ext/category/search/by-user',
-  GetStorageWord : ApiConstants.HOST + 'ext/word/repo'
+  GetStorageWord : ApiConstants.HOST + 'ext/word/repo',
+  PostStorageWord : ApiConstants.HOST + 'ext/word/repo'
+
 
 };
 
@@ -32,18 +34,7 @@ class RecodingApi {
             },
         });
     }
-    GetImageByID<T>(params: any) {
-        return Api.request<T>({
-            options: {
-                method: METHOD.GET,
-                url: AuthApis.GetImage,
-                params: {
-                    id: params.id,
-                    'file-size': 'small',
-                },
-            },
-        });
-    }
+   
     GetStorageWord<T>(params: any) {
         return Api.request<T>({
           
@@ -54,12 +45,13 @@ class RecodingApi {
             },
         });
     }
-    PostStorageWord<T>(params: any) {
+   
+    AddWordToStorage<T>(params: any) {
         return Api.request<T>({
             options: {
-                method: METHOD.GET,
+                method: METHOD.POST,
                 url: AuthApis.GetStorageWord,
-                
+                data: JSON.stringify(params),
             },
         });
     }

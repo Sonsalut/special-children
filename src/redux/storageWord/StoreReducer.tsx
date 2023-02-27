@@ -1,7 +1,15 @@
+import { count } from "console";
 
 
 const initialState = {
-    store:[]
+    fullStore:[
+
+    ],
+   store:[
+       
+   ],
+   filterCategory:[]
+    
     
 }
 export default  ( state= initialState, action)=>
@@ -12,14 +20,33 @@ export default  ( state= initialState, action)=>
         case'SET_STORAGE':
         return{
             ...state,
-            store: action.payload.data
+            fullStore: 
+                action.payload
+            
         }
         case'UPDATE_STORAGE':
         return{
             ...state,
-            store:state.store.push(...action.payload.data)
+         store:action.payload
 
         }
+        case'CLICKED_WORD':
+        return{
+            ...state,
+        fullStore: state.fullStore.map((item)=>{
+
+            if(item?.id==action.payload?.id)
+            {
+                return{
+                    ...item,
+                    isActive: !action.payload?.isActive
+                }
+            }
+            return item
+        })
+
+        }
+       
         
             default:
                 return state;
