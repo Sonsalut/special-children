@@ -88,8 +88,8 @@ const Storage = ({}: StackNavigationProps<
       data={data}
       renderItem={({item, index})=>(
         <View key={index}>
-          <TouchableOpacity>
-             <View style={{width:sizeWidth(22),borderRadius:10, height:sizeHeight(12), borderWidth:1, marginTop:10, marginHorizontal:5}}>
+         
+             <View key={index} style={{width:sizeWidth(22),borderRadius:10, height:sizeHeight(12), borderWidth:1, marginTop:10, marginHorizontal:5}}>
              <Image style={{
                                 resizeMode:'stretch',
                                 height: sizeHeight(8), width: sizeWidth(18),
@@ -107,8 +107,8 @@ const Storage = ({}: StackNavigationProps<
                             />
               <Text style={{fontSize:15, color:'black', fontWeight:"400", alignSelf:"center"}}>{item?.name}</Text>
              </View>
-             </TouchableOpacity>
-             <View style={{flexDirection:'row', marginTop:10,  height:sizeHeight(15)}}>
+           
+             <View key={index} style={{flexDirection:'row', marginTop:10,  height:sizeHeight(15)}}>
             {
               dataWord.map((its, index)=>{
 
