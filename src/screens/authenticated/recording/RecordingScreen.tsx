@@ -195,13 +195,14 @@ const [index, setIndex] = React.useState(0)
                                     backgroundColor:'#E19469'}}>
                                     <Image 
                                         style={{
-                                        resizeMode:'stretch',
-                                        height: sizeHeight(21), width: sizeWidth(39),
+                                        resizeMode:'cover',
+                                        height: sizeHeight(14), width: sizeWidth(28),
+                                        
                                         alignSelf:'center',
                                         borderRadius: 9
                                         }}
                                         source={{
-                                        uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
+                                        uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
                                         method: 'GET',
                                         headers: {Authorization: store.getState().authReducer.user.accessToken}
                                         }}
@@ -218,11 +219,10 @@ const [index, setIndex] = React.useState(0)
                     style={{
                         backgroundColor: '#E19469',
                         borderRadius: 15,
-                        height: '55%',
+                        height: 450,
                         marginTop: sizeHeight(10),
                         width:'90%',
                         marginHorizontal:20,
-                        // borderWidth: 1
                     }}
                     onDismiss={() => {
                         setShow(false)
@@ -233,26 +233,11 @@ const [index, setIndex] = React.useState(0)
                         top: 0,
                         alignItems: 'center',
                         width:"100%",
-                        height:"100%",     
-                        // borderWidth: 1,
+                        height:"100%", 
                         borderRadius: 15              
                     }}>
-                        <View 
-                            style={{
-                                width:'93%', 
-                                marginBottom:20, 
-                                paddingHorizontal:10,
-                                paddingTop: 6, 
-                                height:'15%', 
-                                flexDirection:'row', 
-                                justifyContent:'space-between'
-                                }}>                            
-                            <TouchableOpacity  onPress={handle}>
-                                <Image resizeMode='contain' source={cancel} style={{width:sizeWidth(5), height:sizeHeight(5), }}/>
-                            </TouchableOpacity>
-                            <Text style={{ fontSize: 30, flexDirection:'row', color: colors.white, justifyContent: 'center', paddingTop:3}}>{item?.word}</Text>
-                        </View>
-                        <View style={{ height:'90%', bottom:22 }}>
+                        
+                        <View style={{ height:'100%'}}>
                             {/* <TouchableOpacity onPress={() => playSound(item?.audioFileId)} activeOpacity={0.7}>
                                 <Image style={{
                                     resizeMode:'cover',
@@ -274,8 +259,23 @@ const [index, setIndex] = React.useState(0)
                                 {
                                     data.map((item, index) => (
                                         <View key={index} >
-                                            
-                                            <View>
+                                            <View 
+                                                style={{
+                                                    width:'93%', 
+                                                    marginBottom:20, 
+                                                    paddingHorizontal:10,
+                                                    paddingTop: 6, 
+                                                    height:'15%', 
+                                                    flexDirection:'row', 
+                                                    justifyContent:'space-between',
+                                                    alignSelf: 'center'
+                                                    }}>                            
+                                                <TouchableOpacity  onPress={handle}>
+                                                    <Image resizeMode='contain' source={cancel} style={{width:sizeWidth(5), height:sizeHeight(5)}}/>
+                                                </TouchableOpacity>
+                                                <Text style={{ fontSize: 30, flexDirection:'row', color: colors.white, justifyContent: 'center', paddingTop:3}}>{item?.word}</Text>
+                                            </View>
+                                            <View style={{alignItems:'center'}}>
                                                 <TouchableOpacity onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
                                                     <Image style={{
                                                         resizeMode: 'contain',
@@ -283,9 +283,8 @@ const [index, setIndex] = React.useState(0)
                                                         alignSelf: 'center',
                                                         borderRadius: sizeWidth(14),
                                                         maxHeight:300,
-                                                        // marginBottom: -12,
-                                                        // borderWidth: 1
-                                                    }}
+                                                        paddingBottom: 30,
+                                                        }}
                                                         source={{
                                                             uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
                                                             method: 'GET',
