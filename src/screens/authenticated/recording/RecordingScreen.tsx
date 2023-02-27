@@ -24,7 +24,8 @@ import { Text } from 'react-native';
 import colors from 'res/colors';
 import { GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
 import { delay } from '@reduxjs/toolkit/dist/utils';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { setStorage } from 'redux/storageWord/action';
 const RecordingScreen = ({ route }: any) => {
     const MAX_IMAGE_WIDTH = 480;
     const MAX_IMAGE_HEIGHT = 480;
@@ -83,6 +84,7 @@ const handle=()=>{
     setShow(!show)
     setVisible(!visible)
 }
+const dispatch= useDispatch()
     const loadData = async () => {
         const response: any = await RecordingAPI.GetWordByCateID< GetWordByCateID>({
             pageIndex: 1,
@@ -95,6 +97,8 @@ const handle=()=>{
           
             console.log(response.data)
             setData(response.data?.words)
+            // dispatch(setStorage(response.data?.words))
+            
 
         }
         else {
@@ -180,56 +184,22 @@ const [index, setIndex] = React.useState(0)
 
         <Container style={{ flex: 1 }}  >
             <HeaderWithBack title={route?.params?.data?.name} />
-            {/*             
-            <FlatList
-                data={route?.params?.title === 'number' ? data : animal}
-                keyExtractor={(_, index) => index.toString()}
-                numColumns={3}
-                contentContainerStyle={{ alignItems: 'flex-start' }}
-                renderItem={({ item, index }) => {
-                    return (
-                        <View style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
-                            <TouchableOpacity activeOpacity={0.7} onPress={() => { addImgae(item) }}>
-                                <View style={{
-                                    backgroundColor: item?.name === 'add' ? '#9BA8B5' : '#8ab643',
-                                    borderRadius: sizeWidth(3), justifyContent: 'center',
-                                    alignItems: 'center'
-                                }}>
-                                    <Image style={{
-                                        height: sizeHeight(12), width: sizeWidth(28),
-                                        borderRadius: sizeWidth(3)
-                                    }}
-                                        source={{
-                                            uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFieldId}&file-size=small`,
-                                            method: 'GET',
-                                            headers: {
-                                                Authorization: store.getState().authReducer.user.accessToken
-                                            }
-                                        }}
+           <View style={{width:sizeWidth(90), height:sizeHeight(90), alignSelf:'center'}}>
 
-                                    />
-                                    {item?.name !== 'add' && <Text style={{ color: 'white', fontWeight: '600', marginTop: sizeHeight(0.3), marginBottom: 5 }}
-                                    >{item?.word}</Text>}
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    )
-                }}
-            />
-           */}
-
+          
             <FlatList
                 data={data}
                 keyExtractor={(_, index) => index.toString()}
-                numColumns={3}
+                numColumns={2}
                 renderItem={({ item, index }) => (
                   
                     <TouchableOpacity key={index} activeOpacity={0.7} onPress={() => { addImgae(item, index) }}>
-                        <View style={{ flexDirection: 'column' ,borderWidth:1, width:sizeWidth(30) ,justifyContent:'center',paddingHorizontal:8, height:sizeHeight(15),borderRadius:10, marginHorizontal:6, marginVertical:8}}>
+                        <View style={{ flexDirection: 'column' ,borderWidth:1, width:sizeWidth(40), height:sizeHeight(26) ,justifyContent:'center',paddingHorizontal:8,borderRadius:10, marginHorizontal:6, marginVertical:8}}>
                             <Image style={{
-                                resizeMode:'contain',
-                                height: sizeHeight(10), width: sizeWidth(15),left:10,
-                                borderRadius: sizeWidth(3)
+                                resizeMode:'stretch',
+                                height: sizeHeight(21), width: sizeWidth(39),
+                                alignSelf:'center',
+                                borderRadius: 9
                             }}
                                 source={{
                                     uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
@@ -240,12 +210,13 @@ const [index, setIndex] = React.useState(0)
                                 }}
 
                             />
-                            <Text style={{alignSelf:'center', fontSize:14, color:colors.black}}>{item.word}</Text>
+                            <Text style={{ marginTop:8,fontSize: fontSize(5), alignSelf: 'center', fontWeight:'400', color:'black' }}>{item.word}</Text>
                         </View>
                     </TouchableOpacity>
 
                 )}
             />
+             </View>
            {/* Màn hình số  */}
             <Modal
                 visible={visible}

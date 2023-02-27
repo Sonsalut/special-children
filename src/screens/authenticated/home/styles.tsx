@@ -5,7 +5,7 @@ import { ratioW, sizeHeight } from 'utils/Utils';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: 'colors.white,'
     
   },
   header: {
