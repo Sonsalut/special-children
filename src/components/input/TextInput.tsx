@@ -86,8 +86,8 @@ const TextInput = forwardRef<RNTextInput, TextInputProps>(
       bgDefault = colors.grey,
       bgTouch,
       bgError,
-      borderColorDefault = colors.orange,
-      borderColorTouch = colors.violet,
+      borderColorDefault = colors.title_blue,
+      borderColorTouch = colors.orange,
       borderColorError = colors.red,
       textErrorColor = colors.red,
       ...props

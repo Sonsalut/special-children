@@ -25,15 +25,10 @@ const LoginScreen = ({ }: StackNavigationProps<
     
     <Container  isBottomTab={false}>
       <ImageBackground 
-        source={require('../../../assets/images/backgr.png')} 
+        source={require('../../../assets/images/AIS-Learning.png')} 
         style={styles.background}>
         <KeyboardAwareScrollView contentContainerStyle={styles.container}>      
-            <View>
-              <Image
-                source={require('../../../assets/images/Group207.png')}
-                style={{marginBottom: 20, marginTop: -70, marginLeft: -30}}
-              />
-            </View>
+           
             <View style={styles.form}>
               <Controller
                 control={control}
@@ -79,7 +74,7 @@ const LoginScreen = ({ }: StackNavigationProps<
                   onPress={loginWithBiometric}
                 >
                   <Image 
-                    source={require('../../../assets/images/touch-id.png')} 
+                    source={require('../../../assets/images/fingerprint.png')} 
                     style={{ width: 50, height: 50}} 
                   />
                 </TouchableOpacity>

@@ -37,7 +37,7 @@ const Button = ({
   styleLabel,
   iconRight,
   styleIconRight,
-  backgroundColor = [colors.orange],
+  backgroundColor = [colors.btn_blue],
   disabled,
   children,
   ...props

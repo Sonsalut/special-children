@@ -173,7 +173,7 @@ const [index, setIndex] = React.useState(0)
 
         <Container style={{ flex: 1 }}  >
             <HeaderWithBack title={route?.params?.data?.name} />
-            <ImageBackground source={require('../../../assets/images/backgr.png')} style={styles.background}>
+            
                 <View style={{width:sizeWidth(90), height:sizeHeight(90), alignSelf:'center', alignItems: 'center'}}>
                     <FlatList
                         data={data}
@@ -192,7 +192,7 @@ const [index, setIndex] = React.useState(0)
                                     borderRadius:10, 
                                     marginHorizontal:6, 
                                     marginVertical:8,
-                                    backgroundColor:'#E19469'}}>
+                                    backgroundColor:'#99C8E4'}}>
                                     <Image 
                                         style={{
                                         resizeMode:'cover',
@@ -302,7 +302,7 @@ const [index, setIndex] = React.useState(0)
                         </View>
                     </View>
                 </Modal>
-            </ImageBackground>
+            
         </Container>
     );
 };

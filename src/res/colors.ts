@@ -17,6 +17,9 @@ const colors = new (class {
   redLive = '#FF471F';
   white_gray='#FDF8EF';
   blue = '#0096FF';
+  title_blue = '#87C2E4';
+  text_blue = '#2D5672';
+  btn_blue = '#60A2C8'
 
   whiteWithOpacity = (opacity: number) => `rgba(255, 255, 255, ${opacity})`;
   blackWithOpacity = (opacity: number) => `rgba(0, 0, 0, ${opacity})`;

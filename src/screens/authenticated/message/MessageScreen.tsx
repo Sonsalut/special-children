@@ -28,15 +28,15 @@ const MessageScreen = ({}: StackNavigationProps<
     setIsSwitchOn(getFingerPrint());
   }, []);
   return (
-    <Container style={{backgroundColor: '#ADAEC2'}}>
-      <View style={{width: '90%', height: 300, alignSelf: 'center', backgroundColor:'#FDF8EF', marginTop: 20, borderRadius: 25}}>
+    <Container style={{backgroundColor: 'white'}}>
+      <View style={{width: '90%', height: 300, alignSelf: 'center', backgroundColor:'#E7F6FF', marginTop: 20, borderRadius: 25}}>
         {/* Touch ID on/off */}
         <View style={{flexDirection: 'row', paddingTop: 20, paddingHorizontal: 15}}>
           <Image
             source={require('../../../assets/images/fingerprint.png')}
             style={{ width: 25, height: 25}}
           />
-          <Text style={{paddingLeft: 10, paddingTop: 2, fontSize: 17}}>Đăng nhập bằng Touch ID</Text>
+          <Text style={{paddingLeft: 10, paddingTop: 2, fontSize: 18, color:'colors.text_blue'}}>Đăng nhập bằng vân tay</Text>
           <Switch
             value={isSwitchOn}
             onValueChange={onToggleSwitch}
@@ -46,6 +46,17 @@ const MessageScreen = ({}: StackNavigationProps<
           />
         </View>
 
+        {/* Voice setting */}
+        <View style={{flexDirection: 'row', paddingTop: 20, paddingHorizontal: 15}}>
+          <TouchableOpacity style={{flexDirection: 'row'}} >
+            <Image
+              source={require('../../../assets/images/voice.png')}
+              style={{ width: 25, height: 25}}
+            />
+            <Text style={{paddingLeft: 10, paddingTop: 2, fontSize: 18, color: 'colors.text_blue'}}>Giọng đọc</Text>
+          </TouchableOpacity>
+        </View>
+
         {/* Sign out button */}
         <View style={{flexDirection: 'row', paddingTop: 20, paddingHorizontal: 15}}>
           <TouchableOpacity style={{flexDirection: 'row'}} onPress={()=>DevSettings.reload()}>
@@ -53,7 +64,7 @@ const MessageScreen = ({}: StackNavigationProps<
               source={require('../../../assets/images/logout.png')}
               style={{ width: 25, height: 25}}
             />
-            <Text style={{paddingLeft: 10, paddingTop: 2, fontSize: 17, color: 'red'}}>Đăng xuất</Text>
+            <Text style={{paddingLeft: 10, paddingTop: 2, fontSize: 18, color: 'red'}}>Đăng xuất</Text>
           </TouchableOpacity>
         </View>
       </View>

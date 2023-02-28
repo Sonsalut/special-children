@@ -25,30 +25,47 @@ const DrawerNavigator = () => {
       <Drawer.Screen name={AuthenticatedScreens.HomeScreens}
         component={HomeScreens}
         options={{
-          title: 'Trang chủ', headerStyle: { backgroundColor: colors.white_gray },
-          
+          title: 'Học từ', 
+          headerStyle: { backgroundColor: colors.title_blue },        
+          headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }
         }}
 
       />
       <Drawer.Screen name={AuthenticatedScreens.DiscoveryScreen}
         component={DiscoveryScreen}
-        options={{ title: 'Thông báo', headerStyle: { backgroundColor: colors.white_gray } }}
+        options={{ 
+          title: 'Thông báo', 
+          headerStyle: { backgroundColor: colors.white_gray }, 
+          headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }
+        }}
 
       />
 
       <Drawer.Screen name={AuthenticatedScreens.StorageWords}
         component={StoreNavigator}
-        options={{ title: 'Kho ghép từ', headerStyle: { backgroundColor: colors.white_gray } }}
+        options={{ 
+          title: 'Kho ghép từ', 
+          headerStyle: { backgroundColor: colors.title_blue },
+          headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }
+        }}
 
       />
       <Drawer.Screen name={AuthenticatedScreens.JoinWordScreen}
         component={JoinWordScreen}
-        options={{ title: 'Ghép từ', headerStyle: { backgroundColor: colors.white_gray } }}
+        options={{ 
+          title: 'Ghép từ', 
+          headerStyle: { backgroundColor: colors.title_blue },
+          headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }
+        }}
 
       />
       <Drawer.Screen name={AuthenticatedScreens.MessageScreen}
         component={MessageScreen}
-        options={{ title: 'Cài đặt', headerStyle: { backgroundColor: colors.white_gray } }}
+        options={{ 
+          title: 'Cài đặt', 
+          headerStyle: { backgroundColor: colors.title_blue },
+          headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }        
+        }}
 
       />
 

@@ -16,6 +16,7 @@ import ResponseCode from 'network/ResponseCode';
 import { FlatList } from 'react-native-gesture-handler';
 import { store } from 'redux/store';
 import colors from 'res/colors';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const HomeScreen = ({ }: StackNavigationProps<
   Routes,
@@ -47,11 +48,7 @@ const HomeScreen = ({ }: StackNavigationProps<
 
   return (
 
-    <Container>
-      <ImageBackground 
-        source={require('../../../assets/images/backgr.png')} 
-        style={styles.background}>
-      
+    <Container style={{backgroundColor: 'white'}}>     
       {/* <Header iconLeft={require('../../../assets/images/add.png')} title='Màn hình chính' /> */}
       {/* <View style={{ alignContent: 'space-around', flexDirection: 'row', alignSelf: 'center', flexWrap: 'wrap', width: '100%', paddingLeft: 5, marginTop: 30 }}>
         <TouchableOpacity style={[styles.itemView, { backgroundColor: '#9BA8B5' }]}
@@ -138,9 +135,8 @@ const HomeScreen = ({ }: StackNavigationProps<
                   borderRadius:10,
                   marginHorizontal:5, 
                   alignSelf: 'center', 
-                  marginTop: 10,
-                  
-                  backgroundColor:'#E19469'}}
+                  marginTop: 10,                 
+                  backgroundColor:'#99C8E4'}}
                 > 
                   
                   <Image
@@ -157,14 +153,14 @@ const HomeScreen = ({ }: StackNavigationProps<
                       require('../../.././assets/images/no.png')
                     }
                   />        
-                  <Text style={{ marginTop:5,fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'white' }}>{item?.name}</Text>
+                  <Text style={{ marginTop:5,fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'#2D5672'}}>{item?.name}</Text>
                   
                 </View>
               </TouchableOpacity>
             )}>
           </FlatList>
         </View>
-      </ImageBackground>
+      
     </Container>
  
    

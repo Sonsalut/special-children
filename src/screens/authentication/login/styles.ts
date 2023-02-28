@@ -6,7 +6,8 @@ export default StyleSheet.create({
   container: {
     alignItems: 'center', 
     flex: 1, 
-    justifyContent: 'center' 
+    justifyContent: 'flex-end',
+    
   },
   background: {
     flex: 1,
@@ -26,6 +27,7 @@ export default StyleSheet.create({
     // backgroundColor: colors.white_gray,
     borderTopRightRadius: ratioW(20),
     borderTopLeftRadius: ratioW(20),
+    paddingBottom: 120
   },
   viewTextInput: {
     marginBottom: ratioW(18),
@@ -44,7 +46,7 @@ export default StyleSheet.create({
   buttonLogin: {
     width: ratioW(210),
     // width: '90%',
-    marginBottom: ratioW(14),
+    marginBottom: ratioW(14)
   },
   viewLine: {
     flexDirection: 'row',
