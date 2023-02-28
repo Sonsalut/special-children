@@ -1,8 +1,11 @@
+import { GetStorageWord } from 'network/subs/auth/recording/RecordingRequest';
 import { ApiConstants } from 'network/ApiConstants';
 import Api, { RequestMethod, METHOD } from 'network/ApiManager';
 import {
     GetWordByCateID,
-    GetFullCategory
+    GetFullCategory,
+    AddWordToStorage,
+    DeleteWordToStorage
 } from './RecordingRequest';
 
 export const AuthApis = {
@@ -10,7 +13,9 @@ export const AuthApis = {
     GetImage : ApiConstants.HOST + 'ext/files/download',
   GetFullCate: ApiConstants.HOST + 'ext/category/search/by-user',
   GetStorageWord : ApiConstants.HOST + 'ext/word/repo',
-  PostStorageWord : ApiConstants.HOST + 'ext/word/repo'
+  PostStorageWord : ApiConstants.HOST + 'ext/word/repo' ,
+  DeleteStorageWord : ApiConstants.HOST + 'ext/word/repo' 
+
 
 
 };
@@ -35,7 +40,7 @@ class RecodingApi {
         });
     }
    
-    GetStorageWord<T>(params: any) {
+    GetStorageWord<T>(params: GetStorageWord) {
         return Api.request<T>({
           
             options: {
@@ -46,12 +51,20 @@ class RecodingApi {
         });
     }
    
-    AddWordToStorage<T>(params: any) {
+    AddWordToStorage<T>(params: AddWordToStorage) {
         return Api.request<T>({
             options: {
                 method: METHOD.POST,
-                url: AuthApis.GetStorageWord,
-                data: JSON.stringify(params),
+                url: AuthApis.DeleteStorageWord+`?wordId=${params.wordId}`,
+            },
+        });
+    }
+    DeleteWordToStorage<T>(params: DeleteWordToStorage) {
+        return Api.request<T>({
+            options: {
+                method: METHOD.DELETE,
+                url: AuthApis.DeleteStorageWord+`?wordId=${params.wordId}`,
+                // data: JSON.stringify(params),
             },
         });
     }

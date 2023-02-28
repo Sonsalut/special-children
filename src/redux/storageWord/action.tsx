@@ -51,7 +51,7 @@ export const setCategory =(data)=>{
     }
 
 }
-export const showPersonStore =()=>{
+export const showPersonStore =(data)=>{
     return{
 
         type:'SHOW_PERSONAL_STORE',

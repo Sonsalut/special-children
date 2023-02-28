@@ -30,11 +30,11 @@ const DrawerNavigator = () => {
         }}
 
       />
-      <Drawer.Screen name={AuthenticatedScreens.DiscoveryScreen}
+      {/* <Drawer.Screen name={AuthenticatedScreens.DiscoveryScreen}
         component={DiscoveryScreen}
         options={{ title: 'Thông báo', headerStyle: { backgroundColor: colors.white_gray } }}
 
-      />
+      /> */}
 
       <Drawer.Screen name={AuthenticatedScreens.StorageWords}
         component={StoreNavigator}

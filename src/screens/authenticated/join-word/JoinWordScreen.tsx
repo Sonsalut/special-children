@@ -15,7 +15,8 @@ import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import { RecordingResponse } from 'network/subs/auth/recording/RecordingResponse';
 import { store } from 'redux/store';
 import { useSelector } from 'react-redux';
-import { GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
+import { GetStorageWord, GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
+import { useIsFocused } from '@react-navigation/native';
 
 const JoinWordScreen = ({ }: StackNavigationProps<
     Routes,
@@ -63,11 +64,14 @@ const JoinWordScreen = ({ }: StackNavigationProps<
 
     }
     const personalStorage= useSelector(store=>store.storeReducer.personalStore)
+    const isFocused = useIsFocused();
 
+   
     React.useEffect(() => {
-       setData(personalStorage)
-    }, [])
-
+     
+     getStorageWords()
+    
+      }, [isFocused])
 
     const playSound = () => {
         console.log(id)
@@ -88,24 +92,36 @@ const JoinWordScreen = ({ }: StackNavigationProps<
         }
     }
 
-    const loadData = async () => {
-        const response: any = await RecordingAPI.GetWordByCateID< GetWordByCateID>({
-            pageIndex: 1,
-            pageSize: 1,
-            word: '',
+    // const loadData = async () => {
+    //     const response: any = await RecordingAPI.GetWordByCateID< GetWordByCateID>({
+    //         pageIndex: 1,
+    //         pageSize: 1,
+    //         word: '',
         
-            categoryId: 1,
-            isActive: true
-    });
+    //         categoryId: 1,
+    //         isActive: true
+    // });
+    //     if (response.status === ResponseCode.SUCCESS) {
+    //         setData(response.data?.words)
+    //     }
+    //     else {
+    //         console.log('that bai')
+    //     }
+    // }
+
+    const getStorageWords = async(values: any)=>{
+
+        const response = await RecordingAPI.GetStorageWord<GetStorageWord>({
+           data:{}
+        
+        })
         if (response.status === ResponseCode.SUCCESS) {
-            setData(response.data?.words)
-        }
-        else {
-            console.log('that bai')
-        }
-    }
-
-
+            console.log(response.data)
+            setData(response.data)
+        
+          }
+        
+            }
 
     return (
         

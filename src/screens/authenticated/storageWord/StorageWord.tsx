@@ -17,6 +17,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { Title } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { showPersonStore } from 'redux/storageWord/action';
+import { useIsFocused } from '@react-navigation/native';
 
 
 const StorageWord = ({}: StackNavigationProps<
@@ -35,18 +36,22 @@ const response = await RecordingAPI.GetStorageWord<GetStorageWord>({
 })
 if (response.status === ResponseCode.SUCCESS) {
     console.log(response.data)
-    // setData(response.data.data)
+    setData(response.data)
 
   }
 
     }
+    const isFocused = useIsFocused();
+
+   
     React.useEffect(() => {
-        // getStorageWords()
-        
+     
+     getStorageWords()
     
-      }, [])
+      }, [isFocused])
     const handle =()=>{
         NavigationService.navigate(AuthenticatedScreens.Storage)
+        
     }
    
   return (
@@ -64,7 +69,7 @@ if (response.status === ResponseCode.SUCCESS) {
     </View>
     <View style={{width:'95%', height:'80%', alignSelf:'center', marginTop:15}}>
       <FlatList 
-      data={personalStorage}
+      data={data}
       numColumns={3}
       renderItem={({item})=>(
         <View style={{flexDirection:'row',justifyContent:'center', marginVertical:10,  width:sizeWidth(30), height: sizeHeight(15)}}>
@@ -88,10 +93,8 @@ if (response.status === ResponseCode.SUCCESS) {
                   />
           <Text style={{fontSize:15, color:'black', fontWeight:"400", alignSelf:"center"}}>{item?.word}</Text>
         </View>
-      
 
         </View>
-        
       )}/>
     </View>
     </Container>

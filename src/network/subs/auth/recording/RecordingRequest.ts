@@ -13,6 +13,12 @@ export type GetFullCategory = {
     isActive: boolean,
     categories: any
 };
+export type AddWordToStorage = {
+    wordId:number
+};
+export type DeleteWordToStorage = {
+    wordId:number
+};
 export type GetStorageWord = {
    
     data: any
