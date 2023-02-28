@@ -5,10 +5,10 @@ const initialState = {
     fullStore:[
 
     ],
-   store:[
+   category:[
        
    ],
-   filterCategory:[]
+  personalStore:[]
     
     
 }
@@ -24,10 +24,16 @@ export default  ( state= initialState, action)=>
                 action.payload
             
         }
-        case'UPDATE_STORAGE':
+        case'SET_CATEGORY':
         return{
             ...state,
-         store:action.payload
+         category:action.payload
+
+        }
+        case'SHOW_PERSONAL_STORE':
+        return{
+            ...state,
+            personalStore: state.fullStore.filter(item=>item?.isActive===false)
 
         }
         case'CLICKED_WORD':
@@ -43,7 +49,8 @@ export default  ( state= initialState, action)=>
                 }
             }
             return item
-        })
+        }),
+       
 
         }
        

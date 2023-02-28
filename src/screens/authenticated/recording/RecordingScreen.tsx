@@ -228,10 +228,10 @@ const [index, setIndex] = React.useState(0)
                     width:'90%',
                     marginHorizontal:20
                 }}
-                onDismiss={() => {
-                    setShow(false)
-                    setVisible(false)
-                }}
+                // onDismiss={() => {
+                //     setShow(false)
+                //     setVisible(false)
+                // }}
 
             >
            

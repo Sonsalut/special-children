@@ -18,7 +18,7 @@ import Vi from 'assets/languages/vi';
 import CheckBox from '@react-native-community/checkbox';
 import { Value } from 'react-native-reanimated';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterStorage, isClicked, setStorage, updateStorage } from 'redux/storageWord/action';
+import { filterStorage, isClicked, setCategory, setStorage, showPersonStore, updateStorage } from 'redux/storageWord/action';
 const Storage = ({}: StackNavigationProps<
     Routes,
     AuthenticatedScreens.StorageWord
@@ -43,8 +43,13 @@ const Storage = ({}: StackNavigationProps<
         if (response.status === ResponseCode.SUCCESS) {
           // console.log(response.data.categories)
     
-          setData(response.data.categories)
-          loadData(response.data.categories?.id)
+          // setData(response.data.categories)
+          if(category.length<=0)
+          {
+            dispatch(setCategory(response.data.categories))
+            loadData(response.data.categories?.id)
+          } 
+      
           //  dispatch(setStorage(response.data.categories))
         }
       }
@@ -53,8 +58,9 @@ const Storage = ({}: StackNavigationProps<
       const handle=()=>{
         console.log(dataWord)
       }
-      const wordStore= useSelector(store=>store.storeReducer.store)
+      const category= useSelector(store=>store.storeReducer.category)
       const filterWordStore= useSelector(store=>store.storeReducer.filterCategory)
+      const personalStorage= useSelector(store=>store.storeReducer.personalStore)
       const fullStore= useSelector(store=>store.storeReducer.fullStore)
 
 
@@ -72,10 +78,8 @@ const Storage = ({}: StackNavigationProps<
           
              
             setDataWord(response.data?.words)
-            dispatch(setStorage(response.data?.words))
-      // setDataWords(datasss())
-
-
+         
+              dispatch(setStorage(response.data?.words))
         }
         else {
             console.log('that bai')
@@ -83,31 +87,14 @@ const Storage = ({}: StackNavigationProps<
     }
     
       React.useEffect(() => {
-        getCategory()
-        
 
-      //  loadData(303)
-        
-    
+          getCategory()
       }, [])
   
   const [hasDone, setHasDone] = React.useState(false)
-  const doneHandle= async()=>{
-      
-      // setDataWords(datasss())
-      // console.log(stores)
-      // console.log(personData)
-      // console.log(wordStore)
-      // đang có vde về bất đồng bộ 
-      if(hasDone===true) {
-      let arr= fullStore.filter(word=>word?.isActive===false)
-      dispatch(updateStorage(arr))
-      console.log(wordStore)
-      
-
-      }
+  const doneHandle= async ()=>{
        setHasDone(!hasDone)
-       
+       dispatch(showPersonStore())     
   }
   const filterDatas=(item)=>(
     fullStore.filter(word=>word?.category?.id===item)
@@ -117,30 +104,6 @@ const Storage = ({}: StackNavigationProps<
   
           console.log('test add')
   )
-  const datasss=()=>(
-  //   dataWord.map((word)=> {
-  //     if(word?.isActive==true)
-  //           {
-  //               return{
-  //                 ...word,
-  //                 isActive: true
-  //               }
-  //           } 
-  //           return word 
-  // }
-  //   )
-
-  dataWord.map(word=>{
-    return{
-      ...word,
-      isChoose: false
-
-    }
-  }))
- 
-   
-
-
   const handleChoose=(item)=>{
  
     // dispatch(updateStorage({...item, isActive: true}))
@@ -157,7 +120,7 @@ const Storage = ({}: StackNavigationProps<
     <View style={{marginLeft:10, marginTop:10, height:sizeHeight(90), width:sizeWidth(95)}}>
       
      <FlatList 
-      data={data}
+      data={category}
       renderItem={({item, index})=>(
         <View key={index} >
          

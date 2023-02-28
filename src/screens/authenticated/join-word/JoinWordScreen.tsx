@@ -14,6 +14,8 @@ import ResponseCode from 'network/ResponseCode';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import { RecordingResponse } from 'network/subs/auth/recording/RecordingResponse';
 import { store } from 'redux/store';
+import { useSelector } from 'react-redux';
+import { GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
 
 const JoinWordScreen = ({ }: StackNavigationProps<
     Routes,
@@ -32,16 +34,16 @@ const JoinWordScreen = ({ }: StackNavigationProps<
     const [words, setWords] = React.useState([])
 
     const addWord = (item: any, index: any) => {
-        console.log(item?.audioFieldId)
+        console.log(item?.pictureFiledId)
         if (words.length < 5) {
             setWords([...words, { ...item }])
             let temp = data.filter(value => value.word != item?.word)
             setData([...temp])
             if (id) {
-                setID(id + "," + item?.audioFieldId)
+                setID(id + "," + item?.audioWord)
             }
             else {
-                setID(item?.audioFieldId)
+                setID(item?.audioWord)
             }
 
         }
@@ -54,15 +56,16 @@ const JoinWordScreen = ({ }: StackNavigationProps<
         setWords([...temp])
         setData([...data, { ...item }])
         if (id.length > 1) {
-            let tempId = id.indexOf(`,${item?.audioFieldId}`)
+            let tempId = id.indexOf(`,${item?.audioWord}`)
             console.log(id.slice(tempId,-1))
             setID(id.slice(tempId,0))
         }
 
     }
+    const personalStorage= useSelector(store=>store.storeReducer.personalStore)
 
     React.useEffect(() => {
-        loadData();
+       setData(personalStorage)
     }, [])
 
 
@@ -73,7 +76,8 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                 setStop(true)
                 try {
                     // or play from url
-                    SoundPlayer.playUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/${id}`)
+                    SoundPlayer.loadUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${id}`)
+                    SoundPlayer.play()
                 } catch (e) {
                     console.log(`cannot play the sound file`, e)
                 }
@@ -84,14 +88,15 @@ const JoinWordScreen = ({ }: StackNavigationProps<
         }
     }
 
-
     const loadData = async () => {
-        const response: any = await RecordingAPI.GetWordByCateID<RecordingResponse>({
+        const response: any = await RecordingAPI.GetWordByCateID< GetWordByCateID>({
             pageIndex: 1,
-            pageSize: 20,
+            pageSize: 1,
             word: '',
-            categoryId: 3
-        });
+        
+            categoryId: 1,
+            isActive: true
+    });
         if (response.status === ResponseCode.SUCCESS) {
             setData(response.data?.words)
         }
@@ -103,13 +108,13 @@ const JoinWordScreen = ({ }: StackNavigationProps<
 
 
     return (
+        
         <Container >
-            <HeaderWithBack title={'Ghép từ'} />
-            <View style={{ borderWidth: 1, height: sizeHeight(10), justifyContent: 'center' }}>
+            <View style={{ borderWidth: 1, height: sizeHeight(20), justifyContent: 'center' }}>
                 <FlatList
                     data={words}
                     keyExtractor={(_, index) => index.toString()}
-                    numColumns={5}
+                    numColumns={3}
                     contentContainerStyle={{ alignItems: 'flex-start' }}
                     renderItem={({ item, index }) => {
                         return (
@@ -125,7 +130,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                                             borderRadius: sizeWidth(3)
                                         }}
                                             source={{
-                                                uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFieldId}&file-size=small`,
+                                                uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
                                                 method: 'GET',
                                                 headers: {
                                                     Authorization: store.getState().authReducer.user.accessToken
@@ -137,10 +142,14 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                                     </View>
                                 </View>
                             </TouchableOpacity>
+                            
                         )
                     }}
+                    
                 />
             </View>
+            <View style={{borderWidth:1, width:'100%',bottom:80}}></View>
+
             <FlatList
                 data={data}
                 keyExtractor={(_, index) => index.toString()}
@@ -162,13 +171,13 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                                         height: sizeHeight(12), width: sizeWidth(28),
                                         borderRadius: sizeWidth(3)
                                     }}
-                                        source={{
-                                            uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFieldId}&file-size=small`,
-                                            method: 'GET',
-                                            headers: {
-                                                Authorization: store.getState().authReducer.user.accessToken
-                                            }
-                                        }}
+                                    source={{
+                                        uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
+                                        method: 'GET',
+                                        headers: {
+                                            Authorization: store.getState().authReducer.user.accessToken
+                                        }
+                                    }}
                                     />
                                     {item?.name !== 'add' && <Text style={{ color: 'white', fontWeight: '600', marginTop: sizeHeight(0.3), marginBottom: 5 }}
                                     >{item.word}</Text>}
