@@ -31,7 +31,7 @@ const DrawerNavigator = () => {
         }}
 
       />
-      <Drawer.Screen name={AuthenticatedScreens.DiscoveryScreen}
+      {/* <Drawer.Screen name={AuthenticatedScreens.DiscoveryScreen}
         component={DiscoveryScreen}
         options={{ 
           title: 'Thông báo', 
@@ -39,7 +39,7 @@ const DrawerNavigator = () => {
           headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }
         }}
 
-      />
+      /> */}
 
       <Drawer.Screen name={AuthenticatedScreens.StorageWords}
         component={StoreNavigator}

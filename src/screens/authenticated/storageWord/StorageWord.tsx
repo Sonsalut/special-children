@@ -3,16 +3,21 @@ import {Routes, StackNavigationProps} from 'routers/Navigation';
 import {AuthenticatedScreens} from 'routers/ScreenNames';
 import { DevSettings, TouchableOpacity } from 'react-native';
 import ResponseCode from 'network/ResponseCode';
+import { store } from 'redux/store';
 
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import { GetStorageWord, GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
-import { sizeWidth } from 'utils/Utils';
+import { sizeHeight, sizeWidth } from 'utils/Utils';
 import NavigationService from 'routers/NavigationService';
 import { Container } from 'components';
 import HeaderWithBack from 'components/header/HeaderWithBack';
 import { FlatList } from 'react-native-gesture-handler';
+import { Title } from 'react-native-paper';
+import { useDispatch, useSelector } from 'react-redux';
+import { showPersonStore } from 'redux/storageWord/action';
+import { useIsFocused } from '@react-navigation/native';
 
 
 const StorageWord = ({}: StackNavigationProps<
@@ -21,7 +26,8 @@ const StorageWord = ({}: StackNavigationProps<
   >) => {
 
   const [data, setData] = React.useState([])
-
+const dispatch= useDispatch()
+const personalStorage= useSelector(store=>store.storeReducer.personalStore)
     const getStorageWords = async(values: any)=>{
 
 const response = await RecordingAPI.GetStorageWord<GetStorageWord>({
@@ -30,22 +36,27 @@ const response = await RecordingAPI.GetStorageWord<GetStorageWord>({
 })
 if (response.status === ResponseCode.SUCCESS) {
     console.log(response.data)
-    // setData(response.data.data)
+    setData(response.data)
 
   }
 
     }
+    const isFocused = useIsFocused();
+
+   
     React.useEffect(() => {
-        getStorageWords()
-        
+     
+     getStorageWords()
     
-      }, [])
+      }, [isFocused])
     const handle =()=>{
         NavigationService.navigate(AuthenticatedScreens.Storage)
+        
     }
+   
   return (
     <Container>
-     
+   
     <View>
         <TouchableOpacity style={{marginLeft:10,width:sizeWidth(22), height:sizeWidth(18), borderWidth:1, borderRadius:15, marginTop:10}} onPress={handle}>
     <View style={{alignSelf:"center" ,marginTop:10}}>
@@ -55,6 +66,36 @@ if (response.status === ResponseCode.SUCCESS) {
     </View>
      
         </TouchableOpacity>
+    </View>
+    <View style={{width:'95%', height:'80%', alignSelf:'center', marginTop:15}}>
+      <FlatList 
+      data={data}
+      numColumns={3}
+      renderItem={({item})=>(
+        <View style={{flexDirection:'row',justifyContent:'center', marginVertical:10,  width:sizeWidth(30), height: sizeHeight(15)}}>
+                    
+        
+        <View style={{ alignSelf:'center', width:sizeWidth(20), marginHorizontal:5,borderRadius:10,paddingTop:5, height:sizeHeight(15), borderWidth:1}}>
+            <Image style={{
+                      resizeMode:'stretch',
+                      height: sizeHeight(10), width: sizeWidth(18),
+                      alignSelf:'center',
+                      borderRadius: 9
+                  }}
+                      source={{
+                          uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
+                          method: 'GET',
+                          headers: {
+                              Authorization: store.getState().authReducer.user.accessToken
+                          }
+                      }}
+
+                  />
+          <Text style={{fontSize:15, color:'black', fontWeight:"400", alignSelf:"center"}}>{item?.word}</Text>
+        </View>
+
+        </View>
+      )}/>
     </View>
     </Container>
   )

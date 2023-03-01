@@ -14,8 +14,9 @@ import ResponseCode from 'network/ResponseCode';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import { RecordingResponse } from 'network/subs/auth/recording/RecordingResponse';
 import { store } from 'redux/store';
-import styles from 'screens/authentication/login/styles';
-
+import { useSelector } from 'react-redux';
+import { GetStorageWord, GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
+import { useIsFocused } from '@react-navigation/native';
 
 const JoinWordScreen = ({ }: StackNavigationProps<
     Routes,
@@ -35,16 +36,16 @@ const JoinWordScreen = ({ }: StackNavigationProps<
     const [words, setWords] = React.useState([])
 
     const addWord = (item: any, index: any) => {
-        console.log(item?.audioFieldId)
+        console.log(item?.pictureFiledId)
         if (words.length < 5) {
             setWords([...words, { ...item }])
             let temp = data.filter(value => value.word != item?.word)
             setData([...temp])
             if (id) {
-                setID(id + "," + item?.audioFieldId)
+                setID(id + "," + item?.audioWord)
             }
             else {
-                setID(item?.audioFieldId)
+                setID(item?.audioWord)
             }
 
         }
@@ -57,17 +58,21 @@ const JoinWordScreen = ({ }: StackNavigationProps<
         setWords([...temp])
         setData([...data, { ...item }])
         if (id.length > 1) {
-            let tempId = id.indexOf(`,${item?.audioFieldId}`)
+            let tempId = id.indexOf(`,${item?.audioWord}`)
             console.log(id.slice(tempId,-1))
             setID(id.slice(tempId,0))
         }
 
     }
+    const personalStorage= useSelector(store=>store.storeReducer.personalStore)
+    const isFocused = useIsFocused();
 
+   
     React.useEffect(() => {
-        loadData();
-    }, [])
-
+     
+     getStorageWords()
+    
+      }, [isFocused])
 
     const playSound = () => {
         console.log(id)
@@ -76,7 +81,8 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                 setStop(true)
                 try {
                     // or play from url
-                    SoundPlayer.playUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/${id}`)
+                    SoundPlayer.loadUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${id}`)
+                    SoundPlayer.play()
                 } catch (e) {
                     console.log(`cannot play the sound file`, e)
                 }
@@ -87,30 +93,45 @@ const JoinWordScreen = ({ }: StackNavigationProps<
         }
     }
 
+    // const loadData = async () => {
+    //     const response: any = await RecordingAPI.GetWordByCateID< GetWordByCateID>({
+    //         pageIndex: 1,
+    //         pageSize: 1,
+    //         word: '',
+        
+    //         categoryId: 1,
+    //         isActive: true
+    // });
+    //     if (response.status === ResponseCode.SUCCESS) {
+    //         setData(response.data?.words)
+    //     }
+    //     else {
+    //         console.log('that bai')
+    //     }
+    // }
 
-    const loadData = async () => {
-        const response: any = await RecordingAPI.GetWordByCateID<RecordingResponse>({
-            pageIndex: 1,
-            pageSize: 20,
-            // word: '',
-            categoryId: 3
-        });
+    const getStorageWords = async(values: any)=>{
+
+        const response = await RecordingAPI.GetStorageWord<GetStorageWord>({
+           data:{}
+        
+        })
         if (response.status === ResponseCode.SUCCESS) {
-            setData(response.data?.words)
-        }
-        else {
-            console.log('that bai')
-        }
-    }
-    
+            console.log(response.data)
+            setData(response.data)
+        
+          }
+        
+            }
+
     return (
-        <Container isBottomTab={false}>
-            <ImageBackground source={require('../../../assets/images/backgr.png')} style={styles.background}>
-            <View style={{ borderWidth: 1, height: sizeHeight(10), justifyContent: 'center' }}>
+        
+        <Container >
+            <View style={{ borderWidth: 1, height: sizeHeight(20), justifyContent: 'center' }}>
                 <FlatList
                     data={words}
                     keyExtractor={(_, index) => index.toString()}
-                    numColumns={5}
+                    numColumns={3}
                     contentContainerStyle={{ alignItems: 'flex-start' }}
                     renderItem={({ item, index }) => {
                         return (
@@ -126,7 +147,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                                             borderRadius: sizeWidth(3)
                                         }}
                                             source={{
-                                                uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFieldId}&file-size=small`,
+                                                uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
                                                 method: 'GET',
                                                 headers: {
                                                     Authorization: store.getState().authReducer.user.accessToken
@@ -138,10 +159,14 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                                     </View>
                                 </View>
                             </TouchableOpacity>
+                            
                         )
                     }}
+                    
                 />
             </View>
+            <View style={{borderWidth:1, width:'100%',bottom:80}}></View>
+
             <FlatList
                 data={data}
                 keyExtractor={(_, index) => index.toString()}
@@ -163,13 +188,13 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                                         height: sizeHeight(12), width: sizeWidth(28),
                                         borderRadius: sizeWidth(3)
                                     }}
-                                        source={{
-                                            uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFieldId}&file-size=small`,
-                                            method: 'GET',
-                                            headers: {
-                                                Authorization: store.getState().authReducer.user.accessToken
-                                            }
-                                        }}
+                                    source={{
+                                        uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
+                                        method: 'GET',
+                                        headers: {
+                                            Authorization: store.getState().authReducer.user.accessToken
+                                        }
+                                    }}
                                     />
                                     {item?.name !== 'add' && <Text style={{ color: 'white', fontWeight: '600', marginTop: sizeHeight(0.3), marginBottom: 5 }}
                                     >{item.word}</Text>}
@@ -191,7 +216,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
             >
                 <Text style={{ paddingVertical: sizeWidth(5), paddingHorizontal: sizeWidth(5), color: 'white' }}>{stop ? 'Dừng' : 'Phát'}</Text>
             </TouchableOpacity>
-            </ImageBackground>
+            
         </Container>
     );
 };

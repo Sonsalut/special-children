@@ -9,5 +9,8 @@ const images = {
   eye_slash: require('../assets/images/eye_slash.png'),
   navBackLeft: require('../assets/images/navBackLeft.png'),
   number: require('../assets/images/number.png'),
+  done:require('../assets/images/done.png'),
+  plus:require('../assets/images/plus.png')
+  
 };
 export default images;

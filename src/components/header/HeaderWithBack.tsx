@@ -20,7 +20,14 @@ interface HeaderWithBackProps {
   rightComponent?: React.ReactNode,
   leftIconSrc?: ImageSourcePropType,
   leftIconStyle?: ImageStyle,
+  rightIconSrc?:ImageSourcePropType,
+  rightIconStyle?: ImageStyle,
   onCallBack?: void,
+  handle?:()=> void,
+  hasDone?: boolean,
+  rightIconShow?: boolean,
+
+
 }
 const HeaderWithBack = ({
   outerStyle,
@@ -34,6 +41,12 @@ const HeaderWithBack = ({
   leftIconSrc,
   leftIconStyle,
   onCallBack,
+  rightIconSrc,
+  rightIconStyle,
+  handle,
+  hasDone= false,
+  rightIconShow=true,
+  
   ...props
 }: HeaderWithBackProps) => {
   const onGoBack = () => {
@@ -49,15 +62,26 @@ const HeaderWithBack = ({
     <GlobalHeader style={[outerStyle]}>
       <StatusBar backgroundColor={statusBarbackgroundColor} showHideTransition={'none'} />
       <RowContainer style={[styles.container, containerStyle]}>
-        <ViewCondition isVisible={hasBack}>
+        <ViewCondition isVisible={hasBack} >
           <TouchableOpacity onPress={onGoBack} style={leftIconStyle}>
             <Image source={leftIconSrc ?? images.navBackLeft} />
           </TouchableOpacity>
+          
         </ViewCondition>
         <HeaderTitle style={[styles.title, titleStyle]}>
           {title ?? `Header title`}
         </HeaderTitle>
         {rightComponent ?? <View style={{ flex: 0.106 }} />}
+        <ViewCondition isVisible={hasBack} >
+          {
+            rightIconShow 
+            ?<TouchableOpacity onPress={handle} style={leftIconStyle}>
+            <Image resizeMode='contain' style={{width:sizeWidth(4), height:sizeHeight(3)}} source={hasDone?images.done : images.plus} /></TouchableOpacity> 
+            : null
+          }
+          
+          
+        </ViewCondition>
       </RowContainer>
     </GlobalHeader>
   )
