@@ -55,13 +55,13 @@ if (response.status === ResponseCode.SUCCESS) {
     }
    
   return (
-    <Container>
+    <Container style={{backgroundColor: 'white'}}>
    
     <View>
-        <TouchableOpacity style={{marginLeft:10,width:sizeWidth(22), height:sizeWidth(18), borderWidth:1, borderRadius:15, marginTop:10}} onPress={handle}>
-    <View style={{alignSelf:"center" ,marginTop:10}}>
-    <Image source={require('../../../assets/images/addS.png')} style={{width:20, height:20}}></Image>
-      <Text>Thêm từ</Text>
+        <TouchableOpacity style={{marginLeft:10,width:sizeWidth(22), height:sizeWidth(18), borderRadius:45, marginTop:10}} onPress={handle}>
+    <View style={{alignSelf:"center",marginTop:10}}>
+    <Image source={require('../../../assets/images/addword.png')} style={{width:50, height:50, alignSelf: 'center'}}></Image>
+      
     
     </View>
      
@@ -75,7 +75,7 @@ if (response.status === ResponseCode.SUCCESS) {
         <View style={{flexDirection:'row',justifyContent:'center', marginVertical:10,  width:sizeWidth(30), height: sizeHeight(15)}}>
                     
         
-        <View style={{ alignSelf:'center', width:sizeWidth(20), marginHorizontal:5,borderRadius:10,paddingTop:5, height:sizeHeight(15), borderWidth:1}}>
+        <View style={{ alignSelf:'center', width:sizeWidth(20), marginHorizontal:5,borderRadius:10,paddingTop:5, height:sizeHeight(15), backgroundColor: '#99C8E4'}}>
             <Image style={{
                       resizeMode:'stretch',
                       height: sizeHeight(10), width: sizeWidth(18),
@@ -91,7 +91,7 @@ if (response.status === ResponseCode.SUCCESS) {
                       }}
 
                   />
-          <Text style={{fontSize:15, color:'black', fontWeight:"400", alignSelf:"center"}}>{item?.word}</Text>
+          <Text style={{fontSize:15, color:'#2D5672', fontWeight:'bold', alignSelf:"center"}}>{item?.word}</Text>
         </View>
 
         </View>

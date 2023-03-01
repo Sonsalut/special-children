@@ -94,7 +94,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: sizeWidth(5),
     paddingVertical: sizeWidth(0.5),
     justifyContent: 'space-between',
-    marginTop: sizeHeight(5)
+    marginTop: sizeHeight(5),
+    // backgroundColor: '#87C2E4'
   },
   title: {
     flex: 1.107,
@@ -102,5 +103,6 @@ const styles = StyleSheet.create({
     fontSize: fontSize(5.1),
     lineHeight: fontSize(5.1) * 1.5,
     fontWeight: 'bold'
-  }
+  },
+  
 })

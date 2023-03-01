@@ -116,7 +116,7 @@ const HomeScreen = ({ }: StackNavigationProps<
           <Text style={{ color: 'white', fontSize: fontSize(5), marginTop: sizeHeight(1), textAlign: 'center' }}>Ghép từ</Text>
         </TouchableOpacity>
       </View> */}
-        <View style={{ height: sizeHeight(90), width:'90%', marginTop: 10, alignSelf:'center', alignItems:'center', elevation: 5}}>
+        <View style={{ height: sizeHeight(90), width:'95%', marginTop: 10, alignSelf:'center', alignItems:'center'}}>
           <FlatList
             showsVerticalScrollIndicator={false}
             data={data}
@@ -126,44 +126,44 @@ const HomeScreen = ({ }: StackNavigationProps<
               <TouchableOpacity 
               onPress={()=>NavigationService.navigate(AuthenticatedScreens.RecordingScreen, {data:item})}
               isDoubleTap={false}
-              activeOpacity={0.7}             
+              activeOpacity={0.7}  
+              style={{}}           
               >
                 <View style={{
                   width: sizeWidth(40), 
                   marginVertical:15, 
-                  height:sizeHeight(24),
+                  height:180,
                   borderRadius:10,
-                  marginHorizontal:5, 
+                  marginHorizontal:10, 
                   alignSelf: 'center', 
                   marginTop: 10,                 
-                  backgroundColor:'#99C8E4'}}
+                  backgroundColor:'#99C8E4',
+                  }}
                 > 
                   
                   <Image
                     style={{
                       resizeMode: 'stretch',
-                      height: sizeHeight(20), width: sizeWidth(39),
+                      height: sizeHeight(17), width: sizeWidth(39),
                       borderRadius: sizeWidth(3),
+                      
                     }}
                     source={item?.pictureFileId !== null ? {
-                      uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=medium`,
+                      uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
                       method: 'GET',
                       headers: { Authorization: store.getState().authReducer.user.accessToken }
                     } :
                       require('../../.././assets/images/no.png')
                     }
                   />        
-                  <Text style={{ marginTop:5,fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'#2D5672'}}>{item?.name}</Text>
+                  <Text style={{ marginTop: 4, fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'#2D5672'}}>{item?.name}</Text>
                   
                 </View>
               </TouchableOpacity>
             )}>
           </FlatList>
         </View>
-      
-    </Container>
- 
-   
+    </Container>  
   );
 };
 

@@ -12,7 +12,6 @@ import { Modal } from 'react-native-paper';
 import * as ImagePicker from 'react-native-image-picker';
 import { TextInput } from 'react-native-gesture-handler';
 import strings from 'res/strings';
-// import SoundPlayer from 'react-native-sound-player';
 import get from 'network/subs/auth/AuthApi';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import { RecordingResponse } from 'network/subs/auth/recording/RecordingResponse';
@@ -97,9 +96,7 @@ const dispatch= useDispatch()
           
             console.log(response.data)
             setData(response.data?.words)
-            // dispatch(setStorage(response.data?.words))
-            
-
+            // dispatch(setStorage(response.data?.words))           
         }
         else {
             console.log('that bai')
@@ -108,19 +105,26 @@ const dispatch= useDispatch()
    
  
     const playSound = async (audioWord: any) => {
-        try {
-          SoundPlayer.loadUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${audioWord}`)
-          SoundPlayer.play()
-  
-        } catch (e) {
-            //showToast
-            console.log(`cannot play the sound file`, e)
-            
+        let url = `https://bit.ly/3Y6Glzr`
+        const a = SoundPlayer.addEventListener('FinishedLoadingURL',({success})=>console.log(success))
+        if(a) {
+            SoundPlayer.playUrl(url)
         }
+        
+        // try {
+  
+        //     SoundPlayer.loadUrl(url)
+        //     SoundPlayer.play()     
+  
+        // } catch (e) {
+        //     //showToast
+        //     console.log(`cannot play the sound file`, e)
+            
+        // }
         // SoundPlayer.addEventListener('FinishedLoadingURL',({ success })=>(
-        //     // SoundPlayer.playUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${audioWord}`)
-        //         console.log( success)
-        // ))    
+        //     SoundPlayer.playUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${audioWord}`))
+        //         console.log(success)
+        // )  
     }
 
     const loadImage = async () => {
@@ -171,8 +175,8 @@ const [index, setIndex] = React.useState(0)
 
     return (
 
-        <Container style={{ flex: 1 }}  >
-            <HeaderWithBack title={route?.params?.data?.name} />
+        <Container style={{ flex: 1, backgroundColor: 'white'}}  >
+            <HeaderWithBack title={route?.params?.data?.name}  />
             
                 <View style={{width:sizeWidth(90), height:sizeHeight(90), alignSelf:'center', alignItems: 'center'}}>
                     <FlatList
@@ -184,22 +188,20 @@ const [index, setIndex] = React.useState(0)
                             <TouchableOpacity key={index} activeOpacity={0.7} onPress={() => { addImage(item, index) }}>
                                 <View 
                                     style={{ 
-                                    flexDirection: 'column',
-                                    width:sizeWidth(40), 
-                                    height:sizeHeight(26),
-                                    justifyContent:'center',
-                                    paddingHorizontal:8,
-                                    borderRadius:10, 
-                                    marginHorizontal:6, 
-                                    marginVertical:8,
-                                    backgroundColor:'#99C8E4'}}>
+                                        width: sizeWidth(40), 
+                                        marginVertical:15, 
+                                        height:180,
+                                        borderRadius:10,
+                                        marginHorizontal:5, 
+                                        alignSelf: 'center', 
+                                        marginTop: 10,                 
+                                        backgroundColor:'#99C8E4',
+                                    }}>
                                     <Image 
                                         style={{
-                                        resizeMode:'cover',
-                                        height: sizeHeight(14), width: sizeWidth(28),
-                                        
-                                        alignSelf:'center',
-                                        borderRadius: 9
+                                            resizeMode: 'stretch',
+                                            height: sizeHeight(17), width: sizeWidth(39),
+                                            borderRadius: sizeWidth(3),
                                         }}
                                         source={{
                                         uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
@@ -207,7 +209,7 @@ const [index, setIndex] = React.useState(0)
                                         headers: {Authorization: store.getState().authReducer.user.accessToken}
                                         }}
                                     />
-                                    <Text style={{ marginTop:8, fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'white' }}>{item.word}</Text>
+                                    <Text style={{ marginTop: 4, fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'#2D5672'}}>{item.word}</Text>
                                 </View>
                             </TouchableOpacity>
                         )}
@@ -220,9 +222,10 @@ const [index, setIndex] = React.useState(0)
                         backgroundColor: '#E19469',
                         borderRadius: 15,
                         height: 450,
-                        marginTop: sizeHeight(10),
+                        marginTop: sizeHeight(15),
                         width:'90%',
                         marginHorizontal:20,
+                        borderWidth:1
                     }}
                     onDismiss={() => {
                         setShow(false)

@@ -16,6 +16,8 @@ import { BottomTabCustom } from 'components';
 import colors from 'res/colors';
 import StoreNavigator from './StoreNavigator';
 import HomeScreens from './HomeScreens';
+import RecordingScreen from 'screens/authenticated/recording/RecordingScreen';
+
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => {
   return (
@@ -46,7 +48,8 @@ const DrawerNavigator = () => {
         options={{ 
           title: 'Kho ghép từ', 
           headerStyle: { backgroundColor: colors.title_blue },
-          headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }
+          headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 },
+          headerPressOpacity: 1
         }}
 
       />
@@ -66,8 +69,15 @@ const DrawerNavigator = () => {
           headerStyle: { backgroundColor: colors.title_blue },
           headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }        
         }}
-
       />
+      {/* <Drawer.Screen name={AuthenticatedScreens.RecordingScreen}
+        component={RecordingScreen}
+        options={{ 
+          title: 'Chữ cái', 
+          headerStyle: { backgroundColor: colors.title_blue },
+          headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }        
+        }}
+      /> */}
 
     </Drawer.Navigator>
 

@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { filterStorage, isClicked, setCategory, setStorage, showPersonStore, updateStorage } from 'redux/storageWord/action';
 import NavigationService from 'routers/NavigationService';
 import { useIsFocused } from '@react-navigation/native';
+import colors from 'res/colors';
 const Storage = ({ }: StackNavigationProps<
   Routes,
   AuthenticatedScreens.StorageWord
@@ -188,17 +189,24 @@ const Storage = ({ }: StackNavigationProps<
   return (
 
 
-    <Container>
-      <HeaderWithBack title={'Kho từ'} handle={doneHandle} hasDone={hasDone}
+    <Container style={{backgroundColor: 'white'}}>
+      <HeaderWithBack 
+        outerStyle={{
+          backgroundColor:colors.title_blue, 
+          borderWidth: 1}} 
+        title={'Kho từ'} handle={doneHandle} hasDone={hasDone}
+        titleStyle={{
+          color: colors.text_blue
+        }}
       />
-      <View style={{ marginLeft: 10, marginTop: 10, height: sizeHeight(90), width: sizeWidth(95) }}>
+      <View style={{ marginLeft: 10, marginTop: 10, height: sizeHeight(90), width: sizeWidth(95), borderWidth:1, alignItems: 'center' }}>
 
         <FlatList
           data={category}
           renderItem={({ item, index }) => (
             <View key={index} >
 
-              <View key={index + 1} style={{ width: sizeWidth(20), borderRadius: 10, height: sizeHeight(12), borderWidth: 1, marginTop: 10, marginHorizontal: 5 }}>
+              <View key={index + 1} style={{ width: sizeWidth(20), borderRadius: 10, height: sizeHeight(12), borderWidth: 1, marginTop: 10, marginHorizontal: 5, alignSelf: 'center'}}>
                 <Image style={{
                   resizeMode: 'stretch',
                   height: sizeHeight(8), width: sizeWidth(18),
@@ -212,7 +220,6 @@ const Storage = ({ }: StackNavigationProps<
                       Authorization: store.getState().authReducer.user.accessToken
                     }
                   }}
-
                 />
 
                 <Text style={{ fontSize: 15, color: 'black', fontWeight: "400", alignSelf: "center" }}>{item?.name}</Text>
@@ -271,4 +278,7 @@ const Storage = ({ }: StackNavigationProps<
 
 export default Storage
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+  
+})

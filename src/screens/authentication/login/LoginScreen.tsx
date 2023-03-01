@@ -25,10 +25,15 @@ const LoginScreen = ({ }: StackNavigationProps<
     
     <Container  isBottomTab={false}>
       <ImageBackground 
-        source={require('../../../assets/images/AIS-Learning.png')} 
+        source={require('../../../assets/images/Home-bgr.png')} 
         style={styles.background}>
         <KeyboardAwareScrollView contentContainerStyle={styles.container}>      
-           
+          <View style={{width: '100%', height: 400, flexDirection: 'column',justifyContent: 'flex-end' ,alignItems: 'center', borderWidth: 1}}>
+            <Image
+             source={require('../../../assets/images/AIS-Learning.png')}
+             style={{height: 400, width: '90%', alignSelf: 'center',borderWidth:1,justifyContent: 'flex-end', paddingTop: 20}}
+            />
+          </View>
             <View style={styles.form}>
               <Controller
                 control={control}

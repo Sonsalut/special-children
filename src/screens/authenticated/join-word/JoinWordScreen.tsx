@@ -126,7 +126,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
 
     return (
         
-        <Container >
+        <Container style={{backgroundColor: 'white'}}>
             <View style={{ borderWidth: 1, height: sizeHeight(20), justifyContent: 'center' }}>
                 <FlatList
                     data={words}
