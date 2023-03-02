@@ -172,7 +172,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                 alignSelf:'center', 
                 marginTop: 20, 
                 backgroundColor: '#E7F6FF',
-                padding: 7
+                padding: 10
                 }}>
 
 {/* Word added to board */}
@@ -186,25 +186,26 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                             <TouchableOpacity activeOpacity={0.7} onPress={() => { deleteWord(item) }}>
                                 <View style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
                                     <View style={{
-                                        backgroundColor: item?.name === 'add' ? '#9BA8B5' : '#FFD19A',
-                                        borderRadius: sizeWidth(3), justifyContent: 'center',
-                                        alignItems: 'center'
+                                        backgroundColor: item?.name === 'add' ? '#9BA8B5' : '#C1EBEA',
+                                        borderRadius: sizeWidth(3),
+                                        height: sizeHeight(14), 
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        marginBottom: 20
                                     }}>
                                         <Image style={{
-                                            height: sizeHeight(11), width: sizeWidth(23),
+                                            height: sizeHeight(11), 
+                                            width: sizeWidth(23),
                                             borderRadius: sizeWidth(3),
-                                            marginBottom: -10,
-                                            marginTop:10
+                                            marginBottom: -8,
                                         }}
                                             source={{
                                                 uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
                                                 method: 'GET',
-                                                headers: {
-                                                    Authorization: store.getState().authReducer.user.accessToken
-                                                }
+                                                headers: {Authorization: store.getState().authReducer.user.accessToken}
                                             }}
                                         />
-                                        {item?.name !== 'add' && <Text style={{ color: '#2D5672', fontWeight: '600', marginBottom: 5, fontSize: fontSize(4) }}
+                                        {item?.name !== 'add' && <Text style={{ color: '#2D5672', fontWeight: '600', marginTop: '10%', fontSize: fontSize(4) }}
                                         >{item.word}</Text>}
                                     </View>
                                 </View>
@@ -224,7 +225,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                     bottom:165, 
                     borderColor: '#87C2E4', 
                     alignSelf: 'center', 
-                    marginTop: 10}}>
+                    marginTop: 15}}>
             </View>
 
 
@@ -249,7 +250,8 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                                     
                                 }}>
                                     <Image style={{
-                                        height: sizeHeight(12), width: sizeWidth(25),
+                                        height: sizeHeight(12), 
+                                        width: sizeWidth(25),
                                         borderRadius: sizeWidth(3)
                                     }}
                                     source={{
@@ -281,7 +283,14 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                 activeOpacity={0.7}
                 onPress={playSound}
             >
-                <Text style={{ paddingVertical: sizeWidth(5), paddingHorizontal: sizeWidth(5), color: '#2D5672' }}>{stop ? 'Dừng' : 'Phát'}</Text>
+                <Text 
+                    style={{ 
+                        paddingVertical: sizeWidth(5), 
+                        paddingHorizontal: sizeWidth(5), 
+                        color: '#2D5672',
+                        fontWeight: 'bold'
+                    }}>{stop ? 'Dừng' : 'Phát'}
+                </Text>
             </TouchableOpacity>
             
         </Container>

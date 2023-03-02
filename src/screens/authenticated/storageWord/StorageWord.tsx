@@ -11,7 +11,7 @@ import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import { GetStorageWord, GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
 import { sizeHeight, sizeWidth } from 'utils/Utils';
 import NavigationService from 'routers/NavigationService';
-import { Container } from 'components';
+import { Button, Container } from 'components';
 import HeaderWithBack from 'components/header/HeaderWithBack';
 import { FlatList } from 'react-native-gesture-handler';
 import { Title } from 'react-native-paper';
@@ -58,16 +58,22 @@ if (response.status === ResponseCode.SUCCESS) {
     <Container style={{backgroundColor: 'white'}}>
    
     <View>
-        <TouchableOpacity style={{marginLeft:10,width:sizeWidth(22), height:sizeWidth(18), borderRadius:45, marginTop:10}} onPress={handle}>
-    <View style={{alignSelf:"center",marginTop:10}}>
-    <Image source={require('../../../assets/images/addword.png')} style={{width:50, height:50, alignSelf: 'center'}}></Image>
-      
-    
-    </View>
-     
+        <TouchableOpacity 
+          style={{
+            marginLeft:10,
+            width:'50%', 
+            height:sizeWidth(10), 
+            borderRadius:45, 
+            marginTop:15, 
+            marginBottom: -10,
+            backgroundColor: '#FFD19A', 
+            alignSelf: 'center'}} 
+          onPress={handle}
+        >
+          <Text style={{alignSelf: 'center', marginTop: 10, fontSize: 15, fontWeight: 'bold', color: '#2D5672'}}>Thêm từ vào kho</Text>
         </TouchableOpacity>
     </View>
-    <View style={{width:'95%', height:'80%', alignSelf:'center', marginTop:15}}>
+    <View style={{width:'90%', height:'80%', alignSelf:'center', marginTop:15}}>
       <FlatList 
       data={data}
       numColumns={3}
@@ -75,7 +81,7 @@ if (response.status === ResponseCode.SUCCESS) {
         <View style={{flexDirection:'row',justifyContent:'center', marginVertical:10,  width:sizeWidth(30), height: sizeHeight(15)}}>
                     
         
-        <View style={{ alignSelf:'center', width:sizeWidth(20), marginHorizontal:5,borderRadius:10,paddingTop:5, height:sizeHeight(15), backgroundColor: '#99C8E4'}}>
+        <View style={{ alignSelf:'center', width:sizeWidth(25), marginHorizontal:5,borderRadius:10,paddingTop:5, height:sizeHeight(15), backgroundColor: '#99C8E4'}}>
             <Image style={{
                       resizeMode:'stretch',
                       height: sizeHeight(10), width: sizeWidth(18),
@@ -91,7 +97,7 @@ if (response.status === ResponseCode.SUCCESS) {
                       }}
 
                   />
-          <Text style={{fontSize:15, color:'#2D5672', fontWeight:'bold', alignSelf:"center"}}>{item?.word}</Text>
+          <Text style={{fontSize:15, color:'#2D5672', fontWeight:'bold', alignSelf:"center", paddingTop: '10%'}}>{item?.word}</Text>
         </View>
 
         </View>

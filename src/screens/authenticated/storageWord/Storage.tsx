@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { filterStorage, isClicked, setCategory, setStorage, showPersonStore, updateStorage } from 'redux/storageWord/action';
 import NavigationService from 'routers/NavigationService';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import colors from 'res/colors';
 const Storage = ({ }: StackNavigationProps<
   Routes,
   AuthenticatedScreens.StorageWord
@@ -68,7 +69,7 @@ const Storage = ({ }: StackNavigationProps<
       wordId: id
     });
     if (response.status === ResponseCode.SUCCESS) {
-      console.log("SUCESS")
+      console.log("SUCCESS")
     }
     else {
       console.log('error')
@@ -213,20 +214,57 @@ const Storage = ({ }: StackNavigationProps<
       />
 
 {/* Word list container */}
-      <View style={{ marginLeft: 10, marginTop: 10, height: sizeHeight(90), width: sizeWidth(95), alignItems: 'center' }}>
+      <View 
+        style={{ 
+          marginLeft: 10, 
+          paddingTop: 30, 
+          height: sizeHeight(90), 
+          width: sizeWidth(95), 
+          alignItems: 'center'
+        }}
+      >
         <FlatList
           data={category}
           renderItem={({ item, index }) => (
-            <View key={index} >
+            <View 
+              key={index}
+              style={{ 
+                marginBottom: 22,
+                paddingBottom: 15,
+                borderRadius: 15,
+                backgroundColor: '#E7F6FF',
+                paddingLeft: 10
+              }}
+            >
 
-              <View key={index + 1} style={{ width: sizeWidth(20),borderRadius: 10, marginVertical: 5, marginBottom: -3, marginTop: 8, alignSelf: 'center'}}>
-                
-
-                <Text style={{ fontSize: 18, color: '#E36A51', fontWeight: 'bold', alignSelf: "center" }}>{item?.name}</Text>
+              <View 
+                key={index + 1} 
+                style={{ 
+                  width: sizeWidth(20),
+                  borderRadius: 10, 
+                  marginVertical: 5, 
+                  marginBottom: -3, 
+                  marginTop: 8, 
+                  alignSelf: 'center'
+                }}
+              >
+                <Text style={{ 
+                  fontSize: 18, 
+                  color: '#897666', 
+                  fontWeight: 'bold', 
+                  alignSelf: "center"
+                  }}>{item?.name}
+                </Text>
               </View>
 
-              <View key={index + 2} style={{ flexDirection: 'row', marginTop: 5, height: sizeHeight(15)}}>
-
+              <View 
+                key={index + 2} 
+                style={{ 
+                  flexDirection: 'row', 
+                  marginTop: 8, 
+                  height: sizeHeight(15)
+                }}                
+              >
                 <FlatList
 
                   data={filterDatas(item?.id)}
@@ -234,16 +272,25 @@ const Storage = ({ }: StackNavigationProps<
                   showsHorizontalScrollIndicator={false}
                   renderItem={({ item, index }) => (
 
-                    <View style={{ flexDirection: 'row', width: sizeWidth(30), height: sizeHeight(15) }}>
+                    <View style={{ flexDirection: 'row', width: sizeWidth(30), height: sizeHeight(15), paddingTop:3}}>
 
 
-                      <View style={{backgroundColor: '#99C8E4',alignSelf: 'center', width: sizeWidth(23), marginHorizontal: 5, borderRadius: 10, paddingTop: 0, height: sizeHeight(14)}}>
-                        <Image style={{
-                          resizeMode: 'stretch',
-                          height: sizeHeight(10), width: sizeWidth(18),
-                          alignSelf: 'center',
-                          borderRadius: 9
+                      <View style={{
+                        backgroundColor: '#C1EBEA',
+                        alignSelf: 'center', 
+                        width: sizeWidth(23), 
+                        marginHorizontal: 5, 
+                        borderRadius: 10,
+                        height: sizeHeight(14)
                         }}
+                      >
+                        <Image 
+                          style={{
+                            resizeMode: 'stretch',
+                            height: sizeHeight(10), width: sizeWidth(18),
+                            alignSelf: 'center',
+                            borderRadius: 9
+                          }}
                           source={{
                             uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
                             method: 'GET',
@@ -251,14 +298,19 @@ const Storage = ({ }: StackNavigationProps<
                               Authorization: store.getState().authReducer.user.accessToken
                             }
                           }}
-
                         />
-                        <Text style={{ fontSize: 15, color: '#2D5672', fontWeight: 'bold', alignSelf: "center", marginTop: '10%'}}>{item?.word}</Text>
+                        <Text 
+                          style={{ 
+                            fontSize: 15, 
+                            color: '#2D5672', 
+                            fontWeight: 'bold', 
+                            alignSelf: "center", 
+                            marginTop: '10%'
+                          }}>{item?.word}
+                        </Text>
                       </View>
-
                       {
-                        hasDone ? <CheckBox style={{ right: 25, bottom: 6 }} value={!item?.isActive} onValueChange={() => handleChoose(item)} /> : null
-
+                        hasDone ? <CheckBox style={{ right: 25, bottom: 1, height:20 }} value={!item?.isActive} onValueChange={() => handleChoose(item)} /> : null
                       }
                     </View>
                   )}

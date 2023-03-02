@@ -156,8 +156,8 @@ const handleChangeInfor =()=>{
                       <Text style={{alignSelf:'flex-start', marginTop:20, fontSize:15, color:colors.black}}>Giới tính:</Text>
  <RadioButton.Group   onValueChange={value => setGenderValue(value)} value={gendervalue}>
   
-      <RadioButton.Item label="Nam" value="MALE" labelStyle={{fontSize:15}} />
-      <RadioButton.Item label="Nữ" value="FEMALE"labelStyle={{fontSize:15}} />
+      <RadioButton.Item  label="Nam" value="MALE" labelStyle={{fontSize:15}} />
+      <RadioButton.Item  label="Nữ" value="FEMALE"labelStyle={{fontSize:15}} />
     </RadioButton.Group>
                       </View>
                       {/* Regionchoice */}
@@ -173,9 +173,9 @@ const handleChangeInfor =()=>{
                       <Text style={{alignSelf:'flex-start', marginTop:10, fontSize:15, color:colors.black}}>Vùng miền:</Text>
  <RadioButton.Group    onValueChange={value => setRegionValue(value)} value={regionvalue}>
   
-      <RadioButton.Item label="Bắc" value="NORTHERN" labelStyle={{fontSize:15}} />
+      <RadioButton.Item  label="Bắc" value="NORTHERN" labelStyle={{fontSize:15}} />
       <RadioButton.Item label="Trung" value="MIDDLE"labelStyle={{fontSize:15}} />
-      <RadioButton.Item label="Nam" value="SOUTHERN"labelStyle={{fontSize:15}} />
+      <RadioButton.Item  label="Nam" value="SOUTHERN"labelStyle={{fontSize:15}} />
     </RadioButton.Group>
                       </View>
                         
