@@ -124,7 +124,8 @@ const RecordingScreen = ({ route }: any) => {
                 // console.log("The file saved to ", res.path())
                     console.log("The file saved to ", res.path());
                     filePath = res.path();
-                    SoundPlayer.playUrl('file://' + filePath);
+                    SoundPlayer.loadUrl('file://' + filePath);
+                    SoundPlayer.play();
             })
     }
 
@@ -177,9 +178,12 @@ const RecordingScreen = ({ route }: any) => {
     return (
 
         <Container style={{ flex: 1, backgroundColor: 'white'}}  >
-            <HeaderWithBack title={route?.params?.data?.name} rightIconShow={false} />
+            <HeaderWithBack 
+                title={route?.params?.data?.name} 
+                outerStyle={{backgroundColor:colors.title_blue}} 
+                rightIconShow={false} />
             
-                <View style={{width:sizeWidth(90), height:sizeHeight(90), alignSelf:'center', alignItems: 'center'}}>
+                <View style={{width:sizeWidth(90), height:sizeHeight(90), alignSelf:'center', alignItems: 'center', paddingTop: 15}}>
                     <FlatList
                         data={data}
                         keyExtractor={(_, index) => index.toString()}
@@ -190,20 +194,22 @@ const RecordingScreen = ({ route }: any) => {
                             <TouchableOpacity key={index} activeOpacity={0.7} onPress={() => { addImage(item, index) }}>
                                 <View 
                                     style={{ 
-                                        width: sizeWidth(40), 
+                                        width: sizeWidth(35), 
                                         marginVertical:15, 
-                                        height:180,
+                                        height:160,
                                         borderRadius:10,
-                                        marginHorizontal:5, 
+                                        marginHorizontal:15, 
                                         alignSelf: 'center', 
                                         marginTop: 10,                 
                                         backgroundColor:'#99C8E4',
+                                        alignItems: 'center'
                                     }}>
                                     <Image 
                                         style={{
                                             resizeMode: 'stretch',
-                                            height: sizeHeight(17), width: sizeWidth(39),
+                                            height: sizeHeight(15), width: sizeWidth(35),
                                             borderRadius: sizeWidth(3),
+                                            justifyContent: 'center'
                                         }}
                                         source={{
                                         uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
@@ -211,7 +217,7 @@ const RecordingScreen = ({ route }: any) => {
                                         headers: {Authorization: store.getState().authReducer.user.accessToken}
                                         }}
                                     />
-                                    <Text style={{ marginTop: 4, fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'#2D5672'}}>{item.word}</Text>
+                                    <Text style={{ marginTop: 3, fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'#2D5672'}}>{item.word}</Text>
                                 </View>
                             </TouchableOpacity>
                         )}
@@ -221,13 +227,12 @@ const RecordingScreen = ({ route }: any) => {
                 <Modal
                     visible={visible}
                     style={{
-                        backgroundColor: '#E19469',
+                        backgroundColor: '#FFD19A',
                         borderRadius: 15,
                         height: 450,
                         marginTop: sizeHeight(15),
                         width:'90%',
-                        marginHorizontal:20,
-                        borderWidth:1
+                        marginHorizontal:20
                     }}
                     onDismiss={() => {
                         setShow(false)

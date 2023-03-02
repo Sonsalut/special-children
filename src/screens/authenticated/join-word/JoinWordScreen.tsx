@@ -161,7 +161,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
 
     return (
         
-        <Container style={{backgroundColor: 'white'}}>
+        <Container isBottomTab={false} style={{backgroundColor: 'white'}}>
             {/* <Text style={{color: '#2D5672', alignSelf: 'center', paddingTop:15, fontSize: 20}}>Bảng ghép từ</Text> */}
 {/* Word join board */}
             <View style={{ 
