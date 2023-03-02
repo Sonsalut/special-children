@@ -13,6 +13,7 @@ import { Modal, RadioButton } from 'react-native-paper';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import ResponseCode from 'network/ResponseCode';
 import { useToast } from 'hooks/useToast';
+import ToastCustom from 'components/toast/ToastCustom';
 const MessageScreen = ({}: StackNavigationProps<
   Routes,
   AuthenticatedScreens.MessageScreen
@@ -59,14 +60,15 @@ const PostVoiceInfor= async(gender, region)=>{
   })
   if(response.status === ResponseCode.SUCCESS)
   {
-   showToast('Thay đổi thành công','success')
+   showToast("Thay đổi thành công","success")
+   
    setVisible(!visible)
   setShow(!show);
 
   }
   else
   {
-    showToast("ERROR",'warning ')
+    showToast("ERROR","danger")
   }
 }
 React.useEffect(() => {

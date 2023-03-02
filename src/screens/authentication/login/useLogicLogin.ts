@@ -1,3 +1,4 @@
+
 import ResponseCode from 'network/ResponseCode';
 import React from "react";
 import AuthenticationApi from 'network/subs/auth/AuthApi';
@@ -10,6 +11,9 @@ import authSlice from 'redux/slice/authSlice';
 import { store } from 'redux/store';
 import TouchID from 'react-native-touch-id';
 import { Alert } from 'react-native';
+import { SuccessToast } from 'react-native-toast-message';
+import ToastCustom from 'components/toast/ToastCustom';
+import { options } from '@react-native-community/cli-platform-android/build/commands/buildAndroid';
 
 const useLogicLogin = () => {
     const dispatch = useDispatch();
@@ -55,10 +59,14 @@ const useLogicLogin = () => {
         );
 
         NavigationService.reset(MainScreens.AuthenticatedNavigator);
-        showToast('Đăng nhập thành công!', 'success');
+        showToast('Đăng nhập thành công!', 'success' );
+        
+      
+
        }
        else {
         showToast('Tài khoản hoặc mật khẩu không chính xác!', 'warning');
+        
        }
     }
     const onNavigateRegister =  () => {

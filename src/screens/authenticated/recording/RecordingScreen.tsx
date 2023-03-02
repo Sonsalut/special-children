@@ -177,12 +177,13 @@ const RecordingScreen = ({ route }: any) => {
     return (
 
         <Container style={{ flex: 1, backgroundColor: 'white'}}  >
-            <HeaderWithBack title={route?.params?.data?.name}  />
+            <HeaderWithBack title={route?.params?.data?.name} rightIconShow={false} />
             
                 <View style={{width:sizeWidth(90), height:sizeHeight(90), alignSelf:'center', alignItems: 'center'}}>
                     <FlatList
                         data={data}
                         keyExtractor={(_, index) => index.toString()}
+                        showsVerticalScrollIndicator={false}
                         numColumns={2}
                         renderItem={({ item, index }) => (
                         

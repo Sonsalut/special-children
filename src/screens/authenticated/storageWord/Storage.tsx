@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { filterStorage, isClicked, setCategory, setStorage, showPersonStore, updateStorage } from 'redux/storageWord/action';
 import NavigationService from 'routers/NavigationService';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import colors from 'res/colors';
 const Storage = ({ }: StackNavigationProps<
   Routes,
   AuthenticatedScreens.StorageWord

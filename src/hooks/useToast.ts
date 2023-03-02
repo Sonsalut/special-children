@@ -10,6 +10,7 @@ const useToast = () => {
     msg?: string,
     type?: 'normal' | 'success' | 'warning' | 'danger' | 'info' | '',
     onPress?: () => void,
+    
     options?: ToastOptions
   ) => {
     toast.show(msg ?? '', {
@@ -18,6 +19,7 @@ const useToast = () => {
       },
       onPress: onPress,
       duration: 3000,
+      
       ...options
     })
   }
