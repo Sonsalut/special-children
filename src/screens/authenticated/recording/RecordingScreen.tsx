@@ -13,7 +13,7 @@ import * as ImagePicker from 'react-native-image-picker';
 import { TextInput } from 'react-native-gesture-handler';
 import strings from 'res/strings';
 import get from 'network/subs/auth/AuthApi';
-import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
+import RecordingAPI, { AuthApis } from 'network/subs/auth/recording/RecordingAPI';
 import { RecordingResponse } from 'network/subs/auth/recording/RecordingResponse';
 import ResponseCode from 'network/ResponseCode';
 import { store } from 'redux/store';
@@ -25,11 +25,13 @@ import { GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
 import { delay } from '@reduxjs/toolkit/dist/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { setStorage } from 'redux/storageWord/action';
+import RNFetchBlob from 'rn-fetch-blob';
+
 const RecordingScreen = ({ route }: any) => {
     const MAX_IMAGE_WIDTH = 480;
     const MAX_IMAGE_HEIGHT = 480;
     const IMAGE_QUALITY = 60;
-    const cancel= require('.././../../../src/assets/images/goback.png')
+    const cancel = require('.././../../../src/assets/images/goback.png')
     const [image, setImage] = React.useState("");
     const [show, setShow] = React.useState(false);
     const [content, setContent] = React.useState("");
@@ -72,71 +74,70 @@ const RecordingScreen = ({ route }: any) => {
     //       console.log('cannot play the song file', e)
     //     }
     //   }
-   
+
     React.useEffect(() => {
         loadData();
-       
+
         // loadImage();
     }, [])
 
-const handle=()=>{
-    setShow(!show)
-    setVisible(!visible)
-}
-const dispatch= useDispatch()
+    const handle = () => {
+        setShow(!show)
+        setVisible(!visible)
+    }
+    const dispatch = useDispatch()
     const loadData = async () => {
-        const response: any = await RecordingAPI.GetWordByCateID< GetWordByCateID>({
+        const response: any = await RecordingAPI.GetWordByCateID<GetWordByCateID>({
             pageIndex: 1,
             pageSize: 20,
             word: '',
             categoryId: route?.params?.data?.id,
-            isActive:true
+            isActive: true
         });
         if (response.status === ResponseCode.SUCCESS) {
-          
+
             console.log(response.data)
             setData(response.data?.words)
-            // dispatch(setStorage(response.data?.words))           
+            // dispatch(setStorage(response.data?.words))
+
+
         }
         else {
             console.log('that bai')
         }
     }
-   
- 
+//    const [isExist, setisExist] = useState(false)
     const playSound = async (audioWord: any) => {
-        let url = `https://bit.ly/3Y6Glzr`
-        const a = SoundPlayer.addEventListener('FinishedLoadingURL',({success})=>console.log(success))
-        if(a) {
-            SoundPlayer.playUrl(url)
-        }
-        
-        // try {
-  
-        //     SoundPlayer.loadUrl(url)
-        //     SoundPlayer.play()     
-  
-        // } catch (e) {
-        //     //showToast
-        //     console.log(`cannot play the sound file`, e)
-            
-        // }
-        // SoundPlayer.addEventListener('FinishedLoadingURL',({ success })=>(
-        //     SoundPlayer.playUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${audioWord}`))
-        //         console.log(success)
-        // )  
+        let filePath = '';
+        let url = AuthApis.GetVoice+`${audioWord}`
+        RNFetchBlob.config({
+            fileCache: true,
+            // appendExt: 'mp3',
+        })
+        .fetch("GET", url, {
+            Authorization: store.getState().authReducer.user.accessToken,
+            'Accept': '*/*',
+            'Content-Type': 'application/octet-stream'
+        })
+            .then((res) => {
+                console.log(res);
+                // console.log("The file saved to ", res.path())
+                    console.log("The file saved to ", res.path());
+                    filePath = res.path();
+                    SoundPlayer.playUrl('file://' + filePath);
+            })
     }
 
-    const loadImage = async () => {
-        const response = await RecordingAPI.GetImageByID<any>({ id: 4 })
-        if (response.status === ResponseCode.SUCCESS) {
-            setImgBase64(response.data);
-            console.log()
-        }
-        else {
-            console.log('that bai')
-        }
-    }
+    // const loadImage = async () => {
+    //     const response = await RecordingAPI.GetImageByID<any>({ id: 4 })
+    //     if (response.status === ResponseCode.SUCCESS) {
+    //         setImgBase64(response.data);
+    //         console.log()
+    //     }
+    //     else {
+    //         console.log('that bai')
+    //     }
+    // }
 
     const takePhoto = async () => {
         ImagePicker.launchCamera(CAMERA_OPTION, (response) => {
@@ -171,7 +172,7 @@ const dispatch= useDispatch()
         setIndex(index)
     }
 
-const [index, setIndex] = React.useState(0)
+    const [index, setIndex] = React.useState(0)
 
     return (
 
@@ -257,55 +258,55 @@ const [index, setIndex] = React.useState(0)
 
                                 />
                             </TouchableOpacity>
-                            <Text style={{ alignSelf: 'center', color: 'black', fontSize: fontSize(7), marginTop: sizeHeight(5), fontWeight: 'bold' }}>{item?.word}</Text> */}                   
-                            <Swiper showsButtons={false} index={index}>
-                                {
-                                    data.map((item, index) => (
-                                        <View key={index} >
-                                            <View 
-                                                style={{
-                                                    width:'93%', 
-                                                    marginBottom:20, 
-                                                    paddingHorizontal:10,
-                                                    paddingTop: 6, 
-                                                    height:'15%', 
-                                                    flexDirection:'row', 
-                                                    justifyContent:'space-between',
-                                                    alignSelf: 'center'
-                                                    }}>                            
-                                                <TouchableOpacity  onPress={handle}>
-                                                    <Image resizeMode='contain' source={cancel} style={{width:sizeWidth(5), height:sizeHeight(5)}}/>
-                                                </TouchableOpacity>
-                                                <Text style={{ fontSize: 30, flexDirection:'row', color: colors.white, justifyContent: 'center', paddingTop:3}}>{item?.word}</Text>
-                                            </View>
-                                            <View style={{alignItems:'center'}}>
-                                                <TouchableOpacity onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
-                                                    <Image style={{
-                                                        resizeMode: 'contain',
-                                                        height: sizeHeight(60), width: sizeWidth(60),
-                                                        alignSelf: 'center',
-                                                        borderRadius: sizeWidth(14),
-                                                        maxHeight:300,
-                                                        paddingBottom: 30,
-                                                        }}
-                                                        source={{
-                                                            uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
-                                                            method: 'GET',
-                                                            headers: {
-                                                                Authorization: store.getState().authReducer.user.accessToken
-                                                            }
-                                                        }}
-                                                    />
-                                                </TouchableOpacity>
-                                            </View>
+                            <Text style={{ alignSelf: 'center', color: 'black', fontSize: fontSize(7), marginTop: sizeHeight(5), fontWeight: 'bold' }}>{item?.word}</Text> */}
+                        <Swiper showsButtons={false} index={index}>
+                            {
+                                data.map((item, index) => (
+                                    <View key={index} >
+                                        <View
+                                            style={{
+                                                width: '93%',
+                                                marginBottom: 20,
+                                                paddingHorizontal: 10,
+                                                paddingTop: 6,
+                                                height: '15%',
+                                                flexDirection: 'row',
+                                                justifyContent: 'space-between',
+                                                alignSelf: 'center'
+                                            }}>
+                                            <TouchableOpacity onPress={handle}>
+                                                <Image resizeMode='contain' source={cancel} style={{ width: sizeWidth(5), height: sizeHeight(5) }} />
+                                            </TouchableOpacity>
+                                            <Text style={{ fontSize: 30, flexDirection: 'row', color: colors.white, justifyContent: 'center', paddingTop: 3 }}>{item?.word}</Text>
                                         </View>
-                                    ))
-                                }
-                            </Swiper>
-                        </View>
+                                        <View style={{ alignItems: 'center' }}>
+                                            <TouchableOpacity onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
+                                                <Image style={{
+                                                    resizeMode: 'contain',
+                                                    height: sizeHeight(60), width: sizeWidth(60),
+                                                    alignSelf: 'center',
+                                                    borderRadius: sizeWidth(14),
+                                                    maxHeight: 300,
+                                                    paddingBottom: 30,
+                                                }}
+                                                    source={{
+                                                        uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                                                        method: 'GET',
+                                                        headers: {
+                                                            Authorization: store.getState().authReducer.user.accessToken
+                                                        }
+                                                    }}
+                                                />
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                ))
+                            }
+                        </Swiper>
                     </View>
-                </Modal>
-            
+                </View>
+            </Modal>
+
         </Container>
     );
 };

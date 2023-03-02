@@ -11,12 +11,13 @@ import { Button } from 'react-native-paper';
 import SoundPlayer from 'react-native-sound-player';
 import Sound from 'react-native-sound';
 import ResponseCode from 'network/ResponseCode';
-import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
+import RecordingAPI, { AuthApis } from 'network/subs/auth/recording/RecordingAPI';
 import { RecordingResponse } from 'network/subs/auth/recording/RecordingResponse';
 import { store } from 'redux/store';
 import { useSelector } from 'react-redux';
 import { GetStorageWord, GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
 import { useIsFocused } from '@react-navigation/native';
+import RNFetchBlob from 'rn-fetch-blob';
 
 const JoinWordScreen = ({ }: StackNavigationProps<
     Routes,
@@ -36,7 +37,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
     const [words, setWords] = React.useState([])
 
     const addWord = (item: any, index: any) => {
-        console.log(item?.pictureFiledId)
+        // console.log(item?.pictureFiledId)
         if (words.length < 5) {
             setWords([...words, { ...item }])
             let temp = data.filter(value => value.word != item?.word)
@@ -47,6 +48,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
             else {
                 setID(item?.audioWord)
             }
+            console.log(data)
 
         }
         else {
@@ -71,26 +73,59 @@ const JoinWordScreen = ({ }: StackNavigationProps<
     React.useEffect(() => {
      
      getStorageWords()
-    
+    if(words.length>0)
+    {
+        setWords([])
+        
+    }
+    // if(stop==true)
+    // {
+    //     setStop(true)
+    // }
       }, [isFocused])
 
+    const playSimpleSound=(id)=>{
+        let filePath = '';
+        let url = AuthApis.GetVoice+`${id}`
+        RNFetchBlob.config({
+            fileCache: true,
+            // appendExt: 'mp3',
+        })
+        .fetch("GET", url, {
+            Authorization: store.getState().authReducer.user.accessToken,
+            'Accept': '*/*',
+            'Content-Type': 'application/octet-stream'
+        })
+            .then((res) => {
+                console.log(res);
+                // console.log("The file saved to ", res.path())
+                    console.log("The file saved to ", res.path());
+                    filePath = res.path();
+                    SoundPlayer.playUrl('file://' + filePath);
+            })
+    }
     const playSound = () => {
         console.log(id)
+        let count=0
         if (id) {
             if (!stop) {
                 setStop(true)
                 try {
                     // or play from url
-                    SoundPlayer.loadUrl(`https://ais-schildren-test-api.aisolutions.com.vn/ext/files/audio-stream/by-word?words=${id}`)
-                    SoundPlayer.play()
+                    playSimpleSound(id)
+                   
                 } catch (e) {
                     console.log(`cannot play the sound file`, e)
                 }
+     
+
             } else {
-                setStop(false)
-                SoundPlayer.stop()
+                // setStop(false)
+                // SoundPlayer.stop()
             }
+            
         }
+        setStop(!stop)
     }
 
     // const loadData = async () => {
