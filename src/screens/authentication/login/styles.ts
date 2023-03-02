@@ -22,12 +22,13 @@ export default StyleSheet.create({
   form: {
     top: ratioW(-20),
     width: ratioW(375),
-    paddingHorizontal: ratioW(22),
+    paddingHorizontal: ratioW(32),
     paddingVertical: ratioW(18),
     // backgroundColor: colors.white_gray,
     borderTopRightRadius: ratioW(20),
     borderTopLeftRadius: ratioW(20),
-    paddingBottom: 120
+    paddingBottom: 120,
+    // borderWidth: 1
   },
   viewTextInput: {
     marginBottom: ratioW(18),

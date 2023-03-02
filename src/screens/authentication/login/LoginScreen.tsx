@@ -28,10 +28,10 @@ const LoginScreen = ({ }: StackNavigationProps<
         source={require('../../../assets/images/Home-bgr.png')} 
         style={styles.background}>
         <KeyboardAwareScrollView contentContainerStyle={styles.container}>      
-          <View style={{width: '100%', height: 400, flexDirection: 'column',justifyContent: 'flex-end' ,alignItems: 'center', borderWidth: 1}}>
+          <View style={{width: '110%', height: 300, alignItems: 'center'}}>
             <Image
              source={require('../../../assets/images/AIS-Learning.png')}
-             style={{height: 400, width: '90%', alignSelf: 'center',borderWidth:1,justifyContent: 'flex-end', paddingTop: 20}}
+             style={{height: 600, width: '100%', marginTop: -30}}
             />
           </View>
             <View style={styles.form}>
@@ -39,6 +39,7 @@ const LoginScreen = ({ }: StackNavigationProps<
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
+                  
                     iconLeftStyle={{ marginLeft: sizeWidth(5) }}
                     onBlur={onBlur}
                     onChangeText={value => onChange(value)}

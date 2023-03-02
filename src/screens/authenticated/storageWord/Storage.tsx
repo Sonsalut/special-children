@@ -192,40 +192,27 @@ const Storage = ({ }: StackNavigationProps<
     <Container style={{backgroundColor: 'white'}}>
       <HeaderWithBack 
         outerStyle={{
-          backgroundColor:colors.title_blue, 
-          borderWidth: 1}} 
+          backgroundColor:colors.title_blue}} 
         title={'Kho từ'} handle={doneHandle} hasDone={hasDone}
         titleStyle={{
           color: colors.text_blue
         }}
       />
-      <View style={{ marginLeft: 10, marginTop: 10, height: sizeHeight(90), width: sizeWidth(95), borderWidth:1, alignItems: 'center' }}>
 
+{/* Word list container */}
+      <View style={{ marginLeft: 10, marginTop: 10, height: sizeHeight(90), width: sizeWidth(95), alignItems: 'center' }}>
         <FlatList
           data={category}
           renderItem={({ item, index }) => (
             <View key={index} >
 
-              <View key={index + 1} style={{ width: sizeWidth(20), borderRadius: 10, height: sizeHeight(12), borderWidth: 1, marginTop: 10, marginHorizontal: 5, alignSelf: 'center'}}>
-                <Image style={{
-                  resizeMode: 'stretch',
-                  height: sizeHeight(8), width: sizeWidth(18),
-                  alignSelf: 'center',
-                  borderRadius: 9
-                }}
-                  source={{
-                    uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=small`,
-                    method: 'GET',
-                    headers: {
-                      Authorization: store.getState().authReducer.user.accessToken
-                    }
-                  }}
-                />
+              <View key={index + 1} style={{ width: sizeWidth(20),borderRadius: 10, marginVertical: 5, marginBottom: -3, marginTop: 8, alignSelf: 'center'}}>
+                
 
-                <Text style={{ fontSize: 15, color: 'black', fontWeight: "400", alignSelf: "center" }}>{item?.name}</Text>
+                <Text style={{ fontSize: 18, color: '#E36A51', fontWeight: 'bold', alignSelf: "center" }}>{item?.name}</Text>
               </View>
 
-              <View key={index + 2} style={{ flexDirection: 'row', marginTop: 10, height: sizeHeight(15) }}>
+              <View key={index + 2} style={{ flexDirection: 'row', marginTop: 5, height: sizeHeight(15)}}>
 
                 <FlatList
 
@@ -237,7 +224,7 @@ const Storage = ({ }: StackNavigationProps<
                     <View style={{ flexDirection: 'row', width: sizeWidth(30), height: sizeHeight(15) }}>
 
 
-                      <View style={{ alignSelf: 'center', width: sizeWidth(23), marginHorizontal: 5, borderRadius: 10, paddingTop: 5, height: sizeHeight(15), borderWidth: 1 }}>
+                      <View style={{backgroundColor: '#99C8E4',alignSelf: 'center', width: sizeWidth(23), marginHorizontal: 5, borderRadius: 10, paddingTop: 0, height: sizeHeight(14)}}>
                         <Image style={{
                           resizeMode: 'stretch',
                           height: sizeHeight(10), width: sizeWidth(18),
@@ -253,7 +240,7 @@ const Storage = ({ }: StackNavigationProps<
                           }}
 
                         />
-                        <Text style={{ fontSize: 15, color: 'black', fontWeight: "400", alignSelf: "center" }}>{item?.word}</Text>
+                        <Text style={{ fontSize: 15, color: '#2D5672', fontWeight: 'bold', alignSelf: "center", marginTop: '10%'}}>{item?.word}</Text>
                       </View>
 
                       {

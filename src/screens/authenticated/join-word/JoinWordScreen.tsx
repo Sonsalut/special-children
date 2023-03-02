@@ -127,7 +127,20 @@ const JoinWordScreen = ({ }: StackNavigationProps<
     return (
         
         <Container style={{backgroundColor: 'white'}}>
-            <View style={{ borderWidth: 1, height: sizeHeight(20), justifyContent: 'center' }}>
+            {/* <Text style={{color: '#2D5672', alignSelf: 'center', paddingTop:15, fontSize: 20}}>Bảng ghép từ</Text> */}
+{/* Word join board */}
+            <View style={{ 
+                borderRadius:10, 
+                width: '90%', 
+                height: sizeHeight(35), 
+                justifyContent: 'center', 
+                alignSelf:'center', 
+                marginTop: 20, 
+                backgroundColor: '#E7F6FF',
+                padding: 7
+                }}>
+
+{/* Word added to board */}
                 <FlatList
                     data={words}
                     keyExtractor={(_, index) => index.toString()}
@@ -138,13 +151,15 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                             <TouchableOpacity activeOpacity={0.7} onPress={() => { deleteWord(item) }}>
                                 <View style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
                                     <View style={{
-                                        backgroundColor: item?.name === 'add' ? '#9BA8B5' : '#8ab643',
+                                        backgroundColor: item?.name === 'add' ? '#9BA8B5' : '#FFD19A',
                                         borderRadius: sizeWidth(3), justifyContent: 'center',
                                         alignItems: 'center'
                                     }}>
                                         <Image style={{
-                                            height: sizeHeight(6), width: sizeWidth(14),
-                                            borderRadius: sizeWidth(3)
+                                            height: sizeHeight(11), width: sizeWidth(23),
+                                            borderRadius: sizeWidth(3),
+                                            marginBottom: -10,
+                                            marginTop:10
                                         }}
                                             source={{
                                                 uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
@@ -154,7 +169,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                                                 }
                                             }}
                                         />
-                                        {item?.name !== 'add' && <Text style={{ color: 'white', fontWeight: '600', marginTop: sizeHeight(0.3), marginBottom: 5, fontSize: fontSize(2.5) }}
+                                        {item?.name !== 'add' && <Text style={{ color: '#2D5672', fontWeight: '600', marginBottom: 5, fontSize: fontSize(4) }}
                                         >{item.word}</Text>}
                                     </View>
                                 </View>
@@ -165,27 +180,41 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                     
                 />
             </View>
-            <View style={{borderWidth:1, width:'100%',bottom:80}}></View>
 
+{/* Line between 2 rows of words */}
+            <View 
+                style={{
+                    borderWidth:1, 
+                    width:'80%',
+                    bottom:165, 
+                    borderColor: '#87C2E4', 
+                    alignSelf: 'center', 
+                    marginTop: 10}}>
+            </View>
+
+
+{/* Reserve word list */}
             <FlatList
                 data={data}
                 keyExtractor={(_, index) => index.toString()}
                 numColumns={3}
-                contentContainerStyle={{ alignItems: 'flex-start' }}
+                contentContainerStyle={{ alignItems: 'flex-start', width: '95%', alignSelf: 'center', justifyContent: 'space-around'}}
                 renderItem={({ item, index }) => {
                     return (
-                        <View style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
+                        <View style={{ paddingVertical: 5, marginHorizontal: 12}}>
                             <TouchableOpacity activeOpacity={0.7}
                                 onPress={() => {
                                     addWord(item, index)
                                 }}>
                                 <View style={{
-                                    backgroundColor: item?.name === 'add' ? '#9BA8B5' : '#4AD4FF',
-                                    borderRadius: sizeWidth(3), justifyContent: 'center',
-                                    alignItems: 'center'
+                                    backgroundColor: item?.name === 'add' ? '#9BA8B5' : '#99C8E4',
+                                    borderRadius: sizeWidth(3),
+                                    justifyContent: 'space-evenly',
+                                    alignItems: 'center',
+                                    
                                 }}>
                                     <Image style={{
-                                        height: sizeHeight(12), width: sizeWidth(28),
+                                        height: sizeHeight(12), width: sizeWidth(25),
                                         borderRadius: sizeWidth(3)
                                     }}
                                     source={{
@@ -204,17 +233,20 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                     )
                 }}
             />
+
+{/* Generate voice button */}
             <TouchableOpacity style={{
-                backgroundColor: 'orange',
+                backgroundColor: '#FFD19A',
                 position: 'absolute',
                 bottom: sizeWidth(20),
                 right: sizeWidth(10),
-                borderRadius: sizeWidth(10)
+                borderRadius: sizeWidth(10),
+                shadowColor: 'grey'
             }} isDoubleTap={true}
                 activeOpacity={0.7}
                 onPress={playSound}
             >
-                <Text style={{ paddingVertical: sizeWidth(5), paddingHorizontal: sizeWidth(5), color: 'white' }}>{stop ? 'Dừng' : 'Phát'}</Text>
+                <Text style={{ paddingVertical: sizeWidth(5), paddingHorizontal: sizeWidth(5), color: '#2D5672' }}>{stop ? 'Dừng' : 'Phát'}</Text>
             </TouchableOpacity>
             
         </Container>
