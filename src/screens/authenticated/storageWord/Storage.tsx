@@ -20,7 +20,7 @@ import { Value } from 'react-native-reanimated';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterStorage, isClicked, setCategory, setStorage, showPersonStore, updateStorage } from 'redux/storageWord/action';
 import NavigationService from 'routers/NavigationService';
-import { useIsFocused } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 const Storage = ({ }: StackNavigationProps<
   Routes,
   AuthenticatedScreens.StorageWord
@@ -57,13 +57,10 @@ const Storage = ({ }: StackNavigationProps<
     if (response.status === ResponseCode.SUCCESS) {
       // console.log(response.data)
       setPersonDataFromApi(response.data)
-      console.log(personDataFromAPi)
+      isExits(fullStore, response.data)
       // dispatch(showPersonStore(response.data))
-
-
-
-
     }
+    
 
   }
   const addWordToStorage = async (id: any) => {
@@ -99,6 +96,7 @@ const Storage = ({ }: StackNavigationProps<
 
   const dispatch = useDispatch()
   const loadData = async (id: any) => {
+    //Load word
     const response: any = await RecordingAPI.GetWordByCateID<GetWordByCateID>({
       pageIndex: 1,
       pageSize: 20,
@@ -114,6 +112,20 @@ const Storage = ({ }: StackNavigationProps<
     else {
       console.log('that bai')
     }
+    //get personalword
+    const responses = await RecordingAPI.GetStorageWord<GetStorageWord>({
+      data: []
+
+    })
+    if (responses.status === ResponseCode.SUCCESS) {
+      // console.log(response.data)
+      setPersonDataFromApi(responses.data)
+      //check nếu word đã đc thêm vào personStorage
+      isExits(response.data?.words, responses.data)
+      // dispatch(showPersonStore(response.data))
+    }
+
+
   }
   const firstHandle = async () => {
 
@@ -124,15 +136,16 @@ const Storage = ({ }: StackNavigationProps<
 
   const isFocused = useIsFocused();
 
-
+ 
   React.useEffect(() => {
 
-    getStorageWords()
+    // getStorageWords()
     getCategory()
-    isExits(fullStore, personDataFromAPi)
 
+    // isExits(fullStore, personDataFromAPi)
 
   }, [])
+  
 
   const [hasDone, setHasDone] = React.useState(false)
 
@@ -151,6 +164,7 @@ const Storage = ({ }: StackNavigationProps<
 
   }
   const doneHandle = async () => {
+
     setHasDone(!hasDone)
   }
   const filterDatas = (item) => (

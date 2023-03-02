@@ -1,3 +1,5 @@
+// import { ResponseCode } from 'network/ResponseCode';
+import ResponseCode from './ResponseCode';
 /**
  * helper.js - for storing reusable logic.
  */
@@ -9,7 +11,7 @@ import { Constants } from 'common/Constants';
 
 import strings from 'res/strings';
 import { BaseResponse } from './BaseResponse';
-import ResponseCode from './ResponseCode';
+
 import { hideLoading, showLoading } from 'components';
 import authSlice from 'redux/slice/authSlice';
 import axios from 'axios';
@@ -36,6 +38,9 @@ interface RequestConfig {
   isShowLoading?: boolean;
   ignoreURLBase?: boolean;
   ignoreHandleCommonError?: boolean;
+  contentType?: string;
+  accept?: string;
+  sound?:boolean
 }
 
 const TIMEOUT = 30 * 1000; // 30 seconds
@@ -76,6 +81,8 @@ class ApiClient {
    * Main method used to fetch data from service
    * @param method
    * @param url
+   * @param contentType
+   * 
    * @param params
    * @param options
    * @param isShowLoading
@@ -89,6 +96,9 @@ class ApiClient {
   async request<T>({
     method,
     url,
+    accept,
+    sound,
+    contentType,
     options,
     params,
     isShowLoading = true,
@@ -163,7 +173,8 @@ class ApiClient {
       headers: {
         'Accept': 'Application/json',
         'Content-Type': 'Application/json',
-      },
+      }
+      ,
       ...options
     });
     return Promise.race([
@@ -186,7 +197,7 @@ class ApiClient {
         return response;
       })
       .catch(error => {
-        console.log('vanhvERR', error);
+
         console.log(error?.response?.data)
         console.log('apierror ', options?.url);
         const response: BaseResponse<T> = {

@@ -23,6 +23,15 @@ export type GetStorageWord = {
    
     data: any
 };
+export type VoiceInfor = {
+   
+    voiceGender: String,
+  voiceLocation: String
+};
+export type GetVoice = {
+   
+    audioWord: String
+};
 
 // export type ForgotPassword = {
 //     username: string;
