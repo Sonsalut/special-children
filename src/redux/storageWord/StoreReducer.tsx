@@ -8,7 +8,8 @@ const initialState = {
    category:[
        
    ],
-  personalStore:[]
+  personalStore:[],
+  personalStorefromApi:[]
     
     
 }
@@ -35,8 +36,6 @@ export default  ( state= initialState, action)=>
         return{
             ...state,
             personalStore: state.fullStore.filter(item=>item?.isActive===false)
-            
-
 
         }
         case'CLICKED_WORD':
@@ -54,9 +53,12 @@ export default  ( state= initialState, action)=>
             return item
         }),
        
-
         }
-       
+        case 'GET_PERSONAL_STORE_FROM_API':
+            return{
+                ...state,
+                personalStorefromApi:action.payload
+            }
         
             default:
                 return state;

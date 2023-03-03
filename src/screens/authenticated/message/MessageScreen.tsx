@@ -113,7 +113,7 @@ const cofirmHandleLogOut =()=>{
             source={require('../../../assets/images/fingerprint.png')}
             style={{ width: 25, height: 25}}
           />
-          <Text style={{paddingLeft: 10, paddingTop: 2, fontSize: 18, color:'colors.text_blue'}}>Đăng nhập bằng vân tay</Text>
+          <Text style={{paddingLeft: 10, paddingTop: 2, fontSize: 18, color:'black'}}>Đăng nhập bằng vân tay</Text>
           <Switch
             value={isSwitchOn}
             onValueChange={onToggleSwitch}
@@ -130,7 +130,7 @@ const cofirmHandleLogOut =()=>{
               source={require('../../../assets/images/voice.png')}
               style={{ width: 25, height: 25}}
             />
-            <Text style={{paddingLeft: 10, paddingTop: 2, fontSize: 18, color: 'colors.text_blue'}}>Giọng đọc</Text>
+            <Text style={{paddingLeft: 10, paddingTop: 2, fontSize: 18, color: 'black'}}>Giọng đọc</Text>
           </TouchableOpacity>
         </View>
 

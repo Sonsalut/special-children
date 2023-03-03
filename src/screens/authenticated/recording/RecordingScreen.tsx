@@ -106,27 +106,58 @@ const RecordingScreen = ({ route }: any) => {
             console.log('that bai')
         }
     }
-//    const [isExist, setisExist] = useState(false)
-    const playSound = async (audioWord: any) => {
-        let filePath = '';
+   const [isExist, setisExist] = React.useState()
+   const [isExists, setisExists] = React.useState('')
+
+    const playSound = (audioWord: any) => {
         let url = AuthApis.GetVoice+`${audioWord}`
-        RNFetchBlob.config({
-            fileCache: true,
-            // appendExt: 'mp3',
-        })
-        .fetch("GET", url, {
-            Authorization: store.getState().authReducer.user.accessToken,
-            'Accept': '*/*',
-            'Content-Type': 'application/octet-stream'
-        })
-            .then((res) => {
-                // console.log(res);
-                // console.log("The file saved to ", res.path())
-                    console.log("The file saved to ", res.path());
-                    filePath = res.path();
-                    SoundPlayer.loadUrl('file://' + filePath);
-                    SoundPlayer.play();
+         let filePath = '';
+       if(audioWord===isExists)
+       {
+        console.log('Audio')
+       }
+            RNFetchBlob.config({
+                fileCache: true,
+                // appendExt: 'mp3',
+               
             })
+            .fetch("GET", url, {
+                Authorization: store.getState().authReducer.user.accessToken,
+                'Accept': '*/*',
+                'Content-Type': 'application/octet-stream'
+            })
+                .then((res) => {
+                    // console.log(res);
+                    // console.log("The file saved to ", res.path())
+                    console.log(res.respInfo)
+                        console.log("The file saved to ", res.path());
+                        filePath = res.path(); 
+                        RNFetchBlob.fs.exists(filePath).then((exists)=>{
+                            SoundPlayer.playUrl('file://' + filePath)
+                        })
+                        .finally(() => {
+        
+                            RNFetchBlob.fs.unlink('file://' + filePath)
+        
+                        })
+
+                })
+               
+                
+        
+                setisExists(audioWord)
+      
+
+            // if(isExist)
+            // {
+            //     RNFetchBlob.fs.unlink('file'+filePath).then((res)=>{
+            //         console.log('tets '+ res)
+            //     })
+            //     setisExist(!isExist)
+                    
+            // }
+           
+
     }
 
     // const loadImage = async () => {
@@ -183,7 +214,7 @@ const RecordingScreen = ({ route }: any) => {
                 outerStyle={{backgroundColor:colors.title_blue}} 
                 rightIconShow={false} />
             
-                <View style={{width:sizeWidth(90), height:sizeHeight(90), alignSelf:'center', alignItems: 'center', paddingTop: 15}}>
+                <View style={{width:sizeWidth(85), height:sizeHeight(90),alignSelf:'center', paddingTop: 15}}>
                     <FlatList
                         data={data}
                         keyExtractor={(_, index) => index.toString()}
@@ -199,7 +230,7 @@ const RecordingScreen = ({ route }: any) => {
                                         height:160,
                                         borderRadius:10,
                                         marginHorizontal:15, 
-                                        alignSelf: 'center', 
+                                        
                                         marginTop: 10,                 
                                         backgroundColor:'#99C8E4',
                                         alignItems: 'center'
@@ -248,23 +279,7 @@ const RecordingScreen = ({ route }: any) => {
                     }}>
                         
                         <View style={{ height:'100%'}}>
-                            {/* <TouchableOpacity onPress={() => playSound(item?.audioFileId)} activeOpacity={0.7}>
-                                <Image style={{
-                                    resizeMode:'cover',
-                                    height: sizeHeight(30), width: sizeWidth(60),
-                                    borderRadius: sizeWidth(3)
-                                }}
-                                    source={{
-                                        uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
-                                        method: 'GET',
-                                        headers: {
-                                            Authorization: store.getState().authReducer.user.accessToken
-                                        }
-                                    }}
-
-                                />
-                            </TouchableOpacity>
-                            <Text style={{ alignSelf: 'center', color: 'black', fontSize: fontSize(7), marginTop: sizeHeight(5), fontWeight: 'bold' }}>{item?.word}</Text> */}
+                           
                         <Swiper showsButtons={false} index={index}>
                             {
                                 data.map((item, index) => (

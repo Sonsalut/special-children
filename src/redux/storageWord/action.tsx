@@ -59,3 +59,13 @@ export const showPersonStore =(data)=>{
     }
 
 }
+
+
+export const getPersonalStoreFromAPi =(data)=>{
+    return{
+
+        type:'SHOW_PERSONAL_STORE',
+        
+    }
+
+}

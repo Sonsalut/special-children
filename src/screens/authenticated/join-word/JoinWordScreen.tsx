@@ -17,6 +17,7 @@ import { store } from 'redux/store';
 import { useSelector } from 'react-redux';
 import { GetStorageWord, GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
 import { useIsFocused } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import RNFetchBlob from 'rn-fetch-blob';
 
 const JoinWordScreen = ({ }: StackNavigationProps<
@@ -28,7 +29,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
     const MAX_IMAGE_WIDTH = 480;
     const MAX_IMAGE_HEIGHT = 480;
     const IMAGE_QUALITY = 60;
-    const [image, setImage] = React.useState("");
+    const [image, setImage] = React.useState([]);
     const [show, setShow] = React.useState(false);
     const [content, setContent] = React.useState("");
     const [id, setID] = React.useState("");
@@ -38,7 +39,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
 
     const addWord = (item: any, index: any) => {
         // console.log(item?.pictureFiledId)
-        if (words.length < 5) {
+        if (words.length <= 5) {
             setWords([...words, { ...item }])
             let temp = data.filter(value => value.word != item?.word)
             setData([...temp])
@@ -46,9 +47,10 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                 setID(id + "," + item?.audioWord)
             }
             else {
-                setID(item?.audioWord)
+                setID(item?.audioWord) 
             }
-            console.log(data)
+           
+            // console.log(data)
 
         }
         else {
@@ -59,11 +61,14 @@ const JoinWordScreen = ({ }: StackNavigationProps<
         let temp = words.filter(value => value.word != item?.word)
         setWords([...temp])
         setData([...data, { ...item }])
-        if (id.length > 1) {
+    
+        if (id.length >= 1) {
             let tempId = id.indexOf(`,${item?.audioWord}`)
             console.log(id.slice(tempId,-1))
             setID(id.slice(tempId,0))
         }
+
+
 
     }
     const personalStorage= useSelector(store=>store.storeReducer.personalStore)
@@ -78,12 +83,9 @@ const JoinWordScreen = ({ }: StackNavigationProps<
         setWords([])
         
     }
-    // if(stop==true)
-    // {
-    //     setStop(true)
-    // }
+   setID('')
       }, [isFocused])
-
+const [isStop, setIsStop]= React.useState('play')
     const playSimpleSound=(id)=>{
         let filePath = '';
         let url = AuthApis.GetVoice+`${id}`
@@ -104,12 +106,19 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                     SoundPlayer.playUrl('file://' + filePath);
             })
     }
+   
     const playSound = () => {
-        console.log(id)
-        let count=0
+      if(id==='')
+      {
+        showToast('Hãy cho từ vào khu ghép từ','warning')
+        setStop(false)
+      }
+   console.log(id) 
         if (id) {
             if (!stop) {
                 setStop(true)
+    
+
                 try {
                     // or play from url
                     playSimpleSound(id)
@@ -117,20 +126,29 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                 } catch (e) {
                     console.log(`cannot play the sound file`, e)
                 }
-     
+              
 
             } else {
-                // setStop(false)
-                // SoundPlayer.stop()
+                setStop(false)
+                SoundPlayer.stop()
             }
             
         }
-        setStop(!stop)
+        // setStop(!stop)
+        SoundPlayer.addEventListener('FinishedPlaying',((res)=>{
+             
+            if(res)
+            {
+                setStop(false)
+
+            }
+        }))
+
     }
 
     // const loadData = async () => {
     //     const response: any = await RecordingAPI.GetWordByCateID< GetWordByCateID>({
-    //         pageIndex: 1,
+    //         pageIndex: 1,                                                                                                                                                                                                                                                                                                                                  
     //         pageSize: 1,
     //         word: '',
         
@@ -152,7 +170,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
         
         })
         if (response.status === ResponseCode.SUCCESS) {
-            console.log(response.data)
+            // console.log(response.data)
             setData(response.data)
         
           }
@@ -162,7 +180,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
     return (
         
         <Container isBottomTab={false} style={{backgroundColor: 'white'}}>
-            {/* <Text style={{color: '#2D5672', alignSelf: 'center', paddingTop:15, fontSize: 20}}>Bảng ghép từ</Text> */}
+            
 {/* Word join board */}
             <View style={{ 
                 borderRadius:10, 
@@ -183,7 +201,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                     contentContainerStyle={{ alignItems: 'flex-start' }}
                     renderItem={({ item, index }) => {
                         return (
-                            <TouchableOpacity activeOpacity={0.7} onPress={() => { deleteWord(item) }}>
+                            <TouchableOpacity  onPress={() => { deleteWord(item) }}>
                                 <View style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
                                     <View style={{
                                         backgroundColor: item?.name === 'add' ? '#9BA8B5' : '#C1EBEA',
@@ -273,24 +291,24 @@ const JoinWordScreen = ({ }: StackNavigationProps<
 
 {/* Generate voice button */}
             <TouchableOpacity style={{
-                backgroundColor: '#FFD19A',
+                
                 position: 'absolute',
-                bottom: sizeWidth(20),
-                right: sizeWidth(10),
-                borderRadius: sizeWidth(10),
+                bottom: sizeWidth(105),
+                right: sizeWidth(5),
+                
                 shadowColor: 'grey'
             }} isDoubleTap={true}
                 activeOpacity={0.7}
                 onPress={playSound}
             >
-                <Text 
-                    style={{ 
-                        paddingVertical: sizeWidth(5), 
-                        paddingHorizontal: sizeWidth(5), 
-                        color: '#2D5672',
-                        fontWeight: 'bold'
-                    }}>{stop ? 'Dừng' : 'Phát'}
-                </Text>
+                {
+                    stop
+                   ? <Icon color={'black'} size={sizeHeight(5)} name="stop-outline"></Icon>
+                    :<Icon color={'black'} size={sizeHeight(5)} name="play-outline"></Icon>
+
+                }
+                
+
             </TouchableOpacity>
             
         </Container>

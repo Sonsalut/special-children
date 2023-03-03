@@ -22,6 +22,7 @@ import { filterStorage, isClicked, setCategory, setStorage, showPersonStore, upd
 import NavigationService from 'routers/NavigationService';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import colors from 'res/colors';
+import { useToast } from 'hooks/useToast';
 const Storage = ({ }: StackNavigationProps<
   Routes,
   AuthenticatedScreens.StorageWord
@@ -164,9 +165,39 @@ const Storage = ({ }: StackNavigationProps<
     })
 
   }
+  const showToast= useToast()
   const doneHandle = async () => {
+    let maps= fullStore.filter(word=> word?.isActive===false)
 
-    setHasDone(!hasDone)
+  let handAdd= maps.map((items) => {
+      let itemB = personDataFromAPi.find((item) => item.id === items.id);
+      if (!itemB) {
+        // dispatch(isClicked({
+        //   ...items,
+        //   isActive:false
+        // }))
+        // console.log('add'+items?.word)
+        addWordToStorage(items?.id)
+      }
+    }
+  )
+    let handDelete= personDataFromAPi.map((items) => {
+      let itemB = maps.find((item) => item.id === items.id);
+      if (!itemB) {
+        // dispatch(isClicked({
+        //   ...items,
+        //   isActive:false
+        // }))
+        // console.log('xoas'+items?.word)
+        deleteWordToStorage(items?.id)
+      }
+    }
+    
+  )
+  
+showToast('Lưu thành công', 'success')
+NavigationService.navigate(AuthenticatedScreens.StorageWords)
+   
   }
   const filterDatas = (item) => (
     fullStore.filter(word => word?.category?.id === item)
@@ -179,7 +210,7 @@ const Storage = ({ }: StackNavigationProps<
     if (item?.isActive == false) {
       // console.log(item?.id)
 
-      deleteWordToStorage(item?.id)
+      // deleteWordToStorage(item?.id)
       console.log('Xoa')
       dispatch(isClicked({
         ...item,
@@ -188,7 +219,7 @@ const Storage = ({ }: StackNavigationProps<
     }
     else {
       // console.log(item?.id)
-      addWordToStorage(item?.id)
+      // addWordToStorage(item?.id)
       // console.log('add')
       dispatch(isClicked({
         ...item,
@@ -207,7 +238,7 @@ const Storage = ({ }: StackNavigationProps<
       <HeaderWithBack 
         outerStyle={{
           backgroundColor:colors.title_blue}} 
-        title={'Kho từ'} handle={doneHandle} hasDone={hasDone}
+        title={'Kho từ'} handle={doneHandle} hasDone={true}
         titleStyle={{
           color: colors.text_blue
         }}
@@ -310,9 +341,9 @@ const Storage = ({ }: StackNavigationProps<
                           }}>{item?.word}
                         </Text>
                       </View>
-                      {
-                        hasDone ? <CheckBox style={{ right: 25, bottom: 1, height:20 }} value={!item?.isActive} onValueChange={() => handleChoose(item)} /> : null
-                      }
+                      
+                        <CheckBox style={{ right: 25, bottom: 1, height:20 }} value={!item?.isActive} onValueChange={() => handleChoose(item)} /> 
+                      
                     </View>
                   )}
                 />
