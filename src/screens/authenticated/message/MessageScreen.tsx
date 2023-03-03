@@ -1,19 +1,24 @@
 import React from 'react';
 import {Container, Text, PopUp} from 'components';
 import {Routes, StackNavigationProps} from 'routers/Navigation';
-import {AuthenticatedScreens} from 'routers/ScreenNames';
+import {AuthenticatedScreens, AuthenticationScreens, MainScreens} from 'routers/ScreenNames';
 import { DevSettings, TouchableOpacity, View, Image,} from 'react-native';
 import { Switch } from 'react-native-gesture-handler';
 import colors from 'res/colors';
 import {store} from 'redux/store';
 import { useLogicLogin } from 'screens/authentication/login/useLogicLogin';
 import { useLogicMessage } from './useLogicMessage';
-import { sizeHeight } from 'utils/Utils';
+import { sizeHeight, sizeWidth } from 'utils/Utils';
 import { Modal, RadioButton } from 'react-native-paper';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import ResponseCode from 'network/ResponseCode';
 import { useToast } from 'hooks/useToast';
 import ToastCustom from 'components/toast/ToastCustom';
+import NavigationService from 'routers/NavigationService';
+import { useDispatch } from 'react-redux';
+import authSlice from 'redux/slice/authSlice';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 const MessageScreen = ({}: StackNavigationProps<
   Routes,
   AuthenticatedScreens.MessageScreen
@@ -21,7 +26,7 @@ const MessageScreen = ({}: StackNavigationProps<
   const { logOut, 
     
     onToggleSwitch, cancelLogOut,
-    refPopUp, name, setIsSwitchOn, isSwitchOn, onPopUpClose, confirmLogOut } = useLogicMessage();
+    refPopUp, name, setIsSwitchOn, isSwitchOn, onPopUpClose, confirmLogOut, setConfirmLogOut } = useLogicMessage();
   React.useEffect(() => {
     const getFingerPrint = () => {
       if (store.getState().authReducer.fingerPrint?.fingerprint) {
@@ -81,6 +86,24 @@ const handleChangeInfor =()=>{
   PostVoiceInfor(gendervalue,regionvalue)
   
 }
+const [logOutvisible, setlogOutvisible] = React.useState(false)
+const [logOutShow, setLogOutShow] = React.useState(false)
+
+const dispatch= useDispatch()
+const [confirmsLogOut, setConfirmsLogOut] = React.useState(false);
+const handleLogOut=()=>{
+ 
+ setLogOutShow(true)
+ setlogOutvisible(true)
+}
+const handleCancelLogOut=()=>{
+       setLogOutShow(false);
+      setlogOutvisible(false)
+}
+const cofirmHandleLogOut =()=>{
+  dispatch(authSlice.actions.logout())
+  NavigationService.navigate(MainScreens.AuthenticationNavigator)
+}
   return (
     <Container style={{backgroundColor: 'white'}}>
       <View style={{width: '90%', height: 600, alignSelf: 'center', backgroundColor:'#E7F6FF', marginTop: 20, borderRadius: 25}}>
@@ -102,7 +125,7 @@ const handleChangeInfor =()=>{
 
         {/* Voice setting */}
         <View style={{flexDirection: 'row', paddingTop: 20, paddingHorizontal: 15}}>
-          <TouchableOpacity onPress={handle} style={{flexDirection: 'row'}} >
+          <TouchableOpacity activeOpacity={0.7} onPress={handle} style={{flexDirection: 'row'}} >
             <Image
               source={require('../../../assets/images/voice.png')}
               style={{ width: 25, height: 25}}
@@ -113,7 +136,7 @@ const handleChangeInfor =()=>{
 
         {/* Sign out button */}
         <View style={{flexDirection: 'row', paddingTop: 20, paddingHorizontal: 15}}>
-          <TouchableOpacity style={{flexDirection: 'row'}} onPress={()=>DevSettings.reload()}>
+          <TouchableOpacity style={{flexDirection: 'row'}} onPress={handleLogOut}>
             <Image
               source={require('../../../assets/images/logout.png')}
               style={{ width: 25, height: 25}}
@@ -182,7 +205,7 @@ const handleChangeInfor =()=>{
                       </View>
                         
                        <View style={{width:'80%', height:50}}>
-                        <TouchableOpacity onPress={handleChangeInfor}>
+                        <TouchableOpacity onPress={handleChangeInfor} activeOpacity={0.7}>
                           <View style={{width:'100%', height:50,borderRadius:15, justifyContent:'center', backgroundColor:colors.blue}}>
                           <Text style={{alignSelf:'center', fontSize:18, color:colors.black}}>Xác nhận</Text>
                             
@@ -192,6 +215,55 @@ const handleChangeInfor =()=>{
                     </View>
 
                 </Modal>
+                <Modal
+                    visible={logOutvisible}
+                    style={{
+                        backgroundColor:'#E7F6FF',
+                        borderRadius: 15,
+                        height: 200,
+                        marginTop: sizeHeight(25),
+                        width:'90%',
+                        marginHorizontal:20,
+                    }}
+                    // onDismiss={() => {
+                    //     setLogOutShow(false);
+                    //     setlogOutvisible(false)
+                    // }}
+                >            
+                    <View style={{
+                        top: 0,
+                        alignItems: 'center',
+                        width:"100%",
+                        height:"100%", 
+                        borderRadius: 15 ,
+                        
+                        justifyContent:'space-around'        
+                    }}>
+                      <Icon name={'warning-outline'}
+        size={sizeWidth(8)}
+        color={"#FF4444"}
+        style={{padding: sizeWidth(1),
+          paddingLeft: sizeWidth(3),}} />
+          <View style={{width:'90%', height:50}}>
+          <Text style={{fontSize:18, color:colors.black, fontWeight:'500'}}>Bạn có chắc chắn muốn đăng xuất</Text>
+          <Text style={{fontSize:18, color:colors.black, fontWeight:'500', alignSelf:'center'}}>không?</Text>
+
+
+          </View>
+                      <View style={{width:'100%', height:60, flexDirection:'row', justifyContent:"space-around", alignItems:'center'}}>
+                      <TouchableOpacity activeOpacity={0.7} onPress={handleCancelLogOut} style={{width:'30%', height:40,borderColor:colors.blue, borderWidth:1, borderRadius:12, justifyContent:'center'}}>
+                        <Text style={{alignSelf:'center',fontSize:15, color:colors.blue}}>Đóng</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity activeOpacity={0.7} onPress={cofirmHandleLogOut} style={{width:'30%', height:40,backgroundColor:'red',borderRadius:12,justifyContent:'center'}}>
+                        <Text style={{alignSelf:'center', fontSize:15, color:'white'}}>Đăng xuất</Text>
+                      </TouchableOpacity>
+                      </View>
+                      
+                      
+                    </View>
+
+                </Modal>
+                
       </View>
     </Container>
   );

@@ -96,7 +96,7 @@ const RecordingScreen = ({ route }: any) => {
         });
         if (response.status === ResponseCode.SUCCESS) {
 
-            console.log(response.data)
+            // console.log(response.data)
             setData(response.data?.words)
             // dispatch(setStorage(response.data?.words))
 
@@ -120,7 +120,7 @@ const RecordingScreen = ({ route }: any) => {
             'Content-Type': 'application/octet-stream'
         })
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 // console.log("The file saved to ", res.path())
                     console.log("The file saved to ", res.path());
                     filePath = res.path();

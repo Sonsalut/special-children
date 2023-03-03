@@ -34,7 +34,7 @@ const HomeScreen = ({ }: StackNavigationProps<
 
     });
     if (response.status === ResponseCode.SUCCESS) {
-      console.log(response.data.categories)
+      // console.log(response.data.categories)
 
       setData(response.data.categories)
 
@@ -48,74 +48,7 @@ const HomeScreen = ({ }: StackNavigationProps<
 
   return (
 
-    <Container style={{backgroundColor: 'white'}}>     
-      {/* <Header iconLeft={require('../../../assets/images/add.png')} title='Màn hình chính' /> */}
-      {/* <View style={{ alignContent: 'space-around', flexDirection: 'row', alignSelf: 'center', flexWrap: 'wrap', width: '100%', paddingLeft: 5, marginTop: 30 }}>
-        <TouchableOpacity style={[styles.itemView, { backgroundColor: '#9BA8B5' }]}
-          onPress={() => {
-            NavigationService.navigate(AuthenticatedScreens.RecordingScreen, { title: 'number' })
-          }}
-          isDoubleTap={false}
-          activeOpacity={0.7}
-        >
-          <Image style={{ alignSelf: 'center', marginTop: sizeHeight(4) }} source={images.number} />
-          <Text style={{ color: 'white', fontSize: fontSize(5), marginTop: sizeHeight(3), textAlign: 'center' }}>Chữ số</Text>
-        </TouchableOpacity>
-        <View style={{ paddingHorizontal: sizeWidth(2) }}></View>
-        <TouchableOpacity style={[styles.itemView, { backgroundColor: '#4AD4FF' }]}
-          onPress={() => {
-            NavigationService.navigate(AuthenticatedScreens.RecordingScreen, { title: 'animal' })
-          }}
-          isDoubleTap={false}
-          activeOpacity={0.7}
-        >
-          <Image style={{ alignSelf: 'center', marginTop: sizeHeight(4) }} source={images.danhvan} />
-          <Text style={{ color: 'white', fontSize: fontSize(5), marginTop: sizeHeight(3), textAlign: 'center' }}>Con vật</Text>
-        </TouchableOpacity>
-        <View style={{ paddingHorizontal: sizeWidth(2) }}></View>
-        <TouchableOpacity style={[styles.itemView, { backgroundColor: '#9c4fff' }]}
-          onPress={() => {
-            NavigationService.navigate(AuthenticatedScreens.JoinWordScreen)
-          }}
-          isDoubleTap={false}
-          activeOpacity={0.7}
-        >
-          <Image style={{ alignSelf: 'center', marginTop: sizeHeight(2), }} source={images.Frame} />
-          <Text style={{ color: 'white', fontSize: fontSize(5), marginTop: sizeHeight(1), textAlign: 'center' }}>Ghép từ</Text>
-        </TouchableOpacity>
-      </View> */}
-      {/* <View style={{ paddingVertical: sizeHeight(1) }}></View> */}
-      {/* <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-        <TouchableOpacity style={[styles.itemView, { backgroundColor: '#9c4fff' }]}
-          onPress={() => {
-            NavigationService.navigate(AuthenticatedScreens.JoinWordScreen)
-          }}
-          isDoubleTap={false}
-          activeOpacity={0.7}
-        >
-          <Image style={{ alignSelf: 'center', marginTop: sizeHeight(2), }} source={images.Frame} />
-          <Text style={{ color: 'white', fontSize: fontSize(5), marginTop: sizeHeight(1), textAlign: 'center' }}>Ghép từ</Text>
-        </TouchableOpacity>
-      </View> */}
-      {/* <TouchableOpacity style={{ backgroundColor: 'red', height: 100 }} onPress={() => {
-        NavigationService.reset(MainScreens.AuthenticationNavigator)
-      }} /> */}
-
-      {/* <TouchableOpacity onPress={handle}>
-        <Text>AAAA</Text>
-      </TouchableOpacity> */}
-      {/* <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-        <TouchableOpacity style={[styles.itemView, { backgroundColor: '#9c4fff' }]}
-          onPress={() => {
-            NavigationService.navigate(AuthenticatedScreens.JoinWordScreen)
-          }}
-          isDoubleTap={false}
-          activeOpacity={0.7}
-        >
-          <Image style={{ alignSelf: 'center', marginTop: sizeHeight(2), }} source={images.Frame} />
-          <Text style={{ color: 'white', fontSize: fontSize(5), marginTop: sizeHeight(1), textAlign: 'center' }}>Ghép từ</Text>
-        </TouchableOpacity>
-      </View> */}
+    <Container style={{backgroundColor: 'white'}}>         
         <View style={{ height: sizeHeight(90), width:'95%', marginTop: 10, alignSelf:'center', alignItems:'center'}}>
           <FlatList
             showsVerticalScrollIndicator={false}
