@@ -15,7 +15,7 @@ import { useLogicLogin } from './useLogicLogin';
 import styles from './styles';
 import { LogBox } from 'react-native';
 
-// LogBox.ignoreAllLogs();
+LogBox.ignoreAllLogs();
 const LoginScreen = ({ }: StackNavigationProps<
   Routes,
   AuthenticationScreens.LoginScreen
