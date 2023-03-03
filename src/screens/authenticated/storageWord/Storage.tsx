@@ -189,7 +189,7 @@ const Storage = ({ }: StackNavigationProps<
     else {
       // console.log(item?.id)
       addWordToStorage(item?.id)
-      console.log('add')
+      // console.log('add')
       dispatch(isClicked({
         ...item,
         isActive:false
@@ -225,6 +225,7 @@ const Storage = ({ }: StackNavigationProps<
       >
         <FlatList
           data={category}
+          showsVerticalScrollIndicator={false}
           renderItem={({ item, index }) => (
             <View 
               key={index}
