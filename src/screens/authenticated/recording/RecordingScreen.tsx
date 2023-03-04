@@ -109,10 +109,11 @@ const RecordingScreen = ({ route }: any) => {
 //    const [isExist, setisExist] = useState(false)
     const playSound = async (audioWord: any) => {
         let filePath = '';
-        let url = AuthApis.GetVoice+`${audioWord}`
+        let url = AuthApis.GetVoice + encodeURIComponent(audioWord);
+        
         RNFetchBlob.config({
             fileCache: true,
-            // appendExt: 'mp3',
+            appendExt: 'mp3',
         })
         .fetch("GET", url, {
             Authorization: store.getState().authReducer.user.accessToken,
@@ -122,10 +123,10 @@ const RecordingScreen = ({ route }: any) => {
             .then((res) => {
                 console.log(res);
                 // console.log("The file saved to ", res.path())
-                    console.log("The file saved to ", res.path());
-                    filePath = res.path();
-                    SoundPlayer.loadUrl('file://' + filePath);
-                    SoundPlayer.play();
+                console.log("The file saved to ", res.path());
+                filePath = res.path();
+                SoundPlayer.loadUrl('file://'+filePath);
+                SoundPlayer.play();
             })
     }
 
@@ -183,47 +184,50 @@ const RecordingScreen = ({ route }: any) => {
                 outerStyle={{backgroundColor:colors.title_blue}} 
                 rightIconShow={false} />
             
-                <View style={{width:sizeWidth(90), height:sizeHeight(90), alignSelf:'center', alignItems: 'center', paddingTop: 15}}>
+                <View style={{width:sizeWidth(90), height:sizeHeight(90), alignSelf:'center', alignItems: 'center', paddingTop: 15, borderWidth:1}}>
                     <FlatList
                         data={data}
                         keyExtractor={(_, index) => index.toString()}
                         showsVerticalScrollIndicator={false}
                         numColumns={2}
                         renderItem={({ item, index }) => (
-                        
-                            <TouchableOpacity key={index} activeOpacity={0.7} onPress={() => { addImage(item, index) }}>
-                                <View 
-                                    style={{ 
-                                        width: sizeWidth(35), 
-                                        marginVertical:15, 
-                                        height:160,
-                                        borderRadius:10,
-                                        marginHorizontal:15, 
-                                        alignSelf: 'center', 
-                                        marginTop: 10,                 
-                                        backgroundColor:'#99C8E4',
-                                        alignItems: 'center'
-                                    }}>
-                                    <Image 
-                                        style={{
-                                            resizeMode: 'stretch',
-                                            height: sizeHeight(15), width: sizeWidth(35),
-                                            borderRadius: sizeWidth(3),
-                                            justifyContent: 'center'
-                                        }}
-                                        source={{
-                                        uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
-                                        method: 'GET',
-                                        headers: {Authorization: store.getState().authReducer.user.accessToken}
-                                        }}
-                                    />
-                                    <Text style={{ marginTop: 3, fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'#2D5672'}}>{item.word}</Text>
-                                </View>
-                            </TouchableOpacity>
+                       
+                        <TouchableOpacity 
+                            style={{ 
+                                width: sizeWidth(35), 
+                                marginVertical:15, 
+                                height:'80%',
+                                borderRadius:10,
+                                marginHorizontal:15, 
+                                alignSelf: 'center', 
+                                marginTop: 10,                 
+                                backgroundColor:'#C1EBEA',
+                                alignItems: 'center',
+                                borderWidth: 1
+                            }}
+                            key={index} activeOpacity={0.7} onPress={() => { addImage(item, index) }}>
+                                                                   
+                            <Image 
+                                style={{
+                                    resizeMode: 'stretch',
+                                    height: '80%', width: sizeWidth(35),
+                                    borderRadius: sizeWidth(3),
+                                    justifyContent: 'center',
+                                    borderWidth:1
+                                    }}
+                                    source={{
+                                    uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                                    method: 'GET',
+                                    headers: {Authorization: store.getState().authReducer.user.accessToken}
+                                    }}
+                                />
+                            <Text style={{ marginTop: 3, fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'#2D5672'}}>{item.word}</Text>
+                                
+                        </TouchableOpacity>
                         )}
                     />
                 </View>
-            {/* Màn hình số  */}
+{/* Màn hình số  */}
                 <Modal
                     visible={visible}
                     style={{

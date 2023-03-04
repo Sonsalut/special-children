@@ -17,6 +17,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { store } from 'redux/store';
 import colors from 'res/colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { createEntityAdapter } from '@reduxjs/toolkit';
 
 const HomeScreen = ({ }: StackNavigationProps<
   Routes,
@@ -48,7 +49,9 @@ const HomeScreen = ({ }: StackNavigationProps<
 
   return (
 
-    <Container style={{backgroundColor: 'white'}}>     
+    <Container 
+      isBottomTab={false}
+      style={{backgroundColor: 'white'}}>     
       {/* <Header iconLeft={require('../../../assets/images/add.png')} title='Màn hình chính' /> */}
       {/* <View style={{ alignContent: 'space-around', flexDirection: 'row', alignSelf: 'center', flexWrap: 'wrap', width: '100%', paddingLeft: 5, marginTop: 30 }}>
         <TouchableOpacity style={[styles.itemView, { backgroundColor: '#9BA8B5' }]}
@@ -116,35 +119,40 @@ const HomeScreen = ({ }: StackNavigationProps<
           <Text style={{ color: 'white', fontSize: fontSize(5), marginTop: sizeHeight(1), textAlign: 'center' }}>Ghép từ</Text>
         </TouchableOpacity>
       </View> */}
-        <View style={{ height: sizeHeight(90), width:'95%', marginTop: 10, alignSelf:'center', alignItems:'center'}}>
+        <View style={{ height: '100%', width:'95%', alignSelf:'center', alignItems:'center', alignContent: 'center', paddingLeft: 8}}>
           <FlatList
             showsVerticalScrollIndicator={false}
             data={data}
             keyExtractor={(_, index) => index.toString()}
             numColumns={2}
             renderItem={({ item }) => (
-              <TouchableOpacity 
+            <TouchableOpacity 
               onPress={()=>NavigationService.navigate(AuthenticatedScreens.RecordingScreen, {data:item})}
               isDoubleTap={false}
               activeOpacity={0.7}  
-              style={{}}           
+                style={{                 
+                  width: '40%',
+                  // sizeWidth(40),
+                  // marginVertical: 15,
+                  height: '86%',
+                  borderRadius: 10,
+                  marginHorizontal: 15,
+                  alignSelf: 'center',
+                  marginTop: 30,
+                  paddingHorizontal:10,
+                  backgroundColor: '#99C8E4',
+                  paddingTop: 5
+                }}           
               >
-                <View style={{
-                  width: sizeWidth(40), 
-                  marginVertical:15, 
-                  height:180,
-                  borderRadius:10,
-                  marginHorizontal:10, 
-                  alignSelf: 'center', 
-                  marginTop: 10,                 
-                  backgroundColor:'#99C8E4',
-                  }}
-                > 
+                
                   
                   <Image
                     style={{
                       resizeMode: 'stretch',
-                      height: sizeHeight(17), width: sizeWidth(39),
+                      height: '80%', 
+                      width: '100%',
+                      marginTop: '1%',
+                      // sizeWidth(39),
                       borderRadius: sizeWidth(3),
                       
                     }}
@@ -156,9 +164,9 @@ const HomeScreen = ({ }: StackNavigationProps<
                       require('../../.././assets/images/no.png')
                     }
                   />        
-                  <Text style={{ marginTop: 4, fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'#2D5672'}}>{item?.name}</Text>
+                  <Text style={{fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'#2D5672'}}>{item?.name}</Text>
                   
-                </View>
+                
               </TouchableOpacity>
             )}>
           </FlatList>

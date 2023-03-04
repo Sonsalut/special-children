@@ -29,62 +29,67 @@ const LoginScreen = ({ }: StackNavigationProps<
       <ImageBackground 
         source={require('../../../assets/images/Home-bgr.png')} 
         style={styles.background}>
-        <KeyboardAwareScrollView contentContainerStyle={styles.container}>      
-          <View style={{width: '110%', height: 300, alignItems: 'center'}}>
-            <Image
-             source={require('../../../assets/images/AIS-Learning.png')}
-             style={{height: 600, width: '100%', marginTop: -30}}
-            />
-          </View>
-            <View style={styles.form}>
-              <Controller
-                control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    iconLeftStyle={{ marginLeft: sizeWidth(5) }}
-                    onBlur={onBlur}
-                    onChangeText={value => onChange(value)}
-                    value={value}
-                    placeholder={'Tài khoản'}
-                  />
-                )}
-                name="username"
-              />
-              <Controller
-                control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    isOnIconRightDoubleTap={true}
-                    iconLeftStyle={{ marginLeft: sizeWidth(5) }}
-                    iconRightStyle={{ marginRight: sizeWidth(5) }}
-                    iconRight={hidden ? images.eye_slash : images.eye}
-                    onBlur={onBlur}
-                    onChangeText={value => onChange(value)}
-                    value={value}
-                    placeholder={"Mật khẩu"}
-                    onIconRight={changeHiddenStatus}
-                    secureTextEntry={hidden}
-                  />
-                )}
-                name="password"
-              />            
-              <Button
-                style={{ marginTop: 20 }}
-                label='Đăng nhập'
-                onPress={handleSubmit(onPressLogin)} />
+        <KeyboardAwareScrollView contentContainerStyle={styles.container}> 
 
-              {/* create touch id*/}
-              <View style={{alignItems: 'center'}}>
-                <TouchableOpacity 
-                  style={{marginTop: 30, alignItems: 'center', borderRadius: 25, width: 50}} 
-                  onPress={loginWithBiometric}>
-                  <Image 
-                    source={require('../../../assets/images/fingerprint.png')} 
-                    style={{ width: 50, height: 50}} 
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
+
+                <ImageBackground
+                  source={require('../../../assets/images/AIS-Learning.png')}
+                  style={{height: '95%', width: '100%', justifyContent: 'flex-end'}}
+                >
+                
+                  <View style={styles.form}>
+                    <Controller
+                      control={control}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <TextInput
+                          iconLeftStyle={{ marginLeft: sizeWidth(5) }}
+                          onBlur={onBlur}
+                          onChangeText={value => onChange(value)}
+                          value={value}
+                          placeholder={'Tài khoản'}
+                        />
+                      )}
+                      name="username"
+                    />
+                    <Controller
+                      control={control}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <TextInput
+                          isOnIconRightDoubleTap={true}
+                          iconLeftStyle={{ marginLeft: sizeWidth(5) }}
+                          iconRightStyle={{ marginRight: sizeWidth(5) }}
+                          iconRight={hidden ? images.eye_slash : images.eye}
+                          onBlur={onBlur}
+                          onChangeText={value => onChange(value)}
+                          value={value}
+                          placeholder={"Mật khẩu"}
+                          onIconRight={changeHiddenStatus}
+                          secureTextEntry={hidden}
+                        />
+                      )}
+                      name="password"
+                    />            
+                    <Button
+                      style={{ marginTop: 20,}}
+                      label='Đăng nhập'
+                      onPress={handleSubmit(onPressLogin)} />
+
+                    {/* create touch id*/}
+                    <View style={{alignItems: 'center'}}>
+                      <TouchableOpacity 
+                        style={{marginTop: 30, alignItems: 'center', borderRadius: 25, width: 50}} 
+                        onPress={loginWithBiometric}>
+                        <Image 
+                          source={require('../../../assets/images/fingerprint.png')} 
+                          style={{ width: 50, height: 50, marginBottom: '8%', marginTop: '8%'}} 
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </ImageBackground>
+          
+
+
         </KeyboardAwareScrollView>
       </ImageBackground>
     </Container>
