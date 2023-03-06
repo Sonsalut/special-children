@@ -11,7 +11,7 @@ export type GetFullCategory = {
     pageSize: number,
     name: any,
     isActive: boolean,
-    categories: any
+    // categories: any
 };
 export type AddWordToStorage = {
     wordId:number

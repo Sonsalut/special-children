@@ -25,19 +25,24 @@ const HomeScreen = ({ }: StackNavigationProps<
 >) => {
 
   const [data, setData] = React.useState([])
+  const [datas, setDatas] = React.useState([])
+
   const getCategory = async (values: any) => {
     const response = await RecordingAPI.GetFullCategory<GetFullCategory>({
       pageIndex: 1,
       pageSize: 20,
       name:null,
       isActive:true,
-      categories: {}
+      // categories: {}
 
     });
     if (response.status === ResponseCode.SUCCESS) {
-      // console.log(response.data.categories)
+      console.log(response.data.categories)
 
       setData(response.data.categories)
+      
+      
+
 
     }
   }

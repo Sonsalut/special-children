@@ -185,7 +185,7 @@ const [isStop, setIsStop]= React.useState('play')
             <View style={{ 
                 borderRadius:10, 
                 width: '90%', 
-                height: sizeHeight(35), 
+                height: sizeHeight(40), 
                 justifyContent: 'center', 
                 alignSelf:'center', 
                 marginTop: 20, 
@@ -204,12 +204,13 @@ const [isStop, setIsStop]= React.useState('play')
                             <TouchableOpacity  onPress={() => { deleteWord(item) }}>
                                 <View style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
                                     <View style={{
-                                        backgroundColor: item?.name === 'add' ? '#9BA8B5' : '#C1EBEA',
+                                        backgroundColor: '#C1EBEA',
                                         borderRadius: sizeWidth(3),
                                         height: sizeHeight(14), 
                                         justifyContent: 'center',
                                         alignItems: 'center',
-                                        marginBottom: 20
+                                        marginBottom: 20,
+                                        
                                     }}>
                                         <Image style={{
                                             height: sizeHeight(11), 
@@ -223,8 +224,7 @@ const [isStop, setIsStop]= React.useState('play')
                                                 headers: {Authorization: store.getState().authReducer.user.accessToken}
                                             }}
                                         />
-                                        {item?.name !== 'add' && <Text style={{ color: '#2D5672', fontWeight: '600', marginTop: '10%', fontSize: fontSize(4) }}
-                                        >{item.word}</Text>}
+                                         <Text style={{ color: '#2D5672', fontWeight: '600', marginTop: '10%', fontSize: fontSize(4) }}>{item.word}</Text>
                                     </View>
                                 </View>
                             </TouchableOpacity>
@@ -233,21 +233,40 @@ const [isStop, setIsStop]= React.useState('play')
                     }}
                     
                 />
-            </View>
-
-{/* Line between 2 rows of words */}
-            <View 
+                   {/* <View 
                 style={{
                     borderWidth:1, 
                     width:'80%',
-                    bottom:165, 
+                   marginVertical:sizeHeight(10),
                     borderColor: '#87C2E4', 
-                    alignSelf: 'center', 
-                    marginTop: 15}}>
+                    alignSelf:'center'
+                    }}>
+            </View> */}
+                 <TouchableOpacity style={{
+                    
+                    alignSelf:'flex-end',
+                 shadowColor: 'grey'
+            }} isDoubleTap={true}
+                activeOpacity={0.7}
+                onPress={playSound}
+            >
+                {
+                    stop
+                   ? <Icon color={'black'} size={sizeHeight(5)} name="stop-outline"></Icon>
+                    :<Icon color={'black'} size={sizeHeight(5)} name="play-outline"></Icon>
+
+                }
+                
+
+            </TouchableOpacity>
             </View>
+
+{/* Line between 2 rows of words */}
+         
 
 
 {/* Reserve word list */}
+
             <FlatList
                 data={data}
                 keyExtractor={(_, index) => index.toString()}
@@ -290,26 +309,7 @@ const [isStop, setIsStop]= React.useState('play')
             />
 
 {/* Generate voice button */}
-            <TouchableOpacity style={{
-                
-                position: 'absolute',
-                bottom: sizeWidth(105),
-                right: sizeWidth(5),
-                
-                shadowColor: 'grey'
-            }} isDoubleTap={true}
-                activeOpacity={0.7}
-                onPress={playSound}
-            >
-                {
-                    stop
-                   ? <Icon color={'black'} size={sizeHeight(5)} name="stop-outline"></Icon>
-                    :<Icon color={'black'} size={sizeHeight(5)} name="play-outline"></Icon>
-
-                }
-                
-
-            </TouchableOpacity>
+           
             
         </Container>
     );
