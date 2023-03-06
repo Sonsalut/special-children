@@ -20,6 +20,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { createEntityAdapter } from '@reduxjs/toolkit';
 import { RefreshControl } from 'react-native-gesture-handler';
 import Spinner from 'react-native-spinkit';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const HomeScreen = ({ }: StackNavigationProps<
@@ -61,21 +62,21 @@ const HomeScreen = ({ }: StackNavigationProps<
     }, []);
   return (
 
-    <Container style={{backgroundColor: 'white'}}>      
-        <View style={{ height: sizeHeight(90), width:'95%', marginTop: 10, alignSelf:'center', alignItems:'center'}}>
+    <Container style={{backgroundColor: 'white', flex: 1,  width: '100%'}}>      
+        <View style={{ height: sizeHeight(90), width:'95%', alignSelf:'center', alignItems:'center'}}>
          
          <FlatList
           data={data}
           keyExtractor={(_, index) => index.toString()}
-            numColumns={2}
-        showsVerticalScrollIndicator={false}
-           refreshControl={
+          numColumns={2}
+          showsVerticalScrollIndicator={false}
+          scrollToOverflowEnabled={false}
+          refreshControl={
             <RefreshControl
                 refreshing={refreshing}
                 onRefresh={onRefresh}
                 colors={[colors.blue]}
-             />
-           
+             />  
           }
           renderItem={({item})=>(
         
@@ -89,12 +90,12 @@ const HomeScreen = ({ }: StackNavigationProps<
                   // marginVertical: 15,
                   height: sizeHeight(25),
                   borderRadius: 10,
-                  marginHorizontal: 15,
+                  marginHorizontal: 9,
                   alignSelf: 'center',
                   marginTop: 30,
                   paddingHorizontal:10,
                   backgroundColor: '#99C8E4',
-                  paddingTop: 5
+                  paddingTop: 5,
                 }}           
               >      
                   <Image
