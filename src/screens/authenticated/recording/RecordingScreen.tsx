@@ -44,6 +44,11 @@ const RecordingScreen = ({ route }: any) => {
         selectionLimit: 1,
         includeBase64: true
     };
+
+
+    
+
+
     const CAMERA_OPTION: ImagePicker.CameraOptions = {
         mediaType: 'photo',
         cameraType: 'front',
