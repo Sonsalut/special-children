@@ -104,6 +104,10 @@ const cofirmHandleLogOut =()=>{
   dispatch(authSlice.actions.logout())
   NavigationService.navigate(MainScreens.AuthenticationNavigator)
 }
+const handleReturn =()=>{
+  setShow(false)
+  setVisible(false)
+}
   return (
     <Container style={{backgroundColor: 'white'}}>
       <View style={{width: '90%', height: 600, alignSelf: 'center', backgroundColor:'#E7F6FF', marginTop: 20, borderRadius: 25}}>
@@ -144,6 +148,7 @@ const cofirmHandleLogOut =()=>{
             <Text style={{paddingLeft: 10, paddingTop: 2, fontSize: 18, color: 'red'}}>Đăng xuất</Text>
           </TouchableOpacity>
         </View>
+        {/* Popups shows */}
         <Modal
                     visible={visible}
                     style={{
@@ -168,16 +173,21 @@ const cofirmHandleLogOut =()=>{
                      
                         justifyContent:'space-around'        
                     }}>
+                      <TouchableOpacity onPress={handleReturn} style={{width:'90%', height:'8%'}}>
+                      <Icon name='arrow-back-outline' size={25}/>
+
+                      </TouchableOpacity>
                       {/* gender choice */}
                       <View style={{
-                        top: 10,
+                        bottom:20,
                         alignItems: 'center',
                         width:"90%",
                         height:"30%", 
                         borderRadius: 15 ,
-                      
+                    //  borderWidth:1,
                         flexDirection:'row'             
                     }}>
+                      
                       <Text style={{alignSelf:'flex-start', marginTop:20, fontSize:15, color:colors.black}}>Giới tính:</Text>
  <RadioButton.Group   onValueChange={value => setGenderValue(value)} value={gendervalue}>
   
@@ -192,7 +202,7 @@ const cofirmHandleLogOut =()=>{
                         width:"90%",
                         height:"40%", 
                         borderRadius: 15 ,
-                      
+                      bottom:20,
                         flexDirection:'row'             
                     }}>
                       <Text style={{alignSelf:'flex-start', marginTop:10, fontSize:15, color:colors.black}}>Vùng miền:</Text>
