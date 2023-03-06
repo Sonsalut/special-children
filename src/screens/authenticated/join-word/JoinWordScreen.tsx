@@ -19,7 +19,7 @@ import { GetStorageWord, GetWordByCateID } from 'network/subs/auth/recording/Rec
 import { useIsFocused } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNFetchBlob from 'rn-fetch-blob';
-import { add, deletes, getdata } from 'redux/storageWord/action';
+
 const JoinWordScreen = ({ }: StackNavigationProps<
     Routes,
     AuthenticatedScreens.RecordingScreen
@@ -184,7 +184,7 @@ const handleStore = useSelector( store=> store.storeReducer.handleStore)
         if (response.status === ResponseCode.SUCCESS) {
             // console.log(response.data)
             setData(response.data)
-            dispatch(getdata(response.data))
+            // dispatch(getdata(response.data))
         
           }
         

@@ -51,28 +51,5 @@ export const setCategory =(data)=>{
     }
 
 }
-export const add =(data)=>{
-    return{
 
-        type:'ADD',
-        payload:data
-    }
-
-}
-export const deletes =(data)=>{
-    return{
-
-        type:'DELETE',
-        payload:data
-    }
-
-}
-export const getdata =(data)=>{
-    return{
-
-        type:'GET_PERSONAL_STORE_FROM_API',
-        payload:data
-    }
-
-}
 
