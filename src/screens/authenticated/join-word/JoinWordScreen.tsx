@@ -88,10 +88,10 @@ const JoinWordScreen = ({ }: StackNavigationProps<
 const [isStop, setIsStop]= React.useState('play')
     const playSimpleSound=(id)=>{
         let filePath = '';
-        let url = AuthApis.GetVoice+`${id}`
+        let url = AuthApis.GetVoice + encodeURIComponent(id)
         RNFetchBlob.config({
             fileCache: true,
-            // appendExt: 'mp3',
+            appendExt: 'mp3',
         })
         .fetch("GET", url, {
             Authorization: store.getState().authReducer.user.accessToken,
@@ -113,7 +113,7 @@ const [isStop, setIsStop]= React.useState('play')
         showToast('Hãy cho từ vào khu ghép từ','warning')
         setStop(false)
       }
-   console.log(id) 
+//    console.log(id) 
         if (id) {
             if (!stop) {
                 setStop(true)
@@ -135,11 +135,13 @@ const [isStop, setIsStop]= React.useState('play')
             
         }
         // setStop(!stop)
+        
         SoundPlayer.addEventListener('FinishedPlaying',((res)=>{
              
             if(res)
             {
                 setStop(false)
+                console.log('success')
 
             }
         }))
@@ -293,7 +295,7 @@ const [isStop, setIsStop]= React.useState('play')
             <TouchableOpacity style={{
                 
                 position: 'absolute',
-                bottom: sizeWidth(105),
+                bottom: sizeWidth(110),
                 right: sizeWidth(5),
                 
                 shadowColor: 'grey'

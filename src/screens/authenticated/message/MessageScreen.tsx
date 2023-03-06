@@ -245,8 +245,8 @@ const cofirmHandleLogOut =()=>{
         style={{padding: sizeWidth(1),
           paddingLeft: sizeWidth(3),}} />
           <View style={{width:'90%', height:50}}>
-          <Text style={{fontSize:18, color:colors.black, fontWeight:'500'}}>Bạn có chắc chắn muốn đăng xuất</Text>
-          <Text style={{fontSize:18, color:colors.black, fontWeight:'500', alignSelf:'center'}}>không?</Text>
+          <Text style={{fontSize:17, alignSelf:'center', color:colors.black, fontWeight:'500'}}>Bạn có chắc chắn muốn đăng xuất</Text>
+          <Text style={{fontSize:17, color:colors.black, fontWeight:'500', alignSelf:'center'}}>không?</Text>
 
 
           </View>

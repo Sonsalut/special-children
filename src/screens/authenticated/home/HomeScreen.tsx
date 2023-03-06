@@ -50,7 +50,7 @@ const HomeScreen = ({ }: StackNavigationProps<
   return (
 
     <Container style={{backgroundColor: 'white'}}>         
-        <View style={{ height: sizeHeight(90), width:'95%', marginTop: 10, alignSelf:'center', alignItems:'center'}}>
+        <View style={{ height: sizeHeight(90), width:'95%', alignSelf:'center', alignItems:'center'}}>
           <FlatList
             showsVerticalScrollIndicator={false}
             data={data}
@@ -62,10 +62,10 @@ const HomeScreen = ({ }: StackNavigationProps<
               isDoubleTap={false}
               activeOpacity={0.7}  
                 style={{                 
-                  width: '40%',
+                  width: sizeWidth(40),
                   // sizeWidth(40),
                   // marginVertical: 15,
-                  height: '86%',
+                  height: sizeHeight(25),
                   borderRadius: 10,
                   marginHorizontal: 15,
                   alignSelf: 'center',
@@ -74,9 +74,7 @@ const HomeScreen = ({ }: StackNavigationProps<
                   backgroundColor: '#99C8E4',
                   paddingTop: 5
                 }}           
-              >
-                
-                  
+              >      
                   <Image
                     style={{
                       resizeMode: 'stretch',

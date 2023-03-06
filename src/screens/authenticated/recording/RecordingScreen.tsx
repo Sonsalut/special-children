@@ -213,7 +213,7 @@ const RecordingScreen = ({ route }: any) => {
                 outerStyle={{backgroundColor:colors.title_blue}} 
                 rightIconShow={false} />
             
-                <View style={{width:sizeWidth(90), height:sizeHeight(90), alignSelf:'center', alignItems: 'center', paddingTop: 15,}}>
+                <View style={{width:sizeWidth(90), height:sizeHeight(90), alignSelf:'center', alignItems: 'center'}}>
                     <FlatList
                         data={data}
                         keyExtractor={(_, index) => index.toString()}
@@ -228,9 +228,8 @@ const RecordingScreen = ({ route }: any) => {
                                         marginVertical:15, 
                                         height:160,
                                         borderRadius:10,
-                                        marginHorizontal:15, 
-                                        
-                                        marginTop: 10,                 
+                                        marginHorizontal:15,                            
+                                        marginTop: 10,           
                                         backgroundColor:'#99C8E4',
                                         alignItems: 'center'
                                     }}>

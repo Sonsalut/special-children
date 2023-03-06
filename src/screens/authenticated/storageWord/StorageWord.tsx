@@ -57,7 +57,7 @@ if (response.status === ResponseCode.SUCCESS) {
   return (
     <Container style={{backgroundColor: 'white'}} >
    
-    <View>
+    <View >
         <TouchableOpacity 
           style={{
             marginLeft:10,
@@ -73,7 +73,7 @@ if (response.status === ResponseCode.SUCCESS) {
           <Text style={{alignSelf: 'center', marginTop: 10, fontSize: 15, fontWeight: 'bold', color: '#2D5672'}}>Thêm từ vào kho</Text>
         </TouchableOpacity>
     </View>
-    <View style={{width:'90%', height:'80%', alignSelf:'center', marginTop:15}}>
+    <View style={{width:'90%', height:'100%', alignSelf:'center', marginTop:15}}>
       <FlatList 
       data={data}
       numColumns={3}
@@ -81,10 +81,10 @@ if (response.status === ResponseCode.SUCCESS) {
         <View style={{flexDirection:'row',justifyContent:'center', marginVertical:10,  width:sizeWidth(30), height: sizeHeight(15)}}>
                     
         
-        <View style={{ alignSelf:'center', width:sizeWidth(25), marginHorizontal:5,borderRadius:10,paddingTop:5, height:sizeHeight(15), backgroundColor: '#99C8E4'}}>
+        <View style={{ alignSelf:'center', width:sizeWidth(25), marginHorizontal:5,borderRadius:10,paddingTop:5, height:sizeHeight(16), backgroundColor: '#99C8E4'}}>
             <Image style={{
                       resizeMode:'stretch',
-                      height: sizeHeight(10), width: sizeWidth(18),
+                      height: sizeHeight(11), width: sizeWidth(18),
                       alignSelf:'center',
                       borderRadius: 9
                   }}
@@ -97,7 +97,7 @@ if (response.status === ResponseCode.SUCCESS) {
                       }}
 
                   />
-          <Text style={{fontSize:15, color:'#2D5672', fontWeight:'bold', alignSelf:"center", paddingTop: '10%'}}>{item?.word}</Text>
+          <Text style={{fontSize:15, color:'#2D5672', fontWeight:'bold', alignSelf:"center"}}>{item?.word}</Text>
         </View>
 
         </View>
