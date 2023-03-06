@@ -218,7 +218,7 @@ const handleStore = useSelector( store=> store.storeReducer.handleStore)
                     contentContainerStyle={{ alignItems: 'flex-start' }}
                     renderItem={({ item, index }) => {
                         return (
-                            <TouchableOpacity  onPress={() => { deleteWord(item) }}>
+                            <TouchableOpacity isDoubleTap={true}  onPress={() => { deleteWord(item) }}>
                                 <View style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
                                     <View style={{
                                         backgroundColor: '#C1EBEA',
