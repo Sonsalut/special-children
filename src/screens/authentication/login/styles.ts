@@ -7,7 +7,7 @@ export default StyleSheet.create({
     alignItems: 'center', 
     flex: 1, 
     justifyContent: 'flex-end',
-    
+    marginTop: '-15%'
   },
   background: {
     flex: 1,
@@ -24,11 +24,9 @@ export default StyleSheet.create({
     width: ratioW(375),
     paddingHorizontal: ratioW(32),
     paddingVertical: ratioW(18),
-    // backgroundColor: colors.white_gray,
     borderTopRightRadius: ratioW(20),
     borderTopLeftRadius: ratioW(20),
-    paddingBottom: 120,
-    // borderWidth: 1
+    height: '50%'
   },
   viewTextInput: {
     marginBottom: ratioW(18),

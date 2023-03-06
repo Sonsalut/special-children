@@ -55,7 +55,7 @@ if (response.status === ResponseCode.SUCCESS) {
     }
    
   return (
-    <Container style={{backgroundColor: 'white'}}>
+    <Container style={{backgroundColor: 'white'}} >
    
     <View>
         <TouchableOpacity 
