@@ -69,6 +69,7 @@ const HomeScreen = ({ }: StackNavigationProps<
           keyExtractor={(_, index) => index.toString()}
             numColumns={2}
         showsVerticalScrollIndicator={false}
+         
            refreshControl={
             <RefreshControl
                 refreshing={refreshing}

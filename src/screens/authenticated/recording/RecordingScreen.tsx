@@ -201,8 +201,9 @@ const RecordingScreen = ({ route }: any) => {
         setItem(item)
         setVisible(true)
         setIndex(index)
+        playSound(item?.audioWord)
     }
-    const [index, setIndex] = React.useState(0)
+    const [index, setIndex] = React.useState(0) 
     const [refreshing, setRefreshing] = React.useState(false);
 
     const onRefresh = React.useCallback(() => {
@@ -293,10 +294,13 @@ const RecordingScreen = ({ route }: any) => {
                         
                         <View style={{ height:'100%'}}>
                            
-                        <Swiper showsButtons={false} index={index}>
+                        <Swiper showsButtons={false} index={index} onIndexChanged={(index)=>playSound(data[index]?.audioWord)} >
                             {
+                                
                                 data.map((item, index) => (
+                                    
                                     <View key={index} >
+                                        
                                         <View
                                             style={{
                                                 width: '93%',
