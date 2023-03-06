@@ -10,7 +10,7 @@ import NavigationService from 'routers/NavigationService';
 import styles from '../home/styles';
 import { Modal } from 'react-native-paper';
 import * as ImagePicker from 'react-native-image-picker';
-import { TextInput } from 'react-native-gesture-handler';
+import { RefreshControl, TextInput } from 'react-native-gesture-handler';
 import strings from 'res/strings';
 import get from 'network/subs/auth/AuthApi';
 import RecordingAPI, { AuthApis } from 'network/subs/auth/recording/RecordingAPI';
@@ -202,9 +202,18 @@ const RecordingScreen = ({ route }: any) => {
         setVisible(true)
         setIndex(index)
     }
-
     const [index, setIndex] = React.useState(0)
+    const [refreshing, setRefreshing] = React.useState(false);
 
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+          setRefreshing(false);
+          loadData();
+
+        }, 2000);
+      }, []);
+    
     return (
 
         <Container style={{ flex: 1, backgroundColor: 'white'}}  >
@@ -212,21 +221,27 @@ const RecordingScreen = ({ route }: any) => {
                 title={route?.params?.data?.name} 
                 outerStyle={{backgroundColor:colors.title_blue}} 
                 rightIconShow={false} />
-            
-                <View style={{width:sizeWidth(90), height:sizeHeight(90), alignSelf:'center', alignItems: 'center'}}>
+         
+                <View style={{width:sizeWidth(90), height:sizeHeight(90), alignSelf:'center', paddingTop: 15,}}>
                     <FlatList
                         data={data}
                         keyExtractor={(_, index) => index.toString()}
                         showsVerticalScrollIndicator={false}
                         numColumns={2}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                                colors={[colors.blue]}
+                             />}
                         renderItem={({ item, index }) => (
                         
                             <TouchableOpacity key={index} activeOpacity={0.7} onPress={() => { addImage(item, index) }}>
                                 <View 
                                     style={{ 
-                                        width: sizeWidth(35), 
+                                        width: sizeWidth(38), 
                                         marginVertical:15, 
-                                        height:160,
+                                        height:sizeHeight(23),
                                         borderRadius:10,
                                         marginHorizontal:15,                            
                                         marginTop: 10,           
@@ -236,7 +251,7 @@ const RecordingScreen = ({ route }: any) => {
                                     <Image 
                                         style={{
                                             resizeMode: 'stretch',
-                                            height: sizeHeight(15), width: sizeWidth(35),
+                                            height: sizeHeight(16), width: sizeWidth(36),
                                             borderRadius: sizeWidth(3),
                                             justifyContent: 'center'
                                         }}
@@ -246,7 +261,7 @@ const RecordingScreen = ({ route }: any) => {
                                         headers: {Authorization: store.getState().authReducer.user.accessToken}
                                         }}
                                     />
-                                    <Text style={{ marginTop: 3, fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'#2D5672'}}>{item.word}</Text>
+                                    <Text style={{ marginTop: 10, fontSize: fontSize(6), alignSelf: 'center', fontWeight:'bold', color:'#2D5672'}}>{item.word}</Text>
                                 </View>
                             </TouchableOpacity>
                         )}
@@ -293,7 +308,7 @@ const RecordingScreen = ({ route }: any) => {
                                                 justifyContent: 'space-between',
                                                 alignSelf: 'center'
                                             }}>
-                                            <TouchableOpacity onPress={handle}>
+                                            <TouchableOpacity onPress={handle}  >
                                                 <Image resizeMode='contain' source={cancel} style={{ width: sizeWidth(5), height: sizeHeight(5) }} />
                                             </TouchableOpacity>
                                             <Text style={{ fontSize: 30, flexDirection: 'row', color: colors.white, justifyContent: 'center', paddingTop: 3 }}>{item?.word}</Text>

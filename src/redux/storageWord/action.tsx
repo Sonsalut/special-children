@@ -51,21 +51,28 @@ export const setCategory =(data)=>{
     }
 
 }
-export const showPersonStore =(data)=>{
+export const add =(data)=>{
     return{
 
-        type:'SHOW_PERSONAL_STORE',
-        
+        type:'ADD',
+        payload:data
+    }
+
+}
+export const deletes =(data)=>{
+    return{
+
+        type:'DELETE',
+        payload:data
+    }
+
+}
+export const getdata =(data)=>{
+    return{
+
+        type:'GET_PERSONAL_STORE_FROM_API',
+        payload:data
     }
 
 }
 
-
-export const getPersonalStoreFromAPi =(data)=>{
-    return{
-
-        type:'SHOW_PERSONAL_STORE',
-        
-    }
-
-}

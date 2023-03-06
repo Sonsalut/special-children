@@ -4,7 +4,7 @@ import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens, AuthenticationScreens, MainScreens } from 'routers/ScreenNames';
 import NavigationService from 'routers/NavigationService';
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
-import { View, Image, ImageBackground, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { View, Image, ImageBackground, ScrollView, KeyboardAvoidingView,FlatList } from 'react-native';
 import styles from './styles';
 import images from 'res/images';
 import AuthenticationApi from 'network/subs/auth/AuthApi';
@@ -13,11 +13,14 @@ import AuthApi from 'network/subs/auth/AuthApi';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import { GetFullCategory } from 'network/subs/auth/recording/RecordingRequest';
 import ResponseCode from 'network/ResponseCode';
-import { FlatList } from 'react-native-gesture-handler';
+
 import { store } from 'redux/store';
 import colors from 'res/colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { createEntityAdapter } from '@reduxjs/toolkit';
+import { RefreshControl } from 'react-native-gesture-handler';
+import Spinner from 'react-native-spinkit';
+
 
 const HomeScreen = ({ }: StackNavigationProps<
   Routes,
@@ -25,40 +28,59 @@ const HomeScreen = ({ }: StackNavigationProps<
 >) => {
 
   const [data, setData] = React.useState([])
+  const [datas, setDatas] = React.useState([])
+
   const getCategory = async (values: any) => {
     const response = await RecordingAPI.GetFullCategory<GetFullCategory>({
       pageIndex: 1,
       pageSize: 20,
       name:null,
       isActive:true,
-      categories: {}
+      // categories: {}
 
     });
     if (response.status === ResponseCode.SUCCESS) {
-      // console.log(response.data.categories)
 
-      setData(response.data.categories)
-
+      setData(response.data?.categories)
+      console.log(data)
     }
   }
   React.useEffect(() => {
         getCategory()
 
   }, [])
+  const [refreshing, setRefreshing] = React.useState(false);
 
-
+  const onRefresh = React.useCallback(() => {
+      setRefreshing(true);
+      setTimeout(() => {
+        setRefreshing(false);
+        getCategory()
+        
+      }, 2000);
+    }, []);
   return (
 
-    <Container style={{backgroundColor: 'white'}}>         
-        <View style={{ height: sizeHeight(90), width:'95%', alignSelf:'center', alignItems:'center'}}>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={data}
-            keyExtractor={(_, index) => index.toString()}
+    <Container style={{backgroundColor: 'white'}}>      
+        <View style={{ height: sizeHeight(90), width:'95%', marginTop: 10, alignSelf:'center', alignItems:'center'}}>
+         
+         <FlatList
+          data={data}
+          keyExtractor={(_, index) => index.toString()}
             numColumns={2}
-            renderItem={({ item }) => (
-            <TouchableOpacity 
-              onPress={()=>NavigationService.navigate(AuthenticatedScreens.RecordingScreen, {data:item})}
+        showsVerticalScrollIndicator={false}
+           refreshControl={
+            <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                colors={[colors.blue]}
+             />
+           
+          }
+          renderItem={({item})=>(
+        
+          <TouchableOpacity
+           onPress={()=>NavigationService.navigate(AuthenticatedScreens.RecordingScreen, {data:item})}
               isDoubleTap={false}
               activeOpacity={0.7}  
                 style={{                 
@@ -92,13 +114,16 @@ const HomeScreen = ({ }: StackNavigationProps<
                     } :
                       require('../../.././assets/images/no.png')
                     }
-                  />        
-                  <Text style={{fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'#2D5672'}}>{item?.name}</Text>
-                  
-                
-              </TouchableOpacity>
-            )}>
-          </FlatList>
+                  /> 
+           <Text style={{fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'#2D5672'}}>{item?.name}</Text>
+          </TouchableOpacity>
+       
+          
+          
+  )}
+         
+         />
+          
         </View>
     </Container>  
   );

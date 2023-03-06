@@ -91,8 +91,7 @@ const Storage = ({ }: StackNavigationProps<
 
 
   const category = useSelector(store => store.storeReducer.category)
-  const filterWordStore = useSelector(store => store.storeReducer.filterCategory)
-  const personalStorage = useSelector(store => store.storeReducer.personalStore)
+
   const fullStore = useSelector(store => store.storeReducer.fullStore)
 
 
@@ -124,7 +123,7 @@ const Storage = ({ }: StackNavigationProps<
       setPersonDataFromApi(responses.data)
       //check nếu word đã đc thêm vào personStorage
       isExits(response.data?.words, responses.data)
-      // dispatch(showPersonStore(response.data))
+      
     }
 
 

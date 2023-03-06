@@ -8,7 +8,8 @@ const initialState = {
    category:[
        
    ],
-  personalStore:[],
+   handleStore:[],
+
   personalStorefromApi:[]
     
     
@@ -23,7 +24,6 @@ export default  ( state= initialState, action)=>
             ...state,
             fullStore: 
                 action.payload
-            
         }
         case'SET_CATEGORY':
         return{
@@ -31,13 +31,30 @@ export default  ( state= initialState, action)=>
          category:action.payload
 
         }
-        
-        case'SHOW_PERSONAL_STORE':
+        case'ADD':
         return{
             ...state,
-            personalStore: state.fullStore.filter(item=>item?.isActive===false)
+         handleStore:[
+            ...state.handleStore,
+           { ...action.payload}
+         ],
+         personalStorefromApi: state.personalStorefromApi.filter((item)=>item?.id!==action.payload?.id)
+         
 
         }
+        case'DELETE':
+        return{
+            ...state,
+         handleStore: state.handleStore.filter((item)=>item?.id!==action.payload?.id),
+         personalStorefromApi:[...state.personalStorefromApi,{...action.payload}]
+
+        }
+        case 'GET_PERSONAL_STORE_FROM_API':
+            return{
+                ...state,
+                personalStorefromApi:action.payload
+            }
+       
         case'CLICKED_WORD':
         return{
             ...state,
@@ -54,11 +71,7 @@ export default  ( state= initialState, action)=>
         }),
        
         }
-        case 'GET_PERSONAL_STORE_FROM_API':
-            return{
-                ...state,
-                personalStorefromApi:action.payload
-            }
+       
         
             default:
                 return state;
