@@ -13,12 +13,13 @@ const HomeScreens= () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown : false
+        headerShown : false,
 
       }}>
       <Stack.Screen
         name={AuthenticatedScreens.HomeScreen}
         component={HomeScreen}
+        
       />
        {/* <Stack.Screen
         name={AuthenticatedScreens.RecordingScreen}

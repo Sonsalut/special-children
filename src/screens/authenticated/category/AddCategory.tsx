@@ -1,11 +1,11 @@
 import React from 'react';
-import { Container, Header, Text, TextInput, TouchableOpacity } from 'components';
+import { Container, Header, TextInput, TouchableOpacity } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens, AuthenticationScreens, MainScreens } from 'routers/ScreenNames';
 import NavigationService from 'routers/NavigationService';
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
-import { View, Image, ImageBackground, ScrollView, KeyboardAvoidingView,FlatList, Animated, TouchableHighlightComponent, TouchableWithoutFeedback } from 'react-native';
-import styles from './styles';
+import { Text,View, Image, ImageBackground, ScrollView, KeyboardAvoidingView,FlatList, Animated, TouchableHighlightComponent, TouchableWithoutFeedback } from 'react-native';
+
 import images from 'res/images';
 import AuthenticationApi from 'network/subs/auth/AuthApi';
 import { CategoryList } from 'network/subs/auth/AuthResponse';
@@ -25,11 +25,12 @@ import { Searchbar, TouchableRipple } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { showIcon } from 'redux/storageWord/action';
 import GlobalHeader from 'components/header/GlobalHeader';
+import HeaderWithBack from 'components/header/HeaderWithBack';
 
 
-const HomeScreen = ({ }: StackNavigationProps<
+const AddCategory = ({ }: StackNavigationProps<
   Routes,
-  AuthenticatedScreens.HomeScreen
+  AuthenticatedScreens.AddCategory
 >) => {
 
   const [data, setData] = React.useState([])
@@ -81,31 +82,32 @@ const [refreshing, setRefreshing] = React.useState(false);
       
     )
   return (
-
-    <Container isBottomTab={false}  style={{backgroundColor: 'white', flex: 1,  width: '100%'}} >      
-        
-           <TouchableWithoutFeedback
-          
-    onPress={() => console.log('Pressed')}
-    onLongPress={handleShow}
+<Container style={{flex:1}}>
+    <HeaderWithBack title={'Chủ đề'}
     
-    
-  
-  >
+    outerStyle={{backgroundColor:colors.title_blue}} 
+    rightIconShow={true}
+    hasDone={false} />
+    <TouchableOpacity 
+          style={{
+            marginLeft:10,
+            width:'50%', 
+            height:sizeWidth(10), 
+            borderRadius:45, 
+            marginTop:15, 
+            marginBottom: -10,
+            backgroundColor: '#FFD19A', 
+            alignSelf: 'center'}} 
+          onPress={()=>console.log('aa')}
+        >
+          <Text style={{alignSelf: 'center', marginTop: 10, fontSize: 15, fontWeight: 'bold', color: '#2D5672'}}>Thêm chủ đề</Text>
+        </TouchableOpacity>
         <View style={{ height: sizeHeight(90), width:'95%', alignSelf:'center', alignItems:'center'}}>
-     {
-      show
-      ? <Searchbar style={{height:40, borderWidth:1, borderColor:'gray', marginTop:2}}  placeholder="Search"value={searchValue}
-      onChangeText={(e)=>setSearchValue(e)}
-      spellCheck={false}
-      
-      />
-     :null
-     }
-    
+   
+   
  
          <FlatList
-          data={filterData()}
+          data={data}
           keyExtractor={(_, index) => index.toString()}
           numColumns={2}
           showsVerticalScrollIndicator={false}
@@ -120,7 +122,7 @@ const [refreshing, setRefreshing] = React.useState(false);
           renderItem={({item})=>(
         
           <TouchableOpacity
-           onPress={()=>NavigationService.navigate(AuthenticatedScreens.RecordingScreen, {data:item})}
+           onPress={()=>console.log('1111')}
               isDoubleTap={false}
               activeOpacity={0.7}  
                 style={{                 
@@ -165,9 +167,10 @@ const [refreshing, setRefreshing] = React.useState(false);
          />
           
         </View>
-        </TouchableWithoutFeedback>
-    </Container>  
+   
+   
+    </Container>
   );
 };
 
-export default HomeScreen;
+export default AddCategory;

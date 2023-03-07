@@ -10,7 +10,8 @@ const images = {
   navBackLeft: require('../assets/images/navBackLeft.png'),
   number: require('../assets/images/number.png'),
   done:require('../assets/images/done.png'),
-  plus:require('../assets/images/plus.png')
+  plus:require('../assets/images/plus.png'),
+  action: require('../assets/images/actions.png')
   
 };
 export default images;

@@ -9,7 +9,7 @@ import React from 'react'
 import { store } from 'redux/store';
 import { GetStorageWord, GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
 import { sizeHeight, sizeWidth } from 'utils/Utils';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, RefreshControl } from 'react-native-gesture-handler';
 import { Container, Header } from 'components';
 import { Title } from 'react-native-paper';
 import HeaderWithBack from 'components/header/HeaderWithBack';
@@ -18,7 +18,7 @@ import Vi from 'assets/languages/vi';
 import CheckBox from '@react-native-community/checkbox';
 import { Value } from 'react-native-reanimated';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterStorage, isClicked, setCategory, setStorage, showPersonStore, updateStorage } from 'redux/storageWord/action';
+import { filterStorage, isClicked, setCategory, setStorage, updateStorage } from 'redux/storageWord/action';
 import NavigationService from 'routers/NavigationService';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import colors from 'res/colors';
@@ -31,21 +31,25 @@ const Storage = ({ }: StackNavigationProps<
 
   const [dataWord, setDataWord] = React.useState([])
   const [dataWords, setDataWords] = React.useState([])
-  const [personDataFromAPi, setPersonDataFromApi] = React.useState([])
+  const [personDataFromAPi, setPersonDataFromApi] = React.useState()
+  const category = useSelector(store => store.storeReducer.category)
 
+  const fullStore = useSelector(store => store.storeReducer.fullStore)
   const getCategory = async (values: any) => {
     const response = await RecordingAPI.GetFullCategory<GetFullCategory>({
       pageIndex: 1,
       pageSize: 20,
-      name: null,
-      isActive: true,
-      categories: {}
+      name:null,
+      isActive:true,
+      
 
     });
     if (response.status === ResponseCode.SUCCESS) {
       if (category.length <= 0) {
-        dispatch(setCategory(response.data.categories))
-        loadData(response.data.categories?.id)
+        console.log( response.data?.categories)
+        dispatch(setCategory(response.data?.categories))
+        // console.log('AAAAA'+ response.data.categories)
+        loadData(response.data?.categories?.id)
       }
     }
   }
@@ -59,7 +63,7 @@ const Storage = ({ }: StackNavigationProps<
     if (response.status === ResponseCode.SUCCESS) {
       // console.log(response.data)
       setPersonDataFromApi(response.data)
-      isExits(fullStore, response.data)
+      // isExits(fullStore, response.data)
       // dispatch(showPersonStore(response.data))
     }
     
@@ -90,9 +94,7 @@ const Storage = ({ }: StackNavigationProps<
 
 
 
-  const category = useSelector(store => store.storeReducer.category)
-
-  const fullStore = useSelector(store => store.storeReducer.fullStore)
+ 
 
 
   const dispatch = useDispatch()
@@ -108,6 +110,7 @@ const Storage = ({ }: StackNavigationProps<
     if (response.status === ResponseCode.SUCCESS) {
       // console.log(response.data?.words) 
       setDataWord(response.data?.words)
+      // console.log("API"+response.data?.words )
       dispatch(setStorage(response.data?.words))
     }
     else {
@@ -120,27 +123,22 @@ const Storage = ({ }: StackNavigationProps<
     })
     if (responses.status === ResponseCode.SUCCESS) {
       // console.log(response.data)
-      setPersonDataFromApi(responses.data)
-      //check nếu word đã đc thêm vào personStorage
+      // setPersonDataFromApi(responses.data)
+      // //check nếu word đã đc thêm vào personStorage
       isExits(response.data?.words, responses.data)
       
     }
 
 
   }
-  const firstHandle = async () => {
-
-    await getStorageWords()
-    await getCategory()
-
-  }
+ 
 
   const isFocused = useIsFocused();
 
  
   React.useEffect(() => {
 
-    // getStorageWords()
+    getStorageWords()
     getCategory()
 
     // isExits(fullStore, personDataFromAPi)
@@ -165,39 +163,80 @@ const Storage = ({ }: StackNavigationProps<
 
   }
   const showToast= useToast()
-  const doneHandle = async () => {
-    let maps= fullStore.filter(word=> word?.isActive===false)
-
-  let handAdd= maps.map((items) => {
-      let itemB = personDataFromAPi.find((item) => item.id === items.id);
-      if (!itemB) {
-        // dispatch(isClicked({
-        //   ...items,
-        //   isActive:false
-        // }))
-        // console.log('add'+items?.word)
-        addWordToStorage(items?.id)
-      }
-    }
-  )
-    let handDelete= personDataFromAPi.map((items) => {
-      let itemB = maps.find((item) => item.id === items.id);
-      if (!itemB) {
-        // dispatch(isClicked({
-        //   ...items,
-        //   isActive:false
-        // }))
-        // console.log('xoas'+items?.word)
-        deleteWordToStorage(items?.id)
-      }
-    }
+//   const doneHandle =  () => {
+//     // console.log(fullStore)
+//     //map ra những item isCLicked
+//     let maps= fullStore.filter(word=> word?.isActive===false)
+// // lọc ra những item thuộc B mà không thuộc PersonApi --> add
+//   let handAdd= maps.map((items) => {
+//       let itemB = personDataFromAPi.find((item) => item.id === items.id);
+//       if (!itemB) {
+//         // dispatch(isClicked({
+//         //   ...items,
+//         //   isActive:false
+//         // }))
+//         console.log('add'+items?.word)
+//         addWordToStorage(items?.id)
+//       }
+//     }
+//   )
+//     let handDelete= personDataFromAPi.map((items) => {
+//       let itemB = maps.find((item) => item.id === items.id);
+//       if (!itemB) {
+//         // dispatch(isClicked({
+//         //   ...items,
+//         //   isActive:false
+//         // }))
+//         console.log('xoas'+items?.word)
+//         deleteWordToStorage(items?.id)
+//       }
+//     }
     
-  )
+//   )
   
+// showToast('Lưu thành công', 'success')
+// NavigationService.navigate(AuthenticatedScreens.StorageWords)
+   
+//   }
+const doneHandle = async () => {
+  let maps= fullStore.filter(word=> word?.isActive===false)
+//   console.log('Handle maps')
+// console.log(maps)
+// console.log('--------------')
+// console.log('Handle api')
+
+console.log(personDataFromAPi)
+let handAdd= await maps.map((items) => {
+    let itemB = personDataFromAPi.find((item) => item.id === items.id);
+    if (!itemB) {
+      // dispatch(isClicked({
+      //   ...items,
+      //   isActive:false
+      // }))
+      console.log('add'+items?.word)
+      addWordToStorage(items?.id)
+    }
+  }
+)
+  let handDelete= await personDataFromAPi.map((items) => {
+    let itemB =  maps.find((item) => item.id === items.id);
+    if (!itemB) {
+      // dispatch(isClicked({
+      //   ...items,
+      //   isActive:false
+      // }))
+      console.log('xoas'+items?.word)
+      deleteWordToStorage(items?.id)
+    }
+  }
+  
+)
+
 showToast('Lưu thành công', 'success')
 NavigationService.navigate(AuthenticatedScreens.StorageWords)
-   
-  }
+ 
+}
+
   const filterDatas = (item) => (
     fullStore.filter(word => word?.category?.id === item)
 
@@ -206,11 +245,11 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
 
 
 
-    if (item?.isActive == false) {
+    if (item?.isActive === false) {
       // console.log(item?.id)
 
       // deleteWordToStorage(item?.id)
-      console.log('Xoa')
+      // console.log('Xoa')
       dispatch(isClicked({
         ...item,
         isActive:true
@@ -230,6 +269,16 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
 
   }
 
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = React.useCallback(() => {
+      setRefreshing(true);
+      setTimeout(() => {
+        setRefreshing(false); 
+        getCategory()
+        console.log(fullStore)
+        
+      }, 2000);
+    }, []);
   return (
 
 
@@ -256,6 +305,13 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
         <FlatList
           data={category}
           showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                colors={[colors.blue]}
+             />  
+          }
           renderItem={({ item, index }) => (
             <View 
               key={index}
@@ -301,6 +357,7 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
                   data={filterDatas(item?.id)}
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
+                  
                   renderItem={({ item, index }) => (
 
                     <View style={{ flexDirection: 'row', width: sizeWidth(30), height: sizeHeight(15), paddingTop:3}}>

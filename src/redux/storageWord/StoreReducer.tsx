@@ -10,7 +10,8 @@ const initialState = {
    ],
    handleStore:[],
 
-  personalStorefromApi:[]
+  personalStorefromApi:[],
+  show: false,
     
     
 }
@@ -22,8 +23,7 @@ export default  ( state= initialState, action)=>
         case'SET_STORAGE':
         return{
             ...state,
-            fullStore: 
-                action.payload
+            fullStore: action.payload
         }
         case'SET_CATEGORY':
         return{
@@ -47,8 +47,13 @@ export default  ( state= initialState, action)=>
             return item
         }),
        
-        }
        
+        }
+        case 'SHOW_ICON':
+            return{
+                ...state,
+                show:!state.show
+            }
         
             default:
                 return state;

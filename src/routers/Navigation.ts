@@ -29,6 +29,8 @@ export type Routes = {
   [AuthenticatedScreens.StorageWords]: undefined;
 
   [AuthenticatedScreens.Storage]: undefined;
+  [AuthenticatedScreens.AddCategory]: undefined;
+
 
 
 

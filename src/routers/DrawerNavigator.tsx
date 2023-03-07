@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Button, View, Text } from 'react-native';
+import { Button, View, Text,TouchableOpacity } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import Svg, { Path } from "react-native-svg";
+import Svg, {  Path } from "react-native-svg";
 
 
 
@@ -17,32 +17,44 @@ import colors from 'res/colors';
 import StoreNavigator from './StoreNavigator';
 import HomeScreens from './HomeScreens';
 import RecordingScreen from 'screens/authenticated/recording/RecordingScreen';
+import { Image } from 'react-native';
+import { useSelector } from 'react-redux';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { sizeHeight } from 'utils/Utils';
+import NavigationService from './NavigationService';
 
 const Drawer = createDrawerNavigator();
-const DrawerNavigator = () => {
+const DrawerNavigator = ({
+  
+}) => {
+  const show= useSelector(store=>store.storeReducer.show)
   return (
 
-    <Drawer.Navigator initialRouteName={AuthenticatedScreens.HomeScreen} >
+    <Drawer.Navigator initialRouteName={AuthenticatedScreens.HomeScreen} 
+
+    >
 
       <Drawer.Screen name={AuthenticatedScreens.HomeScreens}
         component={HomeScreens}
         options={{
           title: 'Học từ', 
           headerStyle: { backgroundColor: colors.title_blue },        
-          headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }
+          headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 },
+          headerRight: () => (
+            show ? 
+            <TouchableOpacity onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddCategory)}>
+           <Icon name='pencil-outline' size={sizeHeight(3)} style={{right:5}}/>
+            </TouchableOpacity>
+            :null
+          ),
+          
+         
+         
+          
         }}
 
       />
-      {/* <Drawer.Screen name={AuthenticatedScreens.DiscoveryScreen}
-        component={DiscoveryScreen}
-        options={{ 
-          title: 'Thông báo', 
-          headerStyle: { backgroundColor: colors.white_gray }, 
-          headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }
-        }}
-
-      /> */}
-
+    
       <Drawer.Screen name={AuthenticatedScreens.StorageWords}
         component={StoreNavigator}
         options={{ 
