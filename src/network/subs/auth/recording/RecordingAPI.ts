@@ -72,8 +72,7 @@ class RecodingApi {
     DeleteWordToStorage<T>(params: DeleteWordToStorage) {
         return Api.request<T>({
 
-           
-
+        
             options: {
                 method: METHOD.DELETE,
                 url: AuthApis.DeleteStorageWord+`?wordId=${params.wordId}`,
