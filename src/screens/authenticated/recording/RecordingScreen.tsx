@@ -221,6 +221,7 @@ const RecordingScreen = ({ route }: any) => {
             <HeaderWithBack 
                 title={route?.params?.data?.name} 
                 outerStyle={{backgroundColor:colors.title_blue}} 
+                titleStyle={{color: '#F1F1F2'}}
                 rightIconShow={false} />
          
                 <View style={{width:sizeWidth(90), height:sizeHeight(90),alignItems: 'center', alignSelf:'center'}}>
@@ -246,7 +247,7 @@ const RecordingScreen = ({ route }: any) => {
                                         borderRadius:10,
                                         marginHorizontal:12,                            
                                         marginTop: 10,           
-                                        backgroundColor:'#99C8E4',
+                                        backgroundColor:'#C1EBEA',
                                         alignItems: 'center'
                                     }}>
                                     <Image 
@@ -272,7 +273,7 @@ const RecordingScreen = ({ route }: any) => {
                 <Modal
                     visible={visible}
                     style={{
-                        backgroundColor: '#FFD19A',
+                        backgroundColor: '#ADDDDC',
                         borderRadius: 15,
                         height: 450,
                         marginTop: sizeHeight(15),
@@ -312,20 +313,18 @@ const RecordingScreen = ({ route }: any) => {
                                                 justifyContent: 'space-between',
                                                 alignSelf: 'center'
                                             }}>
-                                            <TouchableOpacity onPress={handle}  >
-                                                <Image resizeMode='contain' source={cancel} style={{ width: sizeWidth(5), height: sizeHeight(5) }} />
-                                            </TouchableOpacity>
-                                            <Text style={{ fontSize: 30, flexDirection: 'row', color: colors.white, justifyContent: 'center', paddingTop: 3 }}>{item?.word}</Text>
+                                            <TouchableOpacity onPress={handle}>
+                                                <Image resizeMode='contain' source={cancel} style={{ width: sizeWidth(5), height: sizeHeight(5)}} />
+                                            </TouchableOpacity>            
                                         </View>
-                                        <View style={{ alignItems: 'center' }}>
+                                        <View style={{ alignItems: 'center', marginTop: '-15%' }}>
                                             <TouchableOpacity onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
                                                 <Image style={{
                                                     resizeMode: 'contain',
                                                     height: sizeHeight(60), width: sizeWidth(60),
                                                     alignSelf: 'center',
                                                     borderRadius: sizeWidth(14),
-                                                    maxHeight: 300,
-                                                    paddingBottom: 30,
+                                                    maxHeight: 300
                                                 }}
                                                     source={{
                                                         uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
@@ -336,6 +335,7 @@ const RecordingScreen = ({ route }: any) => {
                                                     }}
                                                 />
                                             </TouchableOpacity>
+                                            <Text style={{ fontSize: 30, flexDirection: 'row', color: '#2D5672', justifyContent: 'center', paddingTop: 3}}>{item?.word}</Text>
                                         </View>
                                     </View>
                                 ))

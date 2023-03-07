@@ -301,7 +301,7 @@ const handleStore = useSelector( store=> store.storeReducer.handleStore)
                                     addWord(item, index)
                                 }}>
                                 <View style={{
-                                    backgroundColor:  '#99C8E4',
+                                    backgroundColor:  '#C1EBEA',
                                     borderRadius: sizeWidth(3),
                                     justifyContent: 'space-evenly',
                                     alignItems: 'center',

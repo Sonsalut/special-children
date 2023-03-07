@@ -27,9 +27,9 @@ const DrawerNavigator = () => {
       <Drawer.Screen name={AuthenticatedScreens.HomeScreens}
         component={HomeScreens}
         options={{
-          title: 'Học từ', 
+          title: 'Học từ',
           headerStyle: { backgroundColor: colors.title_blue },        
-          headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }
+          headerTitleStyle: { color: '#F1F1F2', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }
         }}
 
       />
@@ -48,7 +48,7 @@ const DrawerNavigator = () => {
         options={{ 
           title: 'Kho ghép từ', 
           headerStyle: { backgroundColor: colors.title_blue },
-          headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 },
+          headerTitleStyle: { color: '#F1F1F2', fontWeight: 'bold', fontSize: 22, marginBottom: 10 },
           headerPressOpacity: 1
         }}
 
@@ -58,7 +58,7 @@ const DrawerNavigator = () => {
         options={{ 
           title: 'Ghép từ', 
           headerStyle: { backgroundColor: colors.title_blue },
-          headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }
+          headerTitleStyle: { color: '#F1F1F2', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }
         }}
 
       />
@@ -67,7 +67,7 @@ const DrawerNavigator = () => {
         options={{ 
           title: 'Cài đặt', 
           headerStyle: { backgroundColor: colors.title_blue },
-          headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }        
+          headerTitleStyle: { color: '#F1F1F2', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }        
         }}
       />
       {/* <Drawer.Screen name={AuthenticatedScreens.RecordingScreen}
