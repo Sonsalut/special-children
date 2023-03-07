@@ -81,7 +81,7 @@ if (response.status === ResponseCode.SUCCESS) {
         <View style={{flexDirection:'row',justifyContent:'center', marginVertical:10,  width:sizeWidth(30), height: sizeHeight(15)}}>
                     
         
-        <View style={{ alignSelf:'center', width:sizeWidth(25), marginHorizontal:5,borderRadius:10,paddingTop:5, height:sizeHeight(16), backgroundColor: '#99C8E4'}}>
+        <View style={{ alignSelf:'center', width:sizeWidth(25), marginHorizontal:5,borderRadius:10,paddingTop:5, height:sizeHeight(16), backgroundColor: '#C1EBEA'}}>
             <Image style={{
                       resizeMode:'stretch',
                       height: sizeHeight(11), width: sizeWidth(18),

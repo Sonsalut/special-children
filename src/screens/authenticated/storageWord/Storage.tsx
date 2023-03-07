@@ -22,7 +22,6 @@ import { filterStorage, isClicked, setCategory, setStorage, showPersonStore, upd
 import NavigationService from 'routers/NavigationService';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import colors from 'res/colors';
-import { useToast } from 'hooks/useToast';
 const Storage = ({ }: StackNavigationProps<
   Routes,
   AuthenticatedScreens.StorageWord
@@ -91,7 +90,8 @@ const Storage = ({ }: StackNavigationProps<
 
 
   const category = useSelector(store => store.storeReducer.category)
-
+  const filterWordStore = useSelector(store => store.storeReducer.filterCategory)
+  const personalStorage = useSelector(store => store.storeReducer.personalStore)
   const fullStore = useSelector(store => store.storeReducer.fullStore)
 
 
@@ -123,7 +123,7 @@ const Storage = ({ }: StackNavigationProps<
       setPersonDataFromApi(responses.data)
       //check nếu word đã đc thêm vào personStorage
       isExits(response.data?.words, responses.data)
-      
+      // dispatch(showPersonStore(response.data))
     }
 
 
@@ -164,39 +164,9 @@ const Storage = ({ }: StackNavigationProps<
     })
 
   }
-  const showToast= useToast()
   const doneHandle = async () => {
-    let maps= fullStore.filter(word=> word?.isActive===false)
 
-  let handAdd= maps.map((items) => {
-      let itemB = personDataFromAPi.find((item) => item.id === items.id);
-      if (!itemB) {
-        // dispatch(isClicked({
-        //   ...items,
-        //   isActive:false
-        // }))
-        // console.log('add'+items?.word)
-        addWordToStorage(items?.id)
-      }
-    }
-  )
-    let handDelete= personDataFromAPi.map((items) => {
-      let itemB = maps.find((item) => item.id === items.id);
-      if (!itemB) {
-        // dispatch(isClicked({
-        //   ...items,
-        //   isActive:false
-        // }))
-        // console.log('xoas'+items?.word)
-        deleteWordToStorage(items?.id)
-      }
-    }
-    
-  )
-  
-showToast('Lưu thành công', 'success')
-NavigationService.navigate(AuthenticatedScreens.StorageWords)
-   
+    setHasDone(!hasDone)
   }
   const filterDatas = (item) => (
     fullStore.filter(word => word?.category?.id === item)
@@ -209,7 +179,7 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
     if (item?.isActive == false) {
       // console.log(item?.id)
 
-      // deleteWordToStorage(item?.id)
+      deleteWordToStorage(item?.id)
       console.log('Xoa')
       dispatch(isClicked({
         ...item,
@@ -218,8 +188,8 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
     }
     else {
       // console.log(item?.id)
-      // addWordToStorage(item?.id)
-      // console.log('add')
+      addWordToStorage(item?.id)
+      console.log('add')
       dispatch(isClicked({
         ...item,
         isActive:false
@@ -227,6 +197,8 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
     }
     // console.log(item)
   
+
+    
 
   }
 
@@ -237,10 +209,8 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
       <HeaderWithBack 
         outerStyle={{
           backgroundColor:colors.title_blue}} 
-        title={'Kho từ'} handle={doneHandle} hasDone={true}
-        titleStyle={{
-          color: colors.text_blue
-        }}
+        title={'Kho từ'} handle={doneHandle} hasDone={hasDone}
+        titleStyle={{color: '#F1F1F2'}}
       />
 
 {/* Word list container */}
@@ -255,7 +225,6 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
       >
         <FlatList
           data={category}
-          showsVerticalScrollIndicator={false}
           renderItem={({ item, index }) => (
             <View 
               key={index}
@@ -340,9 +309,9 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
                           }}>{item?.word}
                         </Text>
                       </View>
-                      
-                        <CheckBox style={{ right: 25, bottom: 1, height:20 }} value={!item?.isActive} onValueChange={() => handleChoose(item)} /> 
-                      
+                      {
+                        hasDone ? <CheckBox style={{ right: 25, bottom: 1, height:20 }} value={!item?.isActive} onValueChange={() => handleChoose(item)} /> : null
+                      }
                     </View>
                   )}
                 />

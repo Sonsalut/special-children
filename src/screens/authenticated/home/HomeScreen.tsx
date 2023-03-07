@@ -94,7 +94,7 @@ const HomeScreen = ({ }: StackNavigationProps<
                   alignSelf: 'center',
                   marginTop: 30,
                   paddingHorizontal:10,
-                  backgroundColor: '#99C8E4',
+                  backgroundColor: '#C1EBEA',
                   paddingTop: 5,
                 }}           
               >      
