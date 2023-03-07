@@ -76,7 +76,7 @@ const HeaderWithBack = ({
           {
             rightIconShow 
             ?<TouchableOpacity onPress={handle} style={leftIconStyle}>
-            <Image resizeMode='contain' style={{width:sizeWidth(4), height:sizeHeight(3)}} source={hasDone?images.done : images.plus} /></TouchableOpacity> 
+            <Image resizeMode='contain' style={{width:sizeWidth(4), height:sizeHeight(3)}} source={hasDone?images.done : images.action} /></TouchableOpacity> 
             : null
           }
           

@@ -51,5 +51,14 @@ export const setCategory =(data)=>{
     }
 
 }
+export const showIcon =()=>{
+    return{
+
+        type:'SHOW_ICON',
+        
+    }
+
+}
+
 
 

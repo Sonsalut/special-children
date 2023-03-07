@@ -9,6 +9,7 @@ import HomeScreen from 'screens/authenticated/home/HomeScreen';
 import DrawerNavigator from './DrawerNavigator';
 import Storage from 'screens/authenticated/storageWord/Storage';
 import colors from 'res/colors';
+import AddCategory from 'screens/authenticated/category/AddCategory';
 const Stack = createStackNavigator<Routes>();
 
 const CommonStackNavigator = () => {
@@ -26,6 +27,11 @@ const CommonStackNavigator = () => {
        <Stack.Screen
         name={AuthenticatedScreens.RecordingScreen}
         component={RecordingScreen}
+          
+      />
+      <Stack.Screen
+        name={AuthenticatedScreens.AddCategory}
+        component={AddCategory}
           
       />
         <Stack.Screen

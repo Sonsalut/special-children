@@ -16,7 +16,7 @@ import HeaderWithBack from 'components/header/HeaderWithBack';
 import { FlatList } from 'react-native-gesture-handler';
 import { Title } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { showPersonStore } from 'redux/storageWord/action';
+
 import { useIsFocused } from '@react-navigation/native';
 
 
@@ -39,7 +39,7 @@ if (response.status === ResponseCode.SUCCESS) {
     setData(response.data)
 
   }
-
+ 
     }
     const isFocused = useIsFocused();
 

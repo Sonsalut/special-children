@@ -1,3 +1,5 @@
+import AddCategory from "screens/authenticated/category/AddCategory";
+
 //* ************************************ Main ************************************* *//
 export enum MainScreens {
   AuthenticationNavigator = 'AuthenticationNavigator',
@@ -23,7 +25,7 @@ export enum AuthenticatedScreens {
   StorageWord ='StorageWord',
   StorageWords ='StorageWords',
   HomeScreens = 'HomeScreens',
-
-  Storage='Storage'
+  Storage='Storage',
+  AddCategory='AddCategory'
 
 }
