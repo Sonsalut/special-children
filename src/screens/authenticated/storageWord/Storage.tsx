@@ -146,7 +146,7 @@ const Storage = ({ }: StackNavigationProps<
   }, [])
   
 
-  const [hasDone, setHasDone] = React.useState(false)
+  const [hasDone, setHasDone] = React.useState(true)
 
 
   const isExits = (fullStore, personalStore) => {
@@ -213,7 +213,7 @@ let handAdd= await maps.map((items) => {
       //   ...items,
       //   isActive:false
       // }))
-      console.log('add'+items?.word)
+      // console.log('add'+items?.word)
       addWordToStorage(items?.id)
     }
   }
@@ -225,7 +225,7 @@ let handAdd= await maps.map((items) => {
       //   ...items,
       //   isActive:false
       // }))
-      console.log('xoas'+items?.word)
+      // console.log('xoas'+items?.word)
       deleteWordToStorage(items?.id)
     }
   }
@@ -258,7 +258,7 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
     else {
       // console.log(item?.id)
       addWordToStorage(item?.id)
-      console.log('add')
+      // console.log('add')
       dispatch(isClicked({
         ...item,
         isActive:false
