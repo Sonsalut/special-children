@@ -238,33 +238,35 @@ const RecordingScreen = ({ route }: any) => {
                              />}
                         renderItem={({ item, index }) => (
                         
-                            <TouchableOpacity key={index} activeOpacity={0.7} onPress={() => { addImage(item, index) }}>
-                                <View 
-                                    style={{ 
-                                        width: sizeWidth(38), 
-                                        marginVertical:15, 
-                                        height:sizeHeight(23),
-                                        borderRadius:10,
-                                        marginHorizontal:12,                            
-                                        marginTop: 10,           
-                                        backgroundColor:'#C1EBEA',
-                                        alignItems: 'center'
-                                    }}>
-                                    <Image 
-                                        style={{
-                                            resizeMode: 'stretch',
-                                            height: sizeHeight(16), width: sizeWidth(36),
-                                            borderRadius: sizeWidth(3),
-                                            justifyContent: 'center'
-                                        }}
-                                        source={{
+                            <TouchableOpacity 
+                                key={index} 
+                                activeOpacity={0.7} 
+                                style={{ 
+                                    width: sizeWidth(38), 
+                                    marginVertical:15, 
+                                    height:sizeHeight(23),
+                                    borderRadius:10,
+                                    marginHorizontal:12,                            
+                                    marginTop: 10,           
+                                    backgroundColor:'#C1EBEA',
+                                    alignItems: 'center',
+                                    borderWidth:1
+                                }}
+                                onPress={() => { addImage(item, index) }}>
+                                <Image
+                                    style={{
+                                        resizeMode: 'stretch',
+                                        height: sizeHeight(16), width: sizeWidth(36),
+                                        borderRadius: sizeWidth(3),
+                                        justifyContent: 'center',
+                                    }}
+                                    source={{
                                         uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
                                         method: 'GET',
-                                        headers: {Authorization: store.getState().authReducer.user.accessToken}
-                                        }}
-                                    />
-                                    <Text style={{ marginTop: 10, fontSize: fontSize(6), alignSelf: 'center', fontWeight:'bold', color:'#2D5672'}}>{item.word}</Text>
-                                </View>
+                                        headers: { Authorization: store.getState().authReducer.user.accessToken }
+                                    }}
+                                />
+                                <Text style={{ marginTop: 10, fontSize: fontSize(6), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item.word}</Text>
                             </TouchableOpacity>
                         )}
                     />

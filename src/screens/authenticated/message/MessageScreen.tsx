@@ -169,8 +169,7 @@ const handleReturn =()=>{
                         alignItems: 'center',
                         width:"100%",
                         height:"100%", 
-                        borderRadius: 15 ,
-                     
+                        borderRadius: 15,
                         justifyContent:'space-around'        
                     }}>
                       <TouchableOpacity onPress={handleReturn} style={{width:'90%', height:'8%'}}>
@@ -184,11 +183,11 @@ const handleReturn =()=>{
                         width:"90%",
                         height:"30%", 
                         borderRadius: 15 ,
-                    //  borderWidth:1,
-                        flexDirection:'row'             
+                        flexDirection:'row',
+                        paddingHorizontal:'15%'            
                     }}>
                       
-                      <Text style={{alignSelf:'flex-start', marginTop:20, fontSize:15, color:colors.black}}>Giới tính:</Text>
+                      <Text style={{alignSelf:'flex-start', marginTop:20, fontSize:15, color:colors.black, width:'45%'}}>Giới tính:</Text>
  <RadioButton.Group   onValueChange={value => setGenderValue(value)} value={gendervalue}>
   
       <RadioButton.Item  label="Nam" value="MALE" labelStyle={{fontSize:15}} />
@@ -197,29 +196,35 @@ const handleReturn =()=>{
                       </View>
                       {/* Regionchoice */}
                       <View style={{
-                        
                         alignItems: 'center',
                         width:"90%",
                         height:"40%", 
                         borderRadius: 15 ,
-                      bottom:20,
-                        flexDirection:'row'             
+                        bottom:20,
+                        flexDirection:'row',
+                        paddingHorizontal: '15%'           
                     }}>
-                      <Text style={{alignSelf:'flex-start', marginTop:10, fontSize:15, color:colors.black}}>Vùng miền:</Text>
- <RadioButton.Group    onValueChange={value => setRegionValue(value)} value={regionvalue}>
+                      <Text style={{alignSelf:'flex-start', marginTop:10, fontSize:15, color:colors.black, width: '45%'}}>Vùng miền:</Text>
+ <RadioButton.Group  onValueChange={value => setRegionValue(value)} value={regionvalue}>
   
-      <RadioButton.Item  label="Bắc" value="NORTHERN" labelStyle={{fontSize:15}} />
+      <RadioButton.Item label="Bắc" value="NORTHERN" labelStyle={{fontSize:15}} />
       <RadioButton.Item label="Trung" value="MIDDLE"labelStyle={{fontSize:15}} />
-      <RadioButton.Item  label="Nam" value="SOUTHERN"labelStyle={{fontSize:15}} />
+      <RadioButton.Item label="Nam" value="SOUTHERN"labelStyle={{fontSize:15}} />
     </RadioButton.Group>
                       </View>
                         
-                       <View style={{width:'80%', height:50}}>
-                        <TouchableOpacity onPress={handleChangeInfor} activeOpacity={0.7}>
-                          <View style={{width:'100%', height:50,borderRadius:15, justifyContent:'center', backgroundColor:colors.blue}}>
-                          <Text style={{alignSelf:'center', fontSize:18, color:colors.black}}>Xác nhận</Text>
-                            
-                          </View>
+                       <View style={{width:'80%', height:50, alignItems: 'center', marginBottom: '5%'}}>
+                        <TouchableOpacity 
+                          style={{
+                            height: '90%', 
+                            width: '80%',
+                            borderRadius:15,
+                            backgroundColor: '#ADDDDC'}} 
+                          onPress={handleChangeInfor} 
+                          activeOpacity={0.7}>
+                          <Text 
+                            style={{alignSelf:'center', fontSize:18, color:'#2D5672', fontWeight: 'bold', paddingTop:'5%'}}>Xác nhận
+                          </Text>
                         </TouchableOpacity>
                        </View>
                     </View>

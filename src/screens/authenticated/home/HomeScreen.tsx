@@ -25,6 +25,7 @@ import { Searchbar, TouchableRipple } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { showIcon } from 'redux/storageWord/action';
 import GlobalHeader from 'components/header/GlobalHeader';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 
 
 const HomeScreen = ({ }: StackNavigationProps<
@@ -98,6 +99,10 @@ const [refreshing, setRefreshing] = React.useState(false);
       ? <Searchbar style={{height:40, borderWidth:1, borderColor:'gray', marginTop:2}}  placeholder="Search"value={searchValue}
       onChangeText={(e)=>setSearchValue(e)}
       spellCheck={false}
+      // icon={()=>(
+
+      //   <Image style={{width:40, height:40}} source={images.done}/>
+      // )}
       
       />
      :null

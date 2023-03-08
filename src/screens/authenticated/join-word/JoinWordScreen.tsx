@@ -231,22 +231,23 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                         contentContainerStyle={{ alignItems: 'flex-start' }}
                         renderItem={({ item, index }) => {
                             return (
-                                <TouchableOpacity isDoubleTap={true} onPress={() => { deleteWord(item) }}>
-                                    <View style={{ paddingHorizontal: 10, paddingVertical: 5 }}>
-                                        <View style={{
+                                <View style={{ paddingHorizontal: 10, paddingBottom: 10, marginTop: 5 }}>
+                                    <TouchableOpacity
+                                        style={{
                                             backgroundColor: '#C1EBEA',
                                             borderRadius: sizeWidth(3),
-                                            height: sizeHeight(14),
+                                            width: sizeWidth(23),
+                                            height: sizeHeight(15),
                                             justifyContent: 'center',
-                                            alignItems: 'center',
-                                            marginBottom: 20,
-
-                                        }}>
+                                            alignItems: 'center'}}
+                                        isDoubleTap={true} 
+                                        onPress={() => { deleteWord(item) }}>
+                                    
                                             <Image style={{
-                                                height: sizeHeight(11),
-                                                width: sizeWidth(23),
+                                                height: sizeHeight(12),
+                                                width: sizeWidth(22),
                                                 borderRadius: sizeWidth(3),
-                                                marginBottom: -8,
+                                                marginBottom: '-20%',
                                             }}
                                                 source={{
                                                     uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
@@ -255,13 +256,10 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                                                 }}
                                             />
                                             <Text style={{ color: '#2D5672', fontWeight: '600', marginTop: '10%', fontSize: fontSize(4) }}>{item.word}</Text>
-                                        </View>
-                                    </View>
-                                </TouchableOpacity>
-
+                                    </TouchableOpacity>
+                                </View>
                             )
                         }}
-
                     />
                     {/* <View 
                 style={{
@@ -272,19 +270,24 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                     alignSelf:'center'
                     }}>
             </View> */}
-                    <TouchableOpacity style={{
-
-                        alignSelf: 'flex-end',
-                        shadowColor: 'grey',
-
-                    }} isDoubleTap={true}
+                    <TouchableOpacity 
+                        style={{
+                            alignSelf: 'flex-end',
+                            shadowColor: 'grey',
+                            backgroundColor: '#FFD19A',
+                            height: sizeHeight(5),
+                            width: sizeHeight(5),
+                            borderRadius:10,
+                            alignItems: 'center',
+                            justifyContent: 'center'}}
+                        isDoubleTap={true}
                         activeOpacity={0.7}
                         onPress={playSound}
                     >
                         {
                             stop
-                                ? <Icon color={'black'} size={sizeHeight(4)} name="stop-outline"></Icon>
-                                : <Icon color={'black'} size={sizeHeight(4)} name="play-outline"></Icon>
+                                ? <Icon color={'#2D5672'} size={sizeHeight(4)} name="stop-outline"></Icon>
+                                : <Icon color={'#2D5672'} size={sizeHeight(4)} name="play-outline"></Icon>
 
                         }
 
@@ -304,26 +307,30 @@ const JoinWordScreen = ({ }: StackNavigationProps<
 
                     keyExtractor={(_, index) => index.toString()}
                     numColumns={3}
-                    contentContainerStyle={{ alignItems: 'flex-start', width: '95%', alignSelf: 'center', justifyContent: 'space-around' }}
+                    contentContainerStyle={{ alignItems: 'flex-start', width: '95%', alignSelf: 'center', justifyContent: 'space-around'}}
                     renderItem={({ item, index }) => {
                         return (
-                            <View style={{ paddingVertical: 5, marginHorizontal: 12 }}>
+                            <View style={{ paddingTop:15, marginHorizontal: 12, borderWidth:1, borderColor: 'white'}}>
                                 <TouchableOpacity
+                                    style={{borderRadius: sizeWidth(3)}}
                                     isDoubleTap={true}
                                     onPress={() => {
-                                        addWord(item, index)
+                                    addWord(item, index)
                                     }}>
                                     <View style={{
-                                        backgroundColor: '#99C8E4',
+                                        backgroundColor: '#C1EBEA',
                                         borderRadius: sizeWidth(3),
                                         justifyContent: 'space-evenly',
                                         alignItems: 'center',
-
+                                        height: sizeHeight(17),
+                                        width: sizeWidth(25),
                                     }}>
                                         <Image style={{
-                                            height: sizeHeight(12),
-                                            width: sizeWidth(25),
-                                            borderRadius: sizeWidth(3)
+                                            height: sizeHeight(13),
+                                            width: sizeWidth(24),
+                                            borderRadius: sizeWidth(3),
+                                            marginTop: '5%',
+                                            marginBottom: '-10%',
                                         }}
                                             source={{
                                                 uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
@@ -333,8 +340,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                                                 }
                                             }}
                                         />
-                                        <Text style={{ color: 'white', fontWeight: '600', marginTop: sizeHeight(0.3), marginBottom: 5 }}
-                                        >{item.word}</Text>
+                                        <Text style={{ color: '#2D5672', fontWeight: '600', marginTop: sizeHeight(0.3), marginBottom: 5 }}>{item.word}</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
