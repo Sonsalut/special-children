@@ -72,13 +72,7 @@ const RecordingScreen = ({ route }: any) => {
         });
     };
 
-    // const  playSong =()=> {
-    //     try {
-    //       SoundPlayer.playSoundFile('engagementParty', 'm4a')
-    //     } catch (e) {
-    //       console.log('cannot play the song file', e)
-    //     }
-    //   }
+   
 
     React.useEffect(() => {
         loadData();
@@ -141,22 +135,6 @@ const RecordingScreen = ({ route }: any) => {
                         })
 
                 })
-               
-                
-        
-             
-      
-
-            // if(isExist)
-            // {
-            //     RNFetchBlob.fs.unlink('file'+filePath).then((res)=>{
-            //         console.log('tets '+ res)
-            //     })
-            //     setisExist(!isExist)
-                    
-            // }
-           
-
     }
 
     // const loadImage = async () => {
@@ -197,7 +175,7 @@ const RecordingScreen = ({ route }: any) => {
 
 
     const [visible, setVisible] = React.useState(false)
-    const addImage = (item: any, index) => {
+    const chooseWord = (item: any, index) => {
         setItem(item)
         setVisible(true)
         setIndex(index)
@@ -238,7 +216,7 @@ const RecordingScreen = ({ route }: any) => {
                              />}
                         renderItem={({ item, index }) => (
                         
-                            <TouchableOpacity key={index} activeOpacity={0.7} onPress={() => { addImage(item, index) }}>
+                            <TouchableOpacity key={index} activeOpacity={0.7} onPress={() => { chooseWord(item, index) }}>
                                 <View 
                                     style={{ 
                                         width: sizeWidth(38), 

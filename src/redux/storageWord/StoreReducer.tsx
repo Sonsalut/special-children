@@ -23,7 +23,7 @@ export default  ( state= initialState, action)=>
         case'SET_STORAGE':
         return{
             ...state,
-            fullStore: action.payload
+            fullStore: state.fullStore.length===0 ? action.payload : [...state.fullStore, action.payload]
         }
         case'SET_CATEGORY':
         return{
