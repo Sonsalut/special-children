@@ -18,7 +18,7 @@ import { store } from 'redux/store';
 import colors from 'res/colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { createEntityAdapter } from '@reduxjs/toolkit';
-import { RefreshControl } from 'react-native-gesture-handler';
+import { RefreshControl, TouchableNativeFeedback } from 'react-native-gesture-handler';
 import Spinner from 'react-native-spinkit';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Searchbar, TouchableRipple } from 'react-native-paper';
@@ -99,11 +99,6 @@ const [refreshing, setRefreshing] = React.useState(false);
       ? <Searchbar style={{height:40, borderWidth:1, borderColor:'gray', marginTop:2}}  placeholder="Search"value={searchValue}
       onChangeText={(e)=>setSearchValue(e)}
       spellCheck={false}
-      // icon={()=>(
-
-      //   <Image style={{width:40, height:40}} source={images.done}/>
-      // )}
-      
       />
      :null
      }
@@ -115,6 +110,7 @@ const [refreshing, setRefreshing] = React.useState(false);
           numColumns={2}
           showsVerticalScrollIndicator={false}
           scrollToOverflowEnabled={false}
+          
           refreshControl={
             <RefreshControl
                 refreshing={refreshing}

@@ -11,7 +11,7 @@ import { GetStorageWord, GetWordByCateID } from 'network/subs/auth/recording/Rec
 import { sizeHeight, sizeWidth } from 'utils/Utils';
 import { FlatList, RefreshControl } from 'react-native-gesture-handler';
 import { Container, Header } from 'components';
-import { Title } from 'react-native-paper';
+import { Searchbar, Title } from 'react-native-paper';
 import HeaderWithBack from 'components/header/HeaderWithBack';
 import { RecordingResponse } from 'network/subs/auth/recording/RecordingResponse';
 import Vi from 'assets/languages/vi';
@@ -38,7 +38,7 @@ const Storage = ({ }: StackNavigationProps<
   const getCategory = async (values: any) => {
     const response = await RecordingAPI.GetFullCategory<GetFullCategory>({
       pageIndex: 1,
-      pageSize: 20,
+      pageSize: 50,
       name:null,
       isActive:true,
       
@@ -46,11 +46,12 @@ const Storage = ({ }: StackNavigationProps<
     });
     if (response.status === ResponseCode.SUCCESS) {
       if (category.length <= 0) {
-        console.log( response.data?.categories)
+        // console.log( response.data?.categories)
         dispatch(setCategory(response.data?.categories))
         // console.log('AAAAA'+ response.data.categories)
         loadData(response.data?.categories?.id)
-      }
+    }
+      
     }
   }
 
@@ -92,26 +93,18 @@ const Storage = ({ }: StackNavigationProps<
     }
   }
 
-
-
- 
-
-
   const dispatch = useDispatch()
   const loadData = async (id: any) => {
     //Load word
-    const response: any = await RecordingAPI.GetWordByCateID<GetWordByCateID>({
+    const responseWord: any = await RecordingAPI.GetWordByCateID<GetWordByCateID>({
       pageIndex: 1,
-      pageSize: 20,
+      pageSize: 100,
       word: '',
       categoryId: id,
       isActive: true
     });
-    if (response.status === ResponseCode.SUCCESS) {
-      // console.log(response.data?.words) 
-      setDataWord(response.data?.words)
-      // console.log("API"+response.data?.words )
-      dispatch(setStorage(response.data?.words))
+    if (responseWord.status === ResponseCode.SUCCESS) {
+      dispatch(setStorage(responseWord.data?.words))
     }
     else {
       console.log('that bai')
@@ -125,14 +118,10 @@ const Storage = ({ }: StackNavigationProps<
       // console.log(response.data)
       // setPersonDataFromApi(responses.data)
       // //check nếu word đã đc thêm vào personStorage
-      isExits(response.data?.words, responses.data)
+      isExits(responseWord?.data?.words, responses.data)
       // dispatch(showPersonStore(response.data))
     }
-
-
   }
- 
-
   const isFocused = useIsFocused();
 
  
@@ -140,12 +129,7 @@ const Storage = ({ }: StackNavigationProps<
 
     getStorageWords()
     getCategory()
-
-    // isExits(fullStore, personDataFromAPi)
-
   }, [])
-  
-
   const [hasDone, setHasDone] = React.useState(true)
 
 
@@ -163,41 +147,7 @@ const Storage = ({ }: StackNavigationProps<
 
   }
   const showToast= useToast()
-//   const doneHandle =  () => {
-//     // console.log(fullStore)
-//     //map ra những item isCLicked
-//     let maps= fullStore.filter(word=> word?.isActive===false)
-// // lọc ra những item thuộc B mà không thuộc PersonApi --> add
-//   let handAdd= maps.map((items) => {
-//       let itemB = personDataFromAPi.find((item) => item.id === items.id);
-//       if (!itemB) {
-//         // dispatch(isClicked({
-//         //   ...items,
-//         //   isActive:false
-//         // }))
-//         console.log('add'+items?.word)
-//         addWordToStorage(items?.id)
-//       }
-//     }
-//   )
-//     let handDelete= personDataFromAPi.map((items) => {
-//       let itemB = maps.find((item) => item.id === items.id);
-//       if (!itemB) {
-//         // dispatch(isClicked({
-//         //   ...items,
-//         //   isActive:false
-//         // }))
-//         console.log('xoas'+items?.word)
-//         deleteWordToStorage(items?.id)
-//       }
-//     }
-    
-//   )
-  
-// showToast('Lưu thành công', 'success')
-// NavigationService.navigate(AuthenticatedScreens.StorageWords)
-   
-//   }
+
 const doneHandle = async () => {
   let maps= fullStore.filter(word=> word?.isActive===false)
 //   console.log('Handle maps')
@@ -205,7 +155,7 @@ const doneHandle = async () => {
 // console.log('--------------')
 // console.log('Handle api')
 
-console.log(personDataFromAPi)
+// console.log(personDataFromAPi)
 let handAdd= await maps.map((items) => {
     let itemB = personDataFromAPi.find((item) => item.id === items.id);
     if (!itemB) {
@@ -239,6 +189,10 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
 
   const filterDatas = (item) => (
     fullStore.filter(word => word?.category?.id === item)
+
+  )
+  const searchData = () => (
+    fullStore.filter(item=> encodeURIComponent(item?.word.toLowerCase()).includes( encodeURIComponent(searchValue.toLowerCase()) ))
 
   )
   const handleChoose = (item) => {
@@ -277,34 +231,56 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
       setTimeout(() => {
         setRefreshing(false); 
         getCategory()
-        console.log(fullStore)
-        
+        // console.log('---------------------------------')
+        // console.log(fullStore)
+        // console.log(fullStore.length)
       }, 2000);
     }, []);
+    const [show, setShow] = React.useState(false)
+    const [searchValue, setSearchValue] = React.useState('')
+
   return (
 
 
-    <Container style={{backgroundColor: 'white'}}>
+    <Container style={{backgroundColor: 'white', flex:1}} isBottomTab={false}>
+     
       <HeaderWithBack 
         outerStyle={{
           backgroundColor:colors.title_blue}} 
         title={'Kho từ'} handle={doneHandle} hasDone={true}
         titleStyle={{color: '#F1F1F2'}}
       />
-
 {/* Word list container */}
+
       <View 
         style={{ 
           marginLeft: 10, 
-          paddingTop: 30, 
-          height: sizeHeight(90), 
+          paddingTop: 15, 
+          height: sizeHeight(94), 
           width: sizeWidth(95), 
-          alignItems: 'center'
+          alignItems: 'center',
+        
+          
+          
         }}
       >
-        <FlatList
+      {show ? <Searchbar value={searchValue}
+      onChangeText={(e)=>setSearchValue(e)}
+      inputStyle={{fontSize:13}}
+      spellCheck={false} style={{borderWidth:1, bottom:5,  borderColor:'#C1EBEA',borderRadius:15,width:sizeWidth(80), backgroundColor:'white',height:sizeHeight(5)}} placeholder='Nhập từ để tìm kiếm'/>: null}
+{
+  // khi hiển thị tìm kiếm sẽ mất hết catagory
+  searchValue===""
+  ?
+      <FlatList
           data={category}
           showsVerticalScrollIndicator={false}
+        
+       
+       onScrollBeginDrag={()=>setShow(false)}
+       onScrollEndDrag={()=>setShow(true)}
+       
+      
           refreshControl={
             <RefreshControl
                 refreshing={refreshing}
@@ -327,11 +303,12 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
               <View 
                 key={index + 1} 
                 style={{ 
-                  width: sizeWidth(20),
+                  width: sizeWidth(80),
                   borderRadius: 10, 
                   marginVertical: 5, 
                   marginBottom: -3, 
                   marginTop: 8, 
+               
                   alignSelf: 'center'
                 }}
               >
@@ -339,7 +316,8 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
                   fontSize: 18, 
                   color: '#897666', 
                   fontWeight: 'bold', 
-                  alignSelf: "center"
+                  alignSelf: "center",
+                
                   }}>{item?.name}
                 </Text>
               </View>
@@ -410,6 +388,61 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
           )}
 
         />
+        :<View style={{ width:sizeWidth(90),paddingTop:15, height:sizeHeight(85), alignSelf:'center'}}>
+         <FlatList
+
+        data={searchData()}
+        numColumns={3}
+        renderItem={({ item, index }) => (
+
+          <View style={{ flexDirection: 'row', width: sizeWidth(30), height: sizeHeight(15), paddingTop:3}}>
+
+
+            <View style={{
+              backgroundColor: '#C1EBEA',
+              alignSelf: 'center', 
+              width: sizeWidth(23), 
+              marginHorizontal: 5, 
+              borderRadius: 10,
+              height: sizeHeight(14)
+              }}
+            >
+              <Image 
+                style={{
+                  resizeMode: 'stretch',
+                  height: sizeHeight(10), width: sizeWidth(18),
+                  alignSelf: 'center',
+                  borderRadius: 9
+                }}
+                source={{
+                  uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
+                  method: 'GET',
+                  headers: {
+                    Authorization: store.getState().authReducer.user.accessToken
+                  }
+                }}
+              />
+              <Text 
+                style={{ 
+                  fontSize: 15, 
+                  color: '#2D5672', 
+                  fontWeight: 'bold', 
+                  alignSelf: "center", 
+                  marginTop: '10%'
+                }}>{item?.word}
+              </Text>
+            </View>
+            {
+              hasDone ? <CheckBox style={{ right: 25, bottom: 1, height:20 }} value={!item?.isActive} onValueChange={() => handleChoose(item)} /> : null
+            }
+          </View>
+        )}
+      />
+      </View> 
+        
+       
+      }
+        
       </View>
 
     </Container>

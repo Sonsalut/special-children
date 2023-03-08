@@ -39,7 +39,7 @@ const DrawerNavigator = ({
         options={{
           title: 'Học từ',
           headerStyle: { backgroundColor: colors.title_blue },        
-          headerTitleStyle: { color: '#F1F1F2', fontWeight: 'bold', fontSize: 22, marginBottom: 10 },
+          headerTitleStyle: {  color: '#F1F1F2', fontWeight: 'bold', fontSize: 22, marginBottom: 10 },
           headerRight: () => (
             show ? 
             <TouchableOpacity onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddCategory)}>

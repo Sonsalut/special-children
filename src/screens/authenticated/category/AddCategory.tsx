@@ -26,6 +26,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { showIcon } from 'redux/storageWord/action';
 import GlobalHeader from 'components/header/GlobalHeader';
 import HeaderWithBack from 'components/header/HeaderWithBack';
+import { Item } from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
 
 
 const AddCategory = ({ }: StackNavigationProps<
@@ -57,9 +58,9 @@ const AddCategory = ({ }: StackNavigationProps<
   }, [])
   const dispatch= useDispatch()
   const show= useSelector(store=>store.storeReducer.show)
-const handleShow=( )=>{
+const handle=( )=>{
  
-  dispatch(showIcon())
+  console.log(data)
 }
 const [refreshing, setRefreshing] = React.useState(false);
   const onRefresh = React.useCallback(() => {
@@ -71,23 +72,49 @@ const [refreshing, setRefreshing] = React.useState(false);
         
       }, 2000);
     }, []);
-    const slideAnim = React.useRef(new Animated.Value(-200)).current;
-    const icons = React.useRef([<Text>sss</Text>,<Text>s2s</Text>,<Text>ss3s</Text>]).current;
   
- 
     const [searchValue, setSearchValue] = React.useState('')
     const filterData= ()=>(
      
       data.filter(item=> encodeURIComponent(item?.audioWord.toLowerCase()).includes( encodeURIComponent(searchValue.toLowerCase()) ))
       
     )
+    const [showDoneIcon, setShowDoneIcon] = React.useState(true)
+    const checkDone =()=>{
+      let tmp= data.find(item=> item?.isActive===false)
+      if(tmp)
+      {
+        setShowDoneIcon(false)
+      }
+      else{
+        setShowDoneIcon(true)
+      }
+    }
+    const handleOnclick=(item)=>{
+      checkDone()
+
+           let tmp = data.map((items)=>{
+            if(items?.id===item.id)
+            {
+              return{
+                ...items,
+                isActive: !item?.isActive
+              }
+            }
+            return items
+           })
+          setData(tmp)
+          // console.log(showDoneIcon)
+          // setShowDoneIcon(!showDoneIcon)
+    }
   return (
 <Container style={{flex:1}}>
     <HeaderWithBack title={'Chủ đề'}
     
     outerStyle={{backgroundColor:colors.title_blue}} 
     rightIconShow={true}
-    hasDone={false} />
+    hasDone={showDoneIcon}
+    handle={handle} /> 
     <TouchableOpacity 
           style={{
             marginLeft:10,
@@ -122,8 +149,8 @@ const [refreshing, setRefreshing] = React.useState(false);
           renderItem={({item})=>(
         
           <TouchableOpacity
-           onPress={()=>console.log('1111')}
-              isDoubleTap={false}
+           onPress={()=>handleOnclick(item)}
+              isDoubleTap={true}
               activeOpacity={0.7}  
                 style={{                 
                   width: sizeWidth(40),
@@ -135,8 +162,11 @@ const [refreshing, setRefreshing] = React.useState(false);
                   alignSelf: 'center',
                   marginTop: 30,
                   paddingHorizontal:10,
-                  backgroundColor: '#99C8E4',
+                  backgroundColor: '#C1EBEA',
                   paddingTop: 5,
+                  borderWidth:item?.isActive ? 0: 2
+                
+                  
                 }}           
               >      
                   <Image

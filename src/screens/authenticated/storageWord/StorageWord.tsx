@@ -13,11 +13,12 @@ import { sizeHeight, sizeWidth } from 'utils/Utils';
 import NavigationService from 'routers/NavigationService';
 import { Button, Container } from 'components';
 import HeaderWithBack from 'components/header/HeaderWithBack';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, RefreshControl } from 'react-native-gesture-handler';
 import { Title } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useIsFocused } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import colors from 'res/colors';
 
 
 const StorageWord = ({}: StackNavigationProps<
@@ -41,19 +42,35 @@ if (response.status === ResponseCode.SUCCESS) {
   }
  
     }
+
+    useFocusEffect(
+      React.useCallback(() => {
+  
+     getStorageWords()
+       
+      }, [])
+    );
     const isFocused = useIsFocused();
 
    
-    React.useEffect(() => {
+    // React.useEffect(() => {
      
-     getStorageWords()
-    
-      }, [isFocused])
+    //  getStorageWords()
+    //   }, [isFocused])
     const handle =()=>{
         NavigationService.navigate(AuthenticatedScreens.Storage)
         
     }
-   
+    const [refreshing, setRefreshing] = React.useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+          setRefreshing(false); 
+     getStorageWords()
+          
+          
+        }, 2000);
+      }, []);
   return (
     <Container style={{backgroundColor: 'white'}} >
    
@@ -77,6 +94,13 @@ if (response.status === ResponseCode.SUCCESS) {
       <FlatList 
       data={data}
       numColumns={3}
+      refreshControl={
+        <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={[colors.blue]}
+         />  
+      }
       renderItem={({item})=>(
         <View style={{flexDirection:'row',justifyContent:'center', marginVertical:10,  width:sizeWidth(30), height: sizeHeight(15)}}>
                     
