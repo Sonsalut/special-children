@@ -288,7 +288,7 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
       <HeaderWithBack 
         outerStyle={{
           backgroundColor:colors.title_blue}} 
-        title={'Kho từ'} handle={doneHandle} hasDone={hasDone}
+        title={'Kho từ'} handle={doneHandle} hasDone={true}
         titleStyle={{color: '#F1F1F2'}}
       />
 
