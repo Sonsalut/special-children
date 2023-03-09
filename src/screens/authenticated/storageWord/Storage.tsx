@@ -41,7 +41,6 @@ const Storage = ({ }: StackNavigationProps<
       pageSize: 50,
       name:null,
       isActive:true,
-      
 
     });
     if (response.status === ResponseCode.SUCCESS) {

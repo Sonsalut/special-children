@@ -25,7 +25,8 @@ export enum AuthenticatedScreens {
   StorageWord ='StorageWord',
   StorageWords ='StorageWords',
   HomeScreens = 'HomeScreens',
-  Storage='Storage',
-  AddCategory='AddCategory'
+  Storage = 'Storage',
+  AddCategory = 'AddCategory',
+  AddWord = 'AddWord'
 
 }

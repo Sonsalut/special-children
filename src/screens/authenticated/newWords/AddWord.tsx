@@ -28,16 +28,12 @@ import GlobalHeader from 'components/header/GlobalHeader';
 import HeaderWithBack from 'components/header/HeaderWithBack';
 import { Item } from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
 
-
-const AddCategory = ({ }: StackNavigationProps<
-  Routes,
-  AuthenticatedScreens.AddCategory
->) => {
-
-  const [data, setData] = React.useState([])
-  const [datas, setDatas] = React.useState([])
-
-  const getCategory = async (values: any) => {
+function AddWord({}: StackNavigationProps<
+    Routes, AuthenticatedScreens.AddWord
+>) {
+    const [data, setData] = React.useState([])
+    const [datas, setDatas] = React.useState([])
+    const getCategory = async (values: any) => {
     const response = await RecordingAPI.GetFullCategory<GetFullCategory>({
       pageIndex: 1,
       pageSize: 20,
@@ -104,99 +100,12 @@ const AddCategory = ({ }: StackNavigationProps<
           // setShowDoneIcon(!showDoneIcon)
     }
   return (
-<Container style={{flex:1}}>
-    <HeaderWithBack title={'Chủ đề'}
-    
-    outerStyle={{backgroundColor:colors.title_blue}} 
-    rightIconShow={true}
-    hasDone={showDoneIcon}
-    handle={handle} /> 
-    <TouchableOpacity 
-          style={{
-            marginLeft:10,
-            width:'50%', 
-            height:sizeWidth(10), 
-            borderRadius:45, 
-            marginTop:15, 
-            marginBottom: -10,
-            backgroundColor: '#FFD19A', 
-            alignSelf: 'center'}} 
-          onPress={()=>console.log('aa')}
-        >
-          <Text style={{alignSelf: 'center', marginTop: 10, fontSize: 15, fontWeight: 'bold', color: '#2D5672'}}>Thêm chủ đề</Text>
-        </TouchableOpacity>
-        <View style={{ height: sizeHeight(90), width:'95%', alignSelf:'center', alignItems:'center'}}>
-   
-   
- 
-         <FlatList
-          data={data}
-          keyExtractor={(_, index) => index.toString()}
-          numColumns={2}
-          showsVerticalScrollIndicator={false}
-          scrollToOverflowEnabled={false}
-          refreshControl={
-            <RefreshControl
-                refreshing={refreshing}
-                onRefresh={onRefresh}
-                colors={[colors.blue]}
-             />  
-          }
-          renderItem={({item})=>(
-        
-          <TouchableOpacity
-           onPress={()=>handleOnclick(item)}
-              isDoubleTap={true}
-              activeOpacity={0.7}  
-                style={{                 
-                  width: sizeWidth(40),
-                  // sizeWidth(40),
-                  // marginVertical: 15,
-                  height: sizeHeight(25),
-                  borderRadius: 10,
-                  marginHorizontal: 9,
-                  alignSelf: 'center',
-                  marginTop: 30,
-                  paddingHorizontal:10,
-                  backgroundColor: '#C1EBEA',
-                  paddingTop: 5,
-                  borderWidth:item?.isActive ? 0: 2
+    <Container>
+        <TouchableWithoutFeedback>
+            <View>
                 
-                  
-                }}           
-              >      
-                  <Image
-                    style={{
-                      resizeMode: 'stretch',
-                      height: '80%', 
-                      width: '100%',
-                      marginTop: '1%',
-                      // sizeWidth(39),
-                      borderRadius: sizeWidth(3),
-                      
-                    }}
-                    source={item?.pictureFileId !== null ? {
-                      uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
-                      method: 'GET',
-                      headers: { Authorization: store.getState().authReducer.user.accessToken }
-                    } :
-                      require('../../.././assets/images/no.png')
-                    }
-                  /> 
-           <Text style={{fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'#2D5672'}}>{item?.name}</Text>
-          </TouchableOpacity>
-       
-          
-          
-  )}
-         
-         />
-          
-        </View>
-   
-   
+            </View>
+        </TouchableWithoutFeedback>
     </Container>
-  );
+  )
 };
-
-export default AddCategory;

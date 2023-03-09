@@ -4,11 +4,11 @@ import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens, MainScreens } from 'routers/ScreenNames';
 import HeaderWithBack from 'components/header/HeaderWithBack';
 import { fontSize, getExtention, getMime, sizeHeight, sizeWidth } from 'utils/Utils';
-import { Button, FlatList, Image, ScrollView, View, ActivityIndicator, ImageBackground } from 'react-native';
+import { Button, FlatList, Image, ScrollView, View, ActivityIndicator, ImageBackground, TouchableWithoutFeedback } from 'react-native';
 import images from 'res/images';
 import NavigationService from 'routers/NavigationService';
 import styles from '../home/styles';
-import { Modal } from 'react-native-paper';
+import { Modal, Searchbar } from 'react-native-paper';
 import * as ImagePicker from 'react-native-image-picker';
 import { RefreshControl, TextInput } from 'react-native-gesture-handler';
 import strings from 'res/strings';
@@ -24,7 +24,7 @@ import colors from 'res/colors';
 import { GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
 import { delay } from '@reduxjs/toolkit/dist/utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { setStorage } from 'redux/storageWord/action';
+import { setStorage, showIcon } from 'redux/storageWord/action';
 import RNFetchBlob from 'rn-fetch-blob';
 
 const RecordingScreen = ({ route }: any) => {
@@ -44,10 +44,6 @@ const RecordingScreen = ({ route }: any) => {
         selectionLimit: 1,
         includeBase64: true
     };
-
-
-    
-
 
     const CAMERA_OPTION: ImagePicker.CameraOptions = {
         mediaType: 'photo',
@@ -71,7 +67,7 @@ const RecordingScreen = ({ route }: any) => {
             }
         });
     };
-
+    
    
 
     React.useEffect(() => {
@@ -85,6 +81,10 @@ const RecordingScreen = ({ route }: any) => {
         setVisible(!visible)
     }
     const dispatch = useDispatch()
+
+    const handleShow=( )=>{
+        setShow(!show)
+      }
     const loadData = async () => {
         const response: any = await RecordingAPI.GetWordByCateID<GetWordByCateID>({
             pageIndex: 1,
@@ -98,8 +98,6 @@ const RecordingScreen = ({ route }: any) => {
             // console.log(response.data)
             setData(response.data?.words)
             // dispatch(setStorage(response.data?.words))
-
-
         }
         else {
             console.log('that bai')
@@ -133,7 +131,6 @@ const RecordingScreen = ({ route }: any) => {
                             RNFetchBlob.fs.unlink('file://' + filePath)
         
                         })
-
                 })
     }
 
@@ -173,7 +170,7 @@ const RecordingScreen = ({ route }: any) => {
 
     }
 
-
+    const [searchValue, setSearchValue] = React.useState('')
     const [visible, setVisible] = React.useState(false)
     const chooseWord = (item: any, index) => {
         setItem(item)
@@ -195,60 +192,78 @@ const RecordingScreen = ({ route }: any) => {
     
     return (
 
-        <Container style={{ flex: 1, backgroundColor: 'white'}}  >
+        <Container isBottomTab={false} style={{ flex: 1, backgroundColor: 'white', width: '100%'}}  >
             <HeaderWithBack 
                 title={route?.params?.data?.name} 
                 outerStyle={{backgroundColor:colors.title_blue}} 
                 titleStyle={{color: '#F1F1F2'}}
-                rightIconShow={false} />
-         
-                <View style={{width:sizeWidth(90), height:sizeHeight(90),alignItems: 'center', alignSelf:'center'}}>
-                    <FlatList
-                        data={data}
-                        keyExtractor={(_, index) => index.toString()}
-                        showsVerticalScrollIndicator={false}
-                        numColumns={2}
-                        refreshControl={
-                            <RefreshControl
-                                refreshing={refreshing}
-                                onRefresh={onRefresh}
-                                colors={[colors.blue]}
-                             />}
-                        renderItem={({ item, index }) => (
-                        
-                            <TouchableOpacity 
-                                key={index} 
-                                activeOpacity={0.7} 
-                                style={{ 
-                                    width: sizeWidth(38), 
-                                    marginVertical:15, 
-                                    height:sizeHeight(23),
-                                    borderRadius:10,
-                                    marginHorizontal:12,                            
-                                    marginTop: 10,           
-                                    backgroundColor:'#C1EBEA',
-                                    alignItems: 'center',
-                                    borderWidth:1
-                                }}
-                                onPress={() => { chooseWord(item, index) }}>
-                                <Image
-                                    style={{
-                                        resizeMode: 'stretch',
-                                        height: sizeHeight(16), width: sizeWidth(36),
-                                        borderRadius: sizeWidth(3),
-                                        justifyContent: 'center',
-                                    }}
-                                    source={{
-                                        uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
-                                        method: 'GET',
-                                        headers: { Authorization: store.getState().authReducer.user.accessToken }
-                                    }}
-                                />
-                                <Text style={{ marginTop: 10, fontSize: fontSize(6), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item.word}</Text>
-                            </TouchableOpacity>
-                        )}
+                rightIconShow={true} 
+            />
+            <TouchableWithoutFeedback     
+                onPress={() => console.log('Pressed')}
+                onLongPress={handleShow}
+            >
+                <View style={{ height: sizeHeight(90), width: '95%', alignSelf: 'center', alignItems: 'center'}}>
+                {
+                show ? 
+                    <Searchbar 
+                        style={{ height: 40, width: sizeWidth(80), borderWidth: 1, borderColor: 'gray', marginTop: 5 }} 
+                        placeholder="Tìm kiếm" 
+                        placeholderTextColor={'gray'}
+                        value={searchValue}
+                        onChangeText={(e) => setSearchValue(e)}
+                        spellCheck={false}
                     />
+                : null
+                }
+                    <View style={{width:sizeWidth(90), height:sizeHeight(90),alignItems: 'center', alignSelf:'center'}}>
+                        <FlatList
+                            data={data}
+                            keyExtractor={(_, index) => index.toString()}
+                            showsVerticalScrollIndicator={false}
+                            numColumns={2}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={onRefresh}
+                                    colors={[colors.blue]}
+                                />}
+                            renderItem={({ item, index }) => (
+                            
+                                <TouchableOpacity 
+                                    key={index} 
+                                    activeOpacity={0.7} 
+                                    style={{ 
+                                        width: sizeWidth(38), 
+                                        marginVertical:15, 
+                                        height:sizeHeight(23),
+                                        borderRadius:10,
+                                        marginHorizontal:12,                            
+                                        marginTop: 10,           
+                                        backgroundColor:'#C1EBEA',
+                                        alignItems: 'center',
+                                    }}
+                                    onPress={() => { chooseWord(item, index) }}>
+                                    <Image
+                                        style={{
+                                            resizeMode: 'stretch',
+                                            height: sizeHeight(16), width: sizeWidth(36),
+                                            borderRadius: sizeWidth(3),
+                                            justifyContent: 'center',
+                                        }}
+                                        source={{
+                                            uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                                            method: 'GET',
+                                            headers: { Authorization: store.getState().authReducer.user.accessToken }
+                                        }}
+                                    />
+                                    <Text style={{ marginTop: 10, fontSize: fontSize(6), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item.word}</Text>
+                                </TouchableOpacity>
+                            )}
+                        />
+                    </View>
                 </View>
+            </TouchableWithoutFeedback>
 {/* Màn hình số  */}
                 <Modal
                     visible={visible}
@@ -330,5 +345,7 @@ const RecordingScreen = ({ route }: any) => {
 };
 
 export default RecordingScreen;
+
+
 
 

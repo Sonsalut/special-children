@@ -43,7 +43,6 @@ const HomeScreen = ({ }: StackNavigationProps<
       name:null,
       isActive:true,
       // categories: {}
-
     });
     if (response.status === ResponseCode.SUCCESS) {
 
@@ -56,11 +55,10 @@ const HomeScreen = ({ }: StackNavigationProps<
 
   }, [])
   const dispatch= useDispatch()
-  const show= useSelector(store=>store.storeReducer.show)
-const handleShow=( )=>{
- 
-  dispatch(showIcon())
-}
+  const show = useSelector(store=>store.storeReducer.show)
+  const handleShow=( )=>{
+    dispatch(showIcon())
+  }
 const [refreshing, setRefreshing] = React.useState(false);
   const onRefresh = React.useCallback(() => {
       setRefreshing(true);
@@ -83,48 +81,45 @@ const [refreshing, setRefreshing] = React.useState(false);
     )
   return (
 
-    <Container isBottomTab={false}  style={{backgroundColor: 'white', flex: 1,  width: '100%'}} >      
-        
-           <TouchableWithoutFeedback
-          
-    onPress={() => console.log('Pressed')}
-    onLongPress={handleShow}
-    
-    
-  
-  >
-        <View style={{ height: sizeHeight(90), width:'95%', alignSelf:'center', alignItems:'center'}}>
-     {
-      show
-      ? <Searchbar style={{height:40, borderWidth:1, borderColor:'gray', marginTop:2}}  placeholder="Search"value={searchValue}
-      onChangeText={(e)=>setSearchValue(e)}
-      spellCheck={false}
-      />
-     :null
-     }
-    
- 
-         <FlatList
-          data={filterData()}
-          keyExtractor={(_, index) => index.toString()}
-          numColumns={2}
-          showsVerticalScrollIndicator={false}
-          scrollToOverflowEnabled={false}
-          
-          refreshControl={
-            <RefreshControl
+    <Container isBottomTab={false}  style={{backgroundColor: 'white', flex: 1,  width: '100%'}}>  
+      <TouchableWithoutFeedback
+        onPress={() => console.log('Pressed')}
+        onLongPress={handleShow}
+      >
+        <View style={{ height: sizeHeight(90), width: '95%', alignSelf: 'center', alignItems: 'center'}}>
+          {
+            show ? 
+              <Searchbar 
+                style={{ height: 40, width: sizeWidth(80), borderWidth: 1, borderColor: 'gray', marginTop: 2 }} 
+                placeholder="Search" 
+                value={searchValue}
+                onChangeText={(e) => setSearchValue(e)}
+                spellCheck={false}
+              />
+            : null
+          }
+
+
+          <FlatList
+            data={filterData()}
+            keyExtractor={(_, index) => index.toString()}
+            numColumns={2}
+            showsVerticalScrollIndicator={false}
+            scrollToOverflowEnabled={false}
+            refreshControl={
+              <RefreshControl
                 refreshing={refreshing}
                 onRefresh={onRefresh}
                 colors={[colors.blue]}
-             />  
-          }
-          renderItem={({item})=>(
-        
-          <TouchableOpacity
-           onPress={()=>NavigationService.navigate(AuthenticatedScreens.RecordingScreen, {data:item})}
-              isDoubleTap={false}
-              activeOpacity={0.7}  
-                style={{                 
+              />
+            }
+            renderItem={({ item }) => (
+
+              <TouchableOpacity
+                onPress={() => NavigationService.navigate(AuthenticatedScreens.RecordingScreen, { data: item })}
+                isDoubleTap={false}
+                activeOpacity={0.7}
+                style={{
                   width: sizeWidth(40),
                   // sizeWidth(40),
                   // marginVertical: 15,
@@ -133,40 +128,40 @@ const [refreshing, setRefreshing] = React.useState(false);
                   marginHorizontal: 9,
                   alignSelf: 'center',
                   marginTop: 30,
-                  paddingHorizontal:10,
+                  paddingHorizontal: 10,
                   backgroundColor: '#C1EBEA',
                   paddingTop: 5,
-                }}           
-              >      
-                  <Image
-                    style={{
-                      resizeMode: 'stretch',
-                      height: '80%', 
-                      width: '100%',
-                      marginTop: '1%',
-                      // sizeWidth(39),
-                      borderRadius: sizeWidth(3),
-                      
-                    }}
-                    source={item?.pictureFileId !== null ? {
-                      uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
-                      method: 'GET',
-                      headers: { Authorization: store.getState().authReducer.user.accessToken }
-                    } :
-                      require('../../.././assets/images/no.png')
-                    }
-                  /> 
-           <Text style={{fontSize: fontSize(5), alignSelf: 'center', fontWeight:'bold', color:'#2D5672'}}>{item?.name}</Text>
-          </TouchableOpacity>
-       
-          
-          
-  )}
-         
-         />
-          
+                }}
+              >
+                <Image
+                  style={{
+                    resizeMode: 'stretch',
+                    height: '80%',
+                    width: '100%',
+                    marginTop: '1%',
+                    // sizeWidth(39),
+                    borderRadius: sizeWidth(3),
+
+                  }}
+                  source={item?.pictureFileId !== null ? {
+                    uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                    method: 'GET',
+                    headers: { Authorization: store.getState().authReducer.user.accessToken }
+                  } :
+                    require('../../.././assets/images/no.png')
+                  }
+                />
+                <Text style={{ fontSize: fontSize(5), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item?.name}</Text>
+              </TouchableOpacity>
+
+
+
+            )}
+
+          />
+
         </View>
-        </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
     </Container>  
   );
 };
