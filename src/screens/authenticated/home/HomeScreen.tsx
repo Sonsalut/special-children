@@ -13,7 +13,6 @@ import AuthApi from 'network/subs/auth/AuthApi';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import { GetFullCategory } from 'network/subs/auth/recording/RecordingRequest';
 import ResponseCode from 'network/ResponseCode';
-
 import { store } from 'redux/store';
 import colors from 'res/colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -34,7 +33,7 @@ const HomeScreen = ({ }: StackNavigationProps<
 >) => {
 
   const [data, setData] = React.useState([])
-  const [datas, setDatas] = React.useState([])
+  // const [datas, setDatas] = React.useState([])
 
   const getCategory = async (values: any) => {
     const response = await RecordingAPI.GetFullCategory<GetFullCategory>({
@@ -52,7 +51,6 @@ const HomeScreen = ({ }: StackNavigationProps<
   }
   React.useEffect(() => {
         getCategory()
-
   }, [])
   const dispatch= useDispatch()
   const show = useSelector(store=>store.storeReducer.show)
@@ -91,15 +89,14 @@ const [refreshing, setRefreshing] = React.useState(false);
             show ? 
               <Searchbar 
                 style={{ height: 40, width: sizeWidth(80), borderWidth: 1, borderColor: 'gray', marginTop: 2 }} 
-                placeholder="Search" 
+                placeholder="Tìm kiếm chủ đề"  
+                placeholderTextColor={'gray'}
                 value={searchValue}
                 onChangeText={(e) => setSearchValue(e)}
                 spellCheck={false}
               />
             : null
           }
-
-
           <FlatList
             data={filterData()}
             keyExtractor={(_, index) => index.toString()}
@@ -153,13 +150,8 @@ const [refreshing, setRefreshing] = React.useState(false);
                 />
                 <Text style={{ fontSize: fontSize(5), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item?.name}</Text>
               </TouchableOpacity>
-
-
-
             )}
-
           />
-
         </View>
       </TouchableWithoutFeedback>
     </Container>  

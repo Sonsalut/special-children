@@ -24,16 +24,11 @@ import { sizeHeight } from 'utils/Utils';
 import NavigationService from './NavigationService';
 
 const Drawer = createDrawerNavigator();
-const DrawerNavigator = ({
-  
-}) => {
+const DrawerNavigator = ({}) => {
   const show= useSelector(store=>store.storeReducer.show)
   return (
 
-    <Drawer.Navigator initialRouteName={AuthenticatedScreens.HomeScreen} 
-
-    >
-
+    <Drawer.Navigator initialRouteName={AuthenticatedScreens.HomeScreen}>
       <Drawer.Screen name={AuthenticatedScreens.HomeScreens}
         component={HomeScreens}
         options={{
@@ -43,16 +38,15 @@ const DrawerNavigator = ({
           headerRight: () => (
             show ? 
             <TouchableOpacity onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddCategory)}>
-           <Icon name='pencil-outline' size={sizeHeight(3)} style={{right:5}}/>
+              <Icon 
+                name='pencil-outline' 
+                size={sizeHeight(3)} 
+                style={{right:5}}
+              />
             </TouchableOpacity>
             :null
-          ),
-          
-         
-         
-          
+          ),  
         }}
-
       />
     
       <Drawer.Screen name={AuthenticatedScreens.StorageWords}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Header, TouchableOpacity } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens, MainScreens } from 'routers/ScreenNames';
@@ -23,9 +23,10 @@ import { Text } from 'react-native';
 import colors from 'res/colors';
 import { GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
 import { delay } from '@reduxjs/toolkit/dist/utils';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import { setStorage, showIcon } from 'redux/storageWord/action';
 import RNFetchBlob from 'rn-fetch-blob';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const RecordingScreen = ({ route }: any) => {
     const MAX_IMAGE_WIDTH = 480;
@@ -80,11 +81,14 @@ const RecordingScreen = ({ route }: any) => {
         setShow(!show)
         setVisible(!visible)
     }
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     const handleShow=( )=>{
         setShow(!show)
       }
+    const handleCancel = () => {
+        setIsCancelled(true)
+    }
     const loadData = async () => {
         const response: any = await RecordingAPI.GetWordByCateID<GetWordByCateID>({
             pageIndex: 1,
@@ -171,6 +175,14 @@ const RecordingScreen = ({ route }: any) => {
     }
 
     const [searchValue, setSearchValue] = React.useState('')
+    const filterData = () =>(
+        data.filter(
+            item => (
+                encodeURIComponent(item?.audioWord.toLowerCase()).includes(encodeURIComponent(searchValue.toLowerCase()))
+            )
+        )
+    )
+
     const [visible, setVisible] = React.useState(false)
     const chooseWord = (item: any, index) => {
         setItem(item)
@@ -180,7 +192,8 @@ const RecordingScreen = ({ route }: any) => {
     }
     const [index, setIndex] = React.useState(0) 
     const [refreshing, setRefreshing] = React.useState(false);
-
+    const [isCancelled, setIsCancelled] = useState(false);
+    
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         setTimeout(() => {
@@ -197,7 +210,20 @@ const RecordingScreen = ({ route }: any) => {
                 title={route?.params?.data?.name} 
                 outerStyle={{backgroundColor:colors.title_blue}} 
                 titleStyle={{color: '#F1F1F2'}}
-                rightIconShow={true} 
+                rightIconShow={false} 
+                options={{
+                    headerRight: () => (
+                    show ? 
+                      <TouchableOpacity onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddCategory)}>
+                        <Icon 
+                          name='pencil-outline' 
+                          size={sizeHeight(3)} 
+                          style={{right:5}}
+                        />
+                      </TouchableOpacity>
+                    : null
+                    )
+                  }}
             />
             <TouchableWithoutFeedback     
                 onPress={() => console.log('Pressed')}
@@ -218,7 +244,7 @@ const RecordingScreen = ({ route }: any) => {
                 }
                     <View style={{width:sizeWidth(90), height:sizeHeight(90),alignItems: 'center', alignSelf:'center'}}>
                         <FlatList
-                            data={data}
+                            data={filterData()}
                             keyExtractor={(_, index) => index.toString()}
                             showsVerticalScrollIndicator={false}
                             numColumns={2}
@@ -308,8 +334,8 @@ const RecordingScreen = ({ route }: any) => {
                                                 justifyContent: 'space-between',
                                                 alignSelf: 'center'
                                             }}>
-                                            <TouchableOpacity onPress={handle}>
-                                                <Image resizeMode='contain' source={cancel} style={{ width: sizeWidth(5), height: sizeHeight(5)}} />
+                                            <TouchableOpacity onPress={()=> handleCancel }>
+                                                <Image resizeMode='contain' source={cancel} style={{ width: sizeWidth(5), height: sizeHeight(3), borderWidth:1}} />
                                             </TouchableOpacity>            
                                         </View>
                                         <View style={{ alignItems: 'center', marginTop: '-15%' }}>
@@ -345,6 +371,8 @@ const RecordingScreen = ({ route }: any) => {
 };
 
 export default RecordingScreen;
+
+
 
 
 

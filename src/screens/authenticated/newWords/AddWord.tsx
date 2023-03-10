@@ -28,9 +28,9 @@ import GlobalHeader from 'components/header/GlobalHeader';
 import HeaderWithBack from 'components/header/HeaderWithBack';
 import { Item } from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
 
-function AddWord({}: StackNavigationProps<
+const AddWord = ({}: StackNavigationProps<
     Routes, AuthenticatedScreens.AddWord
->) {
+>) => {
     const [data, setData] = React.useState([])
     const [datas, setDatas] = React.useState([])
     const getCategory = async (values: any) => {
