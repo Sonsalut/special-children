@@ -1,4 +1,4 @@
-import { GetStorageWord, GetVoice, VoiceInfor } from 'network/subs/auth/recording/RecordingRequest';
+import { CategoryStatus, GetStorageWord, GetVoice, UpdateCategory, VoiceInfor } from 'network/subs/auth/recording/RecordingRequest';
 import { ApiConstants } from 'network/ApiConstants';
 import Api, { RequestMethod, METHOD } from 'network/ApiManager';
 import {
@@ -18,6 +18,8 @@ export const AuthApis = {
  GetVoiceInfor : ApiConstants.HOST + 'ext/accounts/voices/by-user',
  PostVoiceInfor : ApiConstants.HOST + 'ext/accounts/voices/by-user',
  GetVoice : ApiConstants.HOST + 'ext/files/audio-stream/by-word?words=',
+SetCateforyStatus: ApiConstants.HOST + 'ext/category/status',
+UpdateCategory: ApiConstants.HOST + 'ext/category'
 
 
 
@@ -112,6 +114,24 @@ class RecodingApi {
                 url: AuthApis.GetVoiceInfor,
                 data: JSON.stringify(params),
                 
+            },
+        });
+    }
+    SetStatusCategory<T>(params: CategoryStatus) {
+        return Api.request<T>({
+            options: {
+                method: METHOD.PUT,
+                url: AuthApis.SetCateforyStatus+`?ids=${params.id}&status=${params.status}`
+            },
+        });
+    }
+    UpdateCategory<T>(params: UpdateCategory) {
+        return Api.request<T>({
+            options: {
+                method: METHOD.PUT,
+                url: AuthApis.SetCateforyStatus+`?categoryId=${params.id}&name=${params.name}&isActive=${params.isActive}&desscription=${params.description}`,
+                data: JSON.stringify(params.data),
+
             },
         });
     }

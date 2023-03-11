@@ -42,15 +42,15 @@ if (response.status === ResponseCode.SUCCESS) {
   }
  
     }
+    const isFocused = useIsFocused();
 
     useFocusEffect(
       React.useCallback(() => {
   
      getStorageWords()
        
-      }, [])
+      }, [isFocused])
     );
-    const isFocused = useIsFocused();
 
    
     // React.useEffect(() => {
