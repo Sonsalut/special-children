@@ -1,3 +1,4 @@
+import { Axios } from 'axios';
 import { CategoryStatus, GetStorageWord, GetVoice, UpdateCategory, VoiceInfor } from 'network/subs/auth/recording/RecordingRequest';
 import { ApiConstants } from 'network/ApiConstants';
 import Api, { RequestMethod, METHOD } from 'network/ApiManager';
@@ -6,6 +7,7 @@ import {
     GetFullCategory,
     AddWordToStorage,
     DeleteWordToStorage
+    
 } from './RecordingRequest';
 
 export const AuthApis = {
@@ -20,6 +22,8 @@ export const AuthApis = {
  GetVoice : ApiConstants.HOST + 'ext/files/audio-stream/by-word?words=',
 SetCateforyStatus: ApiConstants.HOST + 'ext/category/status',
 UpdateCategory: ApiConstants.HOST + 'ext/category'
+// UpdateCategory: 'http://192.168.10.35:8089/ext/category'
+
 
 
 
@@ -126,14 +130,17 @@ class RecodingApi {
         });
     }
     UpdateCategory<T>(params: UpdateCategory) {
-        return Api.request<T>({
+        return Api.request({
+            special:false,
             options: {
                 method: METHOD.PUT,
-                url: AuthApis.SetCateforyStatus+`?categoryId=${params.id}&name=${params.name}&isActive=${params.isActive}&desscription=${params.description}`,
-                data: JSON.stringify(params.data),
+                url: AuthApis.UpdateCategory+`?categoryId=${params.id}&name=${params.name}&isActive=${params.isActive}&desscription=${params.description}`,
+                data:params.data
+        
 
             },
         });
+        
     }
     
 }

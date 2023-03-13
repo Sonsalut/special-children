@@ -41,6 +41,7 @@ interface RequestConfig {
   contentType?: string;
   accept?: string;
   sound?:boolean
+  special?: boolean;
 }
 
 const TIMEOUT = 30 * 1000; // 30 seconds
@@ -86,6 +87,8 @@ class ApiClient {
    * @param params
    * @param options
    * @param isShowLoading
+   * @param special
+   * 
    * @param ignoreURLBase
    *        true nếu đường link không cộng BASE_URL ở đầu, false ngược lại
    * @param ignoreHandleCommonError
@@ -101,6 +104,7 @@ class ApiClient {
     contentType,
     options,
     params,
+    special= true,
     isShowLoading = true,
     ignoreURLBase = false,
     ignoreHandleCommonError = true,
@@ -172,7 +176,13 @@ class ApiClient {
       timeout: TIMEOUT,
       headers: {
         'Accept': 'Application/json',
-        'Content-Type': 'Application/json',
+        // "Accept": "*/*",
+        
+        //  'Content-Type': 'Application/json',
+        // :'Content-Type': 'multipart/form-data',
+        'Content-Type' : special ?'application/json'  : 'multipart/form-data',
+        
+
       }
       ,
       ...options
