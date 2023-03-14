@@ -11,6 +11,8 @@ const RUN_ENVIRONMENT = type.DEV;
 let HOST, HOST_Quiz, HOST_Notify;
 if (RUN_ENVIRONMENT === type.DEV) {
     HOST = 'https://ais-schildren-test-api.aisolutions.com.vn/';
+    // HOST = 'http://192.168.10.35:8089/';
+
 } else if (RUN_ENVIRONMENT === type.TEST) {
     HOST = '';
 } else if (RUN_ENVIRONMENT === type.PRODUCTION) {

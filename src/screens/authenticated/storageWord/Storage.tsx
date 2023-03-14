@@ -44,12 +44,12 @@ const Storage = ({ }: StackNavigationProps<
 
     });
     if (response.status === ResponseCode.SUCCESS) {
-      if (category.length <= 0) {
+      // if (category.length <= 0) {
         // console.log( response.data?.categories)
         dispatch(setCategory(response.data?.categories))
         // console.log('AAAAA'+ response.data.categories)
         loadData(response.data?.categories?.id)
-    }
+    // }
       
     }
   }
@@ -230,6 +230,7 @@ NavigationService.navigate(AuthenticatedScreens.StorageWords)
       setTimeout(() => {
         setRefreshing(false); 
         getCategory()
+        loadData()
         // console.log('---------------------------------')
         // console.log(fullStore)
         // console.log(fullStore.length)

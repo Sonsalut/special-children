@@ -1,4 +1,5 @@
-import { GetStorageWord, GetVoice, VoiceInfor } from 'network/subs/auth/recording/RecordingRequest';
+import { Axios } from 'axios';
+import { CategoryStatus, GetStorageWord, GetVoice, UpdateCategory, VoiceInfor } from 'network/subs/auth/recording/RecordingRequest';
 import { ApiConstants } from 'network/ApiConstants';
 import Api, { RequestMethod, METHOD } from 'network/ApiManager';
 import {
@@ -6,6 +7,7 @@ import {
     GetFullCategory,
     AddWordToStorage,
     DeleteWordToStorage
+    
 } from './RecordingRequest';
 
 export const AuthApis = {
@@ -18,6 +20,10 @@ export const AuthApis = {
  GetVoiceInfor : ApiConstants.HOST + 'ext/accounts/voices/by-user',
  PostVoiceInfor : ApiConstants.HOST + 'ext/accounts/voices/by-user',
  GetVoice : ApiConstants.HOST + 'ext/files/audio-stream/by-word?words=',
+SetCateforyStatus: ApiConstants.HOST + 'ext/category/status',
+UpdateCategory: ApiConstants.HOST + 'ext/category'
+// UpdateCategory: 'http://192.168.10.35:8089/ext/category'
+
 
 
 
@@ -114,6 +120,27 @@ class RecodingApi {
                 
             },
         });
+    }
+    SetStatusCategory<T>(params: CategoryStatus) {
+        return Api.request<T>({
+            options: {
+                method: METHOD.PUT,
+                url: AuthApis.SetCateforyStatus+`?ids=${params.id}&status=${params.status}`
+            },
+        });
+    }
+    UpdateCategory<T>(params: UpdateCategory) {
+        return Api.request({
+            special:false,
+            options: {
+                method: METHOD.PUT,
+                url: AuthApis.UpdateCategory+`?categoryId=${params.id}&name=${params.name}&isActive=${params.isActive}&desscription=${params.description}`,
+                data:params.data
+        
+
+            },
+        });
+        
     }
     
 }

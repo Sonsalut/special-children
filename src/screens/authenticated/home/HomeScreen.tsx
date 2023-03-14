@@ -4,7 +4,7 @@ import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens, AuthenticationScreens, MainScreens } from 'routers/ScreenNames';
 import NavigationService from 'routers/NavigationService';
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
-import { View, Image, ImageBackground, ScrollView, KeyboardAvoidingView,FlatList, Animated, TouchableHighlightComponent, TouchableWithoutFeedback } from 'react-native';
+import { View, Image, ImageBackground, ScrollView, KeyboardAvoidingView,FlatList, Animated, TouchableHighlightComponent, TouchableWithoutFeedback, Vibration } from 'react-native';
 import styles from './styles';
 import images from 'res/images';
 import AuthenticationApi from 'network/subs/auth/AuthApi';
@@ -25,6 +25,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { showIcon } from 'redux/storageWord/action';
 import GlobalHeader from 'components/header/GlobalHeader';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
+import { useIsFocused } from '@react-navigation/native';
+import CheckBox from '@react-native-community/checkbox';
 
 
 const HomeScreen = ({ }: StackNavigationProps<
@@ -49,14 +51,19 @@ const HomeScreen = ({ }: StackNavigationProps<
       console.log(data)
     }
   }
+  const isFocused= useIsFocused()
   React.useEffect(() => {
         getCategory()
-  }, [])
+
+  }, [isFocused])
   const dispatch= useDispatch()
-  const show = useSelector(store=>store.storeReducer.show)
-  const handleShow=( )=>{
-    dispatch(showIcon())
-  }
+  const show= useSelector(store=>store.storeReducer.show)
+const handleShow=( )=>{
+ 
+  dispatch(showIcon())
+  // Vibration.vibrate()
+
+}
 const [refreshing, setRefreshing] = React.useState(false);
   const onRefresh = React.useCallback(() => {
       setRefreshing(true);
@@ -67,9 +74,7 @@ const [refreshing, setRefreshing] = React.useState(false);
         
       }, 2000);
     }, []);
-    const slideAnim = React.useRef(new Animated.Value(-200)).current;
-    const icons = React.useRef([<Text>sss</Text>,<Text>s2s</Text>,<Text>ss3s</Text>]).current;
-  
+   
  
     const [searchValue, setSearchValue] = React.useState('')
     const filterData= ()=>(

@@ -10,7 +10,7 @@ export type GetFullCategory = {
     pageIndex: number,
     pageSize: number,
     name: any,
-    isActive: boolean,
+    isActive: any,
     // categories: any
 };
 export type AddWordToStorage = {
@@ -32,7 +32,20 @@ export type GetVoice = {
    
     audioWord: String
 };
+export type CategoryStatus = {
+   
+   id:number,
+   status:boolean
+};
+export type UpdateCategory = {
+   
+    id:number,
+    name:string,
+    isActive:boolean,
+    description:string
+    data:FormData
 
+ };
 // export type ForgotPassword = {
 //     username: string;
 // };
