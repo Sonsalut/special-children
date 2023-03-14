@@ -80,9 +80,22 @@ const AddCategory = ({ }: StackNavigationProps<
         if (!response.errorMessage) {
 
           console.log(response.assets)
+          const imageDatas = new FormData()
+          console.log(response.assets)
           setImage(response?.assets?.[0]?.uri)
           setCameraOptionsVisble(!cameraOptionsVisble)
+          imageDatas.append(
+            "file-image", {
+            uri: response?.assets?.[0]?.uri,
+            name: 'image.png',
+            fileName: 'image',
+            type: 'image/png',
 
+          }
+          )
+          console.log(imageDatas)
+          setItemData(imageDatas)
+     
 
         }
         else {
@@ -117,6 +130,7 @@ const AddCategory = ({ }: StackNavigationProps<
     }
   };
   const takePhoto = async () => {
+
     if (await requestCameraPermission()) {
       ImagePicker.launchCamera(CAMERA_OPTION, (response?: any) => {
         if (response.didCancel) {
@@ -512,7 +526,7 @@ const AddCategory = ({ }: StackNavigationProps<
 
                 }}
                 source={item?.pictureFileId !== null ? {
-                  uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
+                  uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
     
                   method: 'GET',
                   headers: { Authorization: store.getState().authReducer.user.accessToken }
