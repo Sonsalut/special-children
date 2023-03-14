@@ -22,7 +22,7 @@ import { Text } from 'react-native';
 import colors from 'res/colors';
 import { GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
 import { delay } from '@reduxjs/toolkit/dist/utils';
-import { setStorage, showIcon } from 'redux/storageWord/action';
+import { getCateId, setStorage, showIcon } from 'redux/storageWord/action';
 import RNFetchBlob from 'rn-fetch-blob';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -42,6 +42,10 @@ const RecordingScreen = ({ route, navigation }: any) => {
     const [item, setItem] = React.useState()
     React.useEffect(() => {
       navigation.setOptions({headerTitle:`${route?.params?.data?.name}`})
+      dispatch(getCateId(route?.params?.data?.id))
+    loadData();
+
+    // console.log(route?.params?.data?.name?.id)
     }, [])
     
     const IMAGE_LIBRARY_OPTION: any = {
@@ -73,9 +77,8 @@ const RecordingScreen = ({ route, navigation }: any) => {
         });
     };
 
-    React.useEffect(() => {
-        loadData();
-    }, [])
+    // React.useEffect(() => {
+    // }, [])
 
     const handle = () => {
         setShow(!show)
@@ -250,7 +253,8 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                     <Image
                                         style={{
                                             resizeMode: 'stretch',
-                                            height: sizeHeight(16), width: sizeWidth(36),
+                                            height: sizeHeight(16), 
+                                            width: sizeWidth(36),
                                             borderRadius: sizeWidth(3),
                                             justifyContent: 'center',
                                         }}
@@ -309,7 +313,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                                 alignSelf: 'center'
                                             }}>
                                             <TouchableOpacity  onPress={handleCancel}>
-                                                <Image resizeMode='contain' source={cancel} style={{ width: sizeWidth(5), height: sizeHeight(3), borderWidth:1}}/>
+                                                <Image resizeMode='contain' source={cancel} style={{ width: sizeWidth(5), height: sizeHeight(3)}}/>
                                             </TouchableOpacity>            
                                         </View>
                                         <View style={{ alignItems: 'center', marginTop: '-15%' }}>

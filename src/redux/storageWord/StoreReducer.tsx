@@ -12,6 +12,7 @@ const initialState = {
 
   personalStorefromApi:[],
   show: false,
+  categoryId:''
     
     
 }
@@ -53,6 +54,12 @@ export default  ( state= initialState, action)=>
             return{
                 ...state,
                 show:!state.show
+            }
+            case'GET_CATE_ID':
+            return{
+                ...state,
+             categoryId:action.payload
+    
             }
         
             default:

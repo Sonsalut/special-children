@@ -59,6 +59,12 @@ export const showIcon =()=>{
     }
 
 }
+export const getCateId =(data)=>{
+    return{
+            type:'GET_CATE_ID',
+            payload:data
+    }
+}
 
 
 

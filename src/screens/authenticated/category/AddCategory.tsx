@@ -418,7 +418,6 @@ const AddCategory = ({ }: StackNavigationProps<
               <View style={{ width: '90%', alignSelf: 'center', height: sizeHeight(10) }}>
                 <Text style={{fontSize:15, color:'black'}}>Tên chủ đề: </Text>
                 <TextInput
-               
                   style={{ height: sizeHeight(7), width: '100%', borderRadius: 5, borderWidth: 1 }}
                   // onChangeText={(text) => handleType(text)}
                   defaultValue={value}
@@ -454,7 +453,7 @@ const AddCategory = ({ }: StackNavigationProps<
           height: sizeWidth(10),
           borderRadius: 45,
           marginTop: 10,
-          
+        
           backgroundColor: '#FFD19A',
           alignSelf: 'center'
         }}
