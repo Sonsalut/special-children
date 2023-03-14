@@ -1,37 +1,21 @@
 import React from 'react';
-import { Container, Header, TouchableOpacity } from 'components';
+import { Container, TouchableOpacity } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
-import { AuthenticatedScreens, AuthenticationScreens, MainScreens } from 'routers/ScreenNames';
-import NavigationService from 'routers/NavigationService';
-import { fontSize, getExtention, sizeHeight, sizeWidth } from 'utils/Utils';
-import { Text, View, Image, ImageBackground, ScrollView, KeyboardAvoidingView, FlatList, Animated, TouchableHighlightComponent, TouchableWithoutFeedback, TextInput, PermissionsAndroid } from 'react-native';
-import images from 'res/images';
-import AuthenticationApi from 'network/subs/auth/AuthApi';
-import { CategoryList } from 'network/subs/auth/AuthResponse';
-import AuthApi from 'network/subs/auth/AuthApi';
+import { AuthenticatedScreens } from 'routers/ScreenNames';
+import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
+import { Text, View, Image, ScrollView, KeyboardAvoidingView, FlatList, TextInput, PermissionsAndroid } from 'react-native';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import { CategoryStatus, GetFullCategory, UpdateCategory } from 'network/subs/auth/recording/RecordingRequest';
 import ResponseCode from 'network/ResponseCode';
 import { store } from 'redux/store';
 import colors from 'res/colors';
 import { RefreshControl } from 'react-native-gesture-handler';
-import Spinner from 'react-native-spinkit';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button, Menu, Modal, Portal, Provider, Searchbar, TouchableRipple } from 'react-native-paper';
+import { Menu, Modal } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { showIcon } from 'redux/storageWord/action';
-import GlobalHeader from 'components/header/GlobalHeader';
 import HeaderWithBack from 'components/header/HeaderWithBack';
-import vi from 'assets/languages/vi';
 import { useToast } from 'hooks/useToast';
-import CheckBox from '@react-native-community/checkbox';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as ImagePicker from 'react-native-image-picker';
-import { title } from 'process';
-
-
-
-
 
 
 const AddCategory = ({ }: StackNavigationProps<
@@ -49,13 +33,9 @@ const AddCategory = ({ }: StackNavigationProps<
   const textToRef = (value) => {
     textRef.current = textRef.current + value
   }
-
-
   const MAX_IMAGE_WIDTH = 480;
   const MAX_IMAGE_HEIGHT = 480;
   const IMAGE_QUALITY = 60;
-
-
   const IMAGE_LIBRARY_OPTION: any = {
     mediaType: 'photo',
     selectionLimit: 1,
@@ -186,10 +166,8 @@ const AddCategory = ({ }: StackNavigationProps<
       console.log(data)
     }
   }
-  React.useEffect(() => {
-    getCategory()
 
-  }, [])
+  
   const dispatch = useDispatch()
   const show = useSelector(store => store.storeReducer.show)
   const handle = () => {
@@ -308,7 +286,16 @@ const AddCategory = ({ }: StackNavigationProps<
   const handleUpImage = () => {
     setCameraOptionsVisble(!cameraOptionsVisble)
   }
+  React.useEffect(() => {
+    getCategory()
 
+  }, [])
+  React.useEffect(() => {
+    checkDone()
+    checkCount()
+  }, [data])
+ 
+  
   const ModalCamera = () => {
     return (
       <Modal
@@ -340,8 +327,6 @@ const AddCategory = ({ }: StackNavigationProps<
   const textInputRef = React.useRef(null);
   const handleType = (e) => {
     textInputRef.current = e
-    // console.log(textInputRef.current)
-    // setValue(textInputRef.current)
 
   };
   const updateCategory = async (item:any, data:FormData)=>{
@@ -478,9 +463,6 @@ const AddCategory = ({ }: StackNavigationProps<
         <Text style={{ alignSelf: 'center', marginTop: 10, fontSize: 15, fontWeight: 'bold', color: '#2D5672' }}>Thêm chủ đề</Text>
       </TouchableOpacity>
       <View style={{ height: sizeHeight(85), width: '95%', alignSelf: 'center', alignItems: 'center' }}>
-
-
-
         <FlatList
           data={data}
           keyExtractor={(_, index) => index.toString()}
@@ -562,21 +544,20 @@ const AddCategory = ({ }: StackNavigationProps<
       />
 
       {/* màn hình thêm chủ đề */}
-
       <AddEditModal title={'Thêm chủ đề'}
         visible={configModalvisible}
         source={image ? { uri: image }: null}
         onDismiss={() => setConfigModalvisible(!configModalvisible)}
         cancel={() => { setConfigModalvisible(!configModalvisible); setValue('') ;setImage('') }} />
       {/* Choice Tab */}
-
       <Modal
         visible={visible}
         style={{
           backgroundColor: '#ADDDDC',
           borderRadius: 15,
           height: 250,
-          marginTop: sizeHeight(72),
+          marginTop: 540,
+          // alignSelf:'flex-start',
           width: '90%',
           marginHorizontal: 20,
 
@@ -589,7 +570,6 @@ const AddCategory = ({ }: StackNavigationProps<
         {
           count < 2
             ? <Menu.Item titleStyle={{ fontSize: 18 }} leadingIcon="file-document-edit-outline" onPress={handleEditCategory} title="Chỉnh sửa chủ đề" />
-
             : null
         }
         <Menu.Item titleStyle={{ fontSize: 18 }} leadingIcon="eye-off-outline" onPress={handleHideCategory} title="Xóa chủ đề" />

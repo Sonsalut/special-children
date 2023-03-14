@@ -27,6 +27,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavigationContext } from '@react-navigation/native';
+import { useToast } from 'hooks/useToast';
 
 const RecordingScreen = ({ route, navigation }: any) => {
     const MAX_IMAGE_WIDTH = 480;
@@ -109,6 +110,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
         }
     }
 //    const [isExist, setisExist] = useState(false)
+const showToast= useToast()
     const playSound = async (audioWord: any) => {
         let filePath = '';
         let url = AuthApis.GetVoice + encodeURIComponent(audioWord);
@@ -129,24 +131,18 @@ const RecordingScreen = ({ route, navigation }: any) => {
                 console.log("The file saved to ", res.path());
                 filePath = res.path();
                 RNFetchBlob.fs.exists(filePath).then((exists) => {
+                    try {
                     SoundPlayer.playUrl('file://' + filePath)
+                        
+                    } catch (error) {
+                        showToast("ERROR",'danger')
+                    }
                 })
                 .finally(() => {
                 RNFetchBlob.fs.unlink('file://' + filePath)
                 })
             })
     }
-
-    // const loadImage = async () => {
-    //     const response = await RecordingAPI.GetImageByID<any>({ id: 4 })
-    //     if (response.status === ResponseCode.SUCCESS) {
-    //         setImgBase64(response.data);
-    //         console.log()
-    //     }
-    //     else {
-    //         console.log('that bai')
-    //     }
-    // }
 
     const takePhoto = async () => {
         ImagePicker.launchCamera(CAMERA_OPTION, (response) => {
