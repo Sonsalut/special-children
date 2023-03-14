@@ -15,8 +15,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
 import { sizeHeight } from 'utils/Utils';
 import { addWordToStorage } from 'redux/storageWord/action';
-import NavigationService from './NavigationService';
 
+import NavigationService from './NavigationService';
+import AddWord from 'screens/authenticated/newWords/AddWord';
+import images from 'res/images';
 const Stack = createStackNavigator<Routes>();
 const CommonStackNavigator = ({}) => {
   const show = useSelector(store=>store.storeReducer.show)
@@ -33,19 +35,33 @@ const CommonStackNavigator = ({}) => {
       <Stack.Screen
         name={AuthenticatedScreens.RecordingScreen}
         component={RecordingScreen}
-        // options={{
-        //   headerRight: () => (
-        //     show ? 
-        //       <TouchableOpacity onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddCategory)}>
-        //         <Icon 
-        //           name='pencil-outline' 
-        //           size={sizeHeight(3)} 
-        //           style={{right:5}}
-        //         />
-        //       </TouchableOpacity>
-        //     : null
-        //   )
-        // }}
+        
+        options={{
+          headerShown:true,
+          headerStyle: {
+            backgroundColor: colors.title_blue,
+          
+          },
+          headerTitleStyle: {
+            color: colors.header_title,
+            fontWeight: 'bold',
+            fontSize: 21
+          },
+          headerLeftLabelVisible:false,
+          headerTintColor:'black',
+          // headerBackImage:images.navBackLeft,
+          headerRight: () => (
+            show ? 
+              <TouchableOpacity onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddWord)}>
+                <Icon 
+                  name='pencil-outline' 
+                  size={sizeHeight(3)} 
+                  style={{right:5}}
+                />
+              </TouchableOpacity>
+            : null
+          )
+        }}
       />
 
       <Stack.Screen
@@ -54,8 +70,12 @@ const CommonStackNavigator = ({}) => {
       />
       {/* <Stack.Screen
         name={AuthenticatedScreens.AddWord}
-        component={AddWord}
+        component={}
       /> */}
+      <Stack.Screen
+        name={AuthenticatedScreens.AddWord}
+        component={AddWord}
+      />
       <Stack.Screen
         name={AuthenticatedScreens.Storage}
         component={Storage}

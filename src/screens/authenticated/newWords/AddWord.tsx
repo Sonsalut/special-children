@@ -101,6 +101,9 @@ const AddWord = ({}: StackNavigationProps<
     }
   return (
     <Container>
+      <HeaderWithBack
+        
+      />
         <TouchableWithoutFeedback>
             <View>
                 
@@ -109,3 +112,4 @@ const AddWord = ({}: StackNavigationProps<
     </Container>
   )
 };
+export default AddWord

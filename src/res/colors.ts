@@ -22,6 +22,7 @@ const colors = new (class {
   btn_blue = '#60A2C8';
   tag_blue = '#99C8E4';
   bgr_blue = '#E7F6FF';
+  header_title = '#F1F1F2';
 
   whiteWithOpacity = (opacity: number) => `rgba(255, 255, 255, ${opacity})`;
   blackWithOpacity = (opacity: number) => `rgba(0, 0, 0, ${opacity})`;

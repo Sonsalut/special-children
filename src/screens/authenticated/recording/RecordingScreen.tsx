@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Container, Header, TouchableOpacity } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens, MainScreens } from 'routers/ScreenNames';
-import HeaderWithBack from 'components/header/HeaderWithBack';
 import { fontSize, getExtention, getMime, sizeHeight, sizeWidth } from 'utils/Utils';
 import { Button, FlatList, Image, ScrollView, View, ActivityIndicator, ImageBackground, TouchableWithoutFeedback } from 'react-native';
 import images from 'res/images';
@@ -23,12 +22,13 @@ import { Text } from 'react-native';
 import colors from 'res/colors';
 import { GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
 import { delay } from '@reduxjs/toolkit/dist/utils';
-// import { useDispatch, useSelector } from 'react-redux';
 import { setStorage, showIcon } from 'redux/storageWord/action';
 import RNFetchBlob from 'rn-fetch-blob';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavigationContext } from '@react-navigation/native';
 
-const RecordingScreen = ({ route }: any) => {
+const RecordingScreen = ({ route, navigation }: any) => {
     const MAX_IMAGE_WIDTH = 480;
     const MAX_IMAGE_HEIGHT = 480;
     const IMAGE_QUALITY = 60;
@@ -40,6 +40,10 @@ const RecordingScreen = ({ route }: any) => {
     const [animal, setAnimal] = React.useState([])
     const [imgBase64, setImgBase64] = React.useState()
     const [item, setItem] = React.useState()
+    React.useEffect(() => {
+      navigation.setOptions({headerTitle:`${route?.params?.data?.name}`})
+    }, [])
+    
     const IMAGE_LIBRARY_OPTION: any = {
         mediaType: 'photo',
         selectionLimit: 1,
@@ -68,26 +72,23 @@ const RecordingScreen = ({ route }: any) => {
             }
         });
     };
-    
-   
 
     React.useEffect(() => {
         loadData();
-
-        // loadImage();
     }, [])
 
     const handle = () => {
         setShow(!show)
         setVisible(!visible)
     }
-    // const dispatch = useDispatch()
-
-    const handleShow=( )=>{
-        setShow(!show)
-      }
+    const dispatch = useDispatch()
+    const shows= useSelector(store=>store.storeReducer.show)
+    const handleShow=()=>{
+        dispatch(showIcon())
+    }
     const handleCancel = () => {
-        setIsCancelled(true)
+        setShow(!show)
+        setVisible(!visible)
     }
     const loadData = async () => {
         const response: any = await RecordingAPI.GetWordByCateID<GetWordByCateID>({
@@ -121,21 +122,19 @@ const RecordingScreen = ({ route }: any) => {
                 'Accept': '*/*',
                 'Content-Type': 'application/octet-stream'
             })
-                .then((res) => {
-                    // console.log(res);
-                    // console.log("The file saved to ", res.path())
-                    console.log(res.respInfo)
-                        console.log("The file saved to ", res.path());
-                        filePath = res.path(); 
-                        RNFetchBlob.fs.exists(filePath).then((exists)=>{
-                            SoundPlayer.playUrl('file://' + filePath)
-                        })
-                        .finally(() => {
-        
-                            RNFetchBlob.fs.unlink('file://' + filePath)
-        
-                        })
+            .then((res) => {
+                // console.log(res);
+                // console.log("The file saved to ", res.path())
+                console.log(res.respInfo)
+                console.log("The file saved to ", res.path());
+                filePath = res.path();
+                RNFetchBlob.fs.exists(filePath).then((exists) => {
+                    SoundPlayer.playUrl('file://' + filePath)
                 })
+                .finally(() => {
+                RNFetchBlob.fs.unlink('file://' + filePath)
+                })
+            })
     }
 
     // const loadImage = async () => {
@@ -157,7 +156,6 @@ const RecordingScreen = ({ route }: any) => {
             else {
                 console.log("that bai")
             }
-
         });
     };
 
@@ -169,9 +167,8 @@ const RecordingScreen = ({ route }: any) => {
         })
         setData(temp)
         setContent(""),
-            setShow(false)
+        setShow(false)
         setVisible(false)
-
     }
 
     const [searchValue, setSearchValue] = React.useState('')
@@ -192,8 +189,7 @@ const RecordingScreen = ({ route }: any) => {
     }
     const [index, setIndex] = React.useState(0) 
     const [refreshing, setRefreshing] = React.useState(false);
-    const [isCancelled, setIsCancelled] = useState(false);
-    
+    const [isCancelled, setIsCancelled] = useState(false);  
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         setTimeout(() => {
@@ -205,33 +201,14 @@ const RecordingScreen = ({ route }: any) => {
     
     return (
 
-        <Container isBottomTab={false} style={{ flex: 1, backgroundColor: 'white', width: '100%'}}  >
-            <HeaderWithBack 
-                title={route?.params?.data?.name} 
-                outerStyle={{backgroundColor:colors.title_blue}} 
-                titleStyle={{color: '#F1F1F2'}}
-                rightIconShow={false} 
-                options={{
-                    headerRight: () => (
-                    show ? 
-                      <TouchableOpacity onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddCategory)}>
-                        <Icon 
-                          name='pencil-outline' 
-                          size={sizeHeight(3)} 
-                          style={{right:5}}
-                        />
-                      </TouchableOpacity>
-                    : null
-                    )
-                  }}
-            />
+        <Container isBottomTab={false} style={{ flex: 1, backgroundColor: 'white', width: '100%'}}>
             <TouchableWithoutFeedback     
                 onPress={() => console.log('Pressed')}
                 onLongPress={handleShow}
             >
                 <View style={{ height: sizeHeight(90), width: '95%', alignSelf: 'center', alignItems: 'center'}}>
                 {
-                show ? 
+                shows ? 
                     <Searchbar 
                         style={{ height: 40, width: sizeWidth(80), borderWidth: 1, borderColor: 'gray', marginTop: 5 }} 
                         placeholder="Tìm kiếm" 
@@ -317,12 +294,9 @@ const RecordingScreen = ({ route }: any) => {
                         <View style={{ height:'100%'}}>
                            
                         <Swiper showsButtons={false} index={index} onIndexChanged={(index)=>playSound(data[index]?.audioWord)} >
-                            {
-                                
-                                data.map((item, index) => (
-                                    
-                                    <View key={index} >
-                                        
+                            {                               
+                                data.map((item, index) => (                                    
+                                    <View key={index}>                                       
                                         <View
                                             style={{
                                                 width: '93%',
@@ -334,8 +308,8 @@ const RecordingScreen = ({ route }: any) => {
                                                 justifyContent: 'space-between',
                                                 alignSelf: 'center'
                                             }}>
-                                            <TouchableOpacity onPress={()=> handleCancel }>
-                                                <Image resizeMode='contain' source={cancel} style={{ width: sizeWidth(5), height: sizeHeight(3), borderWidth:1}} />
+                                            <TouchableOpacity  onPress={handleCancel}>
+                                                <Image resizeMode='contain' source={cancel} style={{ width: sizeWidth(5), height: sizeHeight(3), borderWidth:1}}/>
                                             </TouchableOpacity>            
                                         </View>
                                         <View style={{ alignItems: 'center', marginTop: '-15%' }}>
