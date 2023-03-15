@@ -44,8 +44,19 @@ export type UpdateCategory = {
     isActive:boolean,
     description:string
     data:FormData
-
  };
+
+ export type UpdateWord = {
+    wordId:number,
+    categoryId:number,
+    word:string,
+    wordAudio:String,
+    
+    isActive:boolean,
+    
+    data:FormData
+ }
+
 // export type ForgotPassword = {
 //     username: string;
 // };

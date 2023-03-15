@@ -1,5 +1,5 @@
 import { Axios } from 'axios';
-import { CategoryStatus, GetStorageWord, GetVoice, UpdateCategory, VoiceInfor } from 'network/subs/auth/recording/RecordingRequest';
+import { CategoryStatus, GetStorageWord, GetVoice, UpdateCategory, UpdateWord, VoiceInfor } from 'network/subs/auth/recording/RecordingRequest';
 import { ApiConstants } from 'network/ApiConstants';
 import Api, { RequestMethod, METHOD } from 'network/ApiManager';
 import {
@@ -12,22 +12,18 @@ import {
 
 export const AuthApis = {
     GetWordByCateID: ApiConstants.HOST + 'ext/word/search/by-user',
-    GetImage : ApiConstants.HOST + 'ext/files/download',
-  GetFullCate: ApiConstants.HOST + 'ext/category/search/by-user',
-  GetStorageWord : ApiConstants.HOST + 'ext/word/repo',
-  PostStorageWord : ApiConstants.HOST + 'ext/word/repo' ,
-  DeleteStorageWord : ApiConstants.HOST + 'ext/word/repo',
- GetVoiceInfor : ApiConstants.HOST + 'ext/accounts/voices/by-user',
- PostVoiceInfor : ApiConstants.HOST + 'ext/accounts/voices/by-user',
- GetVoice : ApiConstants.HOST + 'ext/files/audio-stream/by-word?words=',
-SetCateforyStatus: ApiConstants.HOST + 'ext/category/status',
-UpdateCategory: ApiConstants.HOST + 'ext/category'
+    GetImage: ApiConstants.HOST + 'ext/files/download',
+    GetFullCate: ApiConstants.HOST + 'ext/category/search/by-user',
+    GetStorageWord: ApiConstants.HOST + 'ext/word/repo',
+    PostStorageWord: ApiConstants.HOST + 'ext/word/repo',
+    DeleteStorageWord: ApiConstants.HOST + 'ext/word/repo',
+    GetVoiceInfor: ApiConstants.HOST + 'ext/accounts/voices/by-user',
+    PostVoiceInfor: ApiConstants.HOST + 'ext/accounts/voices/by-user',
+    GetVoice: ApiConstants.HOST + 'ext/files/audio-stream/by-word?words=',
+    SetCateforyStatus: ApiConstants.HOST + 'ext/category/status',
+    UpdateCategory: ApiConstants.HOST + 'ext/category',
+    UpdateWord: ApiConstants.HOST + 'ext/word/'
 // UpdateCategory: 'http://192.168.10.35:8089/ext/category'
-
-
-
-
-
 
 
 };
@@ -136,11 +132,18 @@ class RecodingApi {
                 method: METHOD.PUT,
                 url: AuthApis.UpdateCategory+`?categoryId=${params.id}&name=${params.name}&isActive=${params.isActive}&desscription=${params.description}`,
                 data:params.data
-        
-
             },
         });
-        
+    }
+    UpdateWord<T>(params: UpdateWord) {
+        return Api.request({
+            special:false,
+            options: {
+                method: METHOD.PUT,
+                url: AuthApis.UpdateWord+`?wordId=${params.wordId}&categoryId=${params.categoryId}&word=${params.word}&wordAudio=${params.wordAudio}&isActive=${params.isActive}`,
+                data:params.data
+            },
+        });
     }
     
 }
