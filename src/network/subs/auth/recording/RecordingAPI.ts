@@ -1,5 +1,7 @@
+
+
 import { Axios } from 'axios';
-import { CategoryStatus, GetStorageWord, GetVoice, UpdateCategory, VoiceInfor } from 'network/subs/auth/recording/RecordingRequest';
+import { AddCategory, AddCategoryForUser, CategoryStatus, DeleteCategory, GetStorageWord, GetVoice, UpdateCategory, VoiceInfor } from 'network/subs/auth/recording/RecordingRequest';
 import { ApiConstants } from 'network/ApiConstants';
 import Api, { RequestMethod, METHOD } from 'network/ApiManager';
 import {
@@ -11,18 +13,33 @@ import {
 } from './RecordingRequest';
 
 export const AuthApis = {
-    GetWordByCateID: ApiConstants.HOST + 'ext/word/search/by-user',
-    GetImage : ApiConstants.HOST + 'ext/files/download',
-  GetFullCate: ApiConstants.HOST + 'ext/category/search/by-user',
-  GetStorageWord : ApiConstants.HOST + 'ext/word/repo',
-  PostStorageWord : ApiConstants.HOST + 'ext/word/repo' ,
-  DeleteStorageWord : ApiConstants.HOST + 'ext/word/repo',
- GetVoiceInfor : ApiConstants.HOST + 'ext/accounts/voices/by-user',
- PostVoiceInfor : ApiConstants.HOST + 'ext/accounts/voices/by-user',
- GetVoice : ApiConstants.HOST + 'ext/files/audio-stream/by-word?words=',
-SetCateforyStatus: ApiConstants.HOST + 'ext/category/status',
-UpdateCategory: ApiConstants.HOST + 'ext/category'
+//     GetWordByCateID: ApiConstants.HOST + 'ext/word/search/by-user',
+//     GetImage : ApiConstants.HOST + 'ext/files/download',
+// //   GetFullCate: ApiConstants.HOST + 'ext/category/search/by-user',
+//   GetStorageWord : ApiConstants.HOST + 'ext/word/repo',
+//   PostStorageWord : ApiConstants.HOST + 'ext/word/repo' ,
+//   DeleteStorageWord : ApiConstants.HOST + 'ext/word/repo',
+//  GetVoiceInfor : ApiConstants.HOST + 'ext/accounts/voices/by-user',
+//  PostVoiceInfor : ApiConstants.HOST + 'ext/accounts/voices/by-user',
+//  GetVoice : ApiConstants.HOST + 'ext/files/audio-stream/by-word?words=',
+// SetCateforyStatus: ApiConstants.HOST + 'ext/category/status',
+// UpdateCategory: ApiConstants.HOST + 'ext/category',
 // UpdateCategory: 'http://192.168.10.35:8089/ext/category'
+GetFullCate:  'http://192.168.10.35:8089/ext/user/category/search',
+GetWordByCateID: ApiConstants.HOST + 'ext/word/search/by-user',
+GetImage : ApiConstants.HOST + 'ext/files/download',
+//   GetFullCate: ApiConstants.HOST + 'ext/category/search/by-user',
+GetStorageWord : ApiConstants.HOST + 'ext/word/repo',
+PostStorageWord : ApiConstants.HOST + 'ext/word/repo' ,
+DeleteStorageWord : ApiConstants.HOST + 'ext/word/repo',
+GetVoiceInfor : ApiConstants.HOST + 'ext/accounts/voices/by-user',
+PostVoiceInfor : ApiConstants.HOST + 'ext/accounts/voices/by-user',
+GetVoice : ApiConstants.HOST + 'ext/files/audio-stream/by-word?words=',
+SetCateforyStatus: ApiConstants.HOST + 'ext/category/status',
+UpdateCategory: ApiConstants.HOST + 'ext/user/category/',
+AddCategory: ApiConstants.HOST + 'ext/user/category/',
+
+
 
 
 
@@ -129,6 +146,19 @@ class RecodingApi {
             },
         });
     }
+    AddCategoryForUser<T>(params: AddCategoryForUser) {
+        return Api.request({
+            special:false,
+            options: {
+                method: METHOD.POST,
+                url: AuthApis.AddCategory+`?name=${params.name}&desscription=${params.description}`,
+                data:params.data
+        
+
+            },
+        });
+        
+    }
     UpdateCategory<T>(params: UpdateCategory) {
         return Api.request({
             special:false,
@@ -136,6 +166,19 @@ class RecodingApi {
                 method: METHOD.PUT,
                 url: AuthApis.UpdateCategory+`?categoryId=${params.id}&name=${params.name}&isActive=${params.isActive}&desscription=${params.description}`,
                 data:params.data
+        
+
+            },
+        });
+        
+    }
+    DeleteCategory<T>(params: DeleteCategory) {
+        return Api.request({
+            special:false,
+            options: {
+                method: METHOD.DELETE,
+                url: AuthApis.UpdateCategory+`?categoryId=${params.id}`,
+               
         
 
             },

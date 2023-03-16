@@ -14,6 +14,7 @@ import { useIsFocused } from '@react-navigation/native';
 import colors from 'res/colors';
 import { useLogicStorage } from './useLogicStorage';
 import styles from './styles';
+import { ApiConstants } from 'network/ApiConstants';
 
 const Storage = ({ }: StackNavigationProps<
   Routes,
@@ -117,7 +118,7 @@ const Storage = ({ }: StackNavigationProps<
                             <Image
                               style={styles.wordImage}
                               source={{
-                                uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
+                                uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
                                 method: 'GET',
                                 headers: {
                                   Authorization: store.getState().authReducer.user.accessToken
@@ -156,7 +157,7 @@ const Storage = ({ }: StackNavigationProps<
                       <Image
                         style={styles.wordImage}
                         source={{
-                          uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
+                          uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
                           method: 'GET',
                           headers: {
                             Authorization: store.getState().authReducer.user.accessToken

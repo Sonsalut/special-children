@@ -9,6 +9,7 @@ import { useIsFocused } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useLogicJoinWord } from './useLogicJoinWord';
 import style from './style';
+import { ApiConstants } from 'network/ApiConstants';
 
 const JoinWordScreen = ({ }: StackNavigationProps<
     Routes,
@@ -62,7 +63,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
 
                                     <Image style={style.addWordImage}
                                         source={{
-                                            uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
+                                             uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
                                             method: 'GET',
                                             headers: { Authorization: store.getState().authReducer.user.accessToken }
                                         }}
@@ -107,7 +108,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                                 <View style={style.deleteWord}>
                                     <Image style={style.deleteWorImage}
                                         source={{
-                                            uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
+                                            uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
                                             method: 'GET',
                                             headers: {
                                                 Authorization: store.getState().authReducer.user.accessToken

@@ -11,6 +11,7 @@ import { RefreshControl } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native';
 import { useLogicHome } from './useLogicHome';
+import { ApiConstants } from 'network/ApiConstants';
 
 
 const HomeScreen = ({ }: StackNavigationProps<
@@ -69,7 +70,9 @@ const HomeScreen = ({ }: StackNavigationProps<
                 <Image
                   style={styles.imageCategory}
                   source={item?.pictureFileId !== null ? {
-                    uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                    // uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                    uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                    
                     method: 'GET',
                     headers: { Authorization: store.getState().authReducer.user.accessToken }
                   } :

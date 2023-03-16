@@ -37,6 +37,13 @@ export type CategoryStatus = {
    id:number,
    status:boolean
 };
+export type AddCategoryForUser = {
+   
+    name:string,
+    description:string
+    data:FormData
+
+ };
 export type UpdateCategory = {
    
     id:number,
@@ -44,6 +51,11 @@ export type UpdateCategory = {
     isActive:boolean,
     description:string
     data:FormData
+
+ };
+ export type DeleteCategory = {
+   
+   id: number
 
  };
 // export type ForgotPassword = {
