@@ -5,7 +5,7 @@ import { AuthenticatedScreens } from 'routers/ScreenNames';
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import { Text, View, Image, ScrollView, KeyboardAvoidingView, FlatList, TextInput, PermissionsAndroid } from 'react-native';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
-import {  AddCategoryForUser, CategoryStatus, DeleteCategory, GetFullCategory, UpdateCategory } from 'network/subs/auth/recording/RecordingRequest';
+import { AddCategoryForUser, CategoryStatus, DeleteCategory, GetFullCategory, UpdateCategory } from 'network/subs/auth/recording/RecordingRequest';
 import ResponseCode from 'network/ResponseCode';
 import { store } from 'redux/store';
 import colors from 'res/colors';
@@ -30,10 +30,13 @@ const AddCategory = ({ }: StackNavigationProps<
   const [image, setImage] = React.useState("");
   const [value, setValue] = React.useState("");
   const textRef = React.useRef('')
+  const [random, setRandom] = React.useState(Math.random())
 
-  const textToRef = (value) => {
-    textRef.current = textRef.current + value
-  }
+  
+  // React.useEffect(() => {
+  //   getCategory()
+
+  // }, [])
   const MAX_IMAGE_WIDTH = 480;
   const MAX_IMAGE_HEIGHT = 480;
   const IMAGE_QUALITY = 60;
@@ -74,7 +77,7 @@ const AddCategory = ({ }: StackNavigationProps<
 
           }
           )
-          console.log(imageDatas)
+          // console.log(imageDatas)
           setItemData(imageDatas)
 
 
@@ -129,7 +132,7 @@ const AddCategory = ({ }: StackNavigationProps<
               name: 'image.png',
               fileName: 'image',
               type: 'image/png',
-              }
+            }
             )
             // console.log(imageData.getParts())
             setItemData(imageData)
@@ -150,7 +153,7 @@ const AddCategory = ({ }: StackNavigationProps<
       pageSize: 20,
       name: null,
       isActive: true,
-    
+
     });
     if (response.status === ResponseCode.SUCCESS) {
 
@@ -181,11 +184,7 @@ const AddCategory = ({ }: StackNavigationProps<
     data.filter(item => encodeURIComponent(item?.audioWord.toLowerCase()).includes(encodeURIComponent(searchValue.toLowerCase())))
   )
   const [showDoneIcon, setShowDoneIcon] = React.useState(true)
-  React.useEffect(() => {
-    checkDone()
-    checkCount()
-  }, [data])
-
+  
 
   const checkCount = () => {
     let counts = 0
@@ -209,8 +208,10 @@ const AddCategory = ({ }: StackNavigationProps<
 
   }
   const [count, setCount] = React.useState(1)
+  
   const handleOnclick = (item) => {
     // checkDone()
+    // console.log(item)
     if (item?.isActive === true) {
       setCount(count + 1)
     }
@@ -252,17 +253,15 @@ const AddCategory = ({ }: StackNavigationProps<
     }
   }
 
-  const deleteCategory = async (id)=>{
-    const response= await RecordingAPI.DeleteCategory<DeleteCategory>({
-      id:id
+  const deleteCategory = async (id) => {
+    const response = await RecordingAPI.DeleteCategory<DeleteCategory>({
+      id: id
     })
-    if(response?.data.data.length ===0)
-    {
+    if (response?.data.data.length === 0) {
       showToast('Bạn không có quyền xóa', 'danger')
-        
+
     }
-    else
-    {
+    else {
       // console.log("HIDE SUCCESS")
       setVisible(!visible)
       showToast('Xóa thành công', 'success')
@@ -285,10 +284,12 @@ const AddCategory = ({ }: StackNavigationProps<
   const handleEditCategory = () => {
     setEditPopupVisivle(!editPopupVisivle)
     setVisible(!visible)
+    setRandom(Math.random())
     let maps = data.map((item) => {
       if (item?.isActive === false) {
         setPersonData(item)
         setValue(item?.name)
+        textInputRef.current = item?.name
 
       }
     })
@@ -305,6 +306,11 @@ const AddCategory = ({ }: StackNavigationProps<
     checkDone()
     checkCount()
   }, [data])
+
+  
+  // React.useEffect(() => {
+  //   setRandom(Math.random())
+  // })
 
 
   const ModalCamera = () => {
@@ -350,7 +356,7 @@ const AddCategory = ({ }: StackNavigationProps<
       id: item?.id,
       name: name,
       isActive: true,
-      description: 'ss',
+      description: 'EDIT',
       data: data
     })
     if (response.status === 200) {
@@ -358,38 +364,43 @@ const AddCategory = ({ }: StackNavigationProps<
       showToast("Thay đổi thành công", 'success')
       setEditPopupVisivle(!editPopupVisivle)
       getCategory()
+      setImage("")
+    setRandom(Math.random())
+
     }
     else {
       console.log(response.error)
+      showToast("ERROR", 'warning')
+
     }
   }
   const handleDoneEdit = () => {
-    if (textInputRef.current) {
-      console.log(textInputRef.current)
-      // console.log(image)
-
-    }
-    updateCategory(personData, itemData)
-
-    console.log(itemData)
-  }
     
-  const handleDoneAddCategory = async()=>{
+    updateCategory(personData, itemData)
+    // console.log(textInputRef.current)
+   
+ 
+  }
+
+  const handleDoneAddCategory = async () => {
     console.log(textInputRef.current)
-    let name= encodeURIComponent(textInputRef.current)
-    const response= await RecordingAPI.AddCategoryForUser<AddCategoryForUser>({
-      name:name,
-    description:'',
-    data:itemData
+    let name = encodeURIComponent(textInputRef.current)
+    const response = await RecordingAPI.AddCategoryForUser<AddCategoryForUser>({
+      name: name,
+      description: '',
+      data: itemData
     })
-    if(response.status===200)
-    {
+    if (response.status === 200) {
       showToast("Thêm thành công", 'success')
       setConfigModalvisible(!configModalvisible)
       getCategory()
 
     }
-    
+    else
+    {
+      showToast("Từ không hợp lệ", 'danger')
+    }
+
   }
   const AddEditModal = (props) => {
     return (
@@ -446,8 +457,7 @@ const AddCategory = ({ }: StackNavigationProps<
                   onChangeText={(e) => handleType(e)}
                 />
               </View>
-              {/* <View style={{borderRadius:5, width: '90%', alignSelf: 'center', borderWidth: 1, height: sizeHeight(8) }}>
-              </View> */}
+           
             </View>
           </KeyboardAvoidingView>
         </ScrollView>
@@ -497,7 +507,7 @@ const AddCategory = ({ }: StackNavigationProps<
               colors={[colors.blue]}
             />
           }
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
 
             <TouchableOpacity
               onPress={() => handleOnclick(item)}
@@ -519,10 +529,9 @@ const AddCategory = ({ }: StackNavigationProps<
               }}
             >
               {
-                item?.type==='ADMIN'
-             ? <Icon name='shield-sharp' size={sizeHeight(3)} style={{ width: '20%', alignSelf: 'flex-end' }} />
-              
-                :null
+                item?.type === 'ADMIN'
+                  ? <Icon name='shield-sharp' size={sizeHeight(3)} style={{ width: '20%', alignSelf: 'flex-end' }} />
+                  : null
               }
               <View >
                 <Image
@@ -534,18 +543,16 @@ const AddCategory = ({ }: StackNavigationProps<
                     // marginTop: '1%',
                     // sizeWidth(39),
                     borderRadius: sizeWidth(3),
-
-
                   }}
                   source={item?.pictureFileId !== null ? {
-                    // uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
-                    uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
-                     
+                    uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${random}`,
                     method: 'GET',
+                    cache:'reload',
                     headers: { Authorization: store.getState().authReducer.user.accessToken }
                   } :
                     require('../../.././assets/images/no.png')
                   }
+
                 />
                 <Text style={{ fontSize: fontSize(5), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item?.name}</Text>
               </View>
@@ -567,8 +574,9 @@ const AddCategory = ({ }: StackNavigationProps<
         handleSubmit={handleDoneEdit}
         source={image ? { uri: image }
           : {
-            uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${personData?.pictureFileId}&file-size=ORIGINAL`,
+            uri: ApiConstants.HOST + `ext/files/download?id=${personData?.pictureFileId}&file-size=ORIGINAL&${random}`,
             method: 'GET',
+            
             headers: { Authorization: store.getState().authReducer.user.accessToken }
           }
         }

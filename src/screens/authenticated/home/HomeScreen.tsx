@@ -71,7 +71,7 @@ const HomeScreen = ({ }: StackNavigationProps<
                   style={styles.imageCategory}
                   source={item?.pictureFileId !== null ? {
                     // uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
-                    uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                    uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${new Date()}`,
                     
                     method: 'GET',
                     headers: { Authorization: store.getState().authReducer.user.accessToken }
