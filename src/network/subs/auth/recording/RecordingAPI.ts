@@ -1,7 +1,18 @@
 
 
 import { Axios } from 'axios';
-import {  AddCategoryForUser, CategoryStatus, DeleteCategory, GetStorageWord, GetVoice, UpdateCategory, UpdateWord, VoiceInfor } from 'network/subs/auth/recording/RecordingRequest';
+import {  
+    AddCategoryForUser, 
+    CategoryStatus, 
+    DeleteCategory, 
+    GetStorageWord, 
+    GetVoice, 
+    UpdateCategory, 
+    UpdateWord, 
+    VoiceInfor, 
+    DeleteWord, 
+    AddWord,
+} from 'network/subs/auth/recording/RecordingRequest';
 import { ApiConstants } from 'network/ApiConstants';
 import Api, { RequestMethod, METHOD } from 'network/ApiManager';
 import {
@@ -10,7 +21,9 @@ import {
     AddWordToStorage,
     DeleteWordToStorage
     
+    
 } from './RecordingRequest';
+// import AddWord from 'screens/authenticated/newWords/AddWord';
 
 export const AuthApis = {
 //     GetWordByCateID: ApiConstants.HOST + 'ext/word/search/by-user',
@@ -25,14 +38,16 @@ export const AuthApis = {
 // SetCateforyStatus: ApiConstants.HOST + 'ext/category/status',
 // UpdateCategory: ApiConstants.HOST + 'ext/category',
 // UpdateCategory: 'http://192.168.10.35:8089/ext/category'
-GetFullCate: ApiConstants.HOST + '/ext/category/user/search',
-GetWordByCateID: ApiConstants.HOST + 'ext/word/search/by-user',
+GetFullCate: ApiConstants.HOST + 'ext/category/user/search',
+GetWordByCateID: ApiConstants.HOST + 'ext/word/user/search',
 GetImage : ApiConstants.HOST + 'ext/files/download',
 //   GetFullCate: ApiConstants.HOST + 'ext/category/search/by-user',
 GetStorageWord : ApiConstants.HOST + 'ext/word/repo',
 PostStorageWord : ApiConstants.HOST + 'ext/word/repo' ,
 DeleteStorageWord : ApiConstants.HOST + 'ext/word/repo',
-UpdateWord : ApiConstants.HOST + 'ext/word/repo',
+UpdateWord : ApiConstants.HOST + 'ext/word/user',
+AddWord: ApiConstants.HOST + 'ext/word/user',
+DeleteWord: ApiConstants.HOST + 'ext/word/user',
 
 GetVoiceInfor : ApiConstants.HOST + 'ext/accounts/voices/by-user',
 PostVoiceInfor : ApiConstants.HOST + 'ext/accounts/voices/by-user',
@@ -167,12 +182,40 @@ class RecodingApi {
         });
     }
     UpdateWord<T>(params: UpdateWord) {
+        console.log(Api.request({
+            special:false,
+            options: {
+                method: METHOD.PUT,
+                url: AuthApis.UpdateWord+`?wordId=${params.wordId}&categoryId=${params.categoryId}&word=${params.word}&wordAudio=${params.wordAudio}`,
+                data:params.data
+            },
+        }))
         return Api.request({
             special:false,
             options: {
                 method: METHOD.PUT,
+                url: AuthApis.UpdateWord+`?wordId=${params.wordId}&categoryId=${params.categoryId}&word=${params.word}&wordAudio=${params.wordAudio}`,
+                data:params.data
+            },
+        });
+    }
+    AddWord<T>(params: AddWord) {
+        return Api.request({
+            special:false,
+            options: {
+                method: METHOD.POST,
                 url: AuthApis.UpdateWord+`?wordId=${params.wordId}&categoryId=${params.categoryId}&word=${params.word}&wordAudio=${params.wordAudio}&isActive=${params.isActive}`,
                 data:params.data
+            },
+        });
+    }
+    DeleteWord<T>(params: DeleteWord) {
+        return Api.request({
+            special:false,
+            options: {
+                method: METHOD.DELETE,
+                url: AuthApis.UpdateWord+`?wordId=${params.id}`,
+                
             },
         });
     }

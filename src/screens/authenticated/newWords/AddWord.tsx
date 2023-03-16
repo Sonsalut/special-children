@@ -11,7 +11,7 @@ import AuthenticationApi from 'network/subs/auth/AuthApi';
 import { CategoryList } from 'network/subs/auth/AuthResponse';
 import AuthApi from 'network/subs/auth/AuthApi';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
-import { GetFullCategory, GetWordByCateID, UpdateWord, WordStatus } from 'network/subs/auth/recording/RecordingRequest';
+import { DeleteWord, GetFullCategory, GetWordByCateID, UpdateWord, WordStatus } from 'network/subs/auth/recording/RecordingRequest';
 import ResponseCode from 'network/ResponseCode';
 import { store } from 'redux/store';
 import colors from 'res/colors';
@@ -30,6 +30,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Platform } from 'react-native';
 import { Permissions } from 'react-native-permissions';
 import { useToast } from 'hooks/useToast';
+import { ApiConstants } from 'network/ApiConstants';
 
 
 
@@ -39,7 +40,7 @@ const AddWord = ({}: StackNavigationProps<
     const [data, setData] = React.useState([])
     const [datas, setDatas] = React.useState([])
     const [image, setImage] = React.useState("");
-  
+  const [random, setRandom] = React.useState(Math.random()) 
   const [cameraOptionsVisble, setCameraOptionsVisble] = React.useState(false)
   const [itemData, setItemData] = React.useState(new FormData())
 
@@ -65,9 +66,21 @@ const AddWord = ({}: StackNavigationProps<
       }
       else {
         if (!response.errorMessage) {
+          const imageDatas = new FormData()
+
           console.log(response.assets)
           setImage(response?.assets?.[0]?.uri)
           setCameraOptionsVisble(!cameraOptionsVisble)
+          imageDatas.append(
+            "file-image", {
+            uri: response?.assets?.[0]?.uri,
+            name: 'image.png',
+            fileName: 'image',
+            type: 'image/png',
+          }
+          )
+          // console.log(imageData.getParts())
+          setItemData(imageDatas)
         }
         else {
           console.log("that bai")
@@ -77,27 +90,30 @@ const AddWord = ({}: StackNavigationProps<
     });
   };
 
-  const setStatusWord = async (item) => {
-    const response = await RecordingAPI.SetStatusWord<WordStatus>({
-      wordId: item?.id,
-      status: item?.isActive
+  const deleteWord = async (item) => {
+    const response = await RecordingAPI.DeleteWord<DeleteWord>({
+      id:item?.id
 
     });
-    if (response.status === ResponseCode.SUCCESS) {
+    // if (response?.data.data.length === 0) {
+    //   showToast('Bạn không có quyền xóa', 'danger')
 
-      console.log("HIDE SUCCESS")
-      setVisible(!visible)
-      showToast('Xóa thành công', 'success')
-      getCategory()
-    }
-    else {
-      showToast('Bạn không có quyền xóa', 'danger')
-    }
+    // }
+    // else {
+    //   // console.log("HIDE SUCCESS")
+    //   setVisible(!visible)
+    //   showToast('Xóa thành công', 'success')
+    //   loadData()
+
+    // }
+    console.log(response?.data?.data)
   }
+  
+
   const handleHideWord = () => {
     let maps = data.filter(item => item?.isActive === false)
     let map = maps.map((item) => {
-      setStatusWord(item)
+      deleteWord(item)
     })
   }
 
@@ -238,6 +254,7 @@ const AddWord = ({}: StackNavigationProps<
   const handleEditCategory = () => {
     setEditPopupVisivle(!editPopupVisivle)
     setVisible(!visible)
+    setRandom(Math.random())
     let maps = data.map((item) => {
       if (item?.isActive === false) {
         setPersonData(item)
@@ -297,8 +314,8 @@ const AddWord = ({}: StackNavigationProps<
     const response = await RecordingAPI.UpdateWord<UpdateWord>({
       wordId: item?.id,
       categoryId: item?.category?.id,
-      word: name,
-      wordAudio: name,
+      word: 'aaaa',
+      wordAudio: 'aaaa',
       isActive: true,
       data: data
     })
@@ -306,11 +323,13 @@ const AddWord = ({}: StackNavigationProps<
       console.log(" Update SUCCESS")
       showToast("Thay đổi thành công", 'success')
       setEditPopupVisivle(!editPopupVisivle)
+      setRandom(Math.random())
+      loadData()
       // getCategory()
     }
     else
     {
-      console.log(response.error)
+      console.log(response)
     }
   }
   //block sửa từ end
@@ -374,15 +393,15 @@ const AddWord = ({}: StackNavigationProps<
           // setShowDoneIcon(!showDoneIcon)
     }
     const handleDoneEdit = ()=>{
-      if(textInputRef.current)
-      {
-        console.log(textInputRef.current)
-        // console.log(image)
+      // if(textInputRef.current)
+      // {
+      //   console.log(textInputRef.current)
+      //   // console.log(image)
       
-      }
+      // }
       updateWord(personData, itemData)
-  
-       console.log(itemData)
+  // console.log(personData)
+      //  console.log(personData)
     }
     const AddEditModal = (props) => {
       return (
@@ -571,7 +590,7 @@ const AddWord = ({}: StackNavigationProps<
                   borderRadius: sizeWidth(3),
                 }}
                 source={{
-                  uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                  uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL${random}`,
                   method: 'GET',
                   headers: { Authorization: store.getState().authReducer.user.accessToken }
                 }}
@@ -641,7 +660,7 @@ const AddWord = ({}: StackNavigationProps<
         handleSubmit={handleDoneEdit}
         source={image ? { uri: image }
           : {
-            uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${personData?.pictureFileId}&file-size=ORIGINAL`,
+            uri: ApiConstants.HOST + `ext/files/download?id=${personData?.pictureFileId}&file-size=ORIGINAL`,
             method: 'GET',
             headers: { Authorization: store.getState().authReducer.user.accessToken }
           }

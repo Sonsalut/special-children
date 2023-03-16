@@ -70,6 +70,12 @@ export type UpdateCategory = {
    id: number
 
  };
+
+ export type DeleteWord ={
+    id: number
+ };
+
+ 
 // export type ForgotPassword = {
 //     username: string;
 // };
