@@ -25,7 +25,7 @@ export const AuthApis = {
 // SetCateforyStatus: ApiConstants.HOST + 'ext/category/status',
 // UpdateCategory: ApiConstants.HOST + 'ext/category',
 // UpdateCategory: 'http://192.168.10.35:8089/ext/category'
-GetFullCate:  'http://192.168.10.35:8089/ext/category/user/search',
+GetFullCate: ApiConstants.HOST + '/ext/category/user/search',
 GetWordByCateID: ApiConstants.HOST + 'ext/word/search/by-user',
 GetImage : ApiConstants.HOST + 'ext/files/download',
 //   GetFullCate: ApiConstants.HOST + 'ext/category/search/by-user',
