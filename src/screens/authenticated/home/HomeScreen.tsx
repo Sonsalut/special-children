@@ -84,7 +84,9 @@ const [refreshing, setRefreshing] = React.useState(false);
     )
   return (
 
-    <Container isBottomTab={false}  style={{backgroundColor: 'white', flex: 1,  width: '100%'}}>  
+    <Container 
+      isBottomTab={false}  
+      style={{backgroundColor: 'white', flex: 1,  width: '100%'}}>  
       <TouchableWithoutFeedback
         onPress={() => console.log('Pressed')}
         onLongPress={handleShow}

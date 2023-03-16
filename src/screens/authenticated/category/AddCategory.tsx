@@ -125,7 +125,6 @@ const AddCategory = ({ }: StackNavigationProps<
         else {
           if (!response.errorMessage) {
             const imageData = new FormData()
-
             console.log(response.assets)
             setImage(response?.assets?.[0]?.uri)
             setCameraOptionsVisble(!cameraOptionsVisble)
@@ -135,19 +134,15 @@ const AddCategory = ({ }: StackNavigationProps<
               name: 'image.png',
               fileName: 'image',
               type: 'image/png',
-
-            }
+              }
             )
             // console.log(imageData.getParts())
             setItemData(imageData)
-
-
           }
           else {
             console.log(response.errorMessage)
           }
         }
-
       });
     }
   };
@@ -253,7 +248,6 @@ const AddCategory = ({ }: StackNavigationProps<
     const response = await RecordingAPI.SetStatusCategory<CategoryStatus>({
       id: item?.id,
       status: item?.isActive
-      // categories: {}
 
     });
     if (response.status === ResponseCode.SUCCESS) {
@@ -377,11 +371,8 @@ const AddCategory = ({ }: StackNavigationProps<
           marginTop: sizeHeight(20),
           width: '90%',
           marginHorizontal: 20,
-
-
         }}
         onDismiss={props.onDismiss}
-
       >
         <ScrollView style={{  height: '100%' }}>
           <KeyboardAvoidingView

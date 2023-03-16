@@ -24,21 +24,24 @@ export type GetStorageWord = {
     data: any
 };
 export type VoiceInfor = {
-   
+
     voiceGender: String,
-  voiceLocation: String
+    voiceLocation: String
 };
 export type GetVoice = {
    
     audioWord: String
 };
 export type CategoryStatus = {
-   
    id:number,
    status:boolean
 };
+export type WordStatus = {
+    wordId:number,
+    status:boolean
+ };
+
 export type UpdateCategory = {
-   
     id:number,
     name:string,
     isActive:boolean,
@@ -51,9 +54,7 @@ export type UpdateCategory = {
     categoryId:number,
     word:string,
     wordAudio:String,
-    
     isActive:boolean,
-    
     data:FormData
  }
 

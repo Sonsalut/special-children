@@ -1,5 +1,5 @@
 import { Axios } from 'axios';
-import { CategoryStatus, GetStorageWord, GetVoice, UpdateCategory, UpdateWord, VoiceInfor } from 'network/subs/auth/recording/RecordingRequest';
+import { CategoryStatus, GetStorageWord, GetVoice, UpdateCategory, UpdateWord, VoiceInfor, WordStatus } from 'network/subs/auth/recording/RecordingRequest';
 import { ApiConstants } from 'network/ApiConstants';
 import Api, { RequestMethod, METHOD } from 'network/ApiManager';
 import {
@@ -125,6 +125,16 @@ class RecodingApi {
             },
         });
     }
+
+    SetStatusWord<T>(params: WordStatus) {
+        return Api.request<T>({
+            options: {
+                method: METHOD.PUT,
+                url: AuthApis.SetCateforyStatus+`?wordId=${params.wordId}&status=${params.status}`
+            },
+        });
+    }
+
     UpdateCategory<T>(params: UpdateCategory) {
         return Api.request({
             special:false,

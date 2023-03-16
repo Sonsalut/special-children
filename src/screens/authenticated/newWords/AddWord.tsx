@@ -11,7 +11,7 @@ import AuthenticationApi from 'network/subs/auth/AuthApi';
 import { CategoryList } from 'network/subs/auth/AuthResponse';
 import AuthApi from 'network/subs/auth/AuthApi';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
-import { GetFullCategory, GetWordByCateID, UpdateWord } from 'network/subs/auth/recording/RecordingRequest';
+import { GetFullCategory, GetWordByCateID, UpdateWord, WordStatus } from 'network/subs/auth/recording/RecordingRequest';
 import ResponseCode from 'network/ResponseCode';
 import { store } from 'redux/store';
 import colors from 'res/colors';
@@ -28,7 +28,8 @@ import { Item } from 'react-native-paper/lib/typescript/components/Drawer/Drawer
 import { color } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Platform } from 'react-native';
-import { Permission } from 'react-native-permissions';
+import { Permissions } from 'react-native-permissions';
+import { useToast } from 'hooks/useToast';
 
 
 
@@ -76,6 +77,30 @@ const AddWord = ({}: StackNavigationProps<
     });
   };
 
+  const setStatusWord = async (item) => {
+    const response = await RecordingAPI.SetStatusWord<WordStatus>({
+      wordId: item?.id,
+      status: item?.isActive
+
+    });
+    if (response.status === ResponseCode.SUCCESS) {
+
+      console.log("HIDE SUCCESS")
+      setVisible(!visible)
+      showToast('Xóa thành công', 'success')
+      getCategory()
+    }
+    else {
+      showToast('Bạn không có quyền xóa', 'danger')
+    }
+  }
+  const handleHideWord = () => {
+    let maps = data.filter(item => item?.isActive === false)
+    let map = maps.map((item) => {
+      setStatusWord(item)
+    })
+  }
+
 
 //Camera permission 
   const requestCameraPermission = async () => {
@@ -107,7 +132,7 @@ const AddWord = ({}: StackNavigationProps<
       }
     } 
     else if (Platform.OS === 'ios') {
-      const granted = await PermissionIOS.request('camera');
+      const granted = await Permissions.request('camera');
       if (granted === 'authorized') {
         console.log ('Camera permission given');
         return true;
@@ -194,7 +219,9 @@ const AddWord = ({}: StackNavigationProps<
       setTimeout(() => {
         setRefreshing(false); 
       }, 2000);
-    }, []);    
+    }, []);  
+
+  const showToast = useToast()
   const [configModalvisible, setConfigModalvisible] = React.useState(false)
 
   const handleAddWord = () => {
@@ -204,6 +231,9 @@ const AddWord = ({}: StackNavigationProps<
   const [personData, setPersonData] = React.useState([])
   const [visible, setVisible] = React.useState(false)
   const [value, setValue] = React.useState("");
+  const handleCancel = () => {
+    setVisible(!visible)
+  }
 
   const handleEditCategory = () => {
     setEditPopupVisivle(!editPopupVisivle)
@@ -258,25 +288,23 @@ const AddWord = ({}: StackNavigationProps<
   }
 
 //block sửa từ start
-  const updateWord = async (item:any, data:FormData)=>{
-    let name= ''
-    textInputRef.current 
-    ? name= encodeURIComponent(textInputRef.current)
-    : name= encodeURIComponent(item?.word)
+  const updateWord = async (item: any, data: FormData) => {
+    let name = ''
+    textInputRef.current
+      ? name = encodeURIComponent(textInputRef.current)
+      : name = encodeURIComponent(item?.word)
     console.log(item)
-    const response= await RecordingAPI.UpdateWord<UpdateWord>({
-
-      wordId:item?.id,
-    categoryId:item?.category?.id,
-    word:name,
-    wordAudio:name,
-    isActive:true,
-    data:data
+    const response = await RecordingAPI.UpdateWord<UpdateWord>({
+      wordId: item?.id,
+      categoryId: item?.category?.id,
+      word: name,
+      wordAudio: name,
+      isActive: true,
+      data: data
     })
-    if(response.status === 200 )
-    {
+    if (response.status === 200) {
       console.log(" Update SUCCESS")
-      showToast("Thay đổi thành công",'success')
+      showToast("Thay đổi thành công", 'success')
       setEditPopupVisivle(!editPopupVisivle)
       // getCategory()
     }
@@ -361,12 +389,12 @@ const AddWord = ({}: StackNavigationProps<
         <Modal
           visible={props.visible}
           style={{
-            backgroundColor: '#ADDDDC',
+            backgroundColor: '#C1EBEA',
             borderRadius: 15,
-            height: 580,
+            height: '70%',
             marginTop: sizeHeight(20),
             width: '90%',
-            marginHorizontal: 20,  
+            marginHorizontal: 20, 
           }}
           onDismiss={props.onDismiss}
         >
@@ -393,7 +421,7 @@ const AddWord = ({}: StackNavigationProps<
                 <Text
                   style={{ 
                     fontSize: 20, 
-                    color: 'black', 
+                    color: '#2D5672', 
                     fontWeight: "400", 
                     paddingRight: 20 
                   }}
@@ -417,18 +445,21 @@ const AddWord = ({}: StackNavigationProps<
                   height: sizeHeight(63), 
                   alignSelf: 'center', 
                   paddingBottom:15, 
-                  bottom:15
+                  bottom:15,                 
                 }}
               >
                 <TouchableOpacity onPress={handleUpImage}>
                   <View 
                     style={{ 
                       borderWidth:1,
+                      borderColor:'#60A2C8',
                       width: '90%',
                       borderRadius:5,
                       alignSelf: 'center', 
-                      alignItems: 'center', 
-                      height: sizeHeight(32) }}>
+                      alignItems: 'center',
+                      height: sizeHeight(32), 
+                    }}
+                  >
                     <Image
                       style={{
                         resizeMode: 'stretch',
@@ -441,10 +472,16 @@ const AddWord = ({}: StackNavigationProps<
                     />
                   </View>
                 </TouchableOpacity>
-                <View style={{ width: '90%', alignSelf: 'center', height: sizeHeight(10) }}>
-                  <Text style={{fontSize:15, color:'black'}}>Nội dung từ: </Text>
+                <View 
+                  style={{ 
+                    width: '90%', 
+                    alignSelf: 'center', 
+                    height: sizeHeight(10) 
+                  }}
+                >
+                  <Text style={{fontSize:15, color:'#2D5672'}}>Nội dung từ: </Text>
                   <TextInput
-                    style={{ height: sizeHeight(7), width: '100%', borderRadius: 5, borderWidth: 1, }}
+                    style={{ height: sizeHeight(7), width: '100%', borderRadius: 5, borderWidth: 1, borderColor:'#60A2C8', marginTop:10}}
                     defaultValue={value}
                     onChangeText={(e)=>handleType(e)}
                   />
@@ -579,7 +616,7 @@ const AddWord = ({}: StackNavigationProps<
         <Menu.Item 
           titleStyle={{ fontSize: 18, color: '#2D5672'  }} 
           leadingIcon="eye-off-outline" 
-          // onPress={handleHideCategory} 
+          onPress={handleHideWord} 
           title="Xóa từ" />
         <Menu.Item 
           titleStyle={{ fontSize: 18, color: '#2D5672' }} 
@@ -589,7 +626,7 @@ const AddWord = ({}: StackNavigationProps<
         <Menu.Item 
           titleStyle={{ color: 'red', fontSize: 18 }} 
           leadingIcon="archive-cancel" 
-          // onPress={handleCancel} 
+          onPress={handleCancel} 
           title="Hủy bỏ" />
       </Modal>
 
