@@ -1,7 +1,7 @@
 
 
 import { Axios } from 'axios';
-import {  AddCategoryForUser, CategoryStatus, DeleteCategory, GetStorageWord, GetVoice, UpdateCategory, VoiceInfor } from 'network/subs/auth/recording/RecordingRequest';
+import {  AddCategoryForUser, CategoryStatus, DeleteCategory, GetStorageWord, GetVoice, UpdateCategory, UpdateWord, VoiceInfor } from 'network/subs/auth/recording/RecordingRequest';
 import { ApiConstants } from 'network/ApiConstants';
 import Api, { RequestMethod, METHOD } from 'network/ApiManager';
 import {
@@ -32,6 +32,8 @@ GetImage : ApiConstants.HOST + 'ext/files/download',
 GetStorageWord : ApiConstants.HOST + 'ext/word/repo',
 PostStorageWord : ApiConstants.HOST + 'ext/word/repo' ,
 DeleteStorageWord : ApiConstants.HOST + 'ext/word/repo',
+UpdateWord : ApiConstants.HOST + 'ext/word/repo',
+
 GetVoiceInfor : ApiConstants.HOST + 'ext/accounts/voices/by-user',
 PostVoiceInfor : ApiConstants.HOST + 'ext/accounts/voices/by-user',
 GetVoice : ApiConstants.HOST + 'ext/files/audio-stream/by-word?words=',
