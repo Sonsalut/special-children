@@ -27,6 +27,8 @@ import RNFetchBlob from 'rn-fetch-blob';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavigationContext } from '@react-navigation/native';
+import { useToast } from 'hooks/useToast';
+import { ApiConstants } from 'network/ApiConstants';
 
 const RecordingScreen = ({ route, navigation }: any) => {
     const MAX_IMAGE_WIDTH = 480;
@@ -48,37 +50,9 @@ const RecordingScreen = ({ route, navigation }: any) => {
     // console.log(route?.params?.data?.name?.id)
     }, [])
     
-    const IMAGE_LIBRARY_OPTION: any = {
-        mediaType: 'photo',
-        selectionLimit: 1,
-        includeBase64: true
-    };
-
-    const CAMERA_OPTION: ImagePicker.CameraOptions = {
-        mediaType: 'photo',
-        cameraType: 'front',
-        includeBase64: true,
-        quality: 0.7,
-        width: 500,
-        height: 500,
-    };
-
-    const chooseImage = async () => {
-        ImagePicker.launchImageLibrary(IMAGE_LIBRARY_OPTION, (response?: any) => {
-            if (!response.errorMessage) {
-                const fileExtension = getExtention(response.assets?.[0]?.fileName);
-                console.log(response?.assets?.[0]?.fileName)
-                setImage(response?.assets?.[0]?.base64)
-                setShow(true)
-            }
-            else {
-                console.log("that bai")
-            }
-        });
-    };
-
-    // React.useEffect(() => {
-    // }, [])
+    React.useEffect(() => {
+        loadData();
+    }, [])
 
     const handle = () => {
         setShow(!show)
@@ -111,7 +85,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
             console.log('that bai')
         }
     }
-//    const [isExist, setisExist] = useState(false)
+const showToast= useToast()
     const playSound = async (audioWord: any) => {
         let filePath = '';
         let url = AuthApis.GetVoice + encodeURIComponent(audioWord);
@@ -132,24 +106,18 @@ const RecordingScreen = ({ route, navigation }: any) => {
                 console.log("The file saved to ", res.path());
                 filePath = res.path();
                 RNFetchBlob.fs.exists(filePath).then((exists) => {
+                    try {
                     SoundPlayer.playUrl('file://' + filePath)
+                        
+                    } catch (error) {
+                        showToast("ERROR",'danger')
+                    }
                 })
                 .finally(() => {
                 RNFetchBlob.fs.unlink('file://' + filePath)
                 })
             })
     }
-
-    // const loadImage = async () => {
-    //     const response = await RecordingAPI.GetImageByID<any>({ id: 4 })
-    //     if (response.status === ResponseCode.SUCCESS) {
-    //         setImgBase64(response.data);
-    //         console.log()
-    //     }
-    //     else {
-    //         console.log('that bai')
-    //     }
-    // }
 
     const takePhoto = async () => {
         ImagePicker.launchCamera(CAMERA_OPTION, (response) => {
@@ -259,7 +227,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                             justifyContent: 'center',
                                         }}
                                         source={{
-                                            uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                                            uri:    ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
                                             method: 'GET',
                                             headers: { Authorization: store.getState().authReducer.user.accessToken }
                                         }}
@@ -326,7 +294,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                                     maxHeight: 300
                                                 }}
                                                     source={{
-                                                        uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                                                        uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
                                                         method: 'GET',
                                                         headers: {
                                                             Authorization: store.getState().authReducer.user.accessToken

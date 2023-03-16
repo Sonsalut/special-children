@@ -1,13 +1,14 @@
 import React from 'react';
-import { Container, Text, PopUp } from 'components';
-import { Routes, StackNavigationProps } from 'routers/Navigation';
-import { AuthenticatedScreens } from 'routers/ScreenNames';
+import { MainScreens } from 'routers/ScreenNames';
 import TouchID from 'react-native-touch-id';
 import { store } from 'redux/store';
 import authSlice from 'redux/slice/authSlice';
 import { useDispatch } from 'react-redux';
 import NavigationService from 'routers/NavigationService';
 import { Alert } from 'react-native';
+import { useToast } from 'hooks/useToast';
+import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
+import ResponseCode from 'network/ResponseCode';
 
 const useLogicMessage = () => {
     const refPopUp: any = React.useRef(null);
@@ -48,6 +49,7 @@ const useLogicMessage = () => {
         }
     };
     const dispatch = useDispatch();
+    const showToast= useToast()
 
     const logOut = () => {
         setConfirmLogOut(true)
@@ -58,10 +60,88 @@ const useLogicMessage = () => {
         setConfirmLogOut(false);
         onPopUpClose();
     }
+    const [show, setShow] = React.useState(false);
+  const [visible, setVisible] = React.useState(false);
+  const handle =()=>{
+    setVisible(!visible)
+    setShow(!show);
+  }
+  const [gendervalue, setGenderValue] = React.useState();
+  const [regionvalue, setRegionValue] = React.useState();
+const getVoiceInfor= async()=>{
+  const response= await RecordingAPI.GetVoiceInfor({
+
+  })
+  if(response.status === ResponseCode.SUCCESS)
+  {
+    console.log(response.data)
+    setGenderValue(response.data?.voiceGender)
+    setRegionValue(response.data?.voiceLocation)
+
+  }
+}
+const PostVoiceInfor= async(gender, region)=>{
+  const response= await RecordingAPI.PostVoiceInfor({
+    voiceGender: gender,
+    voiceLocation:region
+
+  })
+  if(response.status === ResponseCode.SUCCESS)
+  {
+   showToast("Thay đổi thành công","success")
+   
+   setVisible(!visible)
+  setShow(!show);
+
+  }
+  else
+  {
+    showToast("ERROR","danger")
+  }
+}
+
+const handleChangeInfor =()=>{
+  PostVoiceInfor(gendervalue,regionvalue)
+  
+}
+const [logOutvisible, setlogOutvisible] = React.useState(false)
+const [logOutShow, setLogOutShow] = React.useState(false)
+
+
+const [confirmsLogOut, setConfirmsLogOut] = React.useState(false);
+const handleLogOut=()=>{
+ 
+ setLogOutShow(true)
+ setlogOutvisible(true)
+}
+const handleCancelLogOut=()=>{
+       setLogOutShow(false);
+      setlogOutvisible(false)
+}
+const cofirmHandleLogOut =()=>{
+  dispatch(authSlice.actions.logout())
+  NavigationService.navigate(MainScreens.AuthenticationNavigator)
+}
+const handleReturn =()=>{
+  setShow(false)
+  setVisible(false)
+}
 
     return {
         logOut, onToggleSwitch,
-        refPopUp, name, setIsSwitchOn, isSwitchOn, onPopUpClose, confirmLogOut, cancelLogOut
+        refPopUp, name, setIsSwitchOn, isSwitchOn, onPopUpClose, confirmLogOut, cancelLogOut,
+        show,setShow, visible,setVisible,
+        handle,gendervalue,setGenderValue,regionvalue,setRegionValue,
+        getVoiceInfor,
+        PostVoiceInfor,
+        handleChangeInfor,
+        logOutvisible,setlogOutvisible,
+        logOutShow,setLogOutShow,
+        handleLogOut,
+        handleCancelLogOut,
+        cofirmHandleLogOut,
+        handleReturn
+
     };
 };
 

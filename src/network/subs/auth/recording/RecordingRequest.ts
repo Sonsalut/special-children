@@ -41,6 +41,13 @@ export type WordStatus = {
     status:boolean
  };
 
+export type AddCategoryForUser = {
+   
+    name:string,
+    description:string
+    data:FormData
+
+ };
 export type UpdateCategory = {
     id:number,
     name:string,
@@ -58,6 +65,11 @@ export type UpdateCategory = {
     data:FormData
  }
 
+ export type DeleteCategory = {
+   
+   id: number
+
+ };
 // export type ForgotPassword = {
 //     username: string;
 // };

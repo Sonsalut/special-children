@@ -1,32 +1,34 @@
 import React from 'react';
-import {Container, Text, PopUp} from 'components';
-import {Routes, StackNavigationProps} from 'routers/Navigation';
-import {AuthenticatedScreens, AuthenticationScreens, MainScreens} from 'routers/ScreenNames';
-import { DevSettings, TouchableOpacity, View, Image,} from 'react-native';
+import { Container, Text } from 'components';
+import { Routes, StackNavigationProps } from 'routers/Navigation';
+import { AuthenticatedScreens } from 'routers/ScreenNames';
+import { TouchableOpacity, View, Image } from 'react-native';
 import { Switch } from 'react-native-gesture-handler';
 import colors from 'res/colors';
-import {store} from 'redux/store';
-import { useLogicLogin } from 'screens/authentication/login/useLogicLogin';
+import { store } from 'redux/store';
 import { useLogicMessage } from './useLogicMessage';
-import { sizeHeight, sizeWidth } from 'utils/Utils';
+import { sizeWidth } from 'utils/Utils';
 import { Modal, RadioButton } from 'react-native-paper';
-import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
-import ResponseCode from 'network/ResponseCode';
-import { useToast } from 'hooks/useToast';
-import ToastCustom from 'components/toast/ToastCustom';
-import NavigationService from 'routers/NavigationService';
-import { useDispatch } from 'react-redux';
-import authSlice from 'redux/slice/authSlice';
 import Icon from 'react-native-vector-icons/Ionicons';
+import styles from './styles';
 
 const MessageScreen = ({}: StackNavigationProps<
   Routes,
   AuthenticatedScreens.MessageScreen
 >) => {
   const { logOut, 
-    
     onToggleSwitch, cancelLogOut,
-    refPopUp, name, setIsSwitchOn, isSwitchOn, onPopUpClose, confirmLogOut, setConfirmLogOut } = useLogicMessage();
+    refPopUp, name, setIsSwitchOn, isSwitchOn, onPopUpClose, confirmLogOut,  show,setShow, visible,setVisible,
+    handle,gendervalue,setGenderValue,regionvalue,setRegionValue,
+    getVoiceInfor,
+    PostVoiceInfor,
+    handleChangeInfor,
+    logOutvisible,setlogOutvisible,
+    logOutShow,setLogOutShow,
+    handleLogOut,
+    handleCancelLogOut,
+    cofirmHandleLogOut,
+    handleReturn } = useLogicMessage();
   React.useEffect(() => {
     const getFingerPrint = () => {
       if (store.getState().authReducer.fingerPrint?.fingerprint) {
@@ -37,193 +39,95 @@ const MessageScreen = ({}: StackNavigationProps<
     };
     setIsSwitchOn(getFingerPrint());
   }, []);
-  const [show, setShow] = React.useState(false);
-  const [visible, setVisible] = React.useState(false);
-  const handle =()=>{
-    setVisible(!visible)
-    setShow(!show);
-  }
-  const [gendervalue, setGenderValue] = React.useState();
-  const [regionvalue, setRegionValue] = React.useState();
-const getVoiceInfor= async()=>{
-  const response= await RecordingAPI.GetVoiceInfor({
 
-  })
-  if(response.status === ResponseCode.SUCCESS)
-  {
-    console.log(response.data)
-    setGenderValue(response.data?.voiceGender)
-    setRegionValue(response.data?.voiceLocation)
-
-  }
-}
-const PostVoiceInfor= async(gender, region)=>{
-  const response= await RecordingAPI.PostVoiceInfor({
-    voiceGender: gender,
-    voiceLocation:region
-
-  })
-  if(response.status === ResponseCode.SUCCESS)
-  {
-   showToast("Thay đổi thành công","success")
-   
-   setVisible(!visible)
-  setShow(!show);
-
-  }
-  else
-  {
-    showToast("ERROR","danger")
-  }
-}
 React.useEffect(() => {
   getVoiceInfor()
 
  
 }, [])
-const showToast= useToast()
-const handleChangeInfor =()=>{
-  PostVoiceInfor(gendervalue,regionvalue)
-  
-}
-const [logOutvisible, setlogOutvisible] = React.useState(false)
-const [logOutShow, setLogOutShow] = React.useState(false)
 
-const dispatch= useDispatch()
-const [confirmsLogOut, setConfirmsLogOut] = React.useState(false);
-const handleLogOut=()=>{
- 
- setLogOutShow(true)
- setlogOutvisible(true)
-}
-const handleCancelLogOut=()=>{
-       setLogOutShow(false);
-      setlogOutvisible(false)
-}
-const cofirmHandleLogOut =()=>{
-  dispatch(authSlice.actions.logout())
-  NavigationService.navigate(MainScreens.AuthenticationNavigator)
-}
-const handleReturn =()=>{
-  setShow(false)
-  setVisible(false)
-}
   return (
-    <Container style={{backgroundColor: 'white'}}>
-      <View style={{width: '90%', height: 600, alignSelf: 'center', backgroundColor:'#E7F6FF', marginTop: 20, borderRadius: 25}}>
+    <Container style={styles.container}>
+      <View style={styles.containerView}>
         {/* Touch ID on/off */}
-        <View style={{flexDirection: 'row', paddingTop: 20, paddingHorizontal: 15}}>
+        <View style={styles.view}>
           <Image
             source={require('../../../assets/images/fingerprint.png')}
-            style={{ width: 25, height: 25}}
+            style={styles.iconImg}
           />
-          <Text style={{paddingLeft: 10, paddingTop: 2, fontSize: 18, color:'black'}}>Đăng nhập bằng vân tay</Text>
+          <Text style={styles.text}>Đăng nhập bằng vân tay</Text>
           <Switch
             value={isSwitchOn}
             onValueChange={onToggleSwitch}
             trackColor={{ false: colors.grey, true: colors.blue }}
             thumbColor={colors.white}
-            style={{paddingBottom: 10, marginLeft: 30, }}
+            style={styles.switch}
           />
         </View>
 
         {/* Voice setting */}
-        <View style={{flexDirection: 'row', paddingTop: 20, paddingHorizontal: 15}}>
+        <View style={styles.view}>
           <TouchableOpacity activeOpacity={0.7} onPress={handle} style={{flexDirection: 'row'}} >
             <Image
               source={require('../../../assets/images/voice.png')}
-              style={{ width: 25, height: 25}}
+              style={styles.iconImg}
             />
-            <Text style={{paddingLeft: 10, paddingTop: 2, fontSize: 18, color: 'black'}}>Giọng đọc</Text>
+            <Text style={styles.text}>Giọng đọc</Text>
           </TouchableOpacity>
         </View>
 
         {/* Sign out button */}
-        <View style={{flexDirection: 'row', paddingTop: 20, paddingHorizontal: 15}}>
+        <View style={styles.view}>
           <TouchableOpacity style={{flexDirection: 'row'}} onPress={handleLogOut}>
             <Image
               source={require('../../../assets/images/logout.png')}
-              style={{ width: 25, height: 25}}
+              style={styles.iconImg}
             />
-            <Text style={{paddingLeft: 10, paddingTop: 2, fontSize: 18, color: 'red'}}>Đăng xuất</Text>
+            <Text style={styles.logText}>Đăng xuất</Text>
           </TouchableOpacity>
         </View>
         {/* Popups shows */}
         <Modal
                     visible={visible}
-                    style={{
-                        backgroundColor:'#E7F6FF',
-                        borderRadius: 15,
-                        height: 450,
-                        marginTop: sizeHeight(10),
-                        width:'90%',
-                        marginHorizontal:20,
-                    }}
+                    style={styles.modalVoice}
                     onDismiss={() => {
                         setShow(false)
                         setVisible(false)
                     }}
                 >            
-                    <View style={{
-                        top: 0,
-                        alignItems: 'center',
-                        width:"100%",
-                        height:"100%", 
-                        borderRadius: 15,
-                        justifyContent:'space-around'        
-                    }}>
-                      <TouchableOpacity onPress={handleReturn} style={{width:'90%', height:'8%'}}>
+                    <View style={styles.voiceView}>
+                      <TouchableOpacity onPress={handleReturn} style={styles.returnButton}>
                       <Icon name='arrow-back-outline' size={25}/>
 
                       </TouchableOpacity>
                       {/* gender choice */}
-                      <View style={{
-                        bottom:20,
-                        alignItems: 'center',
-                        width:"90%",
-                        height:"30%", 
-                        borderRadius: 15 ,
-                        flexDirection:'row',
-                        paddingHorizontal:'15%'            
-                    }}>
+                      <View style={styles.genderView}>
                       
-                      <Text style={{alignSelf:'flex-start', marginTop:20, fontSize:15, color:colors.black, width:'45%'}}>Giới tính:</Text>
+                      <Text style={styles.genderText}>Giới tính:</Text>
  <RadioButton.Group   onValueChange={value => setGenderValue(value)} value={gendervalue}>
   
-      <RadioButton.Item  label="Nam" value="MALE" labelStyle={{fontSize:15}} />
-      <RadioButton.Item  label="Nữ" value="FEMALE"labelStyle={{fontSize:15}} />
+      <RadioButton.Item  label="Nam" value="MALE" labelStyle={styles.selectedGenderText} />
+      <RadioButton.Item  label="Nữ" value="FEMALE"labelStyle={styles.selectedGenderText} />
     </RadioButton.Group>
                       </View>
                       {/* Regionchoice */}
-                      <View style={{
-                        alignItems: 'center',
-                        width:"90%",
-                        height:"40%", 
-                        borderRadius: 15 ,
-                        bottom:20,
-                        flexDirection:'row',
-                        paddingHorizontal: '15%'           
-                    }}>
-                      <Text style={{alignSelf:'flex-start', marginTop:10, fontSize:15, color:colors.black, width: '45%'}}>Vùng miền:</Text>
+                      <View style={styles.regionView}>
+                      <Text style={styles.selectedRegionText}>Vùng miền:</Text>
  <RadioButton.Group  onValueChange={value => setRegionValue(value)} value={regionvalue}>
   
-      <RadioButton.Item label="Bắc" value="NORTHERN" labelStyle={{fontSize:15}} />
-      <RadioButton.Item label="Trung" value="MIDDLE"labelStyle={{fontSize:15}} />
-      <RadioButton.Item label="Nam" value="SOUTHERN"labelStyle={{fontSize:15}} />
+      <RadioButton.Item label="Bắc" value="NORTHERN" labelStyle={styles.selectedGenderText} />
+      <RadioButton.Item label="Trung" value="MIDDLE"labelStyle={styles.selectedGenderText} />
+      <RadioButton.Item label="Nam" value="SOUTHERN"labelStyle={styles.selectedGenderText} />
     </RadioButton.Group>
                       </View>
                         
-                       <View style={{width:'80%', height:50, alignItems: 'center', marginBottom: '5%'}}>
+                       <View style={styles.changeButtonView}>
                         <TouchableOpacity 
-                          style={{
-                            height: '90%', 
-                            width: '80%',
-                            borderRadius:15,
-                            backgroundColor: '#ADDDDC'}} 
+                          style={styles.changeButton} 
                           onPress={handleChangeInfor} 
                           activeOpacity={0.7}>
                           <Text 
-                            style={{alignSelf:'center', fontSize:18, color:'#2D5672', fontWeight: 'bold', paddingTop:'5%'}}>Xác nhận
+                            style={styles.confirmText}>Xác nhận
                           </Text>
                         </TouchableOpacity>
                        </View>
@@ -232,45 +136,29 @@ const handleReturn =()=>{
                 </Modal>
                 <Modal
                     visible={logOutvisible}
-                    style={{
-                        backgroundColor:'#E7F6FF',
-                        borderRadius: 15,
-                        height: 200,
-                        marginTop: sizeHeight(25),
-                        width:'90%',
-                        marginHorizontal:20,
-                    }}
+                    style={styles.logoutModal}
                     // onDismiss={() => {
                     //     setLogOutShow(false);
                     //     setlogOutvisible(false)
                     // }}
                 >            
-                    <View style={{
-                        top: 0,
-                        alignItems: 'center',
-                        width:"100%",
-                        height:"100%", 
-                        borderRadius: 15 ,
-                        
-                        justifyContent:'space-around'        
-                    }}>
+                    <View style={styles.logOutView}>
                       <Icon name={'warning-outline'}
         size={sizeWidth(8)}
         color={"#FF4444"}
-        style={{padding: sizeWidth(1),
-          paddingLeft: sizeWidth(3),}} />
+        style={styles.warningIcon} />
           <View style={{width:'90%', height:50}}>
-          <Text style={{fontSize:17, alignSelf:'center', color:colors.black, fontWeight:'500'}}>Bạn có chắc chắn muốn đăng xuất</Text>
-          <Text style={{fontSize:17, color:colors.black, fontWeight:'500', alignSelf:'center'}}>không?</Text>
+          <Text style={styles.warnText}>Bạn có chắc chắn muốn đăng xuất</Text>
+          <Text style={styles.warnText}>không?</Text>
 
 
           </View>
-                      <View style={{width:'100%', height:60, flexDirection:'row', justifyContent:"space-around", alignItems:'center'}}>
-                      <TouchableOpacity activeOpacity={0.7} onPress={handleCancelLogOut} style={{width:'30%', height:40,borderColor:colors.blue, borderWidth:1, borderRadius:12, justifyContent:'center'}}>
-                        <Text style={{alignSelf:'center',fontSize:15, color:colors.blue}}>Đóng</Text>
+                      <View style={styles.buttonView}>
+                      <TouchableOpacity activeOpacity={0.7} onPress={handleCancelLogOut} style={styles.closeButton}>
+                        <Text style={styles.closeText}>Đóng</Text>
                       </TouchableOpacity>
-                      <TouchableOpacity activeOpacity={0.7} onPress={cofirmHandleLogOut} style={{width:'30%', height:40,backgroundColor:'red',borderRadius:12,justifyContent:'center'}}>
-                        <Text style={{alignSelf:'center', fontSize:15, color:'white'}}>Đăng xuất</Text>
+                      <TouchableOpacity activeOpacity={0.7} onPress={cofirmHandleLogOut} style={styles.logOutButton}>
+                        <Text style={styles.logOutText}>Đăng xuất</Text>
                       </TouchableOpacity>
                       </View>
                       

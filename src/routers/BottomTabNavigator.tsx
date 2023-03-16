@@ -34,16 +34,7 @@ const BottomTabNavigator = () => {
         }}
 
       />
-      <Tab.Screen
-        name={AuthenticatedScreens.DiscoveryScreen}
-        component={DiscoveryScreen}
-        options={{
-          tabBarLabel: 'Thông báo',
-          tabBarIcon: ({ focused, color }) => (
-            <IcTabNotification {...iconConfigure(focused)} />
-          ),
-        }}
-      />
+      
       <Tab.Screen
         name={AuthenticatedScreens.MessageScreen}
         component={MessageScreen}
