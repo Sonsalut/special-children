@@ -17,6 +17,8 @@ import { useToast } from 'hooks/useToast';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as ImagePicker from 'react-native-image-picker';
 import { ApiConstants } from 'network/ApiConstants';
+import { Platform } from 'react-native';
+import { PERMISSIONS, request } from 'react-native-permissions';
 
 
 const AddCategory = ({ }: StackNavigationProps<
@@ -89,7 +91,11 @@ const AddCategory = ({ }: StackNavigationProps<
 
     });
   };
-  const requestCameraPermission = async () => {
+//Camera permission 
+const requestCameraPermission = async () => {
+
+  if (Platform.OS === 'android') {
+
     try {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.CAMERA,
@@ -101,6 +107,7 @@ const AddCategory = ({ }: StackNavigationProps<
           buttonPositive: "OK"
         }
       );
+
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         console.log("Camera permission given");
         return true
@@ -112,7 +119,21 @@ const AddCategory = ({ }: StackNavigationProps<
       console.warn(err);
       return false
     }
-  };
+  } 
+  else if (Platform.OS === 'ios') {
+    const granted = await request(PERMISSIONS.IOS.CAMERA);
+    console.log('granted',granted);
+    
+    if (granted === 'granted') {
+      console.log ('Camera permission given');
+      return true;
+    } 
+    else {
+      console.log ('Camera permission denied');
+      return false;
+    }
+  }
+};
   const takePhoto = async () => {
 
     if (await requestCameraPermission()) {
@@ -470,7 +491,7 @@ const AddCategory = ({ }: StackNavigationProps<
 
 
   return (
-    <Container style={{ flex: 1 }}>
+    <Container style={{ flex: 1, backgroundColor: 'white' }}>
       <HeaderWithBack title={'Chủ đề'}
 
         outerStyle={{ backgroundColor: colors.title_blue }}

@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { fontSize, sizeHeight, sizeWidth } from "utils/Utils";
+import { checkIpad, fontSize, sizeHeight, sizeWidth } from "utils/Utils";
 
 export default StyleSheet.create({
     container: {

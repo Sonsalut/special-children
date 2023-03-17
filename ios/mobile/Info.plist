@@ -70,5 +70,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	 <key>NSCameraUsageDescription</key>
+  	 <string>Ứng dụng cần truy cập vào camera</string>
 </dict>
 </plist>
