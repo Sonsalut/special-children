@@ -89,7 +89,7 @@ const StorageWord = ({ }: StackNavigationProps<
             <View style={styles.word}>
               <Image style={styles.wordImage}
                 source={{
-                  uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
+                  uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&`,
                   method: 'GET',
                   headers: {
                     Authorization: store.getState().authReducer.user.accessToken

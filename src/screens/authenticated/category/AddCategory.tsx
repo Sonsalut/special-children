@@ -3,7 +3,7 @@ import { Container, TouchableOpacity } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens } from 'routers/ScreenNames';
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
-import { Text, View, Image, ScrollView, KeyboardAvoidingView, FlatList, TextInput, PermissionsAndroid } from 'react-native';
+import { Text, View, Image, ScrollView, KeyboardAvoidingView, FlatList, TextInput, PermissionsAndroid, ImageBackground } from 'react-native';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import { AddCategoryForUser, CategoryStatus, DeleteCategory, GetFullCategory, UpdateCategory } from 'network/subs/auth/recording/RecordingRequest';
 import ResponseCode from 'network/ResponseCode';
@@ -492,8 +492,12 @@ const requestCameraPermission = async () => {
 
   return (
     <Container style={{ flex: 1, backgroundColor: 'white' }}>
-      <HeaderWithBack title={'Chủ đề'}
-
+      <HeaderWithBack 
+        title={'Chủ đề'}
+        titleStyle={{
+          color: colors.header_title,
+          marginLeft: '7%'
+        }}
         outerStyle={{ backgroundColor: colors.title_blue }}
         rightIconShow={true}
         hasDone={showDoneIcon}
@@ -506,15 +510,23 @@ const requestCameraPermission = async () => {
           height: sizeWidth(10),
           borderRadius: 45,
           marginTop: 10,
+          marginBottom:10,
           backgroundColor: '#FFD19A',
           alignSelf: 'center'
         }}
         onPress={handleAddCategory}
         isDoubleTap={true}
       >
-        <Text style={{ alignSelf: 'center', marginTop: 10, fontSize: 15, fontWeight: 'bold', color: '#2D5672' }}>Thêm chủ đề</Text>
+        <Text style={{ alignSelf: 'center', paddingTop:10, fontSize: 15, fontWeight: 'bold', color: '#2D5672' }}>Thêm chủ đề</Text>
       </TouchableOpacity>
-      <View style={{ height: sizeHeight(85), width: '95%', alignSelf: 'center', alignItems: 'center' }}>
+      <View 
+        style={{ 
+          height: sizeHeight(85), 
+          width: '95%', 
+          alignSelf: 'center', 
+          alignItems: 'center' 
+        }}
+      >
         <FlatList
           data={data}
           keyExtractor={(_, index) => index.toString()}
@@ -536,9 +548,7 @@ const requestCameraPermission = async () => {
               activeOpacity={0.7}
               style={{
                 width: sizeWidth(40),
-                // sizeWidth(40),
-                // marginVertical: 15,
-                height: sizeHeight(28),
+                height: sizeHeight(25),
                 borderRadius: 10,
                 marginHorizontal: 9,
                 alignSelf: 'center',
@@ -549,20 +559,13 @@ const requestCameraPermission = async () => {
                 borderWidth: item?.isActive ? 0 : 2
               }}
             >
-              {
-                item?.type === 'ADMIN'
-                  ? <Icon name='shield-sharp' size={sizeHeight(3)} style={{ width: '20%', alignSelf: 'flex-end' }} />
-                  : null
-              }
-              <View >
-                <Image
+              
+              <View>
+                <ImageBackground
                   style={{
                     resizeMode: 'stretch',
                     height: '80%',
                     width: '100%',
-
-                    // marginTop: '1%',
-                    // sizeWidth(39),
                     borderRadius: sizeWidth(3),
                   }}
                   source={item?.pictureFileId !== null ? {
@@ -572,9 +575,17 @@ const requestCameraPermission = async () => {
                     headers: { Authorization: store.getState().authReducer.user.accessToken }
                   } :
                     require('../../.././assets/images/no.png')
+                  }>
+                  {
+                    item?.type === 'ADMIN'
+                      ? <Icon
+                        name='shield-sharp'
+                        size={sizeHeight(3)}
+                        style={{ width: '20%', alignSelf: 'flex-end', color: 'orange' }} />
+                      : null
                   }
-
-                />
+                </ImageBackground>
+                
                 <Text style={{ fontSize: fontSize(5), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item?.name}</Text>
               </View>
 
