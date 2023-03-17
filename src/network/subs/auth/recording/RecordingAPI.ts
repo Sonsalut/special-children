@@ -11,7 +11,6 @@ import {
     UpdateWord, 
     VoiceInfor, 
     DeleteWord, 
-    AddWord,
     AddWordForUser,
 } from 'network/subs/auth/recording/RecordingRequest';
 import { ApiConstants } from 'network/ApiConstants';
