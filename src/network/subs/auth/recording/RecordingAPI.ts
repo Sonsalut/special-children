@@ -173,23 +173,16 @@ class RecodingApi {
     }
     UpdateCategory<T>(params: UpdateCategory) {
         return Api.request({
-            special:false,
+            special:!params.isActive,
             options: {
                 method: METHOD.PUT,
-                url: AuthApis.UpdateCategory+`?categoryId=${params.id}&name=${params.name}&isActive=${params.isActive}&desscription=${params.description}`,
-                data:params.data
-            },
+                url: AuthApis.UpdateCategory+`?categoryId=${params.id}&name=${params.name}&desscription=${params.description}`,
+            
+                data: !params.isActive? null: params.data
+            }, 
         });
     }
     UpdateWord<T>(params: UpdateWord) {
-        console.log(Api.request({
-            special:false,
-            options: {
-                method: METHOD.PUT,
-                url: AuthApis.UpdateWord+`?wordId=${params.wordId}&categoryId=${params.categoryId}&word=${params.word}&wordAudio=${params.wordAudio}`,
-                data:params.data
-            },
-        }))
         return Api.request({
             special:false,
             options: {

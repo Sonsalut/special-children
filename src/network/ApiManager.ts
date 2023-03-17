@@ -15,6 +15,7 @@ import { BaseResponse } from './BaseResponse';
 import { hideLoading, showLoading } from 'components';
 import authSlice from 'redux/slice/authSlice';
 import axios from 'axios';
+import { type } from 'os';
 
 export enum RequestMethod {
   GET,
@@ -42,6 +43,7 @@ interface RequestConfig {
   accept?: string;
   sound?:boolean
   special?: boolean;
+ 
 }
 
 const TIMEOUT = 30 * 1000; // 30 seconds
@@ -174,17 +176,19 @@ class ApiClient {
 
     let request = axios({
       timeout: TIMEOUT,
+      
       headers: {
         'Accept': 'Application/json',
         // "Accept": "*/*",
         
         //  'Content-Type': 'Application/json',
         // :'Content-Type': 'multipart/form-data',
-        'Content-Type' : special ?'application/json'  : 'multipart/form-data',
+        'Content-Type' : special ? 'Application/json'  : 'multipart/form-data',
         
 
-      }
-      ,
+      },
+      
+      
       ...options
     });
     return Promise.race([

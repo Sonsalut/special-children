@@ -19,6 +19,7 @@ import * as ImagePicker from 'react-native-image-picker';
 import { ApiConstants } from 'network/ApiConstants';
 import { Platform } from 'react-native';
 import { PERMISSIONS, request } from 'react-native-permissions';
+import axios from 'axios';
 
 
 const AddCategory = ({ }: StackNavigationProps<
@@ -143,20 +144,8 @@ const requestCameraPermission = async () => {
         }
         else {
           if (!response.errorMessage) {
-            const imageData = new FormData()
-            console.log(response.assets)
             setImage(response?.assets?.[0]?.uri)
             setCameraOptionsVisble(!cameraOptionsVisble)
-            imageData.append(
-              "file-image", {
-              uri: response?.assets?.[0]?.uri,
-              name: 'image.png',
-              fileName: 'image',
-              type: 'image/png',
-            }
-            )
-            // console.log(imageData.getParts())
-            setItemData(imageData)
           }
           else {
             console.log(response.errorMessage)
@@ -367,18 +356,36 @@ const requestCameraPermission = async () => {
     textInputRef.current = e
 
   };
-  const updateCategory = async (item: any, data: FormData) => {
-    let name = ''
+
+  const updateCategory = async (item: any) => {
+  
+    let name=''
+let special= false
     textInputRef.current
       ? name = encodeURIComponent(textInputRef.current)
       : name = encodeURIComponent(item?.name)
-    const response = await RecordingAPI.UpdateCategory<UpdateCategory>({
+      const imageData = new FormData()
+      if( image!=="")
+      {
+       
+        imageData.append(
+          "file-image", {
+          uri: image,
+          name: 'image.png',
+          fileName: 'image',
+          type: 'image/png',
+        }
+        )
 
+        
+      }
+     console.log(special)
+    const response = await RecordingAPI.UpdateCategory<UpdateCategory>({
       id: item?.id,
       name: name,
-      isActive: true,
+      isActive: special,
       description: 'EDIT',
-      data: data
+      data: imageData
     })
     if (response.status === 200) {
       console.log(" Update SUCCESS")
@@ -386,21 +393,21 @@ const requestCameraPermission = async () => {
       setEditPopupVisivle(!editPopupVisivle)
       getCategory()
       setImage("")
+      // setItemData(new FormData())
     setRandom(Math.random())
+    console.log(data.getAll())
 
     }
     else {
-      console.log(response.error)
+      // console.log(response)
       showToast("ERROR", 'warning')
+      
 
     }
   }
+
   const handleDoneEdit = () => {
-    
-    updateCategory(personData, itemData)
-    // console.log(textInputRef.current)
-   
- 
+    updateCategory(personData)
   }
 
   const handleDoneAddCategory = async () => {
@@ -414,6 +421,8 @@ const requestCameraPermission = async () => {
     if (response.status === 200) {
       showToast("Thêm thành công", 'success')
       setConfigModalvisible(!configModalvisible)
+      setItemData(new FormData())
+      setImage("")
       getCategory()
 
     }
@@ -568,7 +577,7 @@ const requestCameraPermission = async () => {
                   source={item?.pictureFileId !== null ? {
                     uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${random}`,
                     method: 'GET',
-                    cache:'reload',
+                    
                     headers: { Authorization: store.getState().authReducer.user.accessToken }
                   } :
                     require('../../.././assets/images/no.png')
