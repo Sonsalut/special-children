@@ -63,7 +63,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
 
                                     <Image style={style.addWordImage}
                                         source={{
-                                             uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                                             uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&`,
                                             method: 'GET',
                                             headers: { Authorization: store.getState().authReducer.user.accessToken }
                                         }}
@@ -108,7 +108,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                                 <View style={style.deleteWord}>
                                     <Image style={style.deleteWorImage}
                                         source={{
-                                            uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
+                                            uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&`,
                                             method: 'GET',
                                             headers: {
                                                 Authorization: store.getState().authReducer.user.accessToken
