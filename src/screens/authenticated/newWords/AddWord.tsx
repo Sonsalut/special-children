@@ -1,36 +1,25 @@
 import React from 'react';
-import { Container, Header, TouchableOpacity } from 'components';
+import { Container, TouchableOpacity } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
-import { AuthenticatedScreens, AuthenticationScreens, MainScreens } from 'routers/ScreenNames';
-import NavigationService from 'routers/NavigationService';
+import { AuthenticatedScreens } from 'routers/ScreenNames';
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
-import { Text,View, Image, ImageBackground, ScrollView, KeyboardAvoidingView,FlatList, Animated, TouchableHighlightComponent, TouchableWithoutFeedback, PermissionsAndroid, TextInput} from 'react-native';
+import { Text,View, Image, ScrollView, KeyboardAvoidingView,FlatList, PermissionsAndroid, TextInput} from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
-import images from 'res/images';
-import AuthenticationApi from 'network/subs/auth/AuthApi';
-import { CategoryList } from 'network/subs/auth/AuthResponse';
-import AuthApi from 'network/subs/auth/AuthApi';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
-import { DeleteWord, GetFullCategory, GetWordByCateID, UpdateWord, WordStatus } from 'network/subs/auth/recording/RecordingRequest';
+import { AddWordForUser, DeleteWord, GetWordByCateID, UpdateWord } from 'network/subs/auth/recording/RecordingRequest';
 import ResponseCode from 'network/ResponseCode';
 import { store } from 'redux/store';
 import colors from 'res/colors';
-import { createEntityAdapter } from '@reduxjs/toolkit';
 import { RefreshControl } from 'react-native-gesture-handler';
-import Spinner from 'react-native-spinkit';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Menu, Modal, Searchbar, TouchableRipple } from 'react-native-paper';
+import { Menu, Modal } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { showIcon } from 'redux/storageWord/action';
-import GlobalHeader from 'components/header/GlobalHeader';
 import HeaderWithBack from 'components/header/HeaderWithBack';
-import { Item } from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
-import { color } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Platform } from 'react-native';
 import { Permissions } from 'react-native-permissions';
 import { useToast } from 'hooks/useToast';
 import { ApiConstants } from 'network/ApiConstants';
+
 
 
 
@@ -95,18 +84,18 @@ const AddWord = ({}: StackNavigationProps<
       id:item?.id
 
     });
-    // if (response?.data.data.length === 0) {
-    //   showToast('Bạn không có quyền xóa', 'danger')
+    if (response?.data.data.length === 0) {
+      showToast('Bạn không có quyền xóa', 'danger')
 
-    // }
-    // else {
-    //   // console.log("HIDE SUCCESS")
-    //   setVisible(!visible)
-    //   showToast('Xóa thành công', 'success')
-    //   loadData()
+    }
+    else {
+      // console.log("HIDE SUCCESS")
+      setVisible(!visible)
+      showToast('Xóa thành công', 'success')
+      loadData()
 
-    // }
-    console.log(response?.data?.data)
+    }
+    console.log(response?.data)
   }
   
 
@@ -209,6 +198,7 @@ const AddWord = ({}: StackNavigationProps<
 
         // console.log(response.data)
         setData(response.data?.words)
+        
         // dispatch(setStorage(response.data?.words))
     }
     else {
@@ -234,6 +224,7 @@ const AddWord = ({}: StackNavigationProps<
       setRefreshing(true);
       setTimeout(() => {
         setRefreshing(false); 
+        loadData();
       }, 2000);
     }, []);  
 
@@ -324,8 +315,8 @@ const AddWord = ({}: StackNavigationProps<
       showToast("Thay đổi thành công", 'success')
       setEditPopupVisivle(!editPopupVisivle)
       setRandom(Math.random())
+      setImage("")
       loadData()
-      // getCategory()
     }
     else
     {
@@ -337,8 +328,6 @@ const AddWord = ({}: StackNavigationProps<
   const textInputRef = React.useRef(null);
   const handleType = (e) => {
     textInputRef.current = e
-    // console.log(textInputRef.current)
-    // setValue(textInputRef.current)
 
   };
   const [searchValue, setSearchValue] = React.useState('')
@@ -389,20 +378,30 @@ const AddWord = ({}: StackNavigationProps<
         return items
       })
       setData(tmp)
-          // console.log(showDoneIcon)
-          // setShowDoneIcon(!showDoneIcon)
     }
     const handleDoneEdit = ()=>{
-      // if(textInputRef.current)
-      // {
-      //   console.log(textInputRef.current)
-      //   // console.log(image)
-      
-      // }
       updateWord(personData, itemData)
-  // console.log(personData)
-      //  console.log(personData)
     }
+    const addWord = async (data) => {
+      const response = await RecordingAPI.AddWord<AddWordForUser>({
+        categoryId: id,
+        word:encodeURIComponent(textInputRef.current),
+        wordAudio:encodeURIComponent(textInputRef.current),
+        data:data
+      })
+      if(response.status===200)
+      {
+        showToast("Thay đổi thành công", 'success')
+      setConfigModalvisible(!configModalvisible)
+      setImage("")
+
+      loadData()
+      }
+    }
+    const handleDoneAdd =  () => {
+      addWord(itemData)
+    }
+
     const AddEditModal = (props) => {
       return (
         <Modal
@@ -513,7 +512,7 @@ const AddWord = ({}: StackNavigationProps<
       )
     }
   return (
-    <Container>
+    <Container style={{backgroundColor: 'white'}}>
       <HeaderWithBack
         title={'Thêm từ'}
         titleStyle={{
@@ -674,6 +673,7 @@ const AddWord = ({}: StackNavigationProps<
         title={'Thêm từ'}
         visible={configModalvisible}
         source={image ? { uri: image }: null}
+        handleSubmit={handleDoneAdd}
         onDismiss={() => setConfigModalvisible(!configModalvisible)}
         cancel={() => { setConfigModalvisible(!configModalvisible); setValue('') ;setImage('') }} />
     </Container>

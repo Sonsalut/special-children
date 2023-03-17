@@ -12,6 +12,7 @@ import {
     VoiceInfor, 
     DeleteWord, 
     AddWord,
+    AddWordForUser,
 } from 'network/subs/auth/recording/RecordingRequest';
 import { ApiConstants } from 'network/ApiConstants';
 import Api, { RequestMethod, METHOD } from 'network/ApiManager';
@@ -199,12 +200,12 @@ class RecodingApi {
             },
         });
     }
-    AddWord<T>(params: AddWord) {
+    AddWord<T>(params: AddWordForUser) {
         return Api.request({
             special:false,
             options: {
                 method: METHOD.POST,
-                url: AuthApis.UpdateWord+`?wordId=${params.wordId}&categoryId=${params.categoryId}&word=${params.word}&wordAudio=${params.wordAudio}&isActive=${params.isActive}`,
+                url: AuthApis.UpdateWord+`?categoryId=${params.categoryId}&word=${params.word}&wordAudio=${params.wordAudio}`,
                 data:params.data
             },
         });

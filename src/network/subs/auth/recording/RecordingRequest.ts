@@ -16,6 +16,8 @@ export type GetFullCategory = {
 export type AddWordToStorage = {
     wordId:number
 };
+
+
 export type DeleteWordToStorage = {
     wordId:number
 };
@@ -60,10 +62,17 @@ export type UpdateCategory = {
     wordId:number,
     categoryId:number,
     word:string,
-    wordAudio:String,
+    wordAudio:string,
     isActive:boolean,
     data:FormData
- }
+ }; 
+
+export type AddWordForUser = {
+    categoryId:number,
+    word:string,
+    wordAudio:string,
+    data:FormData
+ }; 
 
  export type DeleteCategory = {
    
