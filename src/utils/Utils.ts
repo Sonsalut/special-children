@@ -53,3 +53,9 @@ export const getMime = (extension: string) => {
 export const getExtention = (path: string) => {
   return path.substring(path.lastIndexOf('.') + 1);
 };
+
+export const checkIpad=()=>{
+  const { height, width } = Dimensions.get('window');
+  const aspectRatio = height / width;
+  return aspectRatio >1.6 ? false : true
+}

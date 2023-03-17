@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import HeaderWithBack from 'components/header/HeaderWithBack';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Platform } from 'react-native';
-import { Permissions } from 'react-native-permissions';
+import { PERMISSIONS, request } from 'react-native-permissions';
 import { useToast } from 'hooks/useToast';
 import { ApiConstants } from 'network/ApiConstants';
 
@@ -137,8 +137,10 @@ const AddWord = ({}: StackNavigationProps<
       }
     } 
     else if (Platform.OS === 'ios') {
-      const granted = await Permissions.request('camera');
-      if (granted === 'authorized') {
+      const granted = await request(PERMISSIONS.IOS.CAMERA);
+      console.log('granted',granted);
+      
+      if (granted === 'granted') {
         console.log ('Camera permission given');
         return true;
       } 
@@ -589,7 +591,7 @@ const AddWord = ({}: StackNavigationProps<
                   borderRadius: sizeWidth(3),
                 }}
                 source={{
-                  uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL${random}`,
+                  uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${random}`,
                   method: 'GET',
                   headers: { Authorization: store.getState().authReducer.user.accessToken }
                 }}
