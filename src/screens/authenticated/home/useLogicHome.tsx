@@ -5,6 +5,8 @@ import ResponseCode from 'network/ResponseCode';
 import { useDispatch, useSelector } from 'react-redux';
 import { showIcon } from 'redux/storageWord/action';
 import { useIsFocused } from '@react-navigation/native';
+import axios, { Axios } from 'axios';
+import { store } from 'redux/store';
 
 
  export const useLogicHome =() => {
@@ -22,14 +24,14 @@ import { useIsFocused } from '@react-navigation/native';
       if (response.status === ResponseCode.SUCCESS) {
   
         setData(response.data?.categories)
-        console.log(data)
+        // console.log(data)
+        // console.log(store.getState().authReducer.user.refreshToken)
+        // console.log(store.getState().authReducer.user.accessToken)
+
       }
+      
     }
-    const isFocused= useIsFocused()
-    React.useEffect(() => {
-          getCategory()
-  
-    }, [isFocused])
+   
     const dispatch= useDispatch()
     const show= useSelector(store=>store.storeReducer.show)
   const handleShow=( )=>{

@@ -26,9 +26,10 @@ import { getCateId, setStorage, showIcon } from 'redux/storageWord/action';
 import RNFetchBlob from 'rn-fetch-blob';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavigationContext } from '@react-navigation/native';
+import { NavigationContext, useIsFocused } from '@react-navigation/native';
 import { useToast } from 'hooks/useToast';
 import { ApiConstants } from 'network/ApiConstants';
+import axios from 'axios';
 
 const RecordingScreen = ({ route, navigation }: any) => {
     const MAX_IMAGE_WIDTH = 480;
@@ -43,24 +44,24 @@ const RecordingScreen = ({ route, navigation }: any) => {
     const [imgBase64, setImgBase64] = React.useState()
     const [item, setItem] = React.useState()
     React.useEffect(() => {
-      navigation.setOptions({headerTitle:`${route?.params?.data?.name}`})
-      dispatch(getCateId(route?.params?.data?.id))
-    loadData();
+        navigation.setOptions({ headerTitle: `${route?.params?.data?.name}` })
+        dispatch(getCateId(route?.params?.data?.id))
+        loadData();
 
-    // console.log(route?.params?.data?.name?.id)
+        // console.log(route?.params?.data?.name?.id)
     }, [])
-    
+    const isFocused = useIsFocused()
     React.useEffect(() => {
         loadData();
-    }, [])
+    }, [isFocused])
 
     const handle = () => {
         setShow(!show)
         setVisible(!visible)
     }
     const dispatch = useDispatch()
-    const shows= useSelector(store=>store.storeReducer.show)
-    const handleShow=()=>{
+    const shows = useSelector(store => store.storeReducer.show)
+    const handleShow = () => {
         dispatch(showIcon())
     }
     const handleCancel = () => {
@@ -85,12 +86,23 @@ const RecordingScreen = ({ route, navigation }: any) => {
             console.log('that bai')
         }
     }
-const showToast= useToast()
+    const showToast = useToast()
     const playSound = async (audioWord: any) => {
         let filePath = '';
+        let isFileSucceeded = false
         let url = AuthApis.GetVoice + encodeURIComponent(audioWord);
-        
-        RNFetchBlob.config({
+          axios.get(url, {
+            headers:{
+                "Authorization": store.getState().authReducer.user.accessToken,
+                'Accept': '*/*',
+                'Content-Type': 'application/json'
+            }
+            
+
+        }).then(response => {
+            if(response.status===200)
+            {
+               RNFetchBlob.config({
             fileCache: true,
             appendExt: 'mp3',
         })
@@ -117,19 +129,114 @@ const showToast= useToast()
                 RNFetchBlob.fs.unlink('file://' + filePath)
                 })
             })
+            }
+           
+        
+
+        })
+        .catch(err=>{
+            showToast("Đang load", 'warning')
+            console.log(err?.message)
+        })
+        
+
+        // RNFetchBlob.config({
+        //     fileCache: true,
+        //     appendExt: 'mp3',
+        // })
+        //     .fetch("GET", url, {
+        //         Authorization: store.getState().authReducer.user.accessToken,
+        //         'Accept': '*/*',
+        //         'Content-Type': 'application/octet-stream'
+        //     })
+        //     .then((res) => {
+        //         // console.log(res);
+        //         // console.log("The file saved to ", res.path())
+        //         console.log(res.respInfo)
+        //         console.log("The file saved to ", res.path());
+        //         filePath = res.path();
+        //         RNFetchBlob.fs.exists(filePath).then((exists) => {
+        //             try {
+        //             SoundPlayer.playUrl('file://' + filePath)
+                        
+        //             } catch (error) {
+        //                 showToast("ERROR",'danger')
+        //             }
+        //         })
+        //         .finally(() => {
+        //         RNFetchBlob.fs.unlink('file://' + filePath)
+        //         })
+        //     })
+        // await axios.get(url, {
+        //     headers:{
+        //         "Authorization": store.getState().authReducer.user.accessToken,
+        //         'Accept': '*/*',
+        //         'Content-Type': 'application/octet-stream'
+        //     }
+            
+
+        // }).then(response => {
+        //     console.log('load', response?.data)
+        //     isFileSucceeded= true
+        // })
+       
+        // .catch(err=>{
+        //     showToast("Đang load", 'danger')
+        //     isFileSucceeded= false
+        // })
+        // if(isFileSucceeded)
+        // {
+        //     await RNFetchBlob.config({
+        //     fileCache: true,
+        //     appendExt: 'mp3',
+        // })
+        //     .fetch("GET", url, {
+        //         Authorization: store.getState().authReducer.user.accessToken,
+        //         'Accept': '*/*',
+        //         'Content-Type': 'application/octet-stream'
+        //     })
+        //     .then((res) => {
+        //         console.log(res)
+                
+        //             console.log(res)
+        //             console.log("The file saved to ", res.path());
+        //             filePath = res.path();
+        //             RNFetchBlob.fs.exists(filePath).then((exists) => {
+        //                 try {
+        //                     SoundPlayer.playUrl('file://' + filePath)
+
+        //                 } catch (error) {
+        //                     showToast("ERROR", 'danger')
+        //                 }
+        //             })
+        //                 .finally(() => {
+        //                     RNFetchBlob.fs.unlink('file://' + filePath)
+        //                 }) 
+                
+        //         console.log(res)
+        //         console.log("The file saved to ", res.path());
+        //         filePath = res.path();
+        //         RNFetchBlob.fs.exists(filePath).then((exists) => {
+        //             try {
+        //                 SoundPlayer.playUrl('file://' + filePath)
+
+        //             } catch (error) {
+        //                 showToast("ERROR", 'danger')
+        //             }
+        //         })
+        //             .finally(() => {
+        //                 RNFetchBlob.fs.unlink('file://' + filePath)
+        //             })
+        //     })
+        //     .catch((error) => {
+        //         console.log('error')
+        //         showToast("ERROR", 'danger')
+
+        //     })
+        // }
+      
+
     }
-
-    const takePhoto = async () => {
-        ImagePicker.launchCamera(CAMERA_OPTION, (response) => {
-            if (!response.errorMessage) {
-
-            }
-            else {
-                console.log("that bai")
-            }
-        });
-    };
-
     const addNewRecording = () => {
         let temp = data;
         temp.splice(data.length - 1, 0, {
@@ -138,12 +245,12 @@ const showToast= useToast()
         })
         setData(temp)
         setContent(""),
-        setShow(false)
+            setShow(false)
         setVisible(false)
     }
 
     const [searchValue, setSearchValue] = React.useState('')
-    const filterData = () =>(
+    const filterData = () => (
         data.filter(
             item => (
                 encodeURIComponent(item?.audioWord.toLowerCase()).includes(encodeURIComponent(searchValue.toLowerCase()))
@@ -158,39 +265,39 @@ const showToast= useToast()
         setIndex(index)
         playSound(item?.audioWord)
     }
-    const [index, setIndex] = React.useState(0) 
+    const [index, setIndex] = React.useState(0)
     const [refreshing, setRefreshing] = React.useState(false);
-    const [isCancelled, setIsCancelled] = useState(false);  
+    const [isCancelled, setIsCancelled] = useState(false);
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         setTimeout(() => {
-          setRefreshing(false);
-          loadData();
+            setRefreshing(false);
+            loadData();
 
         }, 2000);
-      }, []);
-    
+    }, []);
+
     return (
 
-        <Container isBottomTab={false} style={{ flex: 1, backgroundColor: 'white', width: '100%'}}>
-            <TouchableWithoutFeedback     
+        <Container isBottomTab={false} style={{ flex: 1, backgroundColor: 'white', width: '100%' }}>
+            <TouchableWithoutFeedback
                 onPress={() => console.log('Pressed')}
                 onLongPress={handleShow}
             >
-                <View style={{ height: sizeHeight(90), width: '95%', alignSelf: 'center', alignItems: 'center'}}>
-                {
-                shows ? 
-                    <Searchbar 
-                        style={{ height: 40, width: sizeWidth(80), borderWidth: 1, borderColor: 'gray', marginTop: 5 }} 
-                        placeholder="Tìm kiếm" 
-                        placeholderTextColor={'gray'}
-                        value={searchValue}
-                        onChangeText={(e) => setSearchValue(e)}
-                        spellCheck={false}
-                    />
-                : null
-                }
-                    <View style={{width:sizeWidth(90), height:sizeHeight(90),alignItems: 'center', alignSelf:'center'}}>
+                <View style={{ height: sizeHeight(90), width: '95%', alignSelf: 'center', alignItems: 'center' }}>
+                    {
+                        shows ?
+                            <Searchbar
+                                style={{ height: 40, width: sizeWidth(80), borderWidth: 1, borderColor: 'gray', marginTop: 5 }}
+                                placeholder="Tìm kiếm"
+                                placeholderTextColor={'gray'}
+                                value={searchValue}
+                                onChangeText={(e) => setSearchValue(e)}
+                                spellCheck={false}
+                            />
+                            : null
+                    }
+                    <View style={{ width: sizeWidth(90), height: sizeHeight(90), alignItems: 'center', alignSelf: 'center' }}>
                         <FlatList
                             data={filterData()}
                             keyExtractor={(_, index) => index.toString()}
@@ -203,31 +310,31 @@ const showToast= useToast()
                                     colors={[colors.blue]}
                                 />}
                             renderItem={({ item, index }) => (
-                            
-                                <TouchableOpacity 
-                                    key={index} 
-                                    activeOpacity={0.7} 
-                                    style={{ 
-                                        width: sizeWidth(38), 
-                                        marginVertical:15, 
-                                        height:sizeHeight(23),
-                                        borderRadius:10,
-                                        marginHorizontal:12,                            
-                                        marginTop: 10,           
-                                        backgroundColor:'#C1EBEA',
+
+                                <TouchableOpacity
+                                    key={index}
+                                    activeOpacity={0.7}
+                                    style={{
+                                        width: sizeWidth(38),
+                                        marginVertical: 15,
+                                        height: sizeHeight(23),
+                                        borderRadius: 10,
+                                        marginHorizontal: 12,
+                                        marginTop: 10,
+                                        backgroundColor: '#C1EBEA',
                                         alignItems: 'center',
                                     }}
                                     onPress={() => { chooseWord(item, index) }}>
                                     <Image
                                         style={{
                                             resizeMode: 'stretch',
-                                            height: sizeHeight(16), 
+                                            height: sizeHeight(16),
                                             width: sizeWidth(36),
                                             borderRadius: sizeWidth(3),
                                             justifyContent: 'center',
                                         }}
                                         source={{
-                                            uri:    ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                                            uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
                                             method: 'GET',
                                             headers: { Authorization: store.getState().authReducer.user.accessToken }
                                         }}
@@ -239,36 +346,36 @@ const showToast= useToast()
                     </View>
                 </View>
             </TouchableWithoutFeedback>
-{/* Màn hình số  */}
-                <Modal
-                    visible={visible}
-                    style={{
-                        backgroundColor: '#ADDDDC',
-                        borderRadius: 15,
-                        height: 450,
-                        marginTop: sizeHeight(15),
-                        width:'90%',
-                        marginHorizontal:20
-                    }}
-                    onDismiss={() => {
-                        setShow(false)
-                        setVisible(false)
-                    }}
-                >            
-                    <View style={{
-                        top: 0,
-                        alignItems: 'center',
-                        width:"100%",
-                        height:"100%", 
-                        borderRadius: 15              
-                    }}>
-                        
-                        <View style={{ height:'100%'}}>
-                           
-                        <Swiper showsButtons={false} index={index} onIndexChanged={(index)=>playSound(data[index]?.audioWord)} >
-                            {                               
-                                data.map((item, index) => (                                    
-                                    <View key={index}>                                       
+            {/* Màn hình số  */}
+            <Modal
+                visible={visible}
+                style={{
+                    backgroundColor: '#ADDDDC',
+                    borderRadius: 15,
+                    height: 450,
+                    marginTop: sizeHeight(15),
+                    width: '90%',
+                    marginHorizontal: 20
+                }}
+                onDismiss={() => {
+                    setShow(false)
+                    setVisible(false)
+                }}
+            >
+                <View style={{
+                    top: 0,
+                    alignItems: 'center',
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: 15
+                }}>
+
+                    <View style={{ height: '100%' }}>
+
+                        <Swiper showsButtons={false} index={index} onIndexChanged={(index) => playSound(data[index]?.audioWord)} >
+                            {
+                                data.map((item, index) => (
+                                    <View key={index}>
                                         <View
                                             style={{
                                                 width: '93%',
@@ -280,9 +387,9 @@ const showToast= useToast()
                                                 justifyContent: 'space-between',
                                                 alignSelf: 'center'
                                             }}>
-                                            <TouchableOpacity  onPress={handleCancel}>
-                                                <Image resizeMode='contain' source={cancel} style={{ width: sizeWidth(5), height: sizeHeight(3)}}/>
-                                            </TouchableOpacity>            
+                                            <TouchableOpacity onPress={handleCancel}>
+                                                <Image resizeMode='contain' source={cancel} style={{ width: sizeWidth(5), height: sizeHeight(3) }} />
+                                            </TouchableOpacity>
                                         </View>
                                         <View style={{ alignItems: 'center', marginTop: '-15%' }}>
                                             <TouchableOpacity onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
@@ -294,7 +401,7 @@ const showToast= useToast()
                                                     maxHeight: 300
                                                 }}
                                                     source={{
-                                                        uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                                                        uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
                                                         method: 'GET',
                                                         headers: {
                                                             Authorization: store.getState().authReducer.user.accessToken
@@ -302,7 +409,7 @@ const showToast= useToast()
                                                     }}
                                                 />
                                             </TouchableOpacity>
-                                            <Text style={{ fontSize: 30, flexDirection: 'row', color: '#2D5672', justifyContent: 'center', paddingTop: 3}}>{item?.word}</Text>
+                                            <Text style={{ fontSize: 30, flexDirection: 'row', color: '#2D5672', justifyContent: 'center', paddingTop: 3 }}>{item?.word}</Text>
                                         </View>
                                     </View>
                                 ))

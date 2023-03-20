@@ -8,17 +8,24 @@ const type = {
     TEST: 'TEST'
 }
 const RUN_ENVIRONMENT = type.DEV;
-let HOST, HOST_Quiz, HOST_Notify;
+let HOST,ACCOUNT, HOST_Quiz, HOST_Notify;
 if (RUN_ENVIRONMENT === type.DEV) {
-    HOST = 'https://ais-schildren-test-api.aisolutions.com.vn/';
+    HOST = 'https://ais-schildren-test-api.aisolutions.com.vn/',
+    ACCOUNT='https://ais-account-test-api.aisolutions.com.vn/'
+    
     // HOST = 'http://192.168.10.35:8089/';
 
 } else if (RUN_ENVIRONMENT === type.TEST) {
-    HOST = '';
+    HOST = '',
+    ACCOUNT='https://ais-account-test-api.aisolutions.com.vn/'
+
 } else if (RUN_ENVIRONMENT === type.PRODUCTION) {
-    HOST = 'https://emp-service-api.aisolutions.com.vn/';
+    HOST = 'https://emp-service-api.aisolutions.com.vn/',
+    ACCOUNT='https://ais-account-test-api.aisolutions.com.vn/'
+
 }
 
 export const ApiConstants = {
-    HOST
+    HOST,
+    ACCOUNT
 }

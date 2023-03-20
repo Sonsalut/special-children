@@ -1,3 +1,5 @@
+import { useDispatch } from 'react-redux';
+import { ResponseCode } from 'network/ResponseCode';
 import { DataLoginResponse } from './AuthResponse';
 import { ApiConstants } from 'network/ApiConstants';
 import Api, { RequestMethod, METHOD } from 'network/ApiManager';
@@ -7,22 +9,29 @@ import {
   ForgotPassword,
   RegisterWithEmailParams,
 } from './AuthRequest';
+import { store } from 'redux/store';
+import axios from 'axios';
+import authSlice from 'redux/slice/authSlice';
 
 export const AuthApis = {
-  loginWithEmail: 'https://ais-account-test-api.aisolutions.com.vn/ext/login',
+  loginWithEmail:  ApiConstants.ACCOUNT+'ext/login',
   changePassword: ApiConstants.HOST + 'ext/users/password',
   forgotPassword: ApiConstants.HOST + 'ext/users/password/forgot',
   getAvatar: ApiConstants.HOST + 'ext/files',
   register : ApiConstants.HOST + 'ext/users/register',
+  refreshToken:ApiConstants.ACCOUNT+'ext/access-token'
+  
 };
-
 class AuthenticationApi {
+  
   loginWithEmail<T>(params: LoginWithEmailParams) {
     return Api.request<T>({
+      
       options: {
         method: METHOD.POST,
         url: AuthApis.loginWithEmail,
         data: JSON.stringify(params),
+        
       },
     });
   }
@@ -72,6 +81,18 @@ class AuthenticationApi {
         },
     });
 }
+RefreshToken<T>() {
+  
+  return Api.request<T>({
+    
+    options: {
+        method: METHOD.GET,
+        url: AuthApis.refreshToken,
+      
+    },
+});
+}
+
   getAvatar<T>(params: any) {
     return Api.request<T>({
       options: {

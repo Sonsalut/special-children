@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isClicked, setCategory, setStorage } from 'redux/storageWord/action';
 import NavigationService from 'routers/NavigationService';
 import { useToast } from 'hooks/useToast';
+import AuthApi from 'network/subs/auth/AuthApi';
+import authSlice from 'redux/slice/authSlice';
 
 
 
@@ -43,6 +45,7 @@ export const useLogicStorage =()=>{
         data: []
   
       })
+      
       if (response.status === ResponseCode.SUCCESS) {
         // console.log(response.data)
         setPersonDataFromApi(response.data)
@@ -54,6 +57,7 @@ export const useLogicStorage =()=>{
       const response = await RecordingAPI.AddWordToStorage<AddWordToStorage>({
         wordId: id
       });
+    
       if (response.status === ResponseCode.SUCCESS) {
         console.log("SUCCESS")
       }

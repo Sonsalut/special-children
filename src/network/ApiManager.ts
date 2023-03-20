@@ -1,3 +1,4 @@
+
 // import { ResponseCode } from 'network/ResponseCode';
 import ResponseCode from './ResponseCode';
 /**
@@ -16,6 +17,11 @@ import { hideLoading, showLoading } from 'components';
 import authSlice from 'redux/slice/authSlice';
 import axios from 'axios';
 import { type } from 'os';
+import { useDispatch } from 'react-redux';
+import NavigationService from 'routers/NavigationService';
+import { AuthenticationScreens } from 'routers/ScreenNames';
+import { ApiConstants } from './ApiConstants';
+const refreshTokenURL = ApiConstants.ACCOUNT + 'ext/access-token';
 
 export enum RequestMethod {
   GET,
@@ -166,12 +172,33 @@ class ApiClient {
         }
         return Promise.reject();
       },
-      error => {
-        if (error.response?.status === ResponseCode.UNAUTHORIZED) {
-          store.dispatch(authSlice.actions.logout());
+       async error => {
+        if (error?.response?.status &&(error.response?.status === ResponseCode.UNAUTHORIZED)) {
+          const _refresh_token = store.getState().authReducer.user?.refreshToken;
+          if (!_refresh_token) {
+            NavigationService.reset(AuthenticationScreens.LoginScreen);
+          } else {
+            const { status, data } = await axios.get(refreshTokenURL, {
+              headers: {
+                Authorization: _refresh_token
+              }
+            })
+            if (status === 200) {
+              const accountInfo = data?.data?.accountInfo;
+              const accessToken = data?.data?.jwtToken;
+              store.dispatch(
+                authSlice.actions.setUser({
+                  accessToken: accessToken,
+                  accountInfo: accountInfo,
+                  refreshToken: _refresh_token,
+                })
+              )
+         
         }
+      }
         return Promise.reject(error);
-      },
+      }
+    }
     );
 
     let request = axios({
@@ -184,8 +211,6 @@ class ApiClient {
         //  'Content-Type': 'Application/json',
         // :'Content-Type': 'multipart/form-data',
         'Content-Type' : special ? 'Application/json'  : 'multipart/form-data',
-        
-
       },
       
       
@@ -211,12 +236,12 @@ class ApiClient {
         return response;
       })
       .catch(error => {
-
         console.log(error?.response?.data)
         console.log('apierror ', options?.url);
         const response: BaseResponse<T> = {
           data: {} as T,
         };
+      
         response.status = error?.response?.status;
         response.message = error?.message;
         response.error = error;
@@ -225,6 +250,8 @@ class ApiClient {
           response.status === ResponseCode.UNAUTHORIZED
         ) {
           response.message = error?.message;
+          
+         
         }
 
         if (!ignoreHandleCommonError) {
