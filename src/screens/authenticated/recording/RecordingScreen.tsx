@@ -32,17 +32,13 @@ import { ApiConstants } from 'network/ApiConstants';
 import axios from 'axios';
 
 const RecordingScreen = ({ route, navigation }: any) => {
-    const MAX_IMAGE_WIDTH = 480;
-    const MAX_IMAGE_HEIGHT = 480;
-    const IMAGE_QUALITY = 60;
+  
     const cancel = require('.././../../../src/assets/images/goback.png')
     const [image, setImage] = React.useState("");
     const [show, setShow] = React.useState(false);
     const [content, setContent] = React.useState("");
     const [data, setData] = React.useState<any>([])
-    const [animal, setAnimal] = React.useState([])
-    const [imgBase64, setImgBase64] = React.useState()
-    const [item, setItem] = React.useState()
+
     React.useEffect(() => {
         navigation.setOptions({ headerTitle: `${route?.params?.data?.name}` })
         dispatch(getCateId(route?.params?.data?.id))
@@ -138,104 +134,6 @@ const RecordingScreen = ({ route, navigation }: any) => {
             showToast("Đang load", 'warning')
             console.log(err?.message)
         })
-        
-
-        // RNFetchBlob.config({
-        //     fileCache: true,
-        //     appendExt: 'mp3',
-        // })
-        //     .fetch("GET", url, {
-        //         Authorization: store.getState().authReducer.user.accessToken,
-        //         'Accept': '*/*',
-        //         'Content-Type': 'application/octet-stream'
-        //     })
-        //     .then((res) => {
-        //         // console.log(res);
-        //         // console.log("The file saved to ", res.path())
-        //         console.log(res.respInfo)
-        //         console.log("The file saved to ", res.path());
-        //         filePath = res.path();
-        //         RNFetchBlob.fs.exists(filePath).then((exists) => {
-        //             try {
-        //             SoundPlayer.playUrl('file://' + filePath)
-                        
-        //             } catch (error) {
-        //                 showToast("ERROR",'danger')
-        //             }
-        //         })
-        //         .finally(() => {
-        //         RNFetchBlob.fs.unlink('file://' + filePath)
-        //         })
-        //     })
-        // await axios.get(url, {
-        //     headers:{
-        //         "Authorization": store.getState().authReducer.user.accessToken,
-        //         'Accept': '*/*',
-        //         'Content-Type': 'application/octet-stream'
-        //     }
-            
-
-        // }).then(response => {
-        //     console.log('load', response?.data)
-        //     isFileSucceeded= true
-        // })
-       
-        // .catch(err=>{
-        //     showToast("Đang load", 'danger')
-        //     isFileSucceeded= false
-        // })
-        // if(isFileSucceeded)
-        // {
-        //     await RNFetchBlob.config({
-        //     fileCache: true,
-        //     appendExt: 'mp3',
-        // })
-        //     .fetch("GET", url, {
-        //         Authorization: store.getState().authReducer.user.accessToken,
-        //         'Accept': '*/*',
-        //         'Content-Type': 'application/octet-stream'
-        //     })
-        //     .then((res) => {
-        //         console.log(res)
-                
-        //             console.log(res)
-        //             console.log("The file saved to ", res.path());
-        //             filePath = res.path();
-        //             RNFetchBlob.fs.exists(filePath).then((exists) => {
-        //                 try {
-        //                     SoundPlayer.playUrl('file://' + filePath)
-
-        //                 } catch (error) {
-        //                     showToast("ERROR", 'danger')
-        //                 }
-        //             })
-        //                 .finally(() => {
-        //                     RNFetchBlob.fs.unlink('file://' + filePath)
-        //                 }) 
-                
-        //         console.log(res)
-        //         console.log("The file saved to ", res.path());
-        //         filePath = res.path();
-        //         RNFetchBlob.fs.exists(filePath).then((exists) => {
-        //             try {
-        //                 SoundPlayer.playUrl('file://' + filePath)
-
-        //             } catch (error) {
-        //                 showToast("ERROR", 'danger')
-        //             }
-        //         })
-        //             .finally(() => {
-        //                 RNFetchBlob.fs.unlink('file://' + filePath)
-        //             })
-        //     })
-        //     .catch((error) => {
-        //         console.log('error')
-        //         showToast("ERROR", 'danger')
-
-        //     })
-        // }
-      
-
     }
     const addNewRecording = () => {
         let temp = data;
