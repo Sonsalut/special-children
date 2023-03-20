@@ -66,7 +66,7 @@ return {
     handleShow,
     refreshing,
     onRefresh,
-    searchValue,
+    searchValue,setSearchValue,
     filterData,
 }
 }

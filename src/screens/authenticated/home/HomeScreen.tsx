@@ -18,13 +18,13 @@ const HomeScreen = ({ }: StackNavigationProps<
   Routes,
   AuthenticatedScreens.HomeScreen
 >) => {
-  const { data,getCategory,dispatch,show,handleShow,refreshing,onRefresh,searchValue,filterData,} = useLogicHome()
+  const { data,getCategory,dispatch,show,handleShow,refreshing,onRefresh,searchValue,setSearchValue,filterData,} = useLogicHome()
 
   const isFocused = useIsFocused()
   React.useEffect(() => {
     getCategory()
 
-  }, [isFocused])
+  }, [isFocused===true])
 
   return (
 
