@@ -398,9 +398,9 @@ const AddCategory = ({ }: StackNavigationProps<
       <Modal
         visible={props.visible}
         style={{
-          backgroundColor: '#ADDDDC',
+          backgroundColor: '#C1EBEA',
           borderRadius: 15,
-          height: 580,
+          height: '70%',
           marginTop: sizeHeight(20),
           width: '90%',
           marginHorizontal: 20,
@@ -537,7 +537,7 @@ const AddCategory = ({ }: StackNavigationProps<
               activeOpacity={0.7}
               style={{
                 width: sizeWidth(40),
-                height: sizeHeight(25),
+                height: sizeHeight(22),
                 borderRadius: 10,
                 marginHorizontal: 9,
                 alignSelf: 'center',
@@ -550,12 +550,33 @@ const AddCategory = ({ }: StackNavigationProps<
             >
               
               <View>
-                <ImageBackground
+                <View 
                   style={{
-                    resizeMode: 'stretch',
-                    height: '80%',
+                    marginHorizontal: -10,
                     width: '100%',
+                    height: sizeHeight(3),
+                    alignSelf: 'flex-end',
+                    paddingRight: 5,
+                  }}
+                >
+                  {
+                      item?.type === 'ADMIN'
+                        ? <Icon
+                          name='shield-sharp'
+                          size={sizeHeight(3), sizeWidth(6)}
+                          style={{alignSelf: 'flex-end', color: 'orange'}} />
+                        : null
+                    }
+                </View>
+                <Image
+                  style={{
+                    height: sizeHeight(17),
+                    width: sizeWidth(36),
+                    resizeMode: 'center',
                     borderRadius: sizeWidth(3),
+                    alignSelf: 'center',
+                    marginTop: -20,
+                    padding: 15,
                   }}
                   source={item?.pictureFileId !== null ? {
                     uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${random}`,
@@ -564,16 +585,7 @@ const AddCategory = ({ }: StackNavigationProps<
                     headers: { Authorization: store.getState().authReducer.user.accessToken }
                   } :
                     require('../../.././assets/images/no.png')
-                  }>
-                  {
-                    item?.type === 'ADMIN'
-                      ? <Icon
-                        name='shield-sharp'
-                        size={sizeHeight(3)}
-                        style={{ width: '20%', alignSelf: 'flex-end', color: 'orange' }} />
-                      : null
-                  }
-                </ImageBackground>
+                  }/>
                 
                 <Text style={{ fontSize: fontSize(5), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item?.name}</Text>
               </View>
@@ -617,14 +629,14 @@ const AddCategory = ({ }: StackNavigationProps<
       <Modal
         visible={visible}
         style={{
-          backgroundColor: '#ADDDDC',
+          backgroundColor: '#C1EBEA',
           borderRadius: 15,
           height: 250,
-          marginTop: 540,
+          marginTop: sizeHeight(42),
           // alignSelf:'flex-start',
           width: '90%',
           marginHorizontal: 20,
-
+          // marginBottom: 
         }}
         onDismiss={() => {
           //  setShow(false)
