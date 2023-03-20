@@ -3,7 +3,7 @@ import { Container, TouchableOpacity } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens } from 'routers/ScreenNames';
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
-import { Text,View, Image, ScrollView, KeyboardAvoidingView,FlatList, PermissionsAndroid, TextInput} from 'react-native';
+import { Text,View, Image, ScrollView, KeyboardAvoidingView,FlatList, PermissionsAndroid, TextInput, ImageBackground} from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import { AddWordForUser, DeleteWord, GetWordByCateID, UpdateWord } from 'network/subs/auth/recording/RecordingRequest';
@@ -408,7 +408,7 @@ const AddWord = ({}: StackNavigationProps<
             height: '70%',
             marginTop: sizeHeight(20),
             width: '90%',
-            marginHorizontal: 20, 
+            marginHorizontal: 20,
           }}
           onDismiss={props.onDismiss}
         >
@@ -495,7 +495,14 @@ const AddWord = ({}: StackNavigationProps<
                 >
                   <Text style={{fontSize:15, color:'#2D5672'}}>Nội dung từ: </Text>
                   <TextInput
-                    style={{ height: sizeHeight(7), width: '100%', borderRadius: 5, borderWidth: 1, borderColor:'#60A2C8', marginTop:10}}
+                    style={{ 
+                      height: sizeHeight(7), 
+                      width: '100%', 
+                      borderRadius: 5, 
+                      borderWidth: 1, 
+                      borderColor:'#60A2C8', 
+                      marginTop:10
+                    }}
                     defaultValue={value}
                     onChangeText={(e)=>handleType(e)}
                   />
@@ -510,7 +517,7 @@ const AddWord = ({}: StackNavigationProps<
   return (
     <Container style={{backgroundColor: 'white'}}>
       <HeaderWithBack
-        title={'Thêm từ'}
+        title={'Từ vựng'}
         titleStyle={{
           color: colors.header_title,
           marginLeft: '7%'
@@ -576,7 +583,8 @@ const AddWord = ({}: StackNavigationProps<
                 borderWidth: item?.isActive ? 0 : 2
               }}
             >
-              <Image
+              
+              <ImageBackground
                 style={{
                   resizeMode: 'stretch',
                   height: '80%',
@@ -589,7 +597,17 @@ const AddWord = ({}: StackNavigationProps<
                   method: 'GET',
                   headers: { Authorization: store.getState().authReducer.user.accessToken }
                 }}
-              />
+              >
+                {
+                  item?.type === 'ADMIN'
+                    ? <Icon
+                      name='shield-sharp'
+                      size={sizeHeight(3)}
+                      style={{ width: '20%', alignSelf: 'flex-end', color: 'orange' }} />
+                    : null
+                }
+              </ImageBackground>
+              
               <Text style={{ fontSize: fontSize(5), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item?.word}</Text>
             </TouchableOpacity>
           )}
