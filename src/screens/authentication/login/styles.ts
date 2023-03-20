@@ -26,7 +26,8 @@ export default StyleSheet.create({
     paddingVertical: ratioW(18),
     borderTopRightRadius: ratioW(20),
     borderTopLeftRadius: ratioW(20),
-    height: '50%'
+    height: '50%',
+    alignSelf: 'center'
   },
   viewTextInput: {
     marginBottom: ratioW(18),

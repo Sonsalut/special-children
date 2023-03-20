@@ -572,7 +572,7 @@ const AddWord = ({}: StackNavigationProps<
               activeOpacity={0.7}
               style={{
                 width: sizeWidth(40),
-                height: sizeHeight(25),
+                height: sizeHeight(23),
                 borderRadius: 10,
                 marginHorizontal: 9,
                 alignSelf: 'center',
@@ -583,32 +583,45 @@ const AddWord = ({}: StackNavigationProps<
                 borderWidth: item?.isActive ? 0 : 2
               }}
             >
+              <View>
+                <View 
+                  style={{
+                    marginHorizontal: -10,
+                    width: '100%',
+                    height: sizeHeight(3),
+                    alignSelf: 'flex-end',
+                    paddingRight: 5,
+                  }}
+                >
+                  {
+                    item?.type === 'ADMIN'
+                      ? <Icon
+                        name='shield-sharp'
+                        size={sizeHeight(3), sizeWidth(6)}
+                        style={{alignSelf: 'flex-end', color: 'orange'}} />
+                      : null
+                  }
+                </View>
               
-              <ImageBackground
+              <Image
                 style={{
-                  resizeMode: 'stretch',
-                  height: '80%',
-                  width: '100%',
-                  marginTop: '1%',
-                  borderRadius: sizeWidth(3),
+                  height: sizeHeight(17),
+                    width: sizeWidth(36),
+                    resizeMode: 'center',
+                    borderRadius: sizeWidth(3),
+                    alignSelf: 'center',
+                    marginTop: -20,
+                    padding: 15,
                 }}
                 source={{
                   uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${random}`,
                   method: 'GET',
                   headers: { Authorization: store.getState().authReducer.user.accessToken }
                 }}
-              >
-                {
-                  item?.type === 'ADMIN'
-                    ? <Icon
-                      name='shield-sharp'
-                      size={sizeHeight(3)}
-                      style={{ width: '20%', alignSelf: 'flex-end', color: 'orange' }} />
-                    : null
-                }
-              </ImageBackground>
+              />
               
               <Text style={{ fontSize: fontSize(5), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item?.word}</Text>
+            </View>
             </TouchableOpacity>
           )}
         />
@@ -619,7 +632,7 @@ const AddWord = ({}: StackNavigationProps<
        <Modal
         visible={visible}
         style={{
-          backgroundColor: '#ADDDDC',
+          backgroundColor: '#C1EBEA',
           borderRadius: 15,
           height: 250,
           marginTop: sizeHeight(42),

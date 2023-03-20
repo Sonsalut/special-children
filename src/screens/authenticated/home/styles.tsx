@@ -40,8 +40,8 @@ export default StyleSheet.create({
     height: '80%',
     width: '100%',
     marginTop: '1%',
-
     borderRadius: sizeWidth(3),
+    
   },
   categoryText: {
     fontSize: fontSize(5),
