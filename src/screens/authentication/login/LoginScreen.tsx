@@ -34,9 +34,8 @@ const LoginScreen = ({ }: StackNavigationProps<
 
                 <ImageBackground
                   source={require('../../../assets/images/AIS-Learning.png')}
-                  style={{height: '95%', width: '100%', justifyContent: 'flex-end'}}
+                  style={{height: '90%', width: '100%', justifyContent: 'flex-end'}}
                 >
-                
                   <View style={styles.form}>
                     <Controller
                       control={control}
