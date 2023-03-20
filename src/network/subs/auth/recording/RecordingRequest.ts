@@ -47,7 +47,8 @@ export type AddCategoryForUser = {
    
     name:string,
     description:string
-    data:FormData
+    data:FormData,
+    isActive: boolean
 
  };
 export type UpdateCategory = {

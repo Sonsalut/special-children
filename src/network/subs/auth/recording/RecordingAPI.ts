@@ -150,14 +150,6 @@ class RecodingApi {
             },
         });
     }
-    SetStatusCategory<T>(params: CategoryStatus) {
-        return Api.request<T>({
-            options: {
-                method: METHOD.PUT,
-                url: AuthApis.SetCateforyStatus+`?ids=${params.id}&status=${params.status}`
-            },
-        });
-    }
     AddCategoryForUser<T>(params: AddCategoryForUser) {
         return Api.request({
             special:false,
@@ -165,8 +157,6 @@ class RecodingApi {
                 method: METHOD.POST,
                 url: AuthApis.AddCategory+`?name=${params.name}&desscription=${params.description}`,
                 data:params.data
-        
-
             },
         });
         
@@ -177,18 +167,17 @@ class RecodingApi {
             options: {
                 method: METHOD.PUT,
                 url: AuthApis.UpdateCategory+`?categoryId=${params.id}&name=${params.name}&desscription=${params.description}`,
-            
                 data: !params.isActive? null: params.data
             }, 
         });
     }
     UpdateWord<T>(params: UpdateWord) {
         return Api.request({
-            special:false,
+            special:!params.isActive,
             options: {
                 method: METHOD.PUT,
                 url: AuthApis.UpdateWord+`?wordId=${params.wordId}&categoryId=${params.categoryId}&word=${params.word}&wordAudio=${params.wordAudio}`,
-                data:params.data
+                data:!params.isActive? null: params.data
             },
         });
     }

@@ -27,15 +27,12 @@ const AddCategory = ({ }: StackNavigationProps<
   AuthenticatedScreens.AddCategory
 >) => {
 
-  const [animal, setAnimal] = React.useState([])
-  const [imgBase64, setImgBase64] = React.useState()
-  const [itemData, setItemData] = React.useState(new FormData())
   const [image, setImage] = React.useState("");
   const [value, setValue] = React.useState("");
   const textRef = React.useRef('')
   const [random, setRandom] = React.useState(Math.random())
 
-  
+
   // React.useEffect(() => {
   //   getCategory()
 
@@ -64,26 +61,9 @@ const AddCategory = ({ }: StackNavigationProps<
         console.log('CANCEL')
       }
       else {
-        if (!response.errorMessage) {
-
-          console.log(response.assets)
-          const imageDatas = new FormData()
-          console.log(response.assets)
+        if (!response.errorMessage) {        
           setImage(response?.assets?.[0]?.uri)
           setCameraOptionsVisble(!cameraOptionsVisble)
-          imageDatas.append(
-            "file-image", {
-            uri: response?.assets?.[0]?.uri,
-            name: 'image.png',
-            fileName: 'image',
-            type: 'image/png',
-
-          }
-          )
-          // console.log(imageDatas)
-          setItemData(imageDatas)
-
-
         }
         else {
           console.log("that bai")
@@ -92,49 +72,47 @@ const AddCategory = ({ }: StackNavigationProps<
 
     });
   };
-//Camera permission 
-const requestCameraPermission = async () => {
+  //Camera permission 
+  const requestCameraPermission = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+          {
+            title: "App Camera Permission",
+            message: "App needs access to your camera ",
+            buttonNeutral: "Ask Me Later",
+            buttonNegative: "Cancel",
+            buttonPositive: "OK"
+          }
+        );
 
-  if (Platform.OS === 'android') {
-
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-        {
-          title: "App Camera Permission",
-          message: "App needs access to your camera ",
-          buttonNeutral: "Ask Me Later",
-          buttonNegative: "Cancel",
-          buttonPositive: "OK"
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          console.log("Camera permission given");
+          return true
+        } else {
+          console.log("Camera permission denied");
+          return false
         }
-      );
-
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log("Camera permission given");
-        return true
-      } else {
-        console.log("Camera permission denied");
+      } catch (err) {
+        console.warn(err);
         return false
       }
-    } catch (err) {
-      console.warn(err);
-      return false
     }
-  } 
-  else if (Platform.OS === 'ios') {
-    const granted = await request(PERMISSIONS.IOS.CAMERA);
-    console.log('granted',granted);
-    
-    if (granted === 'granted') {
-      console.log ('Camera permission given');
-      return true;
-    } 
-    else {
-      console.log ('Camera permission denied');
-      return false;
+    else if (Platform.OS === 'ios') {
+      const granted = await request(PERMISSIONS.IOS.CAMERA);
+      console.log('granted', granted);
+
+      if (granted === 'granted') {
+        console.log('Camera permission given');
+        return true;
+      }
+      else {
+        console.log('Camera permission denied');
+        return false;
+      }
     }
-  }
-};
+  };
   const takePhoto = async () => {
 
     if (await requestCameraPermission()) {
@@ -155,7 +133,6 @@ const requestCameraPermission = async () => {
     }
   };
   const [data, setData] = React.useState([])
-  const [datas, setDatas] = React.useState([])
   const [visible, setVisible] = React.useState(false)
   const getCategory = async (values: any) => {
     const response = await RecordingAPI.GetFullCategory<GetFullCategory>({
@@ -194,7 +171,7 @@ const requestCameraPermission = async () => {
     data.filter(item => encodeURIComponent(item?.audioWord.toLowerCase()).includes(encodeURIComponent(searchValue.toLowerCase())))
   )
   const [showDoneIcon, setShowDoneIcon] = React.useState(true)
-  
+
 
   const checkCount = () => {
     let counts = 0
@@ -218,7 +195,7 @@ const requestCameraPermission = async () => {
 
   }
   const [count, setCount] = React.useState(1)
-  
+
   const handleOnclick = (item) => {
     // checkDone()
     // console.log(item)
@@ -235,32 +212,12 @@ const requestCameraPermission = async () => {
       return items
     })
     setData(tmp)
-    // console.log(count)
-    // console.log(tmp) 
-    // console.log(showDoneIcon)
+
   }
   const showToast = useToast()
   const [configModalvisible, setConfigModalvisible] = React.useState(false)
   const handleAddCategory = () => {
     setConfigModalvisible(!configModalvisible)
-  }
-  const setStatusCategory = async (item) => {
-    const response = await RecordingAPI.SetStatusCategory<CategoryStatus>({
-      id: item?.id,
-      status: item?.isActive
-
-    });
-    if (response.status === ResponseCode.SUCCESS) {
-
-      console.log("HIDE SUCCESS")
-      setVisible(!visible)
-      showToast('Xóa thành công', 'success')
-      getCategory()
-    }
-    else {
-      showToast('Bạn không có quyền xóa', 'danger')
-
-    }
   }
 
   const deleteCategory = async (id) => {
@@ -317,12 +274,9 @@ const requestCameraPermission = async () => {
     checkCount()
   }, [data])
 
-  
   // React.useEffect(() => {
   //   setRandom(Math.random())
   // })
-
-
   const ModalCamera = () => {
     return (
       <Modal
@@ -358,28 +312,25 @@ const requestCameraPermission = async () => {
   };
 
   const updateCategory = async (item: any) => {
-  
-    let name=''
-let special= false
+    let name = ''
+    let special = false
     textInputRef.current
       ? name = encodeURIComponent(textInputRef.current)
       : name = encodeURIComponent(item?.name)
-      const imageData = new FormData()
-      if( image!=="")
-      {
-       
-        imageData.append(
-          "file-image", {
-          uri: image,
-          name: 'image.png',
-          fileName: 'image',
-          type: 'image/png',
-        }
-        )
+    const imageData = new FormData()
+    if (image !== "") {
 
-        
+      imageData.append(
+        "file-image", {
+        uri: image,
+        name: 'image.png',
+        fileName: 'image',
+        type: 'image/png',
       }
-     console.log(special)
+      )
+      special= true
+    }
+    //  console.log(special)
     const response = await RecordingAPI.UpdateCategory<UpdateCategory>({
       id: item?.id,
       name: name,
@@ -393,15 +344,12 @@ let special= false
       setEditPopupVisivle(!editPopupVisivle)
       getCategory()
       setImage("")
-      // setItemData(new FormData())
-    setRandom(Math.random())
-    console.log(data.getAll())
-
+      setRandom(Math.random())
     }
     else {
       // console.log(response)
       showToast("ERROR", 'warning')
-      
+
 
     }
   }
@@ -413,21 +361,34 @@ let special= false
   const handleDoneAddCategory = async () => {
     console.log(textInputRef.current)
     let name = encodeURIComponent(textInputRef.current)
+    const imageData = new FormData()
+    if (image !== "") {
+
+      imageData.append(
+        "file-image", {
+        uri: image,
+        name: 'image.png',
+        fileName: 'image',
+        type: 'image/png',
+      }
+      )
+    }
     const response = await RecordingAPI.AddCategoryForUser<AddCategoryForUser>({
       name: name,
-      description: '',
-      data: itemData
+      description: 'Add',
+      data: imageData,
+      isActive: true,
+
     })
     if (response.status === 200) {
       showToast("Thêm thành công", 'success')
       setConfigModalvisible(!configModalvisible)
-      setItemData(new FormData())
       setImage("")
       getCategory()
+      textInputRef.current=null
 
     }
-    else
-    {
+    else {
       showToast("Từ không hợp lệ", 'danger')
     }
 
@@ -487,7 +448,7 @@ let special= false
                   onChangeText={(e) => handleType(e)}
                 />
               </View>
-           
+
             </View>
           </KeyboardAvoidingView>
         </ScrollView>
@@ -577,7 +538,7 @@ let special= false
                   source={item?.pictureFileId !== null ? {
                     uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${random}`,
                     method: 'GET',
-                    
+
                     headers: { Authorization: store.getState().authReducer.user.accessToken }
                   } :
                     require('../../.././assets/images/no.png')
@@ -606,7 +567,7 @@ let special= false
           : {
             uri: ApiConstants.HOST + `ext/files/download?id=${personData?.pictureFileId}&file-size=ORIGINAL&${random}`,
             method: 'GET',
-            
+
             headers: { Authorization: store.getState().authReducer.user.accessToken }
           }
         }

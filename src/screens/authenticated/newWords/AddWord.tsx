@@ -60,16 +60,6 @@ const AddWord = ({}: StackNavigationProps<
           console.log(response.assets)
           setImage(response?.assets?.[0]?.uri)
           setCameraOptionsVisble(!cameraOptionsVisble)
-          imageDatas.append(
-            "file-image", {
-            uri: response?.assets?.[0]?.uri,
-            name: 'image.png',
-            fileName: 'image',
-            type: 'image/png',
-          }
-          )
-          // console.log(imageData.getParts())
-          setItemData(imageDatas)
         }
         else {
           console.log("that bai")
@@ -166,16 +156,6 @@ const AddWord = ({}: StackNavigationProps<
             console.log(response.assets)
             setImage(response?.assets?.[0]?.uri)
             setCameraOptionsVisble(!cameraOptionsVisble)
-            imageData.append(
-              "file-image", {
-              uri: response?.assets?.[0]?.uri,
-              name: 'image.png',
-              fileName: 'image',
-              type: 'image/png',
-            }
-            )
-            // console.log(imageData.getParts())
-            setItemData(imageData)
           }
           else {
             console.log(response.errorMessage)
@@ -197,11 +177,7 @@ const AddWord = ({}: StackNavigationProps<
         isActive: true
     });
     if (response.status === ResponseCode.SUCCESS) {
-
-        // console.log(response.data)
         setData(response.data?.words)
-        
-        // dispatch(setStorage(response.data?.words))
     }
     else {
         console.log('that bai')
@@ -298,19 +274,32 @@ const AddWord = ({}: StackNavigationProps<
   }
 
 //block sửa từ start
-  const updateWord = async (item: any, data: FormData) => {
+  const updateWord = async (item: any) => {
     let name = ''
+    let special = false
     textInputRef.current
       ? name = encodeURIComponent(textInputRef.current)
       : name = encodeURIComponent(item?.word)
-    console.log(item)
+      const imageData = new FormData()
+      if (image !== "") {
+  
+        imageData.append(
+          "file-image", {
+          uri: image,
+          name: 'image.png',
+          fileName: 'image',
+          type: 'image/png',
+        }
+        )
+      special= true
+      }
     const response = await RecordingAPI.UpdateWord<UpdateWord>({
       wordId: item?.id,
       categoryId: item?.category?.id,
-      word: 'aaaa',
-      wordAudio: 'aaaa',
-      isActive: true,
-      data: data
+      word: name,
+      wordAudio: name,
+      isActive: special,
+      data: imageData
     })
     if (response.status === 200) {
       console.log(" Update SUCCESS")
@@ -326,7 +315,6 @@ const AddWord = ({}: StackNavigationProps<
     }
   }
   //block sửa từ end
-
   const textInputRef = React.useRef(null);
   const handleType = (e) => {
     textInputRef.current = e
@@ -361,9 +349,7 @@ const AddWord = ({}: StackNavigationProps<
       else {
         setShowDoneIcon(true)
         setCount(0)
-  
       }
-  
     }
     const [count, setCount] = React.useState(1)
     const handleOnclick=(item)=>{
@@ -382,26 +368,34 @@ const AddWord = ({}: StackNavigationProps<
       setData(tmp)
     }
     const handleDoneEdit = ()=>{
-      updateWord(personData, itemData)
+      updateWord(personData)
     }
-    const addWord = async (data) => {
+    const handleDoneAdd =async  () => {
+      const imageData = new FormData()
+    if (image !== "") {
+
+      imageData.append(
+        "file-image", {
+        uri: image,
+        name: 'image.png',
+        fileName: 'image',
+        type: 'image/png',
+      }
+      )
+    }
       const response = await RecordingAPI.AddWord<AddWordForUser>({
         categoryId: id,
         word:encodeURIComponent(textInputRef.current),
         wordAudio:encodeURIComponent(textInputRef.current),
-        data:data
+        data:imageData
       })
       if(response.status===200)
       {
-        showToast("Thay đổi thành công", 'success')
+        showToast("Thêm thành công", 'success')
       setConfigModalvisible(!configModalvisible)
       setImage("")
-
       loadData()
       }
-    }
-    const handleDoneAdd =  () => {
-      addWord(itemData)
     }
 
     const AddEditModal = (props) => {
