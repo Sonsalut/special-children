@@ -38,7 +38,9 @@ const RecordingScreen = ({ route, navigation }: any) => {
     const [show, setShow] = React.useState(false);
     const [content, setContent] = React.useState("");
     const [data, setData] = React.useState<any>([])
-
+    const [animal, setAnimal] = React.useState([])
+    const [imgBase64, setImgBase64] = React.useState()
+    const [item, setItem] = React.useState()
     React.useEffect(() => {
         navigation.setOptions({ headerTitle: `${route?.params?.data?.name}` })
         dispatch(getCateId(route?.params?.data?.id))
