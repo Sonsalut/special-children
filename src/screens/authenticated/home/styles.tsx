@@ -36,7 +36,7 @@ export default StyleSheet.create({
 
   },
   imageCategory: {
-    resizeMode: 'stretch',
+    resizeMode: 'contain',
     height: '80%',
     width: '100%',
     marginTop: '1%',
