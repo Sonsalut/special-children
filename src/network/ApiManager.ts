@@ -173,6 +173,8 @@ class ApiClient {
         return Promise.reject();
       },
        async error => {
+        const originalRequest = error.config;
+
         if (error?.response?.status &&(error.response?.status === ResponseCode.UNAUTHORIZED)) {
           const _refresh_token = store.getState().authReducer.user?.refreshToken;
           if (!_refresh_token) {
@@ -193,6 +195,8 @@ class ApiClient {
                   refreshToken: _refresh_token,
                 })
               )
+              originalRequest.headers['Authorization'] = `Bearer ${accessToken}`
+              return axios(originalRequest)
          
         }
       }
@@ -250,8 +254,6 @@ class ApiClient {
           response.status === ResponseCode.UNAUTHORIZED
         ) {
           response.message = error?.message;
-          
-         
         }
 
         if (!ignoreHandleCommonError) {
