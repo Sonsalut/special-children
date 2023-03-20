@@ -39,13 +39,16 @@ const StorageWord = ({ }: StackNavigationProps<
     }
 
   }
+
+  
   const isFocused = useIsFocused();
 
   React.useEffect(() => {
+    
     getStorageWords()
   
     
-  }, [isFocused])
+  }, [isFocused===true])
   
   ;
   const handle = () => {

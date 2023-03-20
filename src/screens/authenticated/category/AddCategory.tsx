@@ -33,10 +33,7 @@ const AddCategory = ({ }: StackNavigationProps<
   const [random, setRandom] = React.useState(Math.random())
 
 
-  // React.useEffect(() => {
-  //   getCategory()
-
-  // }, [])
+ 
   const MAX_IMAGE_WIDTH = 480;
   const MAX_IMAGE_HEIGHT = 480;
   const IMAGE_QUALITY = 60;
@@ -272,11 +269,10 @@ const AddCategory = ({ }: StackNavigationProps<
   React.useEffect(() => {
     checkDone()
     checkCount()
+
   }, [data])
 
-  // React.useEffect(() => {
-  //   setRandom(Math.random())
-  // })
+ 
   const ModalCamera = () => {
     return (
       <Modal

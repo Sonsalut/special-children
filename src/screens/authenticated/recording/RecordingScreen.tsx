@@ -45,13 +45,11 @@ const RecordingScreen = ({ route, navigation }: any) => {
         navigation.setOptions({ headerTitle: `${route?.params?.data?.name}` })
         dispatch(getCateId(route?.params?.data?.id))
         loadData();
-
-        // console.log(route?.params?.data?.name?.id)
     }, [])
     const isFocused = useIsFocused()
     React.useEffect(() => {
         loadData();
-    }, [isFocused])
+    }, [isFocused===true])
 
     const handle = () => {
         setShow(!show)
