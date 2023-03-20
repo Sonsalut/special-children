@@ -284,7 +284,7 @@ const AddCategory = ({ }: StackNavigationProps<
         visible={cameraOptionsVisble}
 
         style={{
-          backgroundColor: '#ADDDDC',
+          backgroundColor: '#E7F6FF',
           borderRadius: 15,
           height: 200,
           marginTop: sizeHeight(46),
@@ -398,7 +398,7 @@ const AddCategory = ({ }: StackNavigationProps<
       <Modal
         visible={props.visible}
         style={{
-          backgroundColor: '#C1EBEA',
+          backgroundColor: '#E7F6FF',
           borderRadius: 15,
           height: '70%',
           marginTop: sizeHeight(20),
@@ -537,7 +537,7 @@ const AddCategory = ({ }: StackNavigationProps<
               activeOpacity={0.7}
               style={{
                 width: sizeWidth(40),
-                height: sizeHeight(22),
+                height: sizeHeight(25),
                 borderRadius: 10,
                 marginHorizontal: 9,
                 alignSelf: 'center',
@@ -554,7 +554,7 @@ const AddCategory = ({ }: StackNavigationProps<
                   style={{
                     marginHorizontal: -10,
                     width: '100%',
-                    height: sizeHeight(3),
+                    height: sizeHeight(4),
                     alignSelf: 'flex-end',
                     paddingRight: 5,
                   }}
@@ -570,9 +570,9 @@ const AddCategory = ({ }: StackNavigationProps<
                 </View>
                 <Image
                   style={{
-                    height: sizeHeight(17),
-                    width: sizeWidth(36),
-                    resizeMode: 'center',
+                    height: sizeHeight(18),
+                    width: sizeWidth(32),
+                    resizeMode: 'contain',
                     borderRadius: sizeWidth(3),
                     alignSelf: 'center',
                     marginTop: -20,
