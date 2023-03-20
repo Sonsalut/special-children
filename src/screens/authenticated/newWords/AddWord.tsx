@@ -615,7 +615,7 @@ const AddWord = ({}: StackNavigationProps<
         </View>
         
 
-      {/* Choice table */}
+      {/* Choice tab */}
        <Modal
         visible={visible}
         style={{

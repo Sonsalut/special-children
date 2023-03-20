@@ -298,8 +298,8 @@ const AddCategory = ({ }: StackNavigationProps<
 
         }}
       >
-        <Menu.Item titleStyle={{ fontSize: 18 }} leadingIcon="camera" onPress={takePhoto} title="Chụp ảnh" />
-        <Menu.Item titleStyle={{ fontSize: 18 }} leadingIcon="store-settings" onPress={chooseImage} title="Chọn ảnh từ thư viện" />
+        <Menu.Item titleStyle={{ fontSize: 18, color:'#2D5672' }} leadingIcon="camera" onPress={takePhoto} title="Chụp ảnh" />
+        <Menu.Item titleStyle={{ fontSize: 18, color:'#2D5672' }} leadingIcon="store-settings" onPress={chooseImage} title="Chọn ảnh từ thư viện" />
         <Menu.Item titleStyle={{ color: 'red', fontSize: 18 }} leadingIcon="archive-cancel" onPress={() => setCameraOptionsVisble(!cameraOptionsVisble)} title="Hủy bỏ" />
       </Modal>
 
@@ -417,7 +417,7 @@ const AddCategory = ({ }: StackNavigationProps<
               <TouchableOpacity onPress={props.cancel}>
                 <Text style={{ fontSize: 15, color: 'red' }}>Hủy bỏ</Text>
               </TouchableOpacity>
-              <Text style={{ fontSize: 20, color: 'black', fontWeight: "400", paddingRight: 20 }}>{props.title}</Text>
+              <Text style={{ fontSize: 20, color:'#2D5672', fontWeight: "400", paddingRight: 20 }}>{props.title}</Text>
               <TouchableOpacity isDoubleTap={true} onPress={props.handleSubmit}>
                 <Icon name="checkmark-outline" size={sizeHeight(3)} />
               </TouchableOpacity>
@@ -425,7 +425,16 @@ const AddCategory = ({ }: StackNavigationProps<
             {/* content */}
             <View style={{ width: '90%', justifyContent: 'space-around', height: sizeHeight(63), alignSelf: 'center', paddingBottom: 15, bottom: 15 }}>
               <TouchableOpacity onPress={handleUpImage}>
-                <View style={{ borderWidth: 1, width: '90%', borderRadius: 5, alignSelf: 'center', alignItems: 'center', height: sizeHeight(32) }}>
+                <View 
+                  style={{ 
+                    borderWidth: 1, 
+                    width: '90%', 
+                    borderRadius: 5, 
+                    alignSelf: 'center', 
+                    alignItems: 'center', 
+                    height: sizeHeight(32),
+                    borderColor: '#60A2C8'
+                  }}>
                   <Image
                     style={{
                       resizeMode: 'stretch',
@@ -439,10 +448,20 @@ const AddCategory = ({ }: StackNavigationProps<
                   />
                 </View>
               </TouchableOpacity>
-              <View style={{ width: '90%', alignSelf: 'center', height: sizeHeight(10) }}>
-                <Text style={{ fontSize: 15, color: 'black' }}>Tên chủ đề: </Text>
+              <View 
+                style={{ 
+                  width: '90%', 
+                  alignSelf: 'center', 
+                  height: sizeHeight(10)}}>
+                <Text 
+                  style={{ fontSize: 15, color: '#2D5672' }}>Tên chủ đề: </Text>
                 <TextInput
-                  style={{ height: sizeHeight(7), width: '100%', borderRadius: 5, borderWidth: 1 }}
+                  style={{ 
+                    height: sizeHeight(7), 
+                    width: '100%', borderRadius: 5, 
+                    borderWidth: 1, 
+                    borderColor:'#60A2C8' 
+                  }}
                   // onChangeText={(text) => handleType(text)}
                   defaultValue={value}
                   onChangeText={(e) => handleType(e)}
@@ -567,7 +586,8 @@ const AddCategory = ({ }: StackNavigationProps<
       </View>
       {/* Popup Edit chủ đề */}
 
-      <AddEditModal title={"Chỉnh sửa chủ đề"}
+      <AddEditModal 
+        title={"Chỉnh sửa chủ đề"}
         visible={editPopupVisivle}
         onDismiss={() => {
           setEditPopupVisivle(!editPopupVisivle)
@@ -613,11 +633,11 @@ const AddCategory = ({ }: StackNavigationProps<
       >
         {
           count < 2
-            ? <Menu.Item titleStyle={{ fontSize: 18 }} leadingIcon="file-document-edit-outline" onPress={handleEditCategory} title="Chỉnh sửa chủ đề" />
+            ? <Menu.Item titleStyle={{ fontSize: 18, color:'#2D5672' }} leadingIcon="file-document-edit-outline" onPress={handleEditCategory} title="Chỉnh sửa chủ đề" />
             : null
         }
-        <Menu.Item titleStyle={{ fontSize: 18 }} leadingIcon="eye-off-outline" onPress={handleHideCategory} title="Xóa chủ đề" />
-        <Menu.Item titleStyle={{ fontSize: 18 }} leadingIcon="book-check" onPress={() => { }} title="Đánh dấu đã học" />
+        <Menu.Item titleStyle={{ fontSize: 18, color:'#2D5672' }} leadingIcon="eye-off-outline" onPress={handleHideCategory} title="Xóa chủ đề" />
+        <Menu.Item titleStyle={{ fontSize: 18, color:'#2D5672' }} leadingIcon="book-check" onPress={() => { }} title="Đánh dấu đã học" />
         <Menu.Item titleStyle={{ color: 'red', fontSize: 18 }} leadingIcon="archive-cancel" onPress={handleCancel} title="Hủy bỏ" />
       </Modal>
 
