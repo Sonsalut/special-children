@@ -238,7 +238,7 @@ const AddWord = ({}: StackNavigationProps<
       <Modal
         visible={cameraOptionsVisble}
         style={{
-          backgroundColor: '#ADDDDC',
+          backgroundColor: '#E7F6FF',
           borderRadius: 15,
           height: 200,
           marginTop: sizeHeight(46),
@@ -403,7 +403,7 @@ const AddWord = ({}: StackNavigationProps<
         <Modal
           visible={props.visible}
           style={{
-            backgroundColor: '#C1EBEA',
+            backgroundColor: '#E7F6FF',
             borderRadius: 15,
             height: '70%',
             marginTop: sizeHeight(20),
@@ -572,7 +572,7 @@ const AddWord = ({}: StackNavigationProps<
               activeOpacity={0.7}
               style={{
                 width: sizeWidth(40),
-                height: sizeHeight(23),
+                height: sizeHeight(25),
                 borderRadius: 10,
                 marginHorizontal: 9,
                 alignSelf: 'center',
@@ -588,7 +588,7 @@ const AddWord = ({}: StackNavigationProps<
                   style={{
                     marginHorizontal: -10,
                     width: '100%',
-                    height: sizeHeight(3),
+                    height: sizeHeight(4),
                     alignSelf: 'flex-end',
                     paddingRight: 5,
                   }}
@@ -605,13 +605,13 @@ const AddWord = ({}: StackNavigationProps<
               
               <Image
                 style={{
-                  height: sizeHeight(17),
-                    width: sizeWidth(36),
-                    resizeMode: 'center',
-                    borderRadius: sizeWidth(3),
-                    alignSelf: 'center',
-                    marginTop: -20,
-                    padding: 15,
+                  height: sizeHeight(18),
+                  width: sizeWidth(32),
+                  resizeMode: 'contain',
+                  borderRadius: sizeWidth(3),
+                  alignSelf: 'center',
+                  marginTop: -20,
+                  padding: 15,
                 }}
                 source={{
                   uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${random}`,
@@ -632,7 +632,7 @@ const AddWord = ({}: StackNavigationProps<
        <Modal
         visible={visible}
         style={{
-          backgroundColor: '#C1EBEA',
+          backgroundColor: '#E7F6FF',
           borderRadius: 15,
           height: 250,
           marginTop: sizeHeight(42),
