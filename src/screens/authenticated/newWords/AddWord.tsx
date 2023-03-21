@@ -221,15 +221,25 @@ const AddWord = ({}: StackNavigationProps<
   }
 
   const handleEditCategory = () => {
-    setEditPopupVisivle(!editPopupVisivle)
-    setVisible(!visible)
-    setRandom(Math.random())
+   
+    // setRandom(Math.random())
     let maps = data.map((item) => {
       if (item?.isActive === false) {
-        setPersonData(item)
+        // setPersonData(item)
+        // setValue(item?.word)
+        if (item?.type==="ADMIN") {
+          showToast("Bạn không thể chỉnh sửa mục này",'warning')
+        } else {
+          setEditPopupVisivle(!editPopupVisivle)
+          setVisible(!visible)
+          setPersonData(item)
         setValue(item?.word)
+        textInputRef.current = item?.word
+          
+        } 
       }
     })
+    
   }
 
   // Pop up thêm hình ảnh cho từ mới

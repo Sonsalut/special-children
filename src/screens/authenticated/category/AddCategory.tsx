@@ -245,18 +245,28 @@ const AddCategory = ({ }: StackNavigationProps<
   }
   const [editPopupVisivle, setEditPopupVisivle] = React.useState(false)
   const [personData, setPersonData] = React.useState([])
+  
   const handleEditCategory = () => {
-    setEditPopupVisivle(!editPopupVisivle)
-    setVisible(!visible)
-    setRandom(Math.random())
+    
+      
     let maps = data.map((item) => {
       if (item?.isActive === false) {
-        setPersonData(item)
+        if (item?.type==="ADMIN") {
+          showToast("Bạn không thể chỉnh sửa mục này",'warning')
+        } else {
+          setEditPopupVisivle(!editPopupVisivle)
+          setVisible(!visible)
+          setPersonData(item)
         setValue(item?.name)
         textInputRef.current = item?.name
+          
+        } 
+        
+        
 
       }
     })
+    // console.log(personData)
   }
   const [cameraOptionsVisble, setCameraOptionsVisble] = React.useState(false)
   const handleUpImage = () => {
