@@ -642,7 +642,7 @@ const AddWord = ({}: StackNavigationProps<
        <Modal
         visible={visible}
         style={{
-          backgroundColor: '#E7F6FF',
+          backgroundColor: '#C1EBEA',
           borderRadius: 15,
           height: 250,
           marginTop: sizeHeight(42),
