@@ -12,7 +12,7 @@ export default StyleSheet.create({
     height: sizeHeight(90),
     width: '95%',
     alignSelf: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
 
   },
   searchBar: {
@@ -20,7 +20,7 @@ export default StyleSheet.create({
     width: sizeWidth(80),
     borderWidth: 1,
     borderColor: 'gray',
-    marginTop: 2
+    marginTop: 15
 
   },
   categoryCards: {
@@ -29,7 +29,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 9,
     alignSelf: 'center',
-    marginTop: 30,
+    marginTop: 20,
     paddingHorizontal: 10,
     backgroundColor: '#C1EBEA',
     paddingTop: 5,

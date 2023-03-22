@@ -186,7 +186,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                     {
                         shows ?
                             <Searchbar
-                                style={{ height: 40, width: sizeWidth(80), borderWidth: 1, borderColor: 'gray', marginTop: 5 }}
+                                style={{ height: 40, width: sizeWidth(80), borderWidth: 1, borderColor: 'gray', marginTop: 15 }}
                                 placeholder="Tìm kiếm"
                                 placeholderTextColor={'gray'}
                                 value={searchValue}
@@ -195,7 +195,15 @@ const RecordingScreen = ({ route, navigation }: any) => {
                             />
                             : null
                     }
-                    <View style={{ width: sizeWidth(90), height: sizeHeight(90), alignItems: 'center', alignSelf: 'center' }}>
+                    <View 
+                        style={{ 
+                            width: sizeWidth(90), 
+                            height: sizeHeight(90), 
+                            alignItems: 'flex-start', 
+                            alignSelf: 'center', 
+                            paddingTop:20
+                        }}
+                    >
                         <FlatList
                             data={filterData()}
                             keyExtractor={(_, index) => index.toString()}
@@ -218,9 +226,11 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                         height: sizeHeight(23),
                                         borderRadius: 10,
                                         marginHorizontal: 12,
-                                        marginTop: 10,
+                                        marginTop: 0,
                                         backgroundColor: '#C1EBEA',
                                         alignItems: 'center',
+                                        alignSelf: 'flex-start',
+                                        paddingTop: 5,
                                     }}
                                     onPress={() => { chooseWord(item, index) }}>
                                     <Image
@@ -253,7 +263,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                     height: 450,
                     marginTop: sizeHeight(15),
                     width: '90%',
-                    marginHorizontal: 20
+                    marginHorizontal: 20,
                 }}
                 onDismiss={() => {
                     setShow(false)
@@ -293,7 +303,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                             <TouchableOpacity onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
                                                 <Image style={{
                                                     resizeMode: 'contain',
-                                                    height: sizeHeight(60), width: sizeWidth(60),
+                                                    height: sizeHeight(60), width: sizeWidth(80),
                                                     alignSelf: 'center',
                                                     borderRadius: sizeWidth(14),
                                                     maxHeight: 300

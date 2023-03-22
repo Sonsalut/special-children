@@ -555,10 +555,10 @@ const AddWord = ({}: StackNavigationProps<
       <View 
         style={{ 
           height: sizeHeight(85), 
-          width: '95%', 
+          width: '89%', 
           alignSelf: 'center', 
-          alignItems: 'center', 
-          marginTop: 10
+          alignItems: 'flex-start',
+          marginTop:15
         }}
       >
         <FlatList
@@ -581,19 +581,25 @@ const AddWord = ({}: StackNavigationProps<
               isDoubleTap={true}
               activeOpacity={0.7}
               style={{
-                width: sizeWidth(40),
-                height: sizeHeight(25),
+                width: sizeWidth(38),
+                marginVertical: 15,
+                height: sizeHeight(23),
                 borderRadius: 10,
-                marginHorizontal: 9,
-                alignSelf: 'center',
-                marginTop: 30,
-                paddingHorizontal: 10,
+                marginHorizontal: 12,
+                marginTop: 0,
                 backgroundColor: '#C1EBEA',
-                paddingTop: 5,
+                alignItems: 'center',
+                alignSelf: 'flex-start',
+                // width: sizeWidth(40),
+                // height: sizeHeight(25),
+                // borderRadius: 10,
+                // marginTop: 20,marginHorizontal:10,
+                // backgroundColor: '#C1EBEA',
+                // marginHorizontal: sizeWidth(4),
                 borderWidth: item?.isActive ? 0 : 2
               }}
             >
-              <View>
+              <View >
                 <View 
                   style={{
                     marginHorizontal: -10,
