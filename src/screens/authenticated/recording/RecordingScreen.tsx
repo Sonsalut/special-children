@@ -227,6 +227,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                         borderRadius: 10,
                                         marginHorizontal: 12,
                                         marginTop: 0,
+                                        paddingHorizontal:5,
                                         backgroundColor: '#C1EBEA',
                                         alignItems: 'center',
                                         alignSelf: 'flex-start',
@@ -247,7 +248,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                             headers: { Authorization: store.getState().authReducer.user.accessToken }
                                         }}
                                     />
-                                    <Text style={{ marginTop: 10, fontSize: fontSize(6), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item.word}</Text>
+                                    <Text style={{ marginTop: 10, fontSize: fontSize(4.5), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item.word}</Text>
                                 </TouchableOpacity>
                             )}
                         />

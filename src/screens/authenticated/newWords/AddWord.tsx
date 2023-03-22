@@ -515,6 +515,7 @@ const AddWord = ({}: StackNavigationProps<
                     }}
                     defaultValue={value}
                     onChangeText={(e)=>handleType(e)}
+                    maxLength={14}
                   />
                 </View>
               </View>
@@ -590,12 +591,6 @@ const AddWord = ({}: StackNavigationProps<
                 backgroundColor: '#C1EBEA',
                 alignItems: 'center',
                 alignSelf: 'flex-start',
-                // width: sizeWidth(40),
-                // height: sizeHeight(25),
-                // borderRadius: 10,
-                // marginTop: 20,marginHorizontal:10,
-                // backgroundColor: '#C1EBEA',
-                // marginHorizontal: sizeWidth(4),
                 borderWidth: item?.isActive ? 0 : 2
               }}
             >
@@ -636,7 +631,7 @@ const AddWord = ({}: StackNavigationProps<
                 }}
               />
               
-              <Text style={{ fontSize: fontSize(5), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item?.word}</Text>
+              <Text style={{ fontSize: fontSize(4.5), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item?.word}</Text>
             </View>
             </TouchableOpacity>
           )}
@@ -654,7 +649,6 @@ const AddWord = ({}: StackNavigationProps<
           marginTop: sizeHeight(42),
           width: '90%',
           marginHorizontal: 20,
-          
 
         }}
         onDismiss={() => {

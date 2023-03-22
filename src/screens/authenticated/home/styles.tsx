@@ -24,13 +24,12 @@ export default StyleSheet.create({
 
   },
   categoryCards: {
-    width: sizeWidth(40),
+    width: sizeWidth(41),
     height: sizeHeight(25),
     borderRadius: 10,
     marginHorizontal: 9,
     alignSelf: 'center',
     marginTop: 20,
-    paddingHorizontal: 10,
     backgroundColor: '#C1EBEA',
     paddingTop: 5,
 
@@ -38,15 +37,17 @@ export default StyleSheet.create({
   imageCategory: {
     resizeMode: 'contain',
     height: '80%',
-    width: '100%',
+    width: '80%',
+    alignSelf: 'center',
     marginTop: '1%',
     borderRadius: sizeWidth(3),
     
   },
   categoryText: {
-    fontSize: fontSize(5),
+    fontSize: fontSize(4.5),
     alignSelf: 'center',
     fontWeight: 'bold',
+    marginTop: '5%',
     color: '#2D5672'
   }
 });
