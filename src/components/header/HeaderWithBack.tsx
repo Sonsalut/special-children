@@ -79,9 +79,9 @@ const HeaderWithBack = ({
               <Image 
                 resizeMode='contain' 
                 style={{
-                  width:sizeWidth(4), 
-                  height:sizeHeight(3)}} 
-                  source={hasDone?images.done : images.action} 
+                  width:sizeWidth(5), 
+                  height:sizeHeight(5)}} 
+                  source={hasDone? null: images.action} 
               />
             </TouchableOpacity> 
             : null

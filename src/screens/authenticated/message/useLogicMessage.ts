@@ -9,6 +9,7 @@ import { Alert } from 'react-native';
 import { useToast } from 'hooks/useToast';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import ResponseCode from 'network/ResponseCode';
+import { showIcon } from 'redux/storageWord/action';
 
 const useLogicMessage = () => {
     const refPopUp: any = React.useRef(null);
@@ -120,6 +121,7 @@ const handleCancelLogOut=()=>{
 }
 const cofirmHandleLogOut =()=>{
   dispatch(authSlice.actions.logout())
+  dispatch(showIcon())
   NavigationService.navigate(MainScreens.AuthenticationNavigator)
 }
 const handleReturn =()=>{

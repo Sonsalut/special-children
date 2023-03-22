@@ -20,6 +20,9 @@ import { ApiConstants } from 'network/ApiConstants';
 import { Platform } from 'react-native';
 import { PERMISSIONS, request } from 'react-native-permissions';
 import axios from 'axios';
+import ModalCamera from './component/ModalCamera';
+import { CAMERA_OPTION, IMAGE_LIBRARY_OPTION } from './constant';
+import { requestCameraPermission } from './Permission';
 
 
 const AddCategory = ({ }: StackNavigationProps<
@@ -29,31 +32,24 @@ const AddCategory = ({ }: StackNavigationProps<
 
   const [image, setImage] = React.useState("");
   const [value, setValue] = React.useState("");
-  const textRef = React.useRef('')
+  const [data, setData] = React.useState([])
+  const [visible, setVisible] = React.useState(false)
   const [random, setRandom] = React.useState(Math.random())
+  const [cameraOptionsVisble, setCameraOptionsVisble] = React.useState(false)
+  const textInputRef = React.useRef(null);
+  React.useEffect(() => {
+    getCategory()
 
+  }, [])
+  React.useEffect(() => {
+    checkDone()
+    checkCount()
 
- 
-  const MAX_IMAGE_WIDTH = 480;
-  const MAX_IMAGE_HEIGHT = 480;
-  const IMAGE_QUALITY = 60;
-  const IMAGE_LIBRARY_OPTION: any = {
-    mediaType: 'photo',
-    selectionLimit: 1,
-    includeBase64: true
-  };
-
-  const CAMERA_OPTION: ImagePicker.CameraOptions = {
-    mediaType: 'photo',
-    cameraType: 'back',
-    includeBase64: true,
-    quality: 1,
-
-  };
+  }, [data])
 
   const chooseImage = async () => {
     ImagePicker.launchImageLibrary(IMAGE_LIBRARY_OPTION, (response?: any) => {
-
+          
       if (response.didCancel) {
         console.log('CANCEL')
       }
@@ -69,49 +65,8 @@ const AddCategory = ({ }: StackNavigationProps<
 
     });
   };
-  //Camera permission 
-  const requestCameraPermission = async () => {
-    if (Platform.OS === 'android') {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.CAMERA,
-          {
-            title: "App Camera Permission",
-            message: "App needs access to your camera ",
-            buttonNeutral: "Ask Me Later",
-            buttonNegative: "Cancel",
-            buttonPositive: "OK"
-          }
-        );
 
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          console.log("Camera permission given");
-          return true
-        } else {
-          console.log("Camera permission denied");
-          return false
-        }
-      } catch (err) {
-        console.warn(err);
-        return false
-      }
-    }
-    else if (Platform.OS === 'ios') {
-      const granted = await request(PERMISSIONS.IOS.CAMERA);
-      console.log('granted', granted);
-
-      if (granted === 'granted') {
-        console.log('Camera permission given');
-        return true;
-      }
-      else {
-        console.log('Camera permission denied');
-        return false;
-      }
-    }
-  };
   const takePhoto = async () => {
-
     if (await requestCameraPermission()) {
       ImagePicker.launchCamera(CAMERA_OPTION, (response?: any) => {
         if (response.didCancel) {
@@ -129,8 +84,7 @@ const AddCategory = ({ }: StackNavigationProps<
       });
     }
   };
-  const [data, setData] = React.useState([])
-  const [visible, setVisible] = React.useState(false)
+ 
   const getCategory = async (values: any) => {
     const response = await RecordingAPI.GetFullCategory<GetFullCategory>({
       pageIndex: 1,
@@ -145,10 +99,6 @@ const AddCategory = ({ }: StackNavigationProps<
       // console.log(data)
     }
   }
-
-
-  const dispatch = useDispatch()
-  const show = useSelector(store => store.storeReducer.show)
   const handle = () => {
     showDoneIcon
       ? null
@@ -226,7 +176,6 @@ const AddCategory = ({ }: StackNavigationProps<
 
     }
     else {
-      // console.log("HIDE SUCCESS")
       setVisible(!visible)
       showToast('Xóa thành công', 'success')
       getCategory()
@@ -261,57 +210,13 @@ const AddCategory = ({ }: StackNavigationProps<
         textInputRef.current = item?.name
           
         } 
-        
-        
-
       }
     })
-    // console.log(personData)
   }
-  const [cameraOptionsVisble, setCameraOptionsVisble] = React.useState(false)
   const handleUpImage = () => {
     setCameraOptionsVisble(!cameraOptionsVisble)
   }
-  React.useEffect(() => {
-    getCategory()
-
-  }, [])
-  React.useEffect(() => {
-    checkDone()
-    checkCount()
-
-  }, [data])
-
- 
-  const ModalCamera = () => {
-    return (
-      <Modal
-
-        visible={cameraOptionsVisble}
-
-        style={{
-          backgroundColor: '#E7F6FF',
-          borderRadius: 15,
-          height: 200,
-          marginTop: sizeHeight(46),
-          alignSelf: 'center',
-          width: '90%',
-          marginHorizontal: 20,
-
-        }}
-        onDismiss={() => {
-          setCameraOptionsVisble(!cameraOptionsVisble)
-
-        }}
-      >
-        <Menu.Item titleStyle={{ fontSize: 18, color:'#2D5672' }} leadingIcon="camera" onPress={takePhoto} title="Chụp ảnh" />
-        <Menu.Item titleStyle={{ fontSize: 18, color:'#2D5672' }} leadingIcon="store-settings" onPress={chooseImage} title="Chọn ảnh từ thư viện" />
-        <Menu.Item titleStyle={{ color: 'red', fontSize: 18 }} leadingIcon="archive-cancel" onPress={() => setCameraOptionsVisble(!cameraOptionsVisble)} title="Hủy bỏ" />
-      </Modal>
-
-    )
-  }
-  const textInputRef = React.useRef(null);
+  
   const handleType = (e) => {
     textInputRef.current = e
 
@@ -468,19 +373,24 @@ const AddCategory = ({ }: StackNavigationProps<
                     borderWidth: 1, 
                     borderColor:'#60A2C8' 
                   }}
-                  // onChangeText={(text) => handleType(text)}
                   defaultValue={value}
                   onChangeText={(e) => handleType(e)}
                 />
               </View>
-
             </View>
           </KeyboardAvoidingView>
         </ScrollView>
-        <ModalCamera />
+        <ModalCamera
+  visible={cameraOptionsVisble}
+  onDismiss={() => {
+    setCameraOptionsVisble(!cameraOptionsVisble)
+
+  }}
+ takePhoto={takePhoto}
+ chooseImage={chooseImage}
+ cancel={()=>setCameraOptionsVisble(!cameraOptionsVisble)}
+ />
       </Modal>
-
-
     )
   }
 
@@ -642,10 +552,10 @@ const AddCategory = ({ }: StackNavigationProps<
           // alignSelf:'flex-start',
           width: '90%',
           marginHorizontal: 20,
-          // marginBottom: 
+           
         }}
         onDismiss={() => {
-          //  setShow(false)
+          
           setVisible(false)
         }}
       >
@@ -655,7 +565,7 @@ const AddCategory = ({ }: StackNavigationProps<
             : null
         }
         <Menu.Item titleStyle={{ fontSize: 18, color:'#2D5672' }} leadingIcon="eye-off-outline" onPress={handleHideCategory} title="Xóa chủ đề" />
-        <Menu.Item titleStyle={{ fontSize: 18, color:'#2D5672' }} leadingIcon="book-check" onPress={() => { }} title="Đánh dấu đã học" />
+        <Menu.Item titleStyle={{ fontSize: 18, color:'#2D5672' }} leadingIcon="book-check" onPress={() => { showToast("Chưa hỗ trợ",'warning')}} title="Đánh dấu đã học" />
         <Menu.Item titleStyle={{ color: 'red', fontSize: 18 }} leadingIcon="archive-cancel" onPress={handleCancel} title="Hủy bỏ" />
       </Modal>
 
