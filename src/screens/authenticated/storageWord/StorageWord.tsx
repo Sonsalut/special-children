@@ -14,7 +14,7 @@ import { FlatList, RefreshControl } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import colors from 'res/colors';
 import NavigationService from 'routers/NavigationService';
-import { sizeHeight, sizeWidth } from 'utils/Utils';
+import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import { ApiConstants } from 'network/ApiConstants';
 
 
@@ -127,30 +127,33 @@ const styles = StyleSheet.create({
 
   },
   storageView: {
-    width: '90%',
+    width: '95%',
     height: '100%',
     alignSelf: 'center',
     marginTop: 15,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   word: {
-    width: sizeWidth(25),
+    width: sizeWidth(29),
+    height: sizeHeight(17),
     marginVertical: 10,
-    marginHorizontal: 10,
+    marginHorizontal: 5,
     borderRadius: 10,
     paddingTop: 5,
-    height: sizeHeight(16),
     backgroundColor: '#C1EBEA'
   },
   wordImage: {
     resizeMode: 'stretch',
-    height: sizeHeight(11), width: sizeWidth(18),
+    height: '75%',
+    width: sizeWidth(24),
     alignSelf: 'center',
-    borderRadius: 9
+    borderRadius: 10,
   },
   wordText: {
-    fontSize: 15,
+
+    fontSize: fontSize(3.8),
+    marginTop: '5%',
     color: '#2D5672',
     fontWeight: 'bold',
     alignSelf: "center"

@@ -24,8 +24,8 @@ export default StyleSheet.create({
 
   },
   categoryCards: {
-    width: sizeWidth(38),
-    height: sizeHeight(23),
+    width: sizeWidth(42),
+    height: sizeHeight(25),
     borderRadius: 10,
     marginHorizontal: 9,
     alignSelf: 'center',
@@ -35,7 +35,7 @@ export default StyleSheet.create({
 
   },
   imageCategory: {
-    resizeMode: 'contain',
+    resizeMode: 'stretch',
     height: '80%',
     width: '80%',
     alignSelf: 'center',
@@ -47,7 +47,7 @@ export default StyleSheet.create({
     fontSize: fontSize(4.5),
     alignSelf: 'center',
     fontWeight: 'bold',
-    marginTop: '5%',
+    marginTop: '3.5%',
     color: '#2D5672'
   }
 });

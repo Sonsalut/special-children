@@ -343,13 +343,13 @@ const AddCategory = ({ }: StackNavigationProps<
                     borderRadius: 5, 
                     alignSelf: 'center', 
                     alignItems: 'center', 
-                    height: sizeHeight(32),
+                    height: sizeHeight(40),
                     borderColor: '#60A2C8'
                   }}>
                   <Image
                     style={{
                       resizeMode: 'stretch',
-                      height: '85%',
+                      height: '100%',
                       width: '100%',
                       marginTop: '1%',
                       // sizeWidth(39),
@@ -490,7 +490,7 @@ const AddCategory = ({ }: StackNavigationProps<
                   style={{
                     height: sizeHeight(18),
                     width: sizeWidth(32),
-                    resizeMode: 'contain',
+                    resizeMode: 'stretch',
                     borderRadius: sizeWidth(3),
                     alignSelf: 'center',
                     marginTop: -20,
@@ -547,7 +547,7 @@ const AddCategory = ({ }: StackNavigationProps<
       <Modal
         visible={visible}
         style={{
-          backgroundColor: '#C1EBEA',
+          backgroundColor: '#E7F6FF',
           borderRadius: 15,
           height: 250,
           marginTop: sizeHeight(42),
@@ -566,7 +566,7 @@ const AddCategory = ({ }: StackNavigationProps<
             ? <Menu.Item titleStyle={{ fontSize: 18, color:'#2D5672' }} leadingIcon="file-document-edit-outline" onPress={handleEditCategory} title="Chỉnh sửa chủ đề" />
             : null
         }
-        <Menu.Item titleStyle={{ fontSize: 18, color:'#2D5672' }} leadingIcon="eye-off-outline" onPress={handleHideCategory} title="Xóa chủ đề" />
+        <Menu.Item titleStyle={{ fontSize:  18, color:'#2D5672' }} leadingIcon="eye-off-outline" onPress={handleHideCategory} title="Xóa chủ đề" />
         <Menu.Item titleStyle={{ fontSize: 18, color:'#2D5672' }} leadingIcon="book-check" onPress={() => { showToast("Chưa hỗ trợ",'warning')}} title="Đánh dấu đã học" />
         <Menu.Item titleStyle={{ color: 'red', fontSize: 18 }} leadingIcon="archive-cancel" onPress={handleCancel} title="Hủy bỏ" />
       </Modal>
