@@ -66,7 +66,7 @@ export const useLogicJoinWord = () => {
                 newStr = newStr.slice(0, newStr.length - 1)
             }
 
-            console.log(newStr);
+            // console.log(newStr);
 
             setID(newStr)
 
@@ -88,7 +88,7 @@ export const useLogicJoinWord = () => {
             .then((res) => {
                 console.log(res);
                 // console.log("The file saved to ", res.path())
-                console.log("The file saved to ", res.path());
+                // console.log("The file saved to ", res.path());
                 filePath = res.path();
                 SoundPlayer.playUrl('file://' + filePath);
             })
@@ -127,7 +127,7 @@ export const useLogicJoinWord = () => {
 
             if (res) {
                 setStop(false)
-                console.log('success')
+                // console.log('success')
 
             }
         }))

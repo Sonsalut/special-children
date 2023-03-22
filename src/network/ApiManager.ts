@@ -199,9 +199,12 @@ class ApiClient {
               return axios(originalRequest)
          
         }
+        return
       }
-        return Promise.reject(error);
+        return 
       }
+      return Promise.reject(error);
+
     }
     );
 

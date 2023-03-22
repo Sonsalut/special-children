@@ -117,7 +117,7 @@ const AddCategory = ({ }: StackNavigationProps<
   const filterData = () => (
     data.filter(item => encodeURIComponent(item?.audioWord.toLowerCase()).includes(encodeURIComponent(searchValue.toLowerCase())))
   )
-  const [showDoneIcon, setShowDoneIcon] = React.useState(true)
+  const [showDoneIcon, setShowDoneIcon] = React.useState(false)
 
 
   const checkCount = () => {
@@ -404,7 +404,7 @@ const AddCategory = ({ }: StackNavigationProps<
           marginLeft: '7%'
         }}
         outerStyle={{ backgroundColor: colors.title_blue }}
-        rightIconShow={true}
+        rightIconShow={!showDoneIcon}
         hasDone={showDoneIcon}
         handle={handle} />
 

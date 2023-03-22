@@ -72,7 +72,7 @@ const HeaderWithBack = ({
           {title ?? `Header title`}
         </HeaderTitle>
         {rightComponent ?? <View style={{ flex: 0.106 }} />}
-        <ViewCondition isVisible={hasBack} >
+        <ViewCondition isVisible={hasBack} style={{ width:sizeWidth(5), height:sizeHeight(5)}} >
           {
             rightIconShow 
             ?<TouchableOpacity onPress={handle} style={leftIconStyle}>
@@ -81,7 +81,7 @@ const HeaderWithBack = ({
                 style={{
                   width:sizeWidth(5), 
                   height:sizeHeight(5)}} 
-                  source={hasDone? null: images.action} 
+                  source={hasDone? images.done: images.action} 
               />
             </TouchableOpacity> 
             : null

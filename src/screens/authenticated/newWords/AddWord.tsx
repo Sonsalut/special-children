@@ -533,7 +533,7 @@ const AddWord = ({}: StackNavigationProps<
           marginLeft: '7%'
         }}
         outerStyle={{ backgroundColor: colors.title_blue }}
-        rightIconShow={true}
+        rightIconShow={!showDoneIcon}
         hasDone={showDoneIcon}
         handle={handle}
       />

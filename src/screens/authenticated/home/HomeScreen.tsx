@@ -24,7 +24,7 @@ const HomeScreen = ({ }: StackNavigationProps<
   React.useEffect(() => {
     getCategory()
 
-  }, [isFocused===true])
+  }, [isFocused==true])
 
   return (
 

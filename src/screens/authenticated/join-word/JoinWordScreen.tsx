@@ -10,20 +10,21 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useLogicJoinWord } from './useLogicJoinWord';
 import style from './style';
 import { ApiConstants } from 'network/ApiConstants';
+import { RefreshControl } from 'react-native-gesture-handler';
+import colors from 'res/colors';
 
 const JoinWordScreen = ({ }: StackNavigationProps<
     Routes,
     AuthenticatedScreens.RecordingScreen
 >) => {
     const isFocused = useIsFocused();
-    React.useEffect(() => {
-        getStorageWords()
-        //     if(words.length>0)
-        //     {
-        //         setWords([])
-
-        //     }
-        setID('')
+    React.useEffect(() => {    
+            getStorageWords()
+         
+            setID('')
+            setWords([])
+        
+        
     }, [])
     const {
         id,
@@ -39,17 +40,32 @@ const JoinWordScreen = ({ }: StackNavigationProps<
         playSimpleSound,
         playSound,
         getStorageWords, } = useLogicJoinWord()
+        const [refresh, setRefresh] = React.useState(false)
+        const onRefresh =()=>{
+            setRefresh(true);
+        setTimeout(() => {
+          setRefresh(false); 
+         
+        getStorageWords()
+          
+        }, 2000);
+        }
     return (
         <Container isBottomTab={false} style={style.container}>
             {/* Word join board */}
             <View style={style.wordJoinView}>
                 {/* Word added to board */}
                 <FlatList
-                    // data={handleStore}
                     data={words}
 
                     keyExtractor={(_, index) => index.toString()}
-
+                    refreshControl={
+                        <RefreshControl
+                          refreshing={refresh}
+                          onRefresh={onRefresh}
+                          colors={[colors.blue]}
+                        />
+                      }
                     numColumns={3}
 
                     contentContainerStyle={{ alignItems: 'flex-start' }}
