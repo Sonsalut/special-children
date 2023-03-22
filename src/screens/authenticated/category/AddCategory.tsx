@@ -375,6 +375,7 @@ const AddCategory = ({ }: StackNavigationProps<
                   }}
                   defaultValue={value}
                   onChangeText={(e) => handleType(e)}
+                  maxLength={14}
                 />
               </View>
             </View>
@@ -452,13 +453,12 @@ const AddCategory = ({ }: StackNavigationProps<
               isDoubleTap={true}
               activeOpacity={0.7}
               style={{
-                width: sizeWidth(40),
+                width: sizeWidth(41),
                 height: sizeHeight(25),
                 borderRadius: 10,
                 marginHorizontal: 9,
                 alignSelf: 'center',
                 marginTop: 30,
-                paddingHorizontal: 10,
                 backgroundColor: '#C1EBEA',
                 paddingTop: 5,
                 borderWidth: item?.isActive ? 0 : 2
@@ -503,7 +503,7 @@ const AddCategory = ({ }: StackNavigationProps<
                     require('../../.././assets/images/no.png')
                   }/>
                 
-                <Text style={{ fontSize: fontSize(5), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item?.name}</Text>
+                <Text style={{ fontSize: fontSize(4.5), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672', marginTop: '5%' }}>{item?.name}</Text>
               </View>
 
             </TouchableOpacity>

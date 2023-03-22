@@ -12,7 +12,7 @@ export default StyleSheet.create({
     height: sizeHeight(90),
     width: '95%',
     alignSelf: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
 
   },
   searchBar: {
@@ -20,17 +20,16 @@ export default StyleSheet.create({
     width: sizeWidth(80),
     borderWidth: 1,
     borderColor: 'gray',
-    marginTop: 2
+    marginTop: 15
 
   },
   categoryCards: {
-    width: sizeWidth(40),
+    width: sizeWidth(41),
     height: sizeHeight(25),
     borderRadius: 10,
     marginHorizontal: 9,
     alignSelf: 'center',
-    marginTop: 30,
-    paddingHorizontal: 10,
+    marginTop: 20,
     backgroundColor: '#C1EBEA',
     paddingTop: 5,
 
@@ -38,15 +37,17 @@ export default StyleSheet.create({
   imageCategory: {
     resizeMode: 'contain',
     height: '80%',
-    width: '100%',
+    width: '80%',
+    alignSelf: 'center',
     marginTop: '1%',
     borderRadius: sizeWidth(3),
     
   },
   categoryText: {
-    fontSize: fontSize(5),
+    fontSize: fontSize(4.5),
     alignSelf: 'center',
     fontWeight: 'bold',
+    marginTop: '5%',
     color: '#2D5672'
   }
 });
