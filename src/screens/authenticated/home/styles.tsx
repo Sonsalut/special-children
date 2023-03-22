@@ -24,8 +24,8 @@ export default StyleSheet.create({
 
   },
   categoryCards: {
-    width: sizeWidth(41),
-    height: sizeHeight(25),
+    width: sizeWidth(38),
+    height: sizeHeight(23),
     borderRadius: 10,
     marginHorizontal: 9,
     alignSelf: 'center',

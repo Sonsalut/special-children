@@ -243,7 +243,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                             justifyContent: 'center',
                                         }}
                                         source={{
-                                            uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                                            uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${new Date()}`,
                                             method: 'GET',
                                             headers: { Authorization: store.getState().authReducer.user.accessToken }
                                         }}

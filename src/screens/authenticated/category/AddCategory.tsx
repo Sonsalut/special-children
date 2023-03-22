@@ -430,7 +430,8 @@ const AddCategory = ({ }: StackNavigationProps<
           height: sizeHeight(85), 
           width: '95%', 
           alignSelf: 'center', 
-          alignItems: 'center' 
+          alignItems: 'center', 
+          marginTop: 10
         }}
       >
         <FlatList
@@ -453,14 +454,15 @@ const AddCategory = ({ }: StackNavigationProps<
               isDoubleTap={true}
               activeOpacity={0.7}
               style={{
-                width: sizeWidth(41),
+                width: sizeWidth(40),
+                marginVertical: 15,
                 height: sizeHeight(25),
                 borderRadius: 10,
-                marginHorizontal: 9,
-                alignSelf: 'center',
-                marginTop: 30,
+                marginHorizontal: 12,
+                marginTop: 0,
                 backgroundColor: '#C1EBEA',
-                paddingTop: 5,
+                alignItems: 'center',
+                alignSelf: 'flex-start',
                 borderWidth: item?.isActive ? 0 : 2
               }}
             >
