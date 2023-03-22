@@ -3,12 +3,28 @@ import React from 'react'
 import { Menu, Modal } from 'react-native-paper'
 import { sizeHeight } from 'utils/Utils'
 
-const ModalCamera = (props) => {
+
+interface ModalCameraProps {
+  visible?: boolean,
+  onDismiss?: ()=>void,
+  takePhoto?: ()=>void,
+  chooseImage?: ()=>void,
+  cancel?: ()=>void,
+
+}
+const ModalCamera = ({
+visible=false,
+onDismiss,
+chooseImage,
+takePhoto,
+cancel
+
+}:ModalCameraProps) => {
   return (
    <>
     <Modal
 
-        visible={props.visible}
+        visible={visible}
         style={{
           backgroundColor: '#E7F6FF',
           borderRadius: 15,
@@ -19,11 +35,11 @@ const ModalCamera = (props) => {
           marginHorizontal: 20,
 
         }}
-        onDismiss={props.onDismiss}
+        onDismiss={onDismiss}
       >
-        <Menu.Item titleStyle={{ fontSize: 18, color:'#2D5672' }} leadingIcon="camera" onPress={props.takePhoto} title="Chụp ảnh" />
-        <Menu.Item titleStyle={{ fontSize: 18, color:'#2D5672' }} leadingIcon="store-settings" onPress={props.chooseImage} title="Chọn ảnh từ thư viện" />
-        <Menu.Item titleStyle={{ color: 'red', fontSize: 18 }} leadingIcon="archive-cancel" onPress={props.cancel} title="Hủy bỏ" />
+        <Menu.Item titleStyle={{ fontSize: 18, color:'#2D5672' }} leadingIcon="camera" onPress={takePhoto} title="Chụp ảnh" />
+        <Menu.Item titleStyle={{ fontSize: 18, color:'#2D5672' }} leadingIcon="store-settings" onPress={chooseImage} title="Chọn ảnh từ thư viện" />
+        <Menu.Item titleStyle={{ color: 'red', fontSize: 18 }} leadingIcon="archive-cancel" onPress={cancel} title="Hủy bỏ" />
       </Modal>
       </>
   )

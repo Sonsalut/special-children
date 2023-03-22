@@ -16,7 +16,7 @@ export default StyleSheet.create({
 
   },
   searchBar: {
-    height: 40,
+    height: 42,
     width: sizeWidth(80),
     borderWidth: 1,
     borderColor: 'gray',

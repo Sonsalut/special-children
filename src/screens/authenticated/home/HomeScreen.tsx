@@ -12,6 +12,8 @@ import { Searchbar } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native';
 import { useLogicHome } from './useLogicHome';
 import { ApiConstants } from 'network/ApiConstants';
+import BigCard from 'screens/authenticated/home/component/BigCard';
+
 
 
 const HomeScreen = ({ }: StackNavigationProps<
@@ -23,9 +25,9 @@ const HomeScreen = ({ }: StackNavigationProps<
   const isFocused = useIsFocused()
   React.useEffect(() => {
     getCategory()
-
+    setRandom(Math.random())
   }, [isFocused==true])
-
+ const [random, setRandom] = React.useState(Math.random)
   return (
 
     <Container isBottomTab={false} style={styles.container}>
@@ -33,6 +35,7 @@ const HomeScreen = ({ }: StackNavigationProps<
         onPress={() => console.log('Pressed')}
         onLongPress={handleShow}
       >
+        
         <View style={styles.mainView}>
           {
             show ?
@@ -60,27 +63,18 @@ const HomeScreen = ({ }: StackNavigationProps<
               />
             }
             renderItem={({ item }) => (
-
-              <TouchableOpacity
+             
+              <BigCard
                 onPress={() => NavigationService.navigate(AuthenticatedScreens.RecordingScreen, { data: item })}
                 isDoubleTap={false}
-                activeOpacity={0.7}
-                style={styles.categoryCards}
-              >
-                <Image
-                  style={styles.imageCategory}
-                  source={item?.pictureFileId !== null ? {
-                    // uri: `https://ais-schildren-test-api.aisolutions.com.vn/ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
-                    uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${new Date()}`,
-                    
-                    method: 'GET',
-                    headers: { Authorization: store.getState().authReducer.user.accessToken }
-                  } :
-                    require('../../.././assets/images/no.png')
-                  }
-                />
-                <Text style={styles.categoryText}>{item?.name}</Text>
-              </TouchableOpacity>
+                source={ {
+                        uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                        method: 'GET',
+                        headers: { Authorization: store.getState().authReducer.user.accessToken }
+                      }}
+              title={`${item?.name}`}
+              />
+
             )}
           />
         </View>

@@ -38,7 +38,6 @@
     "react-hook-form": "^7.40.0",
     "react-native": "0.69.3",
     "react-native-config": "^1.4.6",
-    "react-native-fast-image": "^8.6.3",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-image-picker": "^4.10.3",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",

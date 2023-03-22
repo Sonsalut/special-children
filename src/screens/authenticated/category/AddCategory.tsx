@@ -3,23 +3,19 @@ import { Container, TouchableOpacity } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens } from 'routers/ScreenNames';
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
-import { Text, View, Image, ScrollView, KeyboardAvoidingView, FlatList, TextInput, PermissionsAndroid, ImageBackground } from 'react-native';
+import { Text, View, Image, ScrollView, KeyboardAvoidingView, FlatList, TextInput } from 'react-native';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
-import { AddCategoryForUser, CategoryStatus, DeleteCategory, GetFullCategory, UpdateCategory } from 'network/subs/auth/recording/RecordingRequest';
+import { AddCategoryForUser, DeleteCategory, GetFullCategory, UpdateCategory } from 'network/subs/auth/recording/RecordingRequest';
 import ResponseCode from 'network/ResponseCode';
 import { store } from 'redux/store';
 import colors from 'res/colors';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { Menu, Modal } from 'react-native-paper';
-import { useDispatch, useSelector } from 'react-redux';
 import HeaderWithBack from 'components/header/HeaderWithBack';
 import { useToast } from 'hooks/useToast';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as ImagePicker from 'react-native-image-picker';
 import { ApiConstants } from 'network/ApiConstants';
-import { Platform } from 'react-native';
-import { PERMISSIONS, request } from 'react-native-permissions';
-import axios from 'axios';
 import ModalCamera from './component/ModalCamera';
 import { CAMERA_OPTION, IMAGE_LIBRARY_OPTION } from './constant';
 import { requestCameraPermission } from './Permission';
@@ -454,15 +450,15 @@ const AddCategory = ({ }: StackNavigationProps<
               isDoubleTap={true}
               activeOpacity={0.7}
               style={{
-                width: sizeWidth(40),
-                marginVertical: 15,
-                height: sizeHeight(25),
+                
+                width: sizeWidth(42),
+                height: sizeHeight(24),
                 borderRadius: 10,
-                marginHorizontal: 12,
-                marginTop: 0,
+                marginHorizontal: 9,
+                alignSelf: 'center',
+                marginTop: 20,
                 backgroundColor: '#C1EBEA',
-                alignItems: 'center',
-                alignSelf: 'flex-start',
+                paddingTop: 5,
                 borderWidth: item?.isActive ? 0 : 2
               }}
             >
@@ -473,8 +469,6 @@ const AddCategory = ({ }: StackNavigationProps<
                     marginHorizontal: -10,
                     width: '100%',
                     height: sizeHeight(4),
-                    alignSelf: 'flex-end',
-                    paddingRight: 5,
                   }}
                 >
                   {
@@ -505,7 +499,11 @@ const AddCategory = ({ }: StackNavigationProps<
                     require('../../.././assets/images/no.png')
                   }/>
                 
-                <Text style={{ fontSize: fontSize(4.5), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672', marginTop: '5%' }}>{item?.name}</Text>
+                <Text style={{   fontSize: fontSize(4.5),
+        alignSelf: 'center',
+        fontWeight: 'bold',
+        marginTop: '3.5%',
+        color: '#2D5672' }}>{item?.name}</Text>
               </View>
 
             </TouchableOpacity>
