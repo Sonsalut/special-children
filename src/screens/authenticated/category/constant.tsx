@@ -11,5 +11,8 @@ export const IMAGE_LIBRARY_OPTION: any = {
     cameraType: 'back',
     includeBase64: true,
     quality: 1,
+    // maxHeight: 450,
+    // maxWidth: 250,
+    
 
   };

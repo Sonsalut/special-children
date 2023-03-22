@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { sizeHeight, sizeWidth } from "utils/Utils";
+import { fontSize, sizeHeight, sizeWidth } from "utils/Utils";
 
 export default StyleSheet.create({
     container: {
@@ -26,7 +26,8 @@ export default StyleSheet.create({
         paddingBottom: 15,
         borderRadius: 15,
         backgroundColor: '#E7F6FF',
-        paddingLeft: 10
+        paddingLeft: 10,
+        height: sizeHeight(26),
     },
     cateView: {
         width: sizeWidth(80),
@@ -46,39 +47,41 @@ export default StyleSheet.create({
     wordview: {
         flexDirection: 'row',
         marginTop: 8,
-        height: sizeHeight(15)
+        height: sizeHeight(21),
+        width:'100%',
+        alignItems: 'center',
     },
     wordVsCheckboxView: {
         flexDirection: 'row',
         width: sizeWidth(30),
-        height: sizeHeight(15),
-        paddingTop: 3
+        height: sizeHeight(19),
     },
 
     cardView: {
         backgroundColor: '#C1EBEA',
         alignSelf: 'center',
-        width: sizeWidth(23),
+        width: sizeWidth(25),
         marginHorizontal: 5,
         borderRadius: 10,
-        height: sizeHeight(14)
+        height: sizeHeight(17)
     },
     wordImage: {
+        marginTop: '3.5%',
         resizeMode: 'stretch',
-        height: sizeHeight(10), width: sizeWidth(18),
+        height: sizeHeight(12.5), width: sizeWidth(20),
         alignSelf: 'center',
-        borderRadius: 9
+        borderRadius: 10
     },
     wordText: {
-        fontSize: 15,
+        fontSize: fontSize(3.8),
         color: '#2D5672',
         fontWeight: 'bold',
         alignSelf: "center",
-        marginTop: '10%'
+        marginTop: '5%'
     },
     checkbox: {
-        right: 25,
-        bottom: 1,
+        right: 20,
+        top:2,
         height: 20
 
     },
