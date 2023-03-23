@@ -11,6 +11,7 @@ import { sizeWidth } from 'utils/Utils';
 import { Modal, RadioButton } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
+import ConfirmModal from 'components/modal/ConfirmModal';
 
 const MessageScreen = ({ }: StackNavigationProps<
   Routes,
@@ -42,8 +43,6 @@ const MessageScreen = ({ }: StackNavigationProps<
 
   React.useEffect(() => {
     getVoiceInfor()
-
-
   }, [])
 
   return (
@@ -99,7 +98,6 @@ const MessageScreen = ({ }: StackNavigationProps<
           <View style={styles.voiceView}>
             <TouchableOpacity onPress={handleReturn} style={styles.returnButton}>
               <Icon name='arrow-back-outline' size={25} />
-
             </TouchableOpacity>
             {/* gender choice */}
             <View style={styles.genderView}>
@@ -135,35 +133,18 @@ const MessageScreen = ({ }: StackNavigationProps<
           </View>
 
         </Modal>
-        <Modal
-          visible={logOutvisible}
-          style={styles.logoutModal}
-        // onDismiss={() => {
-        //     setLogOutShow(false);
-        //     setlogOutvisible(false)
-        // }}
-        >
-          <View style={styles.logOutView}>
-            <Icon name={'warning-outline'}
-              size={sizeWidth(8)}
-              color={"#FF4444"}
-              style={styles.warningIcon} />
-            <View style={{ width: '90%', height: 50 }}>
-              <Text style={styles.warnText}>Bạn có chắc chắn muốn đăng xuất</Text>
-              <Text style={styles.warnText}>không?</Text>
-
-
-            </View>
-            <View style={styles.buttonView}>
-              <TouchableOpacity activeOpacity={0.7} onPress={handleCancelLogOut} style={styles.closeButton}>
-                <Text style={styles.closeText}>Đóng</Text>
-              </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.7} onPress={cofirmHandleLogOut} style={styles.logOutButton}>
-                <Text style={styles.logOutText}>Đăng xuất</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
+        <ConfirmModal
+        visible={logOutvisible}
+        onDismiss={() => {
+            setLogOutShow(false);
+            setlogOutvisible(false)
+        }}
+        text1={"Bạn có chắc chắn muốn đăng xuất"}
+        text2={"không"}
+        handleCancel={handleCancelLogOut}
+        handleConfirm={cofirmHandleLogOut}
+        confirmText={"Đăng xuất"}
+        />
     </Container>
   );
 };

@@ -59,6 +59,14 @@ export const showIcon =()=>{
     }
 
 }
+export const resetShow =()=>{
+    return{
+
+        type:'RESET_SHOW',
+        
+    }
+
+}
 export const getCateId =(data)=>{
     return{
             type:'GET_CATE_ID',
