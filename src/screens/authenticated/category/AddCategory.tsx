@@ -21,7 +21,7 @@ import { CAMERA_OPTION, IMAGE_LIBRARY_OPTION } from './constant';
 import { requestCameraPermission } from './Permission';
 import AddEditModal from '../../../components/modal/AddEditModal';
 import images from 'res/images';
-import BigCardWithShield from './component/BigCardWithShield';
+import BigCardWithShield from '../../../components/cards/BigCardWithShield';
 
 
 const AddCategory = ({ }: StackNavigationProps<

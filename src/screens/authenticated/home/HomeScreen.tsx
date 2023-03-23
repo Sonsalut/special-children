@@ -12,7 +12,7 @@ import { Searchbar } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native';
 import { useLogicHome } from './useLogicHome';
 import { ApiConstants } from 'network/ApiConstants';
-import BigCard from 'screens/authenticated/home/component/BigCard';
+import BigCard from 'components/cards/BigCard';
 
 
 
