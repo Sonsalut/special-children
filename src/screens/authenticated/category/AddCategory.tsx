@@ -210,6 +210,7 @@ const AddCategory = ({ }: StackNavigationProps<
 
         }
       }
+      
     })
   }
   const handleUpImage = () => {
@@ -527,11 +528,16 @@ const AddCategory = ({ }: StackNavigationProps<
           setVisible(false)
         }}
       >
+
+
         {
           count < 2
             ? <Menu.Item titleStyle={{ fontSize: 18, color: '#2D5672' }} leadingIcon="file-document-edit-outline" onPress={handleEditCategory} title="Chỉnh sửa chủ đề" />
             : null
         }
+
+
+        {/* <Menu.Item titleStyle={{ fontSize: 18, color: '#2D5672' }} leadingIcon="file-document-edit-outline" onPress={handleEditCategory} title="Chỉnh sửa chủ đề" /> */}
         <Menu.Item titleStyle={{ fontSize: 18, color: '#2D5672' }} leadingIcon="eye-off-outline" onPress={handleHideCategory} title="Xóa chủ đề" />
         <Menu.Item titleStyle={{ fontSize: 18, color: '#2D5672' }} leadingIcon="book-check" onPress={() => { showToast("Chưa hỗ trợ", 'warning') }} title="Đánh dấu đã học" />
         <Menu.Item titleStyle={{ color: 'red', fontSize: 18 }} leadingIcon="archive-cancel" onPress={handleCancel} title="Hủy bỏ" />

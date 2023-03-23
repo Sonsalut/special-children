@@ -8,7 +8,7 @@ export default StyleSheet.create({
     wordJoinView: {
         borderRadius: 10,
         width: '90%',
-        height: sizeHeight(42),
+        height: sizeHeight(45),
         justifyContent: 'center',
         alignSelf: 'center',
         marginTop: 20,
@@ -44,12 +44,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    deleteWordView: {
-        paddingTop: 15,
-        marginHorizontal: 12,
-        borderWidth: 1,
-        borderColor: 'white'
-    },
+    
     deleteWord: {
         backgroundColor: '#C1EBEA',
         borderRadius: sizeWidth(3),

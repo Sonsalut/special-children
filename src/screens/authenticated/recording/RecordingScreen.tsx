@@ -177,12 +177,12 @@ const RecordingScreen = ({ route, navigation }: any) => {
 
     return (
 
-        <Container isBottomTab={false} style={{ flex: 1, backgroundColor: 'white', width: '100%' }}>
+        <Container isBottomTab={false} style={{ flex: 1, backgroundColor: 'white', width: '100%'}}>
             <TouchableWithoutFeedback
                 onPress={() => console.log('Pressed')}
                 onLongPress={handleShow}
             >
-                <View style={{ height: sizeHeight(90), width: '95%', alignSelf: 'center', alignItems: 'center' }}>
+                <View style={{ height: sizeHeight(90), width: '95%', alignSelf: 'center', alignItems: 'center', borderWidth:1 }}>
                     {
                         shows ?
                             <Searchbar
@@ -259,12 +259,14 @@ const RecordingScreen = ({ route, navigation }: any) => {
             <Modal
                 visible={visible}
                 style={{
+                    alignSelf: 'center',
                     backgroundColor: '#ADDDDC',
                     borderRadius: 15,
-                    height: 450,
+                    height: sizeHeight(70),
                     marginTop: sizeHeight(15),
-                    width: '90%',
-                    marginHorizontal: 20,
+                    width: sizeWidth(90),
+                    // marginHorizontal: sizeHeight(10),
+                    marginLeft:sizeWidth(5)
                 }}
                 onDismiss={() => {
                     setShow(false)
@@ -272,11 +274,11 @@ const RecordingScreen = ({ route, navigation }: any) => {
                 }}
             >
                 <View style={{
-                    top: 0,
                     alignItems: 'center',
                     width: "100%",
                     height: "100%",
-                    borderRadius: 15
+                    borderRadius: 15,
+                    
                 }}>
 
                     <View style={{ height: '100%' }}>
@@ -300,14 +302,14 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                                 <Image resizeMode='contain' source={cancel} style={{ width: sizeWidth(5), height: sizeHeight(3) }} />
                                             </TouchableOpacity>
                                         </View>
-                                        <View style={{ alignItems: 'center', marginTop: '-15%' }}>
+                                        <View style={{ alignItems: 'center', marginBottom: sizeHeight(-45)}}>
                                             <TouchableOpacity onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
                                                 <Image style={{
                                                     resizeMode: 'contain',
                                                     height: sizeHeight(60), width: sizeWidth(80),
                                                     alignSelf: 'center',
                                                     borderRadius: sizeWidth(14),
-                                                    maxHeight: 300
+                                                    maxHeight: sizeHeight(40)
                                                 }}
                                                     source={{
                                                         uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
@@ -318,7 +320,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                                     }}
                                                 />
                                             </TouchableOpacity>
-                                            <Text style={{ fontSize: 30, flexDirection: 'row', color: '#2D5672', justifyContent: 'center', paddingTop: 3 }}>{item?.word}</Text>
+                                            <Text style={{ fontSize: fontSize(12), flexDirection: 'row', color: '#2D5672', justifyContent: 'center', paddingTop: 3 }}>{item?.word}</Text>
                                         </View>
                                     </View>
                                 ))

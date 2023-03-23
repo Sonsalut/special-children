@@ -15,6 +15,7 @@ import colors from 'res/colors';
 import { useLogicStorage } from './useLogicStorage';
 import styles from './styles';
 import { ApiConstants } from 'network/ApiConstants';
+import SmallCard from 'components/cards/SmallCard';
 
 const Storage = ({ }: StackNavigationProps<
   Routes,
@@ -152,10 +153,9 @@ const Storage = ({ }: StackNavigationProps<
                   <View style={styles.wordVsCheckboxView}>
 
 
-                    <View style={styles.cardView}
-                    >
-                      <Image
-                        style={styles.wordImage}
+                    <View style={styles.cardView}>
+                      <SmallCard
+                        disabled={true}
                         source={{
                           uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
                           method: 'GET',
@@ -164,9 +164,7 @@ const Storage = ({ }: StackNavigationProps<
                           }
                         }}
                       />
-                      <Text
-                        style={styles.wordText}>{item?.word}
-                      </Text>
+                      
                     </View>
                     {
                       hasDone ? <CheckBox style={styles.checkbox} value={!item?.isActive} onValueChange={() => handleChoose(item)} /> : null

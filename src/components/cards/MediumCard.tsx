@@ -35,6 +35,7 @@ const MediumCard = ({
                     source={source ?? images.eye_slash}
                 />
                 <Text style={styles.textStyle}>{title}</Text>
+                
             </TouchableOpacity>
         </>
     )
@@ -51,6 +52,8 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         backgroundColor: '#C1EBEA',
         paddingTop: 5,
+        borderColor:'#808080',
+        borderWidth:2
     },
     imageStyle: {
         resizeMode: 'stretch',

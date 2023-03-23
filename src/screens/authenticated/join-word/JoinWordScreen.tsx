@@ -13,6 +13,7 @@ import { ApiConstants } from 'network/ApiConstants';
 import { RefreshControl } from 'react-native-gesture-handler';
 import colors from 'res/colors';
 import MediumCard from 'components/cards/MediumCard';
+import SmallCard from 'components/cards/SmallCard';
 
 const JoinWordScreen = ({ }: StackNavigationProps<
     Routes,
@@ -68,34 +69,21 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                         />
                       }
                     numColumns={3}
-
+                    scrollEnabled={false}
                     contentContainerStyle={{ alignItems: 'flex-start' }}
                     renderItem={({ item, index }) => {
                         return (
-                            <View style={{ paddingHorizontal: 10, paddingBottom: 10, marginTop: 5 }}>
-                                <MediumCard
-                                    disabled={true}
+                            <View style={{paddingBottom: 5, marginTop: 5}}>
+                                
+                                <SmallCard
+                                    isDoubleTap={true}
+                                    onPress={() => { deleteWord(item) }} 
                                     source={{
                                         uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&`,
                                         method: 'GET',
                                         headers: { Authorization: store.getState().authReducer.user.accessToken }
-                                   }}
-                                   title={`${item?.word}`}
+                                    }}
                                 />
-                                {/* <TouchableOpacity
-                                    style={style.wordcard}
-                                    isDoubleTap={true}
-                                    onPress={() => { deleteWord(item) }}>
-
-                                    <Image style={style.addWordImage}
-                                        source={{
-                                             uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&`,
-                                            method: 'GET',
-                                            headers: { Authorization: store.getState().authReducer.user.accessToken }
-                                        }}
-                                    />
-                                    <Text style={style.textWord}>{item.word}</Text>
-                                </TouchableOpacity> */}
                             </View>
                         )
                     }}
@@ -121,30 +109,22 @@ const JoinWordScreen = ({ }: StackNavigationProps<
 
                 keyExtractor={(_, index) => index.toString()}
                 numColumns={3}
-                contentContainerStyle={{ alignItems: 'flex-start', width: '95%', alignSelf: 'center', justifyContent: 'space-around' }}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ alignItems: 'center', width: '95%', alignSelf: 'center', justifyContent: 'space-around'}}
                 renderItem={({ item, index }) => {
                     return (
-                        <View style={style.deleteWordView}>
-                            <TouchableOpacity
-                                style={{ borderRadius: sizeWidth(3) }}
-                                isDoubleTap={true}
-                                onPress={() => {
-                                    addWord(item, index)
-                                }}>
-                                <View style={style.deleteWord}>
-                                    <Image style={style.deleteWorImage}
-                                        source={{
-                                            uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&`,
-                                            method: 'GET',
-                                            headers: {
-                                                Authorization: store.getState().authReducer.user.accessToken
-                                            }
-                                        }}
-                                    />
-                                    <Text style={style.deleteText}>{item.word}</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
+                        <MediumCard
+                            disabled={false}
+                            source={{
+                                uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&`,
+                                method: 'GET',
+                                headers: { Authorization: store.getState().authReducer.user.accessToken }
+                            }}
+                            title={`${item?.word}`}
+                            onPress={() => {
+                                addWord(item, index)
+                            }}
+                        />
                     )
                 }}
             />
