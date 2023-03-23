@@ -16,6 +16,7 @@ import colors from 'res/colors';
 import NavigationService from 'routers/NavigationService';
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import { ApiConstants } from 'network/ApiConstants';
+import MediumCard from '../../../components/cards/MediumCard';
 
 
 const StorageWord = ({ }: StackNavigationProps<
@@ -87,23 +88,18 @@ const StorageWord = ({ }: StackNavigationProps<
           }
           renderItem={({ item }) => (
 
+            <MediumCard
+              disabled={true}
+              source={{
+                uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&`,
+                method: 'GET',
+                headers: {
+                  Authorization: store.getState().authReducer.user.accessToken
+                }
+              }}
+              title={`${item?.word}`}
 
-
-            <View style={styles.word}>
-              <Image style={styles.wordImage}
-                source={{
-                  uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&`,
-                  method: 'GET',
-                  headers: {
-                    Authorization: store.getState().authReducer.user.accessToken
-                  }
-                }}
-
-              />
-              <Text style={styles.wordText}>{item?.word}</Text>
-            </View>
-
-
+            />
           )} />
       </View>
     </Container>
@@ -134,30 +130,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  word: {
-    width: sizeWidth(29),
-    height: sizeHeight(17),
-    marginVertical: 10,
-    marginHorizontal: 5,
-    borderRadius: 10,
-    paddingTop: 5,
-    backgroundColor: '#C1EBEA'
-  },
-  wordImage: {
-    resizeMode: 'stretch',
-    height: '75%',
-    width: sizeWidth(24),
-    alignSelf: 'center',
-    borderRadius: 10,
-  },
-  wordText: {
-
-    fontSize: fontSize(3.8),
-    marginTop: '5%',
-    color: '#2D5672',
-    fontWeight: 'bold',
-    alignSelf: "center"
-  }
-
-
 })
