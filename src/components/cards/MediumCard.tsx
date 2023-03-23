@@ -10,19 +10,21 @@ interface CardProps {
     isDoubleTap?: boolean,
     source?: ImageSourcePropType,
     title?: String,
-  
+    disabled?: boolean
 }
 const MediumCard = ({
     onPress,
     isDoubleTap,
     source,
     title,
+    disabled= false
 }: CardProps) => {
    
     
     return (
         <>
             <TouchableOpacity
+                disabled={disabled}
                 onPress={onPress}
                 isDoubleTap={isDoubleTap}
                 activeOpacity={0.7}

@@ -12,6 +12,7 @@ import style from './style';
 import { ApiConstants } from 'network/ApiConstants';
 import { RefreshControl } from 'react-native-gesture-handler';
 import colors from 'res/colors';
+import MediumCard from 'components/cards/MediumCard';
 
 const JoinWordScreen = ({ }: StackNavigationProps<
     Routes,
@@ -72,7 +73,16 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                     renderItem={({ item, index }) => {
                         return (
                             <View style={{ paddingHorizontal: 10, paddingBottom: 10, marginTop: 5 }}>
-                                <TouchableOpacity
+                                <MediumCard
+                                    disabled={true}
+                                    source={{
+                                        uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&`,
+                                        method: 'GET',
+                                        headers: { Authorization: store.getState().authReducer.user.accessToken }
+                                   }}
+                                   title={`${item?.word}`}
+                                />
+                                {/* <TouchableOpacity
                                     style={style.wordcard}
                                     isDoubleTap={true}
                                     onPress={() => { deleteWord(item) }}>
@@ -85,7 +95,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                                         }}
                                     />
                                     <Text style={style.textWord}>{item.word}</Text>
-                                </TouchableOpacity>
+                                </TouchableOpacity> */}
                             </View>
                         )
                     }}
