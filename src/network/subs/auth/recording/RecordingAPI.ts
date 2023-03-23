@@ -56,9 +56,6 @@ SetCateforyStatus: ApiConstants.HOST + 'ext/category/status',
 UpdateCategory: ApiConstants.HOST + 'ext/category/user',
 AddCategory: ApiConstants.HOST + 'ext/category/user',
 
-
-
-
 };
 
 class RecodingApi {

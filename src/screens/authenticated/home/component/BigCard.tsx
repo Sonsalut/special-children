@@ -28,6 +28,7 @@ const BigCard = ({
                 activeOpacity={0.7}
                 style={{...styles.categoryCards}}
             >
+                
                 <Image
                     style={[styles.imageCategory]}
                     source={source ?? images.eye_slash}
@@ -43,7 +44,7 @@ export default memo(BigCard)
 const styles = StyleSheet.create({
     categoryCards: {
         width: sizeWidth(42),
-        height: sizeHeight(24),
+        height: sizeHeight(25),
         borderRadius: 10,
         marginHorizontal: 9,
         alignSelf: 'center',
@@ -54,12 +55,15 @@ const styles = StyleSheet.create({
     imageCategory: {
 
         resizeMode: 'stretch',
-        height: '80%',
-        width: '80%',
+        // height: '80%',
+        // width: '80%',
+        height: sizeHeight(18),
+        width: sizeWidth(32),
         alignSelf: 'center',
         marginTop: '1%',
         borderRadius: sizeWidth(3),
-
+       
+        // padding: 15,
     },
     categoryText: {
         fontSize: fontSize(4.5),
