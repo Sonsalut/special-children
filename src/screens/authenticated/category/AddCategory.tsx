@@ -1,27 +1,25 @@
 import React from 'react';
-import { Container, TouchableOpacity } from 'components';
+import { Container } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens } from 'routers/ScreenNames';
-import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
-import { Text, View, Image, ScrollView, KeyboardAvoidingView, FlatList, TextInput } from 'react-native';
+import { sizeHeight } from 'utils/Utils';
+import { View, FlatList } from 'react-native';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import { AddCategoryForUser, DeleteCategory, GetFullCategory, UpdateCategory } from 'network/subs/auth/recording/RecordingRequest';
 import ResponseCode from 'network/ResponseCode';
 import { store } from 'redux/store';
 import colors from 'res/colors';
 import { RefreshControl } from 'react-native-gesture-handler';
-import { Menu, Modal } from 'react-native-paper';
 import HeaderWithBack from 'components/header/HeaderWithBack';
 import { useToast } from 'hooks/useToast';
-import Icon from 'react-native-vector-icons/Ionicons';
 import * as ImagePicker from 'react-native-image-picker';
 import { ApiConstants } from 'network/ApiConstants';
-import ModalCamera from '../../../components/modal/ModalCamera';
 import { CAMERA_OPTION, IMAGE_LIBRARY_OPTION } from './constant';
 import { requestCameraPermission } from './Permission';
 import AddEditModal from '../../../components/modal/AddEditModal';
-import images from 'res/images';
 import BigCardWithShield from '../../../components/cards/BigCardWithShield';
+import ChoiceTab from './component/ChoiceTab';
+import AddButton from 'components/button/AddButton';
 
 
 const AddCategory = ({ }: StackNavigationProps<
@@ -117,8 +115,6 @@ const AddCategory = ({ }: StackNavigationProps<
     data.filter(item => encodeURIComponent(item?.audioWord.toLowerCase()).includes(encodeURIComponent(searchValue.toLowerCase())))
   )
   const [showDoneIcon, setShowDoneIcon] = React.useState(false)
-
-
   const checkCount = () => {
     let counts = 0
     let tmp = data.map((item) => {
@@ -136,9 +132,7 @@ const AddCategory = ({ }: StackNavigationProps<
     else {
       setShowDoneIcon(true)
       setCount(0)
-
     }
-
   }
   const [count, setCount] = React.useState(1)
 
@@ -196,32 +190,31 @@ const AddCategory = ({ }: StackNavigationProps<
 
   const handleEditCategory = () => {
 
+    if (count < 2) {
+      let maps = data.map((item) => {
+        if (item?.isActive === false) {
+          if (item?.type === "ADMIN") {
+            showToast("Bạn không thể chỉnh sửa mục này", 'warning')
+          } else {
+            setEditPopupVisivle(!editPopupVisivle)
+            setVisible(!visible)
+            setPersonData(item)
+            setValue(item?.name)
+            textInputRef.current = item?.name
 
-    let maps = data.map((item) => {
-      if (item?.isActive === false) {
-        if (item?.type === "ADMIN") {
-          showToast("Bạn không thể chỉnh sửa mục này", 'warning')
-        } else {
-          setEditPopupVisivle(!editPopupVisivle)
-          setVisible(!visible)
-          setPersonData(item)
-          setValue(item?.name)
-          textInputRef.current = item?.name
-
+          }
         }
-      }
-      
-    })
-  }
-  const handleUpImage = () => {
-    setCameraOptionsVisble(!cameraOptionsVisble)
-  }
+      })
+    }
+    else {
+      showToast("Chỉ được chọn 1 mục để sửa", "warning")
+    }
 
+  }
   const handleType = (e) => {
     textInputRef.current = e
 
   };
-
   const updateCategory = async (item: any) => {
     let name = ''
     let special = false
@@ -258,10 +251,7 @@ const AddCategory = ({ }: StackNavigationProps<
       setRandom(Math.random())
     }
     else {
-      // console.log(response)
       showToast("ERROR", 'warning')
-
-
     }
   }
 
@@ -304,98 +294,6 @@ const AddCategory = ({ }: StackNavigationProps<
     }
 
   }
-  //   const AddEditModal = (props) => {
-  //     return (
-  //       <Modal
-  //         visible={props.visible}
-  //         style={{
-  //           backgroundColor: '#E7F6FF',
-  //           borderRadius: 15,
-  //           height: '70%',
-  //           marginTop: sizeHeight(20),
-  //           width: '90%',
-  //           marginHorizontal: 20,
-  //         }}
-  //         onDismiss={props.onDismiss}
-  //       >
-  //         <ScrollView style={{ height: '100%' }}>
-  //           <KeyboardAvoidingView
-  //             behavior='position'
-  //             keyboardVerticalOffset={82}
-  //             style={{ width: '100%', height: '100%' }}>
-  //             {/* title */}
-  //             <View style={{ width: '90%', height: sizeHeight(8), alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-  //               <TouchableOpacity onPress={props.cancel}>
-  //                 <Text style={{ fontSize: 15, color: 'red' }}>Hủy bỏ</Text>
-  //               </TouchableOpacity>
-  //               <Text style={{ fontSize: 20, color:'#2D5672', fontWeight: "400", paddingRight: 20 }}>{props.title}</Text>
-  //               <TouchableOpacity isDoubleTap={true} onPress={props.handleSubmit}>
-  //                 <Icon name="checkmark-outline" size={sizeHeight(3)} />
-  //               </TouchableOpacity>
-  //             </View>
-  //             {/* content */}
-  //             <View style={{ width: '90%', justifyContent: 'space-around', height: sizeHeight(63), alignSelf: 'center', paddingBottom: 15, bottom: 15 }}>
-  //               <TouchableOpacity onPress={handleUpImage}>
-  //                 <View 
-  //                   style={{ 
-  //                     borderWidth: 1, 
-  //                     width: '90%', 
-  //                     borderRadius: 5, 
-  //                     alignSelf: 'center', 
-  //                     alignItems: 'center', 
-  //                     height: sizeHeight(40),
-  //                     borderColor: '#60A2C8'
-  //                   }}>
-  //                   <Image
-  //                     style={{
-  //                       resizeMode: 'stretch',
-  //                       height: '100%',
-  //                       width: '100%',
-  //                       marginTop: '1%',
-  //                       // sizeWidth(39),
-  //                       borderRadius: sizeWidth(3),
-  //                     }}
-  //                     source={props.source}
-  //                   />
-  //                 </View>
-  //               </TouchableOpacity>
-  //               <View 
-  //                 style={{ 
-  //                   width: '90%', 
-  //                   alignSelf: 'center', 
-  //                   height: sizeHeight(10)}}>
-  //                 <Text 
-  //                   style={{ fontSize: 15, color: '#2D5672' }}>Tên chủ đề: </Text>
-  //                 <TextInput
-  //                   style={{ 
-  //                     height: sizeHeight(7), 
-  //                     width: '100%', borderRadius: 5, 
-  //                     borderWidth: 1, 
-  //                     borderColor:'#60A2C8' 
-  //                   }}
-  //                   defaultValue={value}
-  //                   onChangeText={(e) => handleType(e)}
-  //                   maxLength={14}
-  //                 />
-  //               </View>
-  //             </View>
-  //           </KeyboardAvoidingView>
-  //         </ScrollView>
-  //         <ModalCamera
-  //   visible={cameraOptionsVisble}
-  //   onDismiss={() => {
-  //     setCameraOptionsVisble(!cameraOptionsVisble)
-
-  //   }}
-  //  takePhoto={takePhoto}
-  //  chooseImage={chooseImage}
-  //  cancel={()=>setCameraOptionsVisble(!cameraOptionsVisble)}
-  //  />
-  //       </Modal>
-  //     )
-  //   }
-
-
   return (
     <Container style={{ flex: 1, backgroundColor: 'white' }}>
       <HeaderWithBack
@@ -408,23 +306,11 @@ const AddCategory = ({ }: StackNavigationProps<
         rightIconShow={!showDoneIcon}
         hasDone={showDoneIcon}
         handle={handle} />
-
-      <TouchableOpacity
-        style={{
-          marginLeft: 10,
-          width: '50%',
-          height: sizeWidth(10),
-          borderRadius: 45,
-          marginTop: 10,
-          marginBottom: 10,
-          backgroundColor: '#FFD19A',
-          alignSelf: 'center'
-        }}
-        onPress={handleAddCategory}
-        isDoubleTap={true}
-      >
-        <Text style={{ alignSelf: 'center', paddingTop: 10, fontSize: 15, fontWeight: 'bold', color: '#2D5672' }}>Thêm chủ đề</Text>
-      </TouchableOpacity>
+        {/* Nút thêm chủ đề */}
+      <AddButton
+      onpress={handleAddCategory}
+      text={"Thêm chủ đề"}
+      />
       <View
         style={{
           height: sizeHeight(85),
@@ -511,38 +397,16 @@ const AddCategory = ({ }: StackNavigationProps<
         onModalCameraDismiss={() => setCameraOptionsVisble(!cameraOptionsVisble)}
       />
       {/* Choice Tab */}
-      <Modal
+      <ChoiceTab
         visible={visible}
-        style={{
-          backgroundColor: '#E7F6FF',
-          borderRadius: 15,
-          height: 250,
-          marginTop: sizeHeight(42),
-          // alignSelf:'flex-start',
-          width: '90%',
-          marginHorizontal: 20,
-
-        }}
         onDismiss={() => {
-
           setVisible(false)
         }}
-      >
+        editCategory={handleEditCategory}
+        deleteCategory={handleHideCategory}
+        cancel={handleCancel}
 
-
-        {
-          count < 2
-            ? <Menu.Item titleStyle={{ fontSize: 18, color: '#2D5672' }} leadingIcon="file-document-edit-outline" onPress={handleEditCategory} title="Chỉnh sửa chủ đề" />
-            : null
-        }
-
-
-        {/* <Menu.Item titleStyle={{ fontSize: 18, color: '#2D5672' }} leadingIcon="file-document-edit-outline" onPress={handleEditCategory} title="Chỉnh sửa chủ đề" /> */}
-        <Menu.Item titleStyle={{ fontSize: 18, color: '#2D5672' }} leadingIcon="eye-off-outline" onPress={handleHideCategory} title="Xóa chủ đề" />
-        <Menu.Item titleStyle={{ fontSize: 18, color: '#2D5672' }} leadingIcon="book-check" onPress={() => { showToast("Chưa hỗ trợ", 'warning') }} title="Đánh dấu đã học" />
-        <Menu.Item titleStyle={{ color: 'red', fontSize: 18 }} leadingIcon="archive-cancel" onPress={handleCancel} title="Hủy bỏ" />
-      </Modal>
-
+      />
     </Container>
   );
 };
