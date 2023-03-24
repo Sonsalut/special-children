@@ -20,6 +20,7 @@ export default createSlice({
     },
     logout: state => {
       state.user = {} as DataLoginResponse;
+      
     },
     saveAccount: (state, action) => {
       state.Account = action.payload

@@ -9,7 +9,6 @@ const initialState = {
 
     ],
     handleStore: [],
-
     personalStorefromApi: [],
     show: false,
     categoryId: ''
