@@ -27,7 +27,8 @@ export default StyleSheet.create({
     borderTopRightRadius: ratioW(20),
     borderTopLeftRadius: ratioW(20),
     height: '50%',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    borderWidth:1
   },
   viewTextInput: {
     marginBottom: ratioW(18),
@@ -46,7 +47,8 @@ export default StyleSheet.create({
   buttonLogin: {
     width: ratioW(210),
     // width: '90%',
-    marginBottom: ratioW(14)
+    marginBottom: ratioW(14),
+
   },
   viewLine: {
     flexDirection: 'row',

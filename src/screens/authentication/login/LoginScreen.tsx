@@ -76,11 +76,20 @@ const LoginScreen = ({ }: StackNavigationProps<
                     {/* create touch id*/}
                     <View style={{alignItems: 'center'}}>
                       <TouchableOpacity 
-                        style={{marginTop: 30, alignItems: 'center', borderRadius: 25, width: 50}} 
+                        style={{
+                          marginTop: 30, 
+                          alignItems: 'center', 
+                          borderRadius: 45,
+                          height: sizeHeight(8), 
+                          width: sizeWidth(12)
+                        }} 
                         onPress={loginWithBiometric}>
                         <Image 
                           source={require('../../../assets/images/fingerprint.png')} 
-                          style={{ width: 50, height: 50, marginBottom: '8%', marginTop: '8%'}} 
+                          style={{ 
+                            width: sizeWidth(12), 
+                            height: sizeHeight(8),
+                          }} 
                         />
                       </TouchableOpacity>
                     </View>
