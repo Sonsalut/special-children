@@ -1,9 +1,9 @@
 import React from 'react';
-import { Container, TouchableOpacity } from 'components';
+import { Container } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens } from 'routers/ScreenNames';
-import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
-import { Text, View, Image, ScrollView, KeyboardAvoidingView, FlatList, PermissionsAndroid, TextInput, ImageBackground } from 'react-native';
+import { sizeHeight } from 'utils/Utils';
+import { View, FlatList } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import { AddWordForUser, DeleteWord, GetWordByCateID, UpdateWord } from 'network/subs/auth/recording/RecordingRequest';
@@ -14,9 +14,6 @@ import { RefreshControl } from 'react-native-gesture-handler';
 import { Menu, Modal } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import HeaderWithBack from 'components/header/HeaderWithBack';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { Platform } from 'react-native';
-import { PERMISSIONS, request } from 'react-native-permissions';
 import { useToast } from 'hooks/useToast';
 import { ApiConstants } from 'network/ApiConstants';
 import AddButton from 'components/button/AddButton';
@@ -91,21 +88,22 @@ const AddWord = ({ }: StackNavigationProps<
 
   const takePhoto = async () => {
     if (await requestCameraPermission()) {
-      ImagePicker.launchCamera(CAMERA_OPTION, (response?: any) => {
+      ImagePicker.launchCamera(CAMERA_OPTION)
+      .then((response: any) => {
+
         if (response.didCancel) {
           console.log('CANCEL')
         }
-        else {
-          if (!response.errorMessage) {
-
-            setImage(response?.assets?.[0]?.uri)
-            setCameraOptionsVisble(!cameraOptionsVisble)
-          }
-          else {
-            console.log(response.errorMessage)
-          }
+        if (!response.errorMessage) {
+          setImage(response?.assets?.[0]?.uri)
+          setCameraOptionsVisble(!cameraOptionsVisble)
         }
-      });
+
+      })
+      .catch(error => {
+
+        showToast("Error",'warning')
+      })
     }
   };
   const handleUpImage = () => {

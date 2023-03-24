@@ -65,20 +65,22 @@ const AddCategory = ({ }: StackNavigationProps<
 
   const takePhoto = async () => {
     if (await requestCameraPermission()) {
-      ImagePicker.launchCamera(CAMERA_OPTION, (response?: any) => {
+      ImagePicker.launchCamera(CAMERA_OPTION)
+      .then((response: any) => {
+
         if (response.didCancel) {
           console.log('CANCEL')
         }
-        else {
-          if (!response.errorMessage) {
-            setImage(response?.assets?.[0]?.uri)
-            setCameraOptionsVisble(!cameraOptionsVisble)
-          }
-          else {
-            console.log(response.errorMessage)
-          }
+        if (!response.errorMessage) {
+          setImage(response?.assets?.[0]?.uri)
+          setCameraOptionsVisble(!cameraOptionsVisble)
         }
-      });
+
+      })
+      .catch(error => {
+
+        showToast("Error",'warning')
+      })
     }
   };
 
