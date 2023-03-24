@@ -35,7 +35,7 @@ const StorageWord = ({ }: StackNavigationProps<
 
     })
     if (response.status === ResponseCode.SUCCESS) {
-      console.log(response.data)
+      // console.log(response.data)
       setData(response.data)
 
     }
@@ -45,13 +45,15 @@ const StorageWord = ({ }: StackNavigationProps<
   
   const isFocused = useIsFocused();
 
+  
   React.useEffect(() => {
     
-    getStorageWords()
+   isFocused === true
+   ?     getStorageWords()
+   : null
   
     
-  }, [isFocused===true])
-  
+  }, [isFocused])
   ;
   const handle = () => {
     NavigationService.navigate(AuthenticatedScreens.Storage)

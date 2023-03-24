@@ -274,7 +274,7 @@ const AddCategory = ({ }: StackNavigationProps<
       }
       )
     }
-    console.log(textInputRef.current)
+    // console.log(textInputRef.current)
     const response = await RecordingAPI.AddCategoryForUser<AddCategoryForUser>({
       name: encodeURIComponent(textInputRef.current),
       description: 'Add',

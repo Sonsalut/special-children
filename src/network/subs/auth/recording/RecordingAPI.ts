@@ -153,8 +153,11 @@ class RecodingApi {
             options: {
                 method: METHOD.POST,
                 url: AuthApis.AddCategory+`?name=${params.name}&desscription=${params.description}`,
-                data:params.data
+                data: params.data,
+                
             },
+            
+            
         });
         
     }
@@ -183,7 +186,7 @@ class RecodingApi {
             special:false,
             options: {
                 method: METHOD.POST,
-                url: AuthApis.UpdateWord+`?categoryId=${params.categoryId}&word=${params.word}&wordAudio=${params.wordAudio}`,
+                url: AuthApis.AddWord+`?categoryId=${params.categoryId}&word=${params.word}&wordAudio=${params.wordAudio}`,
                 data:params.data
             },
         });

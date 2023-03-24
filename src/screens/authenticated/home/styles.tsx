@@ -18,11 +18,15 @@ export default StyleSheet.create({
 
   },
   searchBar: {
-    height: 42,
-    width: sizeWidth(80),
     borderWidth: 1,
-    borderColor: 'gray',
-    marginTop: 15
+    // bottom: 5,
+    borderColor: '#C1EBEA',
+    borderRadius: 15,
+    width: sizeWidth(80),
+    backgroundColor: 'white',
+    height: sizeHeight(6),
+    marginTop: 5,
+    
 
   },
   categoryCards: {

@@ -212,13 +212,14 @@ class ApiClient {
       timeout: TIMEOUT,
       
       headers: {
-        'Accept': 'Application/json',
+        'Accept': 'application/json',
         // "Accept": "*/*",
         
         //  'Content-Type': 'Application/json',
         // :'Content-Type': 'multipart/form-data',
         'Content-Type' : special ? 'Application/json'  : 'multipart/form-data',
       },
+      
       
       
       ...options
@@ -243,6 +244,8 @@ class ApiClient {
         return response;
       })
       .catch(error => {
+        console.log(error)
+
         console.log(error?.response?.data)
         console.log('apierror ', options?.url);
         const response: BaseResponse<T> = {

@@ -50,21 +50,24 @@ const AddEditModal = ({
   return (
     <Modal
       visible={visible}
+      
       style={{
         backgroundColor: '#E7F6FF',
-        borderRadius: 15,
+        borderRadius: 10,
         height: '70%',
         marginTop: sizeHeight(20),
         width: '90%',
         marginHorizontal: 20,
+        
+        
       }}
       onDismiss={onDismiss}
     >
-      <ScrollView style={{ height: '100%' }}>
+      <ScrollView style={{ height: '100%',borderRadius:10 }}>
         <KeyboardAvoidingView
           behavior='position'
           keyboardVerticalOffset={82}
-          style={{ width: '100%', height: '100%' }}>
+          style={{ width: '100%', height: '100%',  borderRadius:10 }}>
           {/* title */}
           <View style={{ width: '90%', height: sizeHeight(8), alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <TouchableOpacity onPress={cancel}>

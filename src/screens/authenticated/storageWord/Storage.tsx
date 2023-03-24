@@ -40,10 +40,12 @@ const Storage = ({ }: StackNavigationProps<
     searchValue, setSearchValue } = useLogicStorage()
   const isFocused = useIsFocused();
   React.useEffect(() => {
-
-    getStorageWords()
-    getCategory()
-  }, [])
+    if(isFocused) {
+      getStorageWords()
+      getCategory()
+    }
+   
+  }, [isFocused])
 
   return (
 

@@ -21,14 +21,15 @@ const JoinWordScreen = ({ }: StackNavigationProps<
     AuthenticatedScreens.RecordingScreen
 >) => {
     const isFocused = useIsFocused();
+    
     React.useEffect(() => {    
-            getStorageWords()
-         
+       if(isFocused)
+       {
+           getStorageWords()
             setID('')
-            setWords([])
-        
-        
-    }, [isFocused])
+             setWords([])
+       }
+}, [isFocused])
     const {
         id,
         setID,

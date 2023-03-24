@@ -24,17 +24,19 @@ const HomeScreen = ({ }: StackNavigationProps<
 
   const isFocused = useIsFocused()
   React.useEffect(() => {
-    getCategory()
-    setRandom(Math.random())
-  }, [isFocused == true])
+    if(isFocused) {
+      getCategory()
+      setRandom(Math.random())
+    }
+    
+  }, [isFocused])
+
   const [random, setRandom] = React.useState(Math.random)
-
-
   return (
 
     <Container isBottomTab={false} style={styles.container}>
       <TouchableWithoutFeedback
-        onPress={() => console.log('Pressed')}
+        // onPress={handleShow}
         onLongPress={handleShow}
       >
 

@@ -37,10 +37,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
         loadData();
     }, [])
     const isFocused = useIsFocused()
-    React.useEffect(() => {
-        loadData();
-    }, [isFocused===true])
-
+   
     const handle = () => {
         setShow(!show)
         setVisible(!visible)
@@ -176,8 +173,15 @@ const RecordingScreen = ({ route, navigation }: any) => {
                     {
                         shows ?
                             <Searchbar
-                                style={{ height: 42, width: sizeWidth(80), borderWidth: 1, borderColor: 'gray', marginTop: 15 }}
-                                placeholder="Tìm kiếm"
+                                style={{ borderWidth: 1,
+                                    // bottom: 5,
+                                    borderColor: '#C1EBEA',
+                                    borderRadius: 15,
+                                    width: sizeWidth(80),
+                                    backgroundColor: 'white',
+                                    height: sizeHeight(6),
+                                    marginTop: 5,}}
+                                placeholder="Tìm kiếm từ"
                                 placeholderTextColor={'gray'}
                                 value={searchValue}
                                 onChangeText={(e) => setSearchValue(e)}
@@ -200,6 +204,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                             keyExtractor={(_, index) => index.toString()}
                             showsVerticalScrollIndicator={false}
                             numColumns={2}
+                             
                             refreshControl={
                                 <RefreshControl
                                     refreshing={refreshing}
