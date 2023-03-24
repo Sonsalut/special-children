@@ -64,7 +64,6 @@ export default StyleSheet.create({
         marginHorizontal: 5,
         borderRadius: 10,
         height: sizeHeight(17.3),
-        borderWidth:1
     },
     wordImage: {
         marginTop: '3.5%',

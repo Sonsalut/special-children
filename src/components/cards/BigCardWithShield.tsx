@@ -49,15 +49,17 @@ const BigCardWithShield = ({
                 style={{
                     marginHorizontal: -10,
                     width: '100%',
-                    height: sizeHeight(4),
+                    alignSelf: 'center',
+                    height: sizeHeight(4.5),
+                    paddingRight: sizeWidth(1),
                 }}
             >
                 {
                     type === 'ADMIN'
                         ? <Icon
                             name='shield-sharp'
-                            size={sizeHeight(4), sizeWidth(6)}
-                            style={{ alignSelf: 'flex-end', color: 'orange', borderWidth:1, height: sizeHeight(4)}} />
+                            size={sizeHeight(4.5), sizeWidth(6)}
+                            style={{ alignSelf: 'flex-end', color: 'orange', height: sizeHeight(4.5)}} />
                         : null
                 }
             </View>

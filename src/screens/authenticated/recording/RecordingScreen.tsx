@@ -177,12 +177,12 @@ const RecordingScreen = ({ route, navigation }: any) => {
 
     return (
 
-        <Container isBottomTab={false} style={{ flex: 1, backgroundColor: 'white', width: '100%'}}>
+        <Container isBottomTab={false} style={styles.container}>
             <TouchableWithoutFeedback
                 onPress={() => console.log('Pressed')}
                 onLongPress={handleShow}
             >
-                <View style={{ height: sizeHeight(90), width: '95%', alignSelf: 'center', alignItems: 'center'}}>
+                <View style={styles.mainView}>
                     {
                         shows ?
                             <Searchbar
@@ -198,8 +198,8 @@ const RecordingScreen = ({ route, navigation }: any) => {
                     <View 
                         style={{ 
                             width: sizeWidth(90), 
-                            height: sizeHeight(90), 
-                            alignItems: 'flex-start', 
+                            height: sizeHeight(100), 
+                            alignItems: 'center', 
                             alignSelf: 'center', 
                             paddingTop:20
                         }}
