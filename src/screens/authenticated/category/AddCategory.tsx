@@ -343,7 +343,6 @@ const AddCategory = ({ }: StackNavigationProps<
               source={item?.pictureFileId !== null ? {
                 uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${random}`,
                 method: 'GET',
-
                 headers: { Authorization: store.getState().authReducer.user.accessToken }
               } :
                 require('../../.././assets/images/no.png')
@@ -405,7 +404,6 @@ const AddCategory = ({ }: StackNavigationProps<
         editCategory={handleEditCategory}
         deleteCategory={handleHideCategory}
         cancel={handleCancel}
-
       />
     </Container>
   );

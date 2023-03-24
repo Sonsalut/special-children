@@ -3,7 +3,7 @@ import { Container, Header, TouchableOpacity } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens, MainScreens } from 'routers/ScreenNames';
 import { fontSize, getExtention, getMime, sizeHeight, sizeWidth } from 'utils/Utils';
-import { Button, FlatList, Image, ScrollView, View, ActivityIndicator, ImageBackground, TouchableWithoutFeedback } from 'react-native';
+import { Button, FlatList, Image, ScrollView, View, ActivityIndicator, ImageBackground, TouchableWithoutFeedback, Dimensions } from 'react-native';
 import images from 'res/images';
 import NavigationService from 'routers/NavigationService';
 import styles from '../home/styles';
@@ -174,7 +174,26 @@ const RecordingScreen = ({ route, navigation }: any) => {
 
         }, 2000);
     }, []);
-
+    const [orientation, setOrientation] = React.useState(2);
+    const determineAndSetOrientation = () => {
+      let width = Dimensions.get('window').width;
+      let height = Dimensions.get('window').height;
+      if (width < height) {
+        setOrientation(2)
+      } else {
+        setOrientation(3)
+      }
+    }
+  
+    React.useEffect(() => {
+  
+      determineAndSetOrientation();
+      Dimensions.addEventListener('change', determineAndSetOrientation);
+      //  console.log(status)
+      return () => {
+        Dimensions.addEventListener('change', determineAndSetOrientation).remove()
+      }
+    });
     return (
 
         <Container isBottomTab={false} style={{ flex: 1, backgroundColor: 'white', width: '100%'}}>
