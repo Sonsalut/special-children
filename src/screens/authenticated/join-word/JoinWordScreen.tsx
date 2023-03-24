@@ -70,10 +70,14 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                       }
                     numColumns={3}
                     scrollEnabled={false}
-                    contentContainerStyle={{ alignItems: 'flex-start' }}
+                    contentContainerStyle={{ 
+                        alignItems: 'flex-start', 
+                        width: sizeWidth(80),
+                        alignSelf:'center',
+                    }}
                     renderItem={({ item, index }) => {
                         return (
-                            <View style={{paddingBottom: 5, marginTop: 5}}>
+                            <View style={{paddingBottom: 5, marginTop: 5, alignItems: 'center'}}>
                                 
                                 <SmallCard
                                     isDoubleTap={true}

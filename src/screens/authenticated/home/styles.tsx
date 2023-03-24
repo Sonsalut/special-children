@@ -4,12 +4,13 @@ import { fontSize, ratioW, sizeHeight, sizeWidth } from 'utils/Utils';
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: 'white', flex: 1, width: '100%'
-
+    backgroundColor: 'white', 
+    flex: 1, 
+    width: '100%',
   },
 
   mainView: {
-    height: sizeHeight(90),
+    height: sizeHeight(100),
     width: '95%',
     alignSelf: 'center',
     alignItems: 'center',
