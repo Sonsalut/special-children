@@ -7,13 +7,13 @@ export default StyleSheet.create({
     },
     wordJoinView: {
         borderRadius: 10,
-        width: '90%',
+        width: '95%',
         height: sizeHeight(45),
         justifyContent: 'center',
         alignSelf: 'center',
         marginTop: 20,
         backgroundColor: '#E7F6FF',
-        padding: 10
+        // padding: 10
     },
     wordcard: {
         backgroundColor: '#C1EBEA',
@@ -42,7 +42,8 @@ export default StyleSheet.create({
         width: sizeHeight(5),
         borderRadius: 10,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginBottom:sizeHeight(2),
     },
     
     deleteWord: {

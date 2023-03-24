@@ -28,7 +28,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
             setWords([])
         
         
-    }, [])
+    }, [isFocused])
     const {
         id,
         setID,
@@ -72,7 +72,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                     scrollEnabled={false}
                     contentContainerStyle={{ 
                         alignItems: 'flex-start', 
-                        width: sizeWidth(80),
+                        width: sizeWidth(85),
                         alignSelf:'center',
                     }}
                     renderItem={({ item, index }) => {
