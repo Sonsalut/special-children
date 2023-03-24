@@ -13,7 +13,7 @@ import {
   ImageSourcePropType,
 } from 'react-native';
 import colors from 'res/colors';
-import { ratioW } from 'utils/Utils';
+import { ratioW, sizeWidth } from 'utils/Utils';
 import TouchableOpacity from 'components/button/TouchableOpacity';
 
 interface TextInputProps extends RNTextInputProps {
@@ -241,7 +241,7 @@ const TextInput = forwardRef<RNTextInput, TextInputProps>(
 
 const styles = StyleSheet.create({
   viewLabel: {
-    marginBottom: ratioW(4),
+    marginBottom: ratioW(5),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -262,9 +262,11 @@ const styles = StyleSheet.create({
   containerTextInput: {
     flexDirection: 'row',
     alignItems: 'center',
+    alignSelf: 'center',
     justifyContent: 'space-between',
     borderWidth: ratioW(1),
     height: ratioW(50),
+    width: sizeWidth(75),
     borderRadius: ratioW(12),
   },
   textInput: {

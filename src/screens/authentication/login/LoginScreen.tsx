@@ -34,7 +34,11 @@ const LoginScreen = ({ }: StackNavigationProps<
 
                 <ImageBackground
                   source={require('../../../assets/images/AIS-Learning.png')}
-                  style={{height: '90%', width: '100%', justifyContent: 'flex-end'}}
+                  style={{
+                    height:sizeHeight(100),
+                    width:sizeWidth(90),
+                    paddingBottom: sizeHeight(5),
+                    justifyContent: 'flex-end'}}
                 >
                   <View style={styles.form}>
                     <Controller
@@ -55,8 +59,12 @@ const LoginScreen = ({ }: StackNavigationProps<
                       render={({ field: { onChange, onBlur, value } }) => (
                         <TextInput
                           isOnIconRightDoubleTap={true}
-                          iconLeftStyle={{ marginLeft: sizeWidth(5) }}
-                          iconRightStyle={{ marginRight: sizeWidth(5) }}
+                          iconLeftStyle={{ marginLeft: sizeWidth(5),}}
+                          iconRightStyle={{ 
+                            marginRight: sizeWidth(5), 
+                            height: sizeHeight(3.5),
+                            width: sizeWidth(3.5)
+                          }}
                           iconRight={hidden ? images.eye_slash : images.eye}
                           onBlur={onBlur}
                           onChangeText={value => onChange(value)}
@@ -69,19 +77,19 @@ const LoginScreen = ({ }: StackNavigationProps<
                       name="password"
                     />            
                     <Button
-                      style={{ marginTop: 20,}}
+                      style={styles.buttonLogin}
                       label='Đăng nhập'
-                      onPress={handleSubmit(onPressLogin)} />
-
+                      onPress={handleSubmit(onPressLogin)} 
+                    />
                     {/* create touch id*/}
                     <View style={{alignItems: 'center'}}>
                       <TouchableOpacity 
                         style={{
-                          marginTop: 30, 
+                          marginTop: sizeHeight(3.5), 
                           alignItems: 'center', 
                           borderRadius: 45,
                           height: sizeHeight(8), 
-                          width: sizeWidth(12)
+                          width: sizeWidth(12),
                         }} 
                         onPress={loginWithBiometric}>
                         <Image 

@@ -67,12 +67,12 @@ const HomeScreen = ({ }: StackNavigationProps<
               <BigCard
                 onPress={() => NavigationService.navigate(AuthenticatedScreens.RecordingScreen, { data: item })}
                 isDoubleTap={false}
-                source={ {
-                        uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
-                        method: 'GET',
-                        headers: { Authorization: store.getState().authReducer.user.accessToken }
-                      }}
-              title={`${item?.name}`}
+                source={{
+                  uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
+                  method: 'GET',
+                  headers: { Authorization: store.getState().authReducer.user.accessToken }
+                }}
+                title={`${item?.name}`}
               />
 
             )}

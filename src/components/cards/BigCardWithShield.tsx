@@ -56,8 +56,8 @@ const BigCardWithShield = ({
                     type === 'ADMIN'
                         ? <Icon
                             name='shield-sharp'
-                            size={sizeHeight(3), sizeWidth(6)}
-                            style={{ alignSelf: 'flex-end', color: 'orange' }} />
+                            size={sizeHeight(4), sizeWidth(6)}
+                            style={{ alignSelf: 'flex-end', color: 'orange', borderWidth:1, height: sizeHeight(4)}} />
                         : null
                 }
             </View>
@@ -68,7 +68,7 @@ const BigCardWithShield = ({
                     resizeMode: 'stretch',
                     borderRadius: sizeWidth(3),
                     alignSelf: 'center',
-                    marginTop: -20,
+                    marginTop: sizeHeight(-3),
                     padding: 15,
                 }}
                 source={source} />

@@ -46,7 +46,7 @@ export default memo(MediumCard)
 const styles = StyleSheet.create({
     cardStyle: {
         width: sizeWidth(28),
-        height: sizeHeight(18),
+        height: sizeHeight(18.5),
         borderRadius: 10,
         marginHorizontal: 5,
         marginVertical: 10,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         fontSize: fontSize(3.8),
         alignSelf: 'center',
         fontWeight: 'bold',
-        marginTop: '3.5%',
+        marginTop: '3%',
         color: '#2D5672'
     }
 })

@@ -1,4 +1,4 @@
-import {ratioW} from 'utils/Utils';
+import {ratioW, sizeHeight, sizeWidth} from 'utils/Utils';
 import {Platform, StyleSheet} from 'react-native';
 import colors from 'res/colors';
 
@@ -23,12 +23,11 @@ export default StyleSheet.create({
     top: ratioW(-20),
     width: ratioW(375),
     paddingHorizontal: ratioW(32),
-    paddingVertical: ratioW(18),
+    paddingVertical: ratioW(15),
     borderTopRightRadius: ratioW(20),
     borderTopLeftRadius: ratioW(20),
-    height: '50%',
+    height: sizeHeight(48),
     alignSelf: 'center',
-    borderWidth:1
   },
   viewTextInput: {
     marginBottom: ratioW(18),
@@ -45,9 +44,12 @@ export default StyleSheet.create({
     marginBottom: ratioW(30),
   },
   buttonLogin: {
-    width: ratioW(210),
+    // width: ratioW(210),
     // width: '90%',
-    marginBottom: ratioW(14),
+    // marginBottom: ratioW(14),
+    marginTop: sizeHeight(2.5),
+    width: sizeWidth(75),
+    alignSelf: 'center'
 
   },
   viewLine: {

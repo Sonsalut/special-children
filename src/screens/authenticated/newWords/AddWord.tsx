@@ -20,6 +20,8 @@ import { PERMISSIONS, request } from 'react-native-permissions';
 import { useToast } from 'hooks/useToast';
 import { ApiConstants } from 'network/ApiConstants';
 import AddButton from 'components/button/AddButton';
+import MediumCardWithShield from 'components/cards/MediumCardWithShield';
+import BigCardWithShield from 'components/cards/BigCardWithShield';
 
 
 
@@ -567,66 +569,25 @@ const AddWord = ({}: StackNavigationProps<
           }
           renderItem={({ item }) => (
 
-            <TouchableOpacity
+            <BigCardWithShield
               onPress={() => handleOnclick(item)}
               isDoubleTap={true}
-              activeOpacity={0.7}
-              style={{
-                width: sizeWidth(40),
-                height: sizeHeight(25),
-                borderRadius: 10,
-                marginHorizontal: 9,
-                alignSelf: 'center',
-                marginTop: 30,
-                paddingHorizontal: 10,
-                backgroundColor: '#C1EBEA',
-                paddingTop: 5,
-                borderWidth: item?.isActive ? 0 : 2
+              // activeOpacity={0.7}
+              type={item?.type}
+              title={item?.word}
+              isClicked={item?.isActive}
+              source={{
+                    uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${random}`,
+                    method: 'GET',
+                    headers: { Authorization: store.getState().authReducer.user.accessToken }
               }}
-            >
-              <View>
-                <View 
-                  style={{
-                    marginHorizontal: -10,
-                    width: '100%',
-                    height: sizeHeight(4),
-                    alignSelf: 'flex-end',
-                    paddingRight: 5,
-                  }}
-                >
-                  {
-                    item?.type === 'ADMIN'
-                      ? <Icon
-                        name='shield-sharp'
-                        size={sizeHeight(3), sizeWidth(6)}
-                        style={{alignSelf: 'flex-end', color: 'orange'}} />
-                      : null
-                  }
-                </View>
-              
-              <Image
-                style={{
-                  height: sizeHeight(18),
-                  width: sizeWidth(32),
-                  resizeMode: 'contain',
-                  borderRadius: sizeWidth(3),
-                  alignSelf: 'center',
-                  marginTop: -20,
-                  padding: 15,
-                }}
-                source={{
-                  uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${random}`,
-                  method: 'GET',
-                  headers: { Authorization: store.getState().authReducer.user.accessToken }
-                }}
-              />
-              
-              <Text style={{ fontSize: fontSize(5), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item?.word}</Text>
-            </View>
-            </TouchableOpacity>
+            />
+
           )}
+
         />
-        </View>
+      </View>
+                    
         
 
       {/* Choice tab */}

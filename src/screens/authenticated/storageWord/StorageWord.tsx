@@ -66,7 +66,10 @@ const StorageWord = ({ }: StackNavigationProps<
     }, 2000);
   }, []);
   return (
-    <Container style={styles.container} >
+    <Container 
+      isBottomTab={false}
+      style={styles.container} 
+    >
 
       <View >
         <AddButton
@@ -108,7 +111,8 @@ const StorageWord = ({ }: StackNavigationProps<
 export default StorageWord
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    
   },
   storageView: {
     width: '95%',
