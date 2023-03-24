@@ -87,7 +87,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                                         method: 'GET',
                                         headers: { Authorization: store.getState().authReducer.user.accessToken }
                                     }}
-                                    title={`${item?.words}`}
+                                    title={`${item?.word}`}
                                 />
                             </View>
                         )

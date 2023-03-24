@@ -10,10 +10,11 @@ export default StyleSheet.create({
   },
 
   mainView: {
-    height: sizeHeight(100),
+    height: sizeHeight(92),
     width: '95%',
     alignSelf: 'center',
     alignItems: 'center',
+    // borderWidth:  1
 
   },
   searchBar: {

@@ -1,19 +1,11 @@
 import React, { useState } from 'react';
-import { Container, Header, TouchableOpacity } from 'components';
-import { Routes, StackNavigationProps } from 'routers/Navigation';
-import { AuthenticatedScreens, MainScreens } from 'routers/ScreenNames';
-import { fontSize, getExtention, getMime, sizeHeight, sizeWidth } from 'utils/Utils';
-import { Button, FlatList, Image, ScrollView, View, ActivityIndicator, ImageBackground, TouchableWithoutFeedback, Dimensions } from 'react-native';
-import images from 'res/images';
-import NavigationService from 'routers/NavigationService';
+import { Container, TouchableOpacity } from 'components';
+import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
+import { FlatList, Image, View, TouchableWithoutFeedback } from 'react-native';
 import styles from '../home/styles';
 import { Modal, Searchbar } from 'react-native-paper';
-import * as ImagePicker from 'react-native-image-picker';
-import { RefreshControl, TextInput } from 'react-native-gesture-handler';
-import strings from 'res/strings';
-import get from 'network/subs/auth/AuthApi';
+import { RefreshControl } from 'react-native-gesture-handler';
 import RecordingAPI, { AuthApis } from 'network/subs/auth/recording/RecordingAPI';
-import { RecordingResponse } from 'network/subs/auth/recording/RecordingResponse';
 import ResponseCode from 'network/ResponseCode';
 import { store } from 'redux/store';
 import SoundPlayer from 'react-native-sound-player';
@@ -21,12 +13,10 @@ import Swiper from 'react-native-swiper';
 import { Text } from 'react-native';
 import colors from 'res/colors';
 import { GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
-import { delay } from '@reduxjs/toolkit/dist/utils';
-import { getCateId, setStorage, showIcon } from 'redux/storageWord/action';
+import { getCateId, showIcon } from 'redux/storageWord/action';
 import RNFetchBlob from 'rn-fetch-blob';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavigationContext, useIsFocused } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import { useToast } from 'hooks/useToast';
 import { ApiConstants } from 'network/ApiConstants';
 import axios from 'axios';
@@ -174,26 +164,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
 
         }, 2000);
     }, []);
-    const [orientation, setOrientation] = React.useState(2);
-    const determineAndSetOrientation = () => {
-      let width = Dimensions.get('window').width;
-      let height = Dimensions.get('window').height;
-      if (width < height) {
-        setOrientation(2)
-      } else {
-        setOrientation(3)
-      }
-    }
-  
-    React.useEffect(() => {
-  
-      determineAndSetOrientation();
-      Dimensions.addEventListener('change', determineAndSetOrientation);
-      //  console.log(status)
-      return () => {
-        Dimensions.addEventListener('change', determineAndSetOrientation).remove()
-      }
-    });
+
     return (
 
         <Container isBottomTab={false} style={styles.container}>
@@ -217,10 +188,11 @@ const RecordingScreen = ({ route, navigation }: any) => {
                     <View 
                         style={{ 
                             width: sizeWidth(90), 
-                            height: sizeHeight(100), 
+                            height: sizeHeight(92), 
                             alignItems: 'center', 
                             alignSelf: 'center', 
-                            paddingTop:20
+                            paddingTop:20,
+                            // borderWidth:6
                         }}
                     >
                         <FlatList
