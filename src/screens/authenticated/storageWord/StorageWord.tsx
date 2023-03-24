@@ -17,6 +17,7 @@ import NavigationService from 'routers/NavigationService';
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import { ApiConstants } from 'network/ApiConstants';
 import MediumCard from '../../../components/cards/MediumCard';
+import AddButton from 'components/button/AddButton';
 
 
 const StorageWord = ({ }: StackNavigationProps<
@@ -68,12 +69,10 @@ const StorageWord = ({ }: StackNavigationProps<
     <Container style={styles.container} >
 
       <View >
-        <TouchableOpacity
-          style={styles.addCategoryButton}
-          onPress={handle}
-        >
-          <Text style={{ alignSelf: 'center', marginTop: 10, fontSize: 15, fontWeight: 'bold', color: '#2D5672' }}>Thêm từ vào kho</Text>
-        </TouchableOpacity>
+        <AddButton
+          onpress={handle}
+          text={'Thêm từ vào kho'}
+        />
       </View>
       <View style={styles.storageView}>
         <FlatList
@@ -110,17 +109,6 @@ export default StorageWord
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white'
-  },
-  addCategoryButton: {
-    marginLeft: 10,
-    width: '50%',
-    height: sizeWidth(10),
-    borderRadius: 45,
-    marginTop: 15,
-    marginBottom: -10,
-    backgroundColor: '#FFD19A',
-    alignSelf: 'center'
-
   },
   storageView: {
     width: '95%',

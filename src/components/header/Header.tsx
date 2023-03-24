@@ -13,7 +13,7 @@ import {
 import {Text} from 'components';
 
 import colors from 'res/colors';
-import {ratioW} from 'utils/Utils';
+import {ratioW, sizeHeight} from 'utils/Utils';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import TouchableOpacity from 'components/button/TouchableOpacity';
 
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: ratioW(22),
     paddingRight: ratioW(22),
-    backgroundColor: colors.violet
+    // backgroundColor: colors.violet
   },
   viewIconHorizontal: {
     flexDirection: 'row',

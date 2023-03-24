@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { memo } from 'react'
 import TouchableOpacity from './TouchableOpacity'
-import { sizeWidth } from 'utils/Utils'
+import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils'
 
 interface AddButtonProps {
     onpress?: () => void,
@@ -29,19 +29,17 @@ export default memo(AddButton)
 
 const styles = StyleSheet.create({
     button: {
-        marginLeft: 10,
-        width: '50%',
-        height: sizeWidth(10),
+        width: sizeWidth(45),
+        height: sizeHeight(5.5),
         borderRadius: 45,
-        marginTop: 10,
-        marginBottom: 10,
+        marginTop: sizeHeight(2),
         backgroundColor: '#FFD19A',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        justifyContent: 'center'
     },
     text: {
         alignSelf: 'center',
-        paddingTop: 10,
-        fontSize: 15,
+        fontSize: fontSize(3.5),
         fontWeight: 'bold',
         color: '#2D5672'
     }

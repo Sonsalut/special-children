@@ -71,7 +71,7 @@ const HeaderWithBack = ({
         <HeaderTitle style={[styles.title, titleStyle]}>
           {title ?? `Header title`}
         </HeaderTitle>
-        {rightComponent ?? <View style={{ flex: 0.106 }} />}
+        {rightComponent ?? <View style={{ flex: 0.106,}} />}
         <ViewCondition isVisible={hasBack} style={{ width:sizeWidth(5), height:sizeHeight(5)}} >
           {
             rightIconShow 
@@ -79,8 +79,9 @@ const HeaderWithBack = ({
               <Image 
                 resizeMode='contain' 
                 style={{
-                  width:sizeWidth(5), 
-                  height:sizeHeight(5)}} 
+                  width:sizeWidth(4), 
+                  height:sizeHeight(4)
+                }} 
                   source={hasDone? images.done: images.action} 
               />
             </TouchableOpacity> 
@@ -99,17 +100,16 @@ export default HeaderWithBack;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: sizeWidth(5),
-    paddingVertical: sizeWidth(0.5),
-    justifyContent: 'space-between',
-    marginTop: sizeHeight(5),
+    justifyContent: 'center',
     // backgroundColor: '#87C2E4'
   },
   title: {
     flex: 1.107,
     textAlign: 'center',
     fontSize: fontSize(5.1),
-    lineHeight: fontSize(5.1) * 1.5,
-    fontWeight: 'bold'
+    // lineHeight: fontSize(5.1) * 1.5,
+    fontWeight: 'bold',
+    alignSelf: 'center'
   },
   
 })

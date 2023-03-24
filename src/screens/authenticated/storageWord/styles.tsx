@@ -63,7 +63,8 @@ export default StyleSheet.create({
         width: sizeWidth(25),
         marginHorizontal: 5,
         borderRadius: 10,
-        height: sizeHeight(17)
+        height: sizeHeight(17.3),
+        borderWidth:1
     },
     wordImage: {
         marginTop: '3.5%',
@@ -77,7 +78,7 @@ export default StyleSheet.create({
         color: '#2D5672',
         fontWeight: 'bold',
         alignSelf: "center",
-        marginTop: '5%'
+        marginTop: '3%'
     },
     checkbox: {
         right: 20,

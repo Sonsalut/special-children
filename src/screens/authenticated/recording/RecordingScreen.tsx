@@ -182,7 +182,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                 onPress={() => console.log('Pressed')}
                 onLongPress={handleShow}
             >
-                <View style={{ height: sizeHeight(90), width: '95%', alignSelf: 'center', alignItems: 'center', borderWidth:1 }}>
+                <View style={{ height: sizeHeight(90), width: '95%', alignSelf: 'center', alignItems: 'center'}}>
                     {
                         shows ?
                             <Searchbar

@@ -19,6 +19,7 @@ import { Platform } from 'react-native';
 import { PERMISSIONS, request } from 'react-native-permissions';
 import { useToast } from 'hooks/useToast';
 import { ApiConstants } from 'network/ApiConstants';
+import AddButton from 'components/button/AddButton';
 
 
 
@@ -537,21 +538,11 @@ const AddWord = ({}: StackNavigationProps<
         hasDone={showDoneIcon}
         handle={handle}
       />
-      <TouchableOpacity
-        style={{
-          marginLeft: 10,
-          width: '50%',
-          height: sizeWidth(10),
-          borderRadius: 45,
-          marginTop: 10,
-          backgroundColor: '#FFD19A',
-          alignSelf: 'center'
-        }}
-        onPress={handleAddWord}
-        isDoubleTap={true}
-      >
-        <Text style={{ alignSelf: 'center', marginTop: 10, fontSize: 15, fontWeight: 'bold', color: '#2D5672' }}>Thêm từ</Text>
-      </TouchableOpacity>
+      <AddButton
+        onpress={handleAddWord}
+        text={'Thêm từ'}
+      />
+        
       <View 
         style={{ 
           height: sizeHeight(85), 

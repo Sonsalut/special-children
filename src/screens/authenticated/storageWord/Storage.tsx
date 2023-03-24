@@ -153,7 +153,7 @@ const Storage = ({ }: StackNavigationProps<
                   <View style={styles.wordVsCheckboxView}>
 
 
-                    <View style={styles.cardView}>
+                    <View >
                       <SmallCard
                         disabled={true}
                         source={{
