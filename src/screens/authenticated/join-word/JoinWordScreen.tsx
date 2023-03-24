@@ -14,6 +14,7 @@ import { RefreshControl } from 'react-native-gesture-handler';
 import colors from 'res/colors';
 import MediumCard from 'components/cards/MediumCard';
 import SmallCard from 'components/cards/SmallCard';
+import { truncate } from 'fs';
 
 const JoinWordScreen = ({ }: StackNavigationProps<
     Routes,
@@ -59,7 +60,6 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                 {/* Word added to board */}
                 <FlatList
                     data={words}
-
                     keyExtractor={(_, index) => index.toString()}
                     refreshControl={
                         <RefreshControl
@@ -120,6 +120,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                     return (
                         <MediumCard
                             disabled={false}
+                            isDoubleTap={true}
                             source={{
                                 uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&`,
                                 method: 'GET',

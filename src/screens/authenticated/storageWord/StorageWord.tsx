@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
   storageView: {
     width: '95%',
-    height: '100%',
+    height: '90%',
     alignSelf: 'center',
     marginTop: 15,
     justifyContent: 'center',
