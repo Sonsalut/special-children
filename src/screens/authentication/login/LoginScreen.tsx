@@ -9,7 +9,7 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { View, Image, Text, TouchableOpacity, ImageBackground} from 'react-native';
 import NavigationService from 'routers/NavigationService';
-import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
+import { checkIpad, fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import images from 'res/images';
 import { useLogicLogin } from './useLogicLogin';
 import styles from './styles';
@@ -23,6 +23,7 @@ const LoginScreen = ({ }: StackNavigationProps<
   const { register, setError, handleSubmit, control, reset, formState: { errors } } = useForm();
   const { hidden, changeHiddenStatus, onPressLogin, onNavigateRegister, loginWithBiometric} = useLogicLogin();
   
+
   return (
     
     <Container  isBottomTab={false}>

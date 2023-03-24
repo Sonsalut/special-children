@@ -79,11 +79,12 @@ const HeaderWithBack = ({
               <Image 
                 resizeMode='contain' 
                 style={{
-                  width:sizeWidth(4), 
-                  height:sizeHeight(4)
+                  width:sizeWidth(6), 
+                  height:sizeHeight(6)
                 }} 
                   source={hasDone? images.done: images.action} 
               />
+              
             </TouchableOpacity> 
             : null
           }
@@ -101,7 +102,11 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: sizeWidth(5),
     justifyContent: 'center',
-    // backgroundColor: '#87C2E4'
+    // backgroundColor: '#87C2E4',
+    // flex:1,
+    // paddingTop: sizeHeight(4),
+    // borderWidth:1,
+    marginTop: sizeHeight(4)
   },
   title: {
     flex: 1.107,
