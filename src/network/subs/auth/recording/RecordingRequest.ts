@@ -72,7 +72,9 @@ export type AddWordForUser = {
     categoryId:number,
     word:string,
     wordAudio:string,
-    data:FormData
+    data:FormData,
+    isActive: boolean
+
  }; 
 
  export type DeleteCategory = {

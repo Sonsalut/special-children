@@ -176,7 +176,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                     {
                         shows ?
                             <Searchbar
-                                style={{ height: 40, width: sizeWidth(80), borderWidth: 1, borderColor: 'gray', marginTop: 15 }}
+                                style={{ height: 42, width: sizeWidth(80), borderWidth: 1, borderColor: 'gray', marginTop: 15 }}
                                 placeholder="Tìm kiếm"
                                 placeholderTextColor={'gray'}
                                 value={searchValue}

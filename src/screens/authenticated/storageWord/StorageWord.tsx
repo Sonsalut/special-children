@@ -81,6 +81,7 @@ const StorageWord = ({ }: StackNavigationProps<
         <FlatList
           data={data}
           numColumns={3}
+          showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}

@@ -10,7 +10,7 @@ export default StyleSheet.create({
   },
 
   mainView: {
-    height: sizeHeight(92),
+    height: sizeHeight(90),
     width: '95%',
     alignSelf: 'center',
     alignItems: 'center',

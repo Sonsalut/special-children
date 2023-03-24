@@ -22,6 +22,7 @@ interface AddEditModalProps {
   handleChoiceCamera?: () => void,
   onModalCameraDismiss?: () => void,
   cancelModalCamera?: () => void,
+  slogan:string
 }
 
 const AddEditModal = ({
@@ -38,7 +39,8 @@ const AddEditModal = ({
   cameraOptionsVisble,
   handleChoiceCamera,
   onModalCameraDismiss,
-  cancelModalCamera
+  cancelModalCamera,
+  slogan
   
 
 
@@ -80,7 +82,7 @@ const AddEditModal = ({
                 style={{
                   borderWidth: 1,
                   width: '90%',
-                  borderRadius: 5,
+                  borderRadius: sizeWidth(3),
                   alignSelf: 'center',
                   alignItems: 'center',
                   height: sizeHeight(40),
@@ -91,7 +93,7 @@ const AddEditModal = ({
                     resizeMode: 'stretch',
                     height: '100%',
                     width: '100%',
-                    marginTop: '1%',
+                    // marginTop: '1%',
                     // sizeWidth(39),
                     borderRadius: sizeWidth(3),
                   }}
@@ -106,7 +108,7 @@ const AddEditModal = ({
                 height: sizeHeight(10)
               }}>
               <Text
-                style={{ fontSize: 15, color: '#2D5672' }}>Tên chủ đề: </Text>
+                style={{ fontSize: 15, color: '#2D5672' }}>{slogan} </Text>
               <TextInput
                 style={{
                   height: sizeHeight(7),

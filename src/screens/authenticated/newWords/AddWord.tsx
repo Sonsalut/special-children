@@ -339,18 +339,25 @@ const AddWord = ({ }: StackNavigationProps<
       }
       )
     }
+    
     const response = await RecordingAPI.AddWord<AddWordForUser>({
       categoryId: id,
       word: encodeURIComponent(textInputRef.current),
       wordAudio: encodeURIComponent(textInputRef.current),
-      data: imageData
+      data: imageData,
+      isActive: true
     })
     if (response.status === 200) {
       showToast("Thêm thành công", 'success')
       setConfigModalvisible(!configModalvisible)
       setImage("")
       loadData()
+
     }
+    else{
+      console.log(response)
+    }
+    
   }
   return (
     <Container style={{ backgroundColor: 'white' }}>
@@ -372,7 +379,7 @@ const AddWord = ({ }: StackNavigationProps<
 
       <View
         style={{
-          height: sizeHeight(85),
+          height: sizeHeight(80),
           width: '95%',
           alignSelf: 'center',
           alignItems: 'center',
@@ -440,6 +447,7 @@ const AddWord = ({ }: StackNavigationProps<
             headers: { Authorization: store.getState().authReducer.user.accessToken }
           }
         }
+        slogan={"Tên từ:"}
         cancel={() => { setEditPopupVisivle(!editPopupVisivle); setValue(''); setImage('') }}
         defaultValue={value}
         onChangeText={(e) => handleType(e)}
@@ -475,8 +483,10 @@ const AddWord = ({ }: StackNavigationProps<
         onDismiss={() => { setConfigModalvisible(!configModalvisible) }}
         source={image ? { uri: image } : null}
         handleSubmit={handleDoneAdd}
-        cancel={() => { setConfigModalvisible(!configModalvisible) }}
+        cancel={() => { setConfigModalvisible(!configModalvisible); setValue(''); setImage('') }}
         takePhoto={takePhoto}
+        slogan={"Tên từ:"}
+
         chooseImage={chooseImage}
         defaultValue={value}
         onChangeText={(e) => handleType(e)}

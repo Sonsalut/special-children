@@ -260,7 +260,7 @@ const AddCategory = ({ }: StackNavigationProps<
   }
 
   const handleDoneAddCategory = async () => {
-    console.log(textInputRef.current)
+    // console.log(textInputRef.current)
     let name = encodeURIComponent(textInputRef.current)
     const imageData = new FormData()
     if (image !== "") {
@@ -274,8 +274,9 @@ const AddCategory = ({ }: StackNavigationProps<
       }
       )
     }
+    console.log(textInputRef.current)
     const response = await RecordingAPI.AddCategoryForUser<AddCategoryForUser>({
-      name: name,
+      name: encodeURIComponent(textInputRef.current),
       description: 'Add',
       data: imageData,
       isActive: true,
@@ -313,7 +314,7 @@ const AddCategory = ({ }: StackNavigationProps<
       />
       <View
         style={{
-          height: sizeHeight(85),
+          height: sizeHeight(80),
           width: '95%',
           alignSelf: 'center',
           alignItems: 'center',
@@ -367,6 +368,8 @@ const AddCategory = ({ }: StackNavigationProps<
             headers: { Authorization: store.getState().authReducer.user.accessToken }
           }
         }
+        slogan={"Tên chủ đề:"}
+
         cancel={() => { setEditPopupVisivle(!editPopupVisivle); setValue(''); setImage('') }}
         takePhoto={takePhoto}
         chooseImage={chooseImage}
@@ -383,6 +386,8 @@ const AddCategory = ({ }: StackNavigationProps<
         source={image ? { uri: image }
           : null
         }
+        slogan={"Tên chủ đề:"}
+
         onDismiss={() => setConfigModalvisible(!configModalvisible)}
         handleSubmit={handleDoneAddCategory}
         cancel={() => { setConfigModalvisible(!configModalvisible); setValue(''); setImage('') }}
