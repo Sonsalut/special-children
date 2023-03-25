@@ -20,6 +20,8 @@ import AddEditModal from '../../../components/modal/AddEditModal';
 import BigCardWithShield from '../../../components/cards/BigCardWithShield';
 import ChoiceTab from './component/ChoiceTab';
 import AddButton from 'components/button/AddButton';
+import RNFetchBlob from 'rn-fetch-blob';
+import axios from 'axios';
 
 
 const AddCategory = ({ }: StackNavigationProps<
@@ -62,7 +64,7 @@ const AddCategory = ({ }: StackNavigationProps<
 
     });
   };
-
+const [base64, setBase64] = React.useState()
   const takePhoto = async () => {
     if (await requestCameraPermission()) {
       ImagePicker.launchCamera(CAMERA_OPTION)
@@ -74,6 +76,9 @@ const AddCategory = ({ }: StackNavigationProps<
         if (!response.errorMessage) {
           setImage(response?.assets?.[0]?.uri)
           setCameraOptionsVisble(!cameraOptionsVisble)
+          setBase64(response?.assets?.[0])
+          console.log(response?.assets[0])
+          
         }
 
       })
@@ -173,7 +178,6 @@ const AddCategory = ({ }: StackNavigationProps<
     else {
       setVisible(!visible)
       showToast('Xóa thành công', 'success')
-      getCategory()
 
     }
   }
@@ -183,6 +187,8 @@ const AddCategory = ({ }: StackNavigationProps<
       // setStatusCategory(item)
       deleteCategory(item?.id)
     })
+    getCategory()
+
   }
   const handleCancel = () => {
     setVisible(!visible)
@@ -270,32 +276,85 @@ const AddCategory = ({ }: StackNavigationProps<
       imageData.append(
         "file-image", {
         uri: image,
-        name: 'image.png',
+        name: 'image.jpeg',
         fileName: 'image',
-        type: 'image/png',
+        type: 'image/jpeg',
+        
       }
       )
     }
+      // let url =ApiConstants.HOST + 'ext/category/user'+`?name=${name}&desscription=add`
+      // axios({
+      //   method:'POST',
+      //   url:url,
+      //   headers:{
+      //          Authorization : store.getState().authReducer.user.accessToken,
+      //   'Content-Type' : 'multipart/form-data',
+      //   'Accept': 'application/json',
+      //   },
+      //   data:imageData,
+       
+      // }).then(res=> console.log(res))
+      // .catch(err=> console.log(err))
+
     // console.log(textInputRef.current)
-    const response = await RecordingAPI.AddCategoryForUser<AddCategoryForUser>({
-      name: encodeURIComponent(textInputRef.current),
-      description: 'Add',
-      data: imageData,
-      isActive: true,
+    // const response = await RecordingAPI.AddCategoryForUser<AddCategoryForUser>({
+    //   name: 'ssss',
+    //   description: 'Add',
+    //   data: imageData,
+    //   isActive: true,
 
-    })
-    if (response.status === 200) {
-      showToast("Thêm thành công", 'success')
-      setConfigModalvisible(!configModalvisible)
-      setImage("")
-      getCategory()
-      textInputRef.current = null
+    // })
+    // if (response.status === 200) {
+    //   showToast("Thêm thành công", 'success')
+    //   setConfigModalvisible(!configModalvisible)
+    //   setImage("")
+    //   getCategory()
+    //   textInputRef.current = null
 
-    }
-    else {
-      showToast("Từ không hợp lệ", 'danger')
-    }
+    // }
+    // else {
+    //   showToast("Từ không hợp lệ", 'danger')
+    // }
+      let url =ApiConstants.HOST + 'ext/category/user'+`?name=${name}&desscription=add`
+     
+   
+      RNFetchBlob.fetch("POST",url , {
+        Authorization : store.getState().authReducer.user.accessToken,
+        
+        'Content-Type' : 'multipart/form-data',
+        'Accept': 'application/json',
+        
+      },
+      
+         
+      [
+        {
+          name : "image",
+          filename : base64?.fileName,
+          type: base64?.type,
+          data:  RNFetchBlob.wrap(image),
+          
+        }
+      ] 
+      ).then(res=>{
+        console.log(res)
+       if(res?.respInfo.status===200)
+       {
+          showToast("Thêm thành công", 'success')
+        setConfigModalvisible(!configModalvisible)
+        setImage("")
+        getCategory()
+        textInputRef.current = null
 
+       }
+      })
+      .catch(err=>{
+        showToast("Từ không hợp lệ", 'danger')
+        console.log(err)
+      })
+
+    // console.log(base64)
   }
   return (
     <Container style={{ flex: 1, backgroundColor: 'white' }}>

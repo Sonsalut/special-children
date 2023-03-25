@@ -10,7 +10,7 @@ export const IMAGE_LIBRARY_OPTION: any = {
     mediaType: 'photo',
     cameraType: 'back',
     includeBase64: true,
-    quality: 1,
+    quality: 0.5,
     // maxHeight: 450,
     // maxWidth: 250,
     

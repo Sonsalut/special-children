@@ -36,7 +36,7 @@ const HomeScreen = ({ }: StackNavigationProps<
 
     <Container isBottomTab={false} style={styles.container}>
       <TouchableWithoutFeedback
-        // onPress={handleShow}
+        onPress={handleShow}
         onLongPress={handleShow}
       >
 
