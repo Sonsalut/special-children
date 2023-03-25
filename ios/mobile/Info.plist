@@ -35,10 +35,19 @@
 			</dict>
 		</dict>
 	</dict>
+	
 	<key>NSCameraUsageDescription</key>
-	<string>Ứng dụng cần truy cập vào camera</string>
+	<string>Ứng dụng cần truy cập vào Camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+
+	<dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string></string>
+	</dict>
+
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -69,8 +78,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>NSPhotoLibraryUsageDescription</string>
-		<string>NSMicrophoneUsageDescription</string>
+		
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
