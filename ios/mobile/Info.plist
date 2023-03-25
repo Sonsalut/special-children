@@ -41,12 +41,12 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 
-	<dict>
+	
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string></string>
-	</dict>
+	
 
 	<key>UIAppFonts</key>
 	<array>
