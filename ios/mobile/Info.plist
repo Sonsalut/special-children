@@ -38,11 +38,11 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Ứng dụng cần truy cập vào Camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Ứng dụng cần truy cập vị trí</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string></string>
+	<string>Ứng dụng cần truy cập microphone</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
+	<string>Ứng dụng cần truy cập vào Thư viện</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
