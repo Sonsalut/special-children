@@ -24,6 +24,7 @@ import { store } from 'redux/store';
       if (response.status === ResponseCode.SUCCESS) {
   
         setData(response.data?.categories)
+
         // console.log(data)
         // console.log(store.getState().authReducer.user.refreshToken)
         // console.log(store.getState().authReducer.user.accessToken)

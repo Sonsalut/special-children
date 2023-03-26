@@ -23,7 +23,6 @@ import AddButton from 'components/button/AddButton';
 import RNFetchBlob from 'rn-fetch-blob';
 import axios from 'axios';
 
-
 const AddCategory = ({ }: StackNavigationProps<
   Routes,
   AuthenticatedScreens.AddCategory
@@ -279,82 +278,56 @@ const [base64, setBase64] = React.useState()
         name: 'image.jpeg',
         fileName: 'image',
         type: 'image/jpeg',
-        
       }
       )
     }
-      // let url =ApiConstants.HOST + 'ext/category/user'+`?name=${name}&desscription=add`
-      // axios({
-      //   method:'POST',
-      //   url:url,
-      //   headers:{
-      //          Authorization : store.getState().authReducer.user.accessToken,
-      //   'Content-Type' : 'multipart/form-data',
-      //   'Accept': 'application/json',
-      //   },
-      //   data:imageData,
-       
-      // }).then(res=> console.log(res))
-      // .catch(err=> console.log(err))
-
-    // console.log(textInputRef.current)
-    // const response = await RecordingAPI.AddCategoryForUser<AddCategoryForUser>({
-    //   name: 'ssss',
-    //   description: 'Add',
-    //   data: imageData,
-    //   isActive: true,
-
-    // })
-    // if (response.status === 200) {
-    //   showToast("Thêm thành công", 'success')
-    //   setConfigModalvisible(!configModalvisible)
-    //   setImage("")
-    //   getCategory()
-    //   textInputRef.current = null
-
-    // }
-    // else {
-    //   showToast("Từ không hợp lệ", 'danger')
-    // }
-      let url =ApiConstants.HOST + 'ext/category/user'+`?name=${name}&desscription=add`
-     
    
-      RNFetchBlob.fetch("POST",url , {
-        Authorization : store.getState().authReducer.user.accessToken,
-        
-        'Content-Type' : 'multipart/form-data',
-        'Accept': 'application/json',
-        
-      },
-      
-         
-      [
-        {
-          name : "image",
-          filename : base64?.fileName,
-          type: base64?.type,
-          data:  RNFetchBlob.wrap(image),
-          
-        }
-      ] 
-      ).then(res=>{
-        console.log(res)
-       if(res?.respInfo.status===200)
-       {
-          showToast("Thêm thành công", 'success')
-        setConfigModalvisible(!configModalvisible)
-        setImage("")
-        getCategory()
-        textInputRef.current = null
+    const response = await RecordingAPI.AddCategoryForUser<AddCategoryForUser>({
+      name: name,
+      description: 'Add',
+      data: imageData,
+      isActive: true,
 
-       }
-      })
-      .catch(err=>{
-        showToast("Từ không hợp lệ", 'danger')
-        console.log(err)
-      })
+    })
+    if (response.status === 200) {
+      showToast("Thêm thành công", 'success')
+      setConfigModalvisible(!configModalvisible)
+      setImage("")
+      getCategory()
+      textInputRef.current = null
 
-    // console.log(base64)
+    }
+    else {
+      showToast("Từ không hợp lệ", 'danger')
+    }
+//       let url =ApiConstants.HOST + 'ext/category/user'+`?name=${name}&desscription=add`
+
+//   axios.post(url + '/file/upload', imageData, {
+//       headers:{
+//                Authorization : store.getState().authReducer.user.accessToken,
+//         'Content-Type' : 'multipart/form-data',
+//         'Accept': 'application/json',
+//         },
+// }).then(res=> {
+
+
+// if(res.status===200)
+// {
+//             showToast("Thêm thành công", 'success')
+//         setConfigModalvisible(!configModalvisible)
+//         setImage("")
+//         getCategory()
+//         textInputRef.current = null
+
+// }
+
+// })
+// .catch(err=> {
+
+//           showToast("ERROR", 'danger')
+//         console.log(err)
+// })
+     
   }
   return (
     <Container style={{ flex: 1, backgroundColor: 'white' }}>
