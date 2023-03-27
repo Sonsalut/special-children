@@ -1,5 +1,5 @@
 ENV=DEVELOP
-APP_NAME=SpecialChildren
+APP_NAME=SuperChildren
 API_URL=
 ANDROID_APP_ID=com.aisolutionsjsc.specialchildren
 ANDROID_APP_VERSION_NAME=1.2.7
