@@ -292,7 +292,7 @@ const AddCategory = ({ }: StackNavigationProps<
       )
     }
 
-    let url = ApiConstants.HOST + 'ext/category/user' + `?name=${name}&desscription=add`
+    let url = ApiConstants.HOST + 'ext/category/user' + `?name=${name}`
     // console.log('====================================');
     // console.log(imageData);
     // console.log('====================================');
@@ -316,6 +316,7 @@ const AddCategory = ({ }: StackNavigationProps<
 
         }
         else {
+          console.log(res)
           showToast("ERROR", 'danger')
 
         }
@@ -325,6 +326,7 @@ const AddCategory = ({ }: StackNavigationProps<
 
 
         showToast("ERROR", 'danger')
+        console.log(err)
 
       })
 
