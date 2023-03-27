@@ -116,8 +116,10 @@ const AddEditModal = ({
                   borderWidth: 1,
                   paddingLeft: sizeWidth(3),
                   borderRadius: sizeWidth(2),
-                  borderColor: '#60A2C8'
+                  borderColor: '#60A2C8',
+                  fontSize: fontSize(3)
                 }}
+                
                 defaultValue={defaultValue}
                 onChangeText={onChangeText}
                 maxLength={14}
