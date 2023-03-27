@@ -4,7 +4,7 @@ import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens } from 'routers/ScreenNames';
 import { sizeHeight } from 'utils/Utils';
 import { View, FlatList } from 'react-native';
-import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
+import RecordingAPI, { AuthApis } from 'network/subs/auth/recording/RecordingAPI';
 import { AddCategoryForUser, DeleteCategory, GetFullCategory, UpdateCategory } from 'network/subs/auth/recording/RecordingRequest';
 import ResponseCode from 'network/ResponseCode';
 import { store } from 'redux/store';
@@ -22,6 +22,8 @@ import ChoiceTab from './component/ChoiceTab';
 import AddButton from 'components/button/AddButton';
 import RNFetchBlob from 'rn-fetch-blob';
 import axios from 'axios';
+import { url } from 'inspector';
+import { json } from 'stream/consumers';
 
 const AddCategory = ({ }: StackNavigationProps<
   Routes,
@@ -44,6 +46,7 @@ const AddCategory = ({ }: StackNavigationProps<
     checkCount()
 
   }, [data])
+  const [dataImage, setDataImage] = React.useState()
 
   const chooseImage = async () => {
     ImagePicker.launchImageLibrary(IMAGE_LIBRARY_OPTION, (response?: any) => {
@@ -53,9 +56,10 @@ const AddCategory = ({ }: StackNavigationProps<
       }
       else {
         if (!response.errorMessage) {
-          setImage(response?.assets?.[0]?.uri)
+          // setImage(response?.assets?.[0]?.uri)
           setCameraOptionsVisble(!cameraOptionsVisble)
-          console.log(response)
+          setDataImage(response?.assets?.[0])
+          // console.log(response)
         }
         else {
           console.log("that bai")
@@ -64,28 +68,29 @@ const AddCategory = ({ }: StackNavigationProps<
 
     });
   };
-const [base64, setBase64] = React.useState()
+  const [base64, setBase64] = React.useState()
+
   const takePhoto = async () => {
     if (await requestCameraPermission()) {
       ImagePicker.launchCamera(CAMERA_OPTION)
-      .then((response: any) => {
+        .then((response: any) => {
 
-        if (response.didCancel) {
-          console.log('CANCEL')
-        }
-        if (!response.errorMessage) {
-          setImage(response?.assets?.[0]?.uri)
-          setCameraOptionsVisble(!cameraOptionsVisble)
-          setBase64(response?.assets?.[0])
-          console.log(response?.assets[0])
-          
-        }
+          if (response.didCancel) {
+            console.log('CANCEL')
+          }
+          if (!response.errorMessage) {
+            // setImage(response?.assets?.[0]?.uri)
+            setCameraOptionsVisble(!cameraOptionsVisble)
+            setDataImage(response?.assets?.[0])
+            console.log(response?.assets[0])
 
-      })
-      .catch(error => {
+          }
 
-        showToast("Error",'warning')
-      })
+        })
+        .catch(error => {
+
+          showToast("Error", 'warning')
+        })
     }
   };
 
@@ -230,37 +235,42 @@ const [base64, setBase64] = React.useState()
       ? name = encodeURIComponent(textInputRef.current)
       : name = encodeURIComponent(item?.name)
     const imageData = new FormData()
-    if (image !== "") {
+    if (dataImage) {
 
       imageData.append(
         "file-image", {
-        uri: image,
-        name: 'image.png',
-        fileName: 'image',
-        type: 'image/png',
+        uri: dataImage?.uri,
+        name: dataImage?.fileName,
+        type: dataImage?.type
       }
       )
       special = true
     }
     //  console.log(special)
-    const response = await RecordingAPI.UpdateCategory<UpdateCategory>({
-      id: item?.id,
-      name: name,
-      isActive: special,
-      description: 'EDIT',
-      data: imageData
+    let url = AuthApis.UpdateCategory+`?categoryId=${item?.id}&name=${name}&desscription=edit`
+
+    fetch(url, {
+      method: 'PUT',
+      headers: {
+        Authorization: store.getState().authReducer.user.accessToken,
+      },
+      body: dataImage ? imageData : null
     })
-    if (response.status === 200) {
-      console.log(" Update SUCCESS")
-      showToast("Thay đổi thành công", 'success')
-      setEditPopupVisivle(!editPopupVisivle)
-      getCategory()
-      setImage("")
-      setRandom(Math.random())
-    }
-    else {
-      showToast("ERROR", 'warning')
-    }
+    .then(response=>{
+      if (response.status === 200) {
+        console.log(" Update SUCCESS")
+        showToast("Thay đổi thành công", 'success')
+        setEditPopupVisivle(!editPopupVisivle)
+        getCategory()
+        setDataImage('')
+        setRandom(Math.random())
+      }
+      else {
+        showToast("ERROR", 'warning')
+      }
+    })
+    .catch(err => {console.log(err)})
+   
   }
 
   const handleDoneEdit = () => {
@@ -271,64 +281,104 @@ const [base64, setBase64] = React.useState()
     // console.log(textInputRef.current)
     let name = encodeURIComponent(textInputRef.current)
     const imageData = new FormData()
-    if (image !== "") {
-
+    if (dataImage) {
       imageData.append(
-        "file-image", {
-        uri: image,
-        name: 'image.jpg',
-        fileName: 'image',
-        type: 'image/jpg',
-      }
+        "file-image",
+        {
+          uri: dataImage?.uri,
+          name: dataImage?.fileName,
+          type: dataImage?.type
+        }
       )
     }
-   
-    const response = await RecordingAPI.AddCategoryForUser<AddCategoryForUser>({
-      name: name,
-      description: 'Add',
-      data: imageData,
-      isActive: true,
 
+    let url = ApiConstants.HOST + 'ext/category/user' + `?name=${name}&desscription=add`
+    // console.log('====================================');
+    // console.log(imageData);
+    // console.log('====================================');
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        // 'Accept': 'application/json',
+        // 'Content-Type':'multipart/form-data',
+        Authorization: store.getState().authReducer.user.accessToken,
+      },
+      body: dataImage ? imageData : null
     })
-    if (response.status === 200) {
-      showToast("Thêm thành công", 'success')
-      setConfigModalvisible(!configModalvisible)
-      setImage("")
-      getCategory()
-      textInputRef.current = null
+      .then(res => {
 
-    }
-    else {
-      showToast("Từ không hợp lệ", 'danger')
-    }
-//       let url =ApiConstants.HOST + 'ext/category/user'+`?name=${name}&desscription=add`
+        if (res.status === 200) {
+          showToast("Thêm thành công", 'success')
+          setConfigModalvisible(!configModalvisible)
+          setDataImage('')
+          getCategory()
+          textInputRef.current = null
 
-//   axios.post(url + '/file/upload', imageData, {
-//       headers:{
-//                Authorization : store.getState().authReducer.user.accessToken,
-//         'Content-Type' : 'multipart/form-data',
-//         'Accept': 'application/json',
-//         },
-// }).then(res=> {
+        }
+        else {
+          showToast("ERROR", 'danger')
+
+        }
+
+      })
+      .catch(err =>{
 
 
-// if(res.status===200)
-// {
-//             showToast("Thêm thành công", 'success')
-//         setConfigModalvisible(!configModalvisible)
-//         setImage("")
-//         getCategory()
-//         textInputRef.current = null
+        showToast("ERROR", 'danger')
 
-// }
+      })
 
-// })
-// .catch(err=> {
+    // const response = await RecordingAPI.AddCategoryForUser<AddCategoryForUser>({
+    //   name: name,
+    //   description: 'Add',
+    //   // data: imageData,
+    //   data: imageData,
 
-//           showToast("ERROR", 'danger')
-//         console.log(err)
-// })
-     
+    //   isActive: true,
+
+    // })
+    // if (response.status === 200) {
+    //   showToast("Thêm thành công", 'success')
+    //   setConfigModalvisible(!configModalvisible)
+    //   setDataImage('')
+    //   getCategory()
+    //   textInputRef.current = null
+
+    // }
+    // else {
+    //   showToast("Từ không hợp lệ", 'danger')
+
+    // }
+
+    // console.log(imageData)
+    // let url = ApiConstants.HOST + 'ext/category/user' + `?name=${name}&desscription=add`
+    // RNFetchBlob.fetch(
+    //   "POST",
+    //   url,
+    //   {
+
+    //     Authorization: store.getState().authReducer.user.accessToken,
+    //     "Accept": "application/json",
+    //     "Content-Type": "multipart/form-data"
+
+    //   },
+    //   [
+
+    //     {
+    //       name: dataImage?.fileName,
+    //       fileName: 'image',
+    //       type: dataImage?.type,
+    //       data: RNFetchBlob.wrap(dataImage?.uri)
+    //     },
+    //     // {
+    //     //   name: dataImage?.fileName,
+    //     //   fileName: 'image',
+    //     //   type: dataImage?.type,
+    //     //   data: dataImage?.base64
+    //     // }
+    //   ]
+    // ).then(res => console.log(res))
+
   }
   return (
     <Container style={{ flex: 1, backgroundColor: 'white' }}>
@@ -342,10 +392,10 @@ const [base64, setBase64] = React.useState()
         rightIconShow={!showDoneIcon}
         hasDone={showDoneIcon}
         handle={handle} />
-        {/* Nút thêm chủ đề */}
+      {/* Nút thêm chủ đề */}
       <AddButton
-      onpress={handleAddCategory}
-      text={"Thêm chủ đề"}
+        onpress={handleAddCategory}
+        text={"Thêm chủ đề"}
       />
       <View
         style={{
@@ -362,7 +412,7 @@ const [base64, setBase64] = React.useState()
           numColumns={2}
           showsVerticalScrollIndicator={false}
           scrollToOverflowEnabled={false}
-          contentContainerStyle={{paddingBottom: '5%'}}
+          contentContainerStyle={{ paddingBottom: '5%' }}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -396,7 +446,7 @@ const [base64, setBase64] = React.useState()
           setEditPopupVisivle(!editPopupVisivle)
         }}
         handleSubmit={handleDoneEdit}
-        source={image ? { uri: image }
+        source={dataImage ? { uri: dataImage?.uri }
           : {
             uri: ApiConstants.HOST + `ext/files/download?id=${personData?.pictureFileId}&file-size=ORIGINAL&${random}`,
             method: 'GET',
@@ -406,7 +456,7 @@ const [base64, setBase64] = React.useState()
         }
         slogan={"Tên chủ đề:"}
 
-        cancel={() => { setEditPopupVisivle(!editPopupVisivle); setValue(''); setImage('') }}
+        cancel={() => { setEditPopupVisivle(!editPopupVisivle); setValue(''); setDataImage('') }}
         takePhoto={takePhoto}
         chooseImage={chooseImage}
         defaultValue={value}
@@ -419,14 +469,14 @@ const [base64, setBase64] = React.useState()
       {/* màn hình thêm chủ đề */}
       <AddEditModal title={'Thêm chủ đề'}
         visible={configModalvisible}
-        source={image ? { uri: image }
+        source={dataImage ? { uri: dataImage?.uri }
           : null
         }
         slogan={"Tên chủ đề:"}
 
         onDismiss={() => setConfigModalvisible(!configModalvisible)}
         handleSubmit={handleDoneAddCategory}
-        cancel={() => { setConfigModalvisible(!configModalvisible); setValue(''); setImage('') }}
+        cancel={() => { setConfigModalvisible(!configModalvisible); setValue(''); setDataImage('') }}
         takePhoto={takePhoto}
         chooseImage={chooseImage}
         defaultValue={value}

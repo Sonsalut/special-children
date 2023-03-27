@@ -13,7 +13,7 @@ if (RUN_ENVIRONMENT === type.DEV) {
     HOST = 'https://ais-schildren-test-api.aisolutions.com.vn/',
     ACCOUNT='https://ais-account-test-api.aisolutions.com.vn/'
     
-    // HOST = 'http://192.168.10.35:8089/';
+    // HOST = 'http://192.168.10.48:8088/';
 
 } else if (RUN_ENVIRONMENT === type.TEST) {
     HOST = '',

@@ -5,7 +5,7 @@ import { AuthenticatedScreens } from 'routers/ScreenNames';
 import { sizeHeight } from 'utils/Utils';
 import { View, FlatList } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
-import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
+import RecordingAPI, { AuthApis } from 'network/subs/auth/recording/RecordingAPI';
 import { AddWordForUser, DeleteWord, GetWordByCateID, UpdateWord } from 'network/subs/auth/recording/RecordingRequest';
 import ResponseCode from 'network/ResponseCode';
 import { store } from 'redux/store';
@@ -35,6 +35,7 @@ const AddWord = ({ }: StackNavigationProps<
   const [random, setRandom] = React.useState(Math.random())
   const [cameraOptionsVisble, setCameraOptionsVisble] = React.useState(false)
   const [itemData, setItemData] = React.useState(new FormData())
+  const [dataImage, setDataImage] = React.useState()
 
 
   const chooseImage = async () => {
@@ -48,8 +49,10 @@ const AddWord = ({ }: StackNavigationProps<
           const imageDatas = new FormData()
 
           console.log(response.assets)
-          setImage(response?.assets?.[0]?.uri)
+          // setImage(response?.assets?.[0]?.uri)
           setCameraOptionsVisble(!cameraOptionsVisble)
+          setDataImage(response?.assets?.[0])
+
         }
         else {
           console.log("that bai")
@@ -95,8 +98,10 @@ const AddWord = ({ }: StackNavigationProps<
           console.log('CANCEL')
         }
         if (!response.errorMessage) {
-          setImage(response?.assets?.[0]?.uri)
+          // setImage(response?.assets?.[0]?.uri)
           setCameraOptionsVisble(!cameraOptionsVisble)
+          setDataImage(response?.assets?.[0])
+
         }
 
       })
@@ -236,37 +241,39 @@ const AddWord = ({ }: StackNavigationProps<
       ? name = encodeURIComponent(textInputRef.current)
       : name = encodeURIComponent(item?.word)
     const imageData = new FormData()
-    if (image !== "") {
+    if (dataImage) {
 
       imageData.append(
         "file-image", {
-        uri: image,
-        name: 'image.png',
-        fileName: 'image',
-        type: 'image/png',
+        uri: dataImage?.uri,
+        name: dataImage?.fileName,
+        type: dataImage?.type
       }
       )
       special = true
     }
-    const response = await RecordingAPI.UpdateWord<UpdateWord>({
-      wordId: item?.id,
-      categoryId: item?.category?.id,
-      word: name,
-      wordAudio: name,
-      isActive: special,
-      data: imageData
+    let url = AuthApis.UpdateWord+`?wordId=${item?.id}&categoryId=${item?.category?.id}&word=${name}&wordAudio=${name}`
+    fetch(url, {
+      method: 'PUT',
+      headers: {
+        Authorization: store.getState().authReducer.user.accessToken,
+      },
+      body: dataImage ? imageData : null
     })
-    if (response.status === 200) {
-      console.log(" Update SUCCESS")
-      showToast("Thay đổi thành công", 'success')
-      setEditPopupVisivle(!editPopupVisivle)
-      setRandom(Math.random())
-      setImage("")
-      loadData()
-    }
-    else {
-      console.log(response)
-    }
+    .then(response=>{
+      if (response.status === 200) {
+        console.log(" Update SUCCESS")
+        showToast("Thay đổi thành công", 'success')
+        setEditPopupVisivle(!editPopupVisivle)
+        loadData()
+        setDataImage('')
+        setRandom(Math.random())
+      }
+      else {
+        showToast("ERROR", 'warning')
+      }
+    })
+    .catch(err => {console.log(err)})
   }
   //block sửa từ end
   const textInputRef = React.useRef(null);
@@ -325,36 +332,52 @@ const AddWord = ({ }: StackNavigationProps<
     updateWord(personData)
   }
   const handleDoneAdd = async () => {
-    const imageData = new FormData()
-    if (image !== "") {
+    let name = encodeURIComponent(textInputRef.current)
 
+    const imageData = new FormData()
+    if (dataImage) {
       imageData.append(
-        "file-image", {
-        uri: image,
-        name: 'image.png',
-        fileName: 'image',
-        type: 'image/png',
-      }
+        "file-image",
+        {
+          uri: dataImage?.uri,
+          name: dataImage?.fileName,
+          type: dataImage?.type
+        }
       )
     }
+    let url = AuthApis.UpdateWord+`?categoryId=${id}&word=${name}&wordAudio=${name}`
     
-    const response = await RecordingAPI.AddWord<AddWordForUser>({
-      categoryId: id,
-      word: encodeURIComponent(textInputRef.current),
-      wordAudio: encodeURIComponent(textInputRef.current),
-      data: imageData,
-      isActive: true
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        // 'Accept': 'application/json',
+        // 'Content-Type':'multipart/form-data',
+        Authorization: store.getState().authReducer.user.accessToken,
+      },
+      body: dataImage ? imageData : null
     })
-    if (response.status === 200) {
-      showToast("Thêm thành công", 'success')
-      setConfigModalvisible(!configModalvisible)
-      setImage("")
-      loadData()
+      .then(res => {
 
-    }
-    else{
-      console.log(response)
-    }
+        if (res.status === 200) {
+          showToast("Thêm thành công", 'success')
+          setConfigModalvisible(!configModalvisible)
+          setDataImage('')
+           loadData()
+          textInputRef.current = null
+
+        }
+        else {
+          showToast("ERROR", 'danger')
+
+        }
+
+      })
+      .catch(err =>{
+
+
+        showToast("ERROR", 'danger')
+
+      })
     
   }
   return (
@@ -439,9 +462,9 @@ const AddWord = ({ }: StackNavigationProps<
         title={"Chỉnh sửa từ"}
         onDismiss={() => { setEditPopupVisivle(!editPopupVisivle) }}
         handleSubmit={handleDoneEdit}
-        source={image ? { uri: image }
+        source={dataImage ? { uri: dataImage?.uri }
           : {
-            uri: ApiConstants.HOST + `ext/files/download?id=${personData?.pictureFileId}&file-size=ORIGINAL`,
+            uri: ApiConstants.HOST + `ext/files/download?id=${personData?.pictureFileId}&file-size=ORIGINAL&${random}`,
             method: 'GET',
             headers: { Authorization: store.getState().authReducer.user.accessToken }
           }
@@ -453,34 +476,20 @@ const AddWord = ({ }: StackNavigationProps<
         handleChoiceCamera={() => setCameraOptionsVisble(!cameraOptionsVisble)}
         cancelModalCamera={() => setCameraOptionsVisble(!cameraOptionsVisble)}
         onModalCameraDismiss={() => setCameraOptionsVisble(!cameraOptionsVisble)}
+        chooseImage={chooseImage}
+        takePhoto={takePhoto}
+        cameraOptionsVisble={cameraOptionsVisble}
 
 
       />
 
-      {/* <AddEditModal title={"Chỉnh sửa từ"}
-        visible={editPopupVisivle}
-        onDismiss={() => {
-          setEditPopupVisivle(!editPopupVisivle)
-
-        }}
-        handleSubmit={handleDoneEdit}
-        source={image ? { uri: image }
-          : {
-            uri: ApiConstants.HOST + `ext/files/download?id=${personData?.pictureFileId}&file-size=ORIGINAL`,
-            method: 'GET',
-            headers: { Authorization: store.getState().authReducer.user.accessToken }
-          }
-        }
-        cancel={() => { setEditPopupVisivle(!editPopupVisivle); setValue('') ; setImage('') }}
-        cateName={personData?.name}
-      /> */}
 
       {/* Pop up thêm từ */}
       <AddEditModal
         title={'Thêm từ'}
         visible={configModalvisible}
         onDismiss={() => { setConfigModalvisible(!configModalvisible) }}
-        source={image ? { uri: image } : null}
+        source={dataImage ? { uri: dataImage?.uri } : null}
         handleSubmit={handleDoneAdd}
         cancel={() => { setConfigModalvisible(!configModalvisible); setValue(''); setImage('') }}
         takePhoto={takePhoto}

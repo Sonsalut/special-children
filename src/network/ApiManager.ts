@@ -217,7 +217,8 @@ class ApiClient {
         
         //  'Content-Type': 'Application/json',
         // :'Content-Type': 'multipart/form-data',
-        'Content-Type' : special ? 'Application/json'  : 'multipart/form-data',
+        // 'Content-Type' : special ? 'Application/json'  : 'multipart/form-data',
+        'Content-Type' : special ? 'Application/json'  : 'Application/json' ,
       },
       
       
@@ -246,7 +247,7 @@ class ApiClient {
       .catch(error => {
         console.log(error)
 
-        console.log(error?.response?.data)
+        console.log(error?.response)
         console.log('apierror ', options?.url);
         const response: BaseResponse<T> = {
           data: {} as T,
