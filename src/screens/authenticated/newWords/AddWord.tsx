@@ -358,7 +358,7 @@ const AddWord = ({ }: StackNavigationProps<
     
   }
   return (
-    <Container style={{ backgroundColor: 'white' }}>
+    <Container style={{ backgroundColor: 'white'}}>
       <HeaderWithBack
         title={'Từ vựng'}
         titleStyle={{
@@ -381,7 +381,7 @@ const AddWord = ({ }: StackNavigationProps<
           width: '95%',
           alignSelf: 'center',
           alignItems: 'center',
-          marginTop: 10
+          marginTop: 10,
         }}
       >
         <FlatList

@@ -3,7 +3,7 @@ import React from 'react'
 import { Modal } from 'react-native-paper'
 import TouchableOpacity from 'components/button/TouchableOpacity'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { sizeHeight, sizeWidth } from 'utils/Utils'
+import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils'
 import ModalCamera from './ModalCamera'
 import images from 'res/images'
 
@@ -53,27 +53,26 @@ const AddEditModal = ({
       
       style={{
         backgroundColor: '#E7F6FF',
-        borderRadius: 10,
+        borderRadius: sizeWidth(3),
         height: '70%',
         marginTop: sizeHeight(20),
         width: '90%',
-        marginHorizontal: 20,
-        
-        
+        marginLeft: '5%',
+        alignSelf:'center',
       }}
       onDismiss={onDismiss}
     >
-      <ScrollView style={{ height: '100%',borderRadius:10 }}>
+      <ScrollView style={{ height: '100%',borderRadius:sizeWidth(3), }}>
         <KeyboardAvoidingView
           behavior='position'
           keyboardVerticalOffset={82}
-          style={{ width: '100%', height: '100%',  borderRadius:10 }}>
+          style={{ width: '100%', height: '100%',  borderRadius:sizeWidth(3), alignSelf:'center' }}>
           {/* title */}
           <View style={{ width: '90%', height: sizeHeight(8), alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <TouchableOpacity onPress={cancel}>
-              <Text style={{ fontSize: 15, color: 'red' }}>Hủy bỏ</Text>
+              <Text style={{ fontSize: fontSize(2.5), color: 'red' }}>Hủy bỏ</Text>
             </TouchableOpacity>
-            <Text style={{ fontSize: 20, color: '#2D5672', fontWeight: "400", paddingRight: 20 }}>{title}</Text>
+            <Text style={{ fontSize: fontSize(3.5), color: '#2D5672', fontWeight: "400", paddingRight: 20 }}>{title}</Text>
             <TouchableOpacity isDoubleTap={true} onPress={handleSubmit}>
               <Icon name="checkmark-outline" size={sizeHeight(3)} />
             </TouchableOpacity>
@@ -96,8 +95,6 @@ const AddEditModal = ({
                     resizeMode: 'stretch',
                     height: '100%',
                     width: '100%',
-                    // marginTop: '1%',
-                    // sizeWidth(39),
                     borderRadius: sizeWidth(3),
                   }}
                   source={source}
@@ -108,20 +105,23 @@ const AddEditModal = ({
               style={{
                 width: '90%',
                 alignSelf: 'center',
-                height: sizeHeight(10)
+                height: sizeHeight(10),
               }}>
               <Text
-                style={{ fontSize: 15, color: '#2D5672' }}>{slogan} </Text>
+                style={{ fontSize: fontSize(3), color: '#2D5672' }}>{slogan} </Text>
               <TextInput
                 style={{
                   height: sizeHeight(7),
-                  width: '100%', borderRadius: 5,
+                  width: '100%', 
                   borderWidth: 1,
+                  paddingLeft: sizeWidth(3),
+                  borderRadius: sizeWidth(2),
                   borderColor: '#60A2C8'
                 }}
                 defaultValue={defaultValue}
                 onChangeText={onChangeText}
                 maxLength={14}
+                
               />
             </View>
           </View>

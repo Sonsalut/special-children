@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     categoryCards: {
         width: sizeWidth(42),
         height: sizeHeight(25),
-        borderRadius: 10,
+        borderRadius: sizeWidth(3),
         marginHorizontal: 9,
         alignSelf: 'center',
         marginTop: 20,

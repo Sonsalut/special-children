@@ -63,7 +63,7 @@ export default StyleSheet.create({
         alignSelf: 'center',
         width: sizeWidth(25),
         marginHorizontal: 5,
-        borderRadius: 10,
+        borderRadius: sizeWidth(2),
         height: sizeHeight(17.3),
     },
     wordImage: {

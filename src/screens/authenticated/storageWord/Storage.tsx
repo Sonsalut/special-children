@@ -75,10 +75,6 @@ const Storage = ({ }: StackNavigationProps<
               data={category}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{paddingBottom: '10%'}}
-
-              
-
-
               refreshControl={
                 <RefreshControl
                   refreshing={refreshing}
