@@ -268,17 +268,17 @@ android {
     productFlavors {
       development {
           dimension "enviroment"
-          resValue "string", "app_name", project.env.get("APP_NAME")
+          resValue "string", "app_name", "SuperChildren"
           signingConfig signingConfigs.staging
       }
       staging {
           dimension "enviroment"
-          resValue "string", "app_name", project.env.get("APP_NAME")
+          resValue "string", "app_name", "SuperChildren"
           signingConfig signingConfigs.staging
       }
       product {
           dimension "enviroment"
-          resValue "string", "app_name", project.env.get("APP_NAME")
+          resValue "string", "app_name","SuperChildren"
           signingConfig signingConfigs.product
       }
     }
