@@ -1,3 +1,4 @@
+import BigCardWithShield from "components/cards/BigCardWithShield";
 import { StyleSheet } from "react-native";
 import { fontSize, sizeHeight, sizeWidth } from "utils/Utils";
 
@@ -12,6 +13,7 @@ export default StyleSheet.create({
         height: sizeHeight(94),
         width: sizeWidth(95),
         alignItems: 'center',
+        paddingBottom: sizeHeight(5),
     },
     searchbar: {
         borderWidth: 1,
@@ -37,7 +39,7 @@ export default StyleSheet.create({
         marginVertical: 5,
         marginBottom: -3,
         marginTop: 8,
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     cateText: {
         fontSize: 18,
@@ -90,7 +92,7 @@ export default StyleSheet.create({
         width: sizeWidth(90),
         paddingTop: 15,
         height: sizeHeight(85),
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     reusultWithCheckboxview: {
 

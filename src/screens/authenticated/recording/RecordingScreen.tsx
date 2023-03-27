@@ -192,12 +192,11 @@ const RecordingScreen = ({ route, navigation }: any) => {
                     }
                     <View 
                         style={{ 
-                            width: sizeWidth(90), 
+                            width: sizeWidth(94), 
                             height: sizeHeight(92), 
                             alignItems: 'center', 
                             alignSelf: 'center', 
                             paddingTop:20,
-                            // borderWidth:6
                         }}
                     >
                         <FlatList
@@ -205,7 +204,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                             keyExtractor={(_, index) => index.toString()}
                             showsVerticalScrollIndicator={false}
                             numColumns={2}
-                            contentContainerStyle={{paddingBottom: '5%'}}
+                            contentContainerStyle={{paddingBottom: sizeHeight(10)}}
                             refreshControl={
                                 <RefreshControl
                                     refreshing={refreshing}

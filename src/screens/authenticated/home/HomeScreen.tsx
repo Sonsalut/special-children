@@ -13,6 +13,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { useLogicHome } from './useLogicHome';
 import { ApiConstants } from 'network/ApiConstants';
 import BigCard from 'components/cards/BigCard';
+import { sizeHeight } from 'utils/Utils';
 
 
 
@@ -60,7 +61,7 @@ const HomeScreen = ({ }: StackNavigationProps<
             numColumns={2}
             showsVerticalScrollIndicator={false}
             scrollToOverflowEnabled={false}
-            contentContainerStyle={{paddingBottom: '5%'}}
+            contentContainerStyle={{paddingBottom: sizeHeight(10)}}
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}

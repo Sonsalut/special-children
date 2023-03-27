@@ -83,7 +83,7 @@ const StorageWord = ({ }: StackNavigationProps<
         <FlatList
           data={data}
           numColumns={3}
-          contentContainerStyle={{paddingBottom: '5%'}}
+          contentContainerStyle={{paddingBottom: sizeHeight(8)}}
           showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl
