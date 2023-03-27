@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Image, ImageSourcePropType, ImageStyle, StatusBar, StatusBarStyle, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewProps, ViewStyle } from 'react-native';
-import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
+import { Image, ImageSourcePropType, ImageStyle, Platform, StatusBar, StatusBarStyle, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewProps, ViewStyle } from 'react-native';
+import { fontSize, ratioW, sizeHeight, sizeWidth } from 'utils/Utils';
 import RowContainer from 'components/container/RowContainer';
 import ViewCondition from 'components/container/ViewCondition';
 import NavigationService from 'routers/NavigationService';
@@ -8,6 +8,7 @@ import GlobalHeader from './GlobalHeader';
 import FastImage from 'react-native-fast-image';
 import images from 'res/images';
 import HeaderTitle from 'components/text/HeaderTitle';
+import colors from 'res/colors';
 
 interface HeaderWithBackProps {
   outerStyle?: ViewStyle | ViewStyle[],
@@ -106,15 +107,15 @@ const styles = StyleSheet.create({
     // flex:1,
     // paddingTop: sizeHeight(4),
     // borderWidth:1,
-    marginTop: sizeHeight(4)
+    marginTop: sizeHeight(2)
   },
   title: {
     flex: 1.107,
     textAlign: 'center',
-    fontSize: fontSize(5.1),
-    // lineHeight: fontSize(5.1) * 1.5,
+    fontSize: fontSize(5),
     fontWeight: 'bold',
     alignSelf: 'center'
+    
   },
   
 })

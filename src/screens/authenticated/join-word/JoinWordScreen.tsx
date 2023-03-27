@@ -73,24 +73,23 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                     scrollEnabled={false}
                     contentContainerStyle={{ 
                         alignItems: 'flex-start', 
+                        marginTop: sizeHeight(2),
                         width: sizeWidth(85),
-                        alignSelf:'center',
+                        // alignSelf:'center',
+                        marginLeft: sizeWidth(6.5),
                     }}
                     renderItem={({ item, index }) => {
                         return (
-                            <View style={{paddingBottom: 5, marginTop: 5, alignItems: 'center'}}>
-                                
-                                <SmallCard
-                                    isDoubleTap={true}
-                                    onPress={() => { deleteWord(item) }} 
-                                    source={{
-                                        uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&`,
-                                        method: 'GET',
-                                        headers: { Authorization: store.getState().authReducer.user.accessToken }
-                                    }}
-                                    title={`${item?.word}`}
-                                />
-                            </View>
+                            <SmallCard
+                                isDoubleTap={true}
+                                onPress={() => { deleteWord(item) }}
+                                source={{
+                                    uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&`,
+                                    method: 'GET',
+                                    headers: { Authorization: store.getState().authReducer.user.accessToken }
+                                }}
+                                title={`${item?.word}`}
+                            />
                         )
                     }}
                 />
@@ -116,7 +115,12 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                 keyExtractor={(_, index) => index.toString()}
                 numColumns={3}
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ alignItems: 'center', width: '95%', alignSelf: 'center', justifyContent: 'space-around'}}
+                contentContainerStyle={{ 
+                    alignItems: 'center', 
+                    width: '95%', 
+                    alignSelf: 'center', 
+                    justifyContent: 'space-around'
+                }}
                 renderItem={({ item, index }) => {
                     return (
                         <MediumCard

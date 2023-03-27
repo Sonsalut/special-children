@@ -20,6 +20,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { useToast } from 'hooks/useToast';
 import { ApiConstants } from 'network/ApiConstants';
 import axios from 'axios';
+import BigCard from 'components/cards/BigCard';
 
 const RecordingScreen = ({ route, navigation }: any) => {
   
@@ -191,12 +192,11 @@ const RecordingScreen = ({ route, navigation }: any) => {
                     }
                     <View 
                         style={{ 
-                            width: sizeWidth(90), 
+                            width: sizeWidth(94), 
                             height: sizeHeight(92), 
                             alignItems: 'center', 
                             alignSelf: 'center', 
                             paddingTop:20,
-                            // borderWidth:6
                         }}
                     >
                         <FlatList
@@ -204,7 +204,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                             keyExtractor={(_, index) => index.toString()}
                             showsVerticalScrollIndicator={false}
                             numColumns={2}
-                            contentContainerStyle={{paddingBottom: '5%'}}
+                            contentContainerStyle={{paddingBottom: sizeHeight(10)}}
                             refreshControl={
                                 <RefreshControl
                                     refreshing={refreshing}
@@ -212,40 +212,50 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                     colors={[colors.blue]}
                                 />}
                             renderItem={({ item, index }) => (
-
-                                <TouchableOpacity
-                                    key={index}
-                                    activeOpacity={0.7}
-                                    style={{
-                                        width: sizeWidth(38),
-                                        marginVertical: 15,
-                                        height: sizeHeight(23),
-                                        borderRadius: 10,
-                                        marginHorizontal: 12,
-                                        marginTop: 0,
-                                        paddingHorizontal:5,
-                                        backgroundColor: '#C1EBEA',
-                                        alignItems: 'center',
-                                        alignSelf: 'flex-start',
-                                        paddingTop: 5,
+                                <BigCard
+                                    onPress={() => { chooseWord(item, index) }}
+                                    isDoubleTap={false}
+                                    source={{
+                                        uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${new Date()}`,
+                                        method: 'GET',
+                                        headers: { Authorization: store.getState().authReducer.user.accessToken }
                                     }}
-                                    onPress={() => { chooseWord(item, index) }}>
-                                    <Image
-                                        style={{
-                                            resizeMode: 'stretch',
-                                            height: sizeHeight(16),
-                                            width: sizeWidth(36),
-                                            borderRadius: sizeWidth(3),
-                                            justifyContent: 'center',
-                                        }}
-                                        source={{
-                                            uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${new Date()}`,
-                                            method: 'GET',
-                                            headers: { Authorization: store.getState().authReducer.user.accessToken }
-                                        }}
-                                    />
-                                    <Text style={{ marginTop: 10, fontSize: fontSize(4.5), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item.word}</Text>
-                                </TouchableOpacity>
+                                    title={`${item?.word}`}
+                                />
+
+                                // <TouchableOpacity
+                                //     key={index}
+                                //     activeOpacity={0.7}
+                                //     style={{
+                                //         width: sizeWidth(38),
+                                //         marginVertical: 15,
+                                //         height: sizeHeight(23),
+                                //         borderRadius: 20,
+                                //         marginHorizontal: 12,
+                                //         marginTop: 0,
+                                //         paddingHorizontal:5,
+                                //         backgroundColor: '#C1EBEA',
+                                //         alignItems: 'center',
+                                //         alignSelf: 'flex-start',
+                                //         paddingTop: 5,
+                                //     }}
+                                //     onPress={() => { chooseWord(item, index) }}>
+                                //     <Image
+                                //         style={{
+                                //             resizeMode: 'stretch',
+                                //             height: sizeHeight(16),
+                                //             width: sizeWidth(36),
+                                //             borderRadius: sizeWidth(3),
+                                //             justifyContent: 'center',
+                                //         }}
+                                //         source={{
+                                //             uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${new Date()}`,
+                                //             method: 'GET',
+                                //             headers: { Authorization: store.getState().authReducer.user.accessToken }
+                                //         }}
+                                //     />
+                                //     <Text style={{ marginTop: 10, fontSize: fontSize(4.5), alignSelf: 'center', fontWeight: 'bold', color: '#2D5672' }}>{item.word}</Text>
+                                // </TouchableOpacity>
                             )}
                         />
                     </View>

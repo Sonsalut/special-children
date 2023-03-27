@@ -6,14 +6,14 @@ export default StyleSheet.create({
         backgroundColor: 'white'
     },
     wordJoinView: {
-        borderRadius: 10,
+        borderRadius: sizeWidth(5),
         width: '95%',
         height: sizeHeight(45),
-        justifyContent: 'center',
+        // justifyContent: 'center',
         alignSelf: 'center',
+        // alignContent: 'center',
         marginTop: 20,
-        backgroundColor: '#E7F6FF',
-        // padding: 10
+        backgroundColor: '#E7F6FF'
     },
     wordcard: {
         backgroundColor: '#C1EBEA',
@@ -21,10 +21,13 @@ export default StyleSheet.create({
         width: sizeWidth(23),
         height: sizeHeight(15),
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     textWord: {
-        color: '#2D5672', fontWeight: '600', marginTop: '10%', fontSize: fontSize(4)
+        color: '#2D5672', 
+        fontWeight: '600', 
+        marginTop: '10%', 
+        fontSize: fontSize(4)
     },
     addWordImage: {
 
@@ -32,7 +35,6 @@ export default StyleSheet.create({
         width: sizeWidth(22),
         borderRadius: sizeWidth(3),
         marginBottom: '-20%',
-
     },
     playButton: {
         alignSelf: 'flex-end',
@@ -40,10 +42,12 @@ export default StyleSheet.create({
         backgroundColor: '#FFD19A',
         height: sizeHeight(5),
         width: sizeHeight(5),
-        borderRadius: 10,
+        borderRadius: sizeWidth(2),
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom:sizeHeight(2),
+        marginRight:sizeHeight(2),
+        borderWidth:1
     },
     
     deleteWord: {

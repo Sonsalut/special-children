@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     cardStyle: {
         width: sizeWidth(28),
         height: sizeHeight(18.5),
-        borderRadius: 10,
+        borderRadius: sizeWidth(3),
         marginHorizontal: 5,
         marginVertical: 10,
         backgroundColor: '#C1EBEA',
