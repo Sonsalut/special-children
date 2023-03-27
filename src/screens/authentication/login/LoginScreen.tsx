@@ -96,6 +96,7 @@ const LoginScreen = ({ }: StackNavigationProps<
                         <Image 
                           source={require('../../../assets/images/fingerprint.png')} 
                           style={{ 
+                            resizeMode: 'contain',
                             width: sizeWidth(12), 
                             height: sizeHeight(8),
                           }} 

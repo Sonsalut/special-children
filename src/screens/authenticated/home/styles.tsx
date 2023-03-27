@@ -10,12 +10,10 @@ export default StyleSheet.create({
   },
 
   mainView: {
-    height: sizeHeight(90),
+    height: sizeHeight(95),
     width: '95%',
     alignSelf: 'center',
     alignItems: 'center',
-    // borderWidth:  1
-
   },
   searchBar: {
     borderWidth: 1,
@@ -25,7 +23,8 @@ export default StyleSheet.create({
     width: sizeWidth(80),
     backgroundColor: 'white',
     height: sizeHeight(6),
-    marginTop: 5,
+    marginVertical: 5,
+
     
 
   },

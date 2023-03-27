@@ -204,7 +204,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                             keyExtractor={(_, index) => index.toString()}
                             showsVerticalScrollIndicator={false}
                             numColumns={2}
-                             
+                            contentContainerStyle={{paddingBottom: '5%'}}
                             refreshControl={
                                 <RefreshControl
                                     refreshing={refreshing}

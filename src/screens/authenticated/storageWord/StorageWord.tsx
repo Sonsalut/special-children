@@ -83,6 +83,7 @@ const StorageWord = ({ }: StackNavigationProps<
         <FlatList
           data={data}
           numColumns={3}
+          contentContainerStyle={{paddingBottom: '5%'}}
           showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
   },
   storageView: {
     width: '95%',
-    height: '90%',
+    height: '92%',
     alignSelf: 'center',
     marginTop: 15,
     justifyContent: 'center',

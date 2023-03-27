@@ -60,6 +60,7 @@ const HomeScreen = ({ }: StackNavigationProps<
             numColumns={2}
             showsVerticalScrollIndicator={false}
             scrollToOverflowEnabled={false}
+            contentContainerStyle={{paddingBottom: '5%'}}
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}

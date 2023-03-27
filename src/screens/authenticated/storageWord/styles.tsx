@@ -6,15 +6,17 @@ export default StyleSheet.create({
         backgroundColor: 'white', flex: 1
     },
     wordListContainer: {
-        marginLeft: 10,
-        paddingTop: 15,
+        // marginLeft: 10,
+        // paddingTop: 15,
+        alignSelf: 'center',
         height: sizeHeight(94),
         width: sizeWidth(95),
         alignItems: 'center',
     },
     searchbar: {
         borderWidth: 1,
-        bottom: 5,
+        // bottom: 5,
+        marginVertical: '1%',
         borderColor: '#C1EBEA',
         borderRadius: 15,
         width: sizeWidth(80),
@@ -35,7 +37,6 @@ export default StyleSheet.create({
         marginVertical: 5,
         marginBottom: -3,
         marginTop: 8,
-
         alignSelf: 'center'
     },
     cateText: {

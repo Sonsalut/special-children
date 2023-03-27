@@ -63,10 +63,10 @@ const Storage = ({ }: StackNavigationProps<
       <View
         style={styles.wordListContainer}
       >
-        {show ? <Searchbar value={searchValue}
+        <Searchbar value={searchValue}
           onChangeText={(e) => setSearchValue(e)}
           inputStyle={{ fontSize: 13 }}
-          spellCheck={false} style={styles.searchbar} placeholder='Nhập từ để tìm kiếm' /> : null}
+          spellCheck={false} style={styles.searchbar} placeholder='Nhập từ để tìm kiếm' /> 
         {
           // khi hiển thị tìm kiếm sẽ mất hết catagory
           searchValue === ""
@@ -74,10 +74,9 @@ const Storage = ({ }: StackNavigationProps<
             <FlatList
               data={category}
               showsVerticalScrollIndicator={false}
+              contentContainerStyle={{paddingBottom: '10%'}}
 
-
-              onScrollBeginDrag={() => setShow(false)}
-              onScrollEndDrag={() => setShow(true)}
+              
 
 
               refreshControl={
@@ -110,7 +109,6 @@ const Storage = ({ }: StackNavigationProps<
                       data={filterDatas(item?.id)}
                       horizontal={true}
                       showsHorizontalScrollIndicator={false}
-
                       renderItem={({ item, index }) => (
 
                         <View style={styles.wordVsCheckboxView}>
@@ -165,6 +163,7 @@ const Storage = ({ }: StackNavigationProps<
                             Authorization: store.getState().authReducer.user.accessToken
                           }
                         }}
+                        title={item?.word}
                       />
                       
                     </View>

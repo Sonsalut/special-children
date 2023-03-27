@@ -55,6 +55,7 @@ const AddCategory = ({ }: StackNavigationProps<
         if (!response.errorMessage) {
           setImage(response?.assets?.[0]?.uri)
           setCameraOptionsVisble(!cameraOptionsVisble)
+          console.log(response)
         }
         else {
           console.log("that bai")
@@ -275,9 +276,9 @@ const [base64, setBase64] = React.useState()
       imageData.append(
         "file-image", {
         uri: image,
-        name: 'image.jpeg',
+        name: 'image.jpg',
         fileName: 'image',
-        type: 'image/jpeg',
+        type: 'image/jpg',
       }
       )
     }
@@ -361,6 +362,7 @@ const [base64, setBase64] = React.useState()
           numColumns={2}
           showsVerticalScrollIndicator={false}
           scrollToOverflowEnabled={false}
+          contentContainerStyle={{paddingBottom: '5%'}}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
