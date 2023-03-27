@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     // flex:1,
     // paddingTop: sizeHeight(4),
     // borderWidth:1,
-    marginTop: sizeHeight(2)
+    marginTop: sizeHeight(4)
   },
   title: {
     flex: 1.107,
