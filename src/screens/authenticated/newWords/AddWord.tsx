@@ -331,6 +331,7 @@ const AddWord = ({ }: StackNavigationProps<
   const handleDoneEdit = () => {
     updateWord(personData)
   }
+  
   const handleDoneAdd = async () => {
     let name = encodeURIComponent(textInputRef.current)
 
@@ -364,19 +365,20 @@ const AddWord = ({ }: StackNavigationProps<
           setDataImage('')
            loadData()
           textInputRef.current = null
+          
 
         }
         else {
           showToast("ERROR", 'danger')
+        // console.log(res?.data)
+        console.log(res)
 
         }
 
       })
       .catch(err =>{
-
-
         showToast("ERROR", 'danger')
-
+        console.log(err)
       })
     
   }

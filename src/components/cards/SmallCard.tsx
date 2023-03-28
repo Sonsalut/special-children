@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
         height: sizeHeight(17.3),
         borderColor: '#808080',
         borderWidth: 2,
+        marginVertical:5
     },
 
     imageStyle:{

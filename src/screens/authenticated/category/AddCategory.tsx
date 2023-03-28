@@ -293,9 +293,6 @@ const AddCategory = ({ }: StackNavigationProps<
     }
 
     let url = ApiConstants.HOST + 'ext/category/user' + `?name=${name}`
-    // console.log('====================================');
-    // console.log(imageData);
-    // console.log('====================================');
     fetch(url, {
       method: 'POST',
       headers: {
@@ -329,58 +326,6 @@ const AddCategory = ({ }: StackNavigationProps<
         console.log(err)
 
       })
-
-    // const response = await RecordingAPI.AddCategoryForUser<AddCategoryForUser>({
-    //   name: name,
-    //   description: 'Add',
-    //   // data: imageData,
-    //   data: imageData,
-
-    //   isActive: true,
-
-    // })
-    // if (response.status === 200) {
-    //   showToast("Thêm thành công", 'success')
-    //   setConfigModalvisible(!configModalvisible)
-    //   setDataImage('')
-    //   getCategory()
-    //   textInputRef.current = null
-
-    // }
-    // else {
-    //   showToast("Từ không hợp lệ", 'danger')
-
-    // }
-
-    // console.log(imageData)
-    // let url = ApiConstants.HOST + 'ext/category/user' + `?name=${name}&desscription=add`
-    // RNFetchBlob.fetch(
-    //   "POST",
-    //   url,
-    //   {
-
-    //     Authorization: store.getState().authReducer.user.accessToken,
-    //     "Accept": "application/json",
-    //     "Content-Type": "multipart/form-data"
-
-    //   },
-    //   [
-
-    //     {
-    //       name: dataImage?.fileName,
-    //       fileName: 'image',
-    //       type: dataImage?.type,
-    //       data: RNFetchBlob.wrap(dataImage?.uri)
-    //     },
-    //     // {
-    //     //   name: dataImage?.fileName,
-    //     //   fileName: 'image',
-    //     //   type: dataImage?.type,
-    //     //   data: dataImage?.base64
-    //     // }
-    //   ]
-    // ).then(res => console.log(res))
-
   }
   return (
     <Container style={{ flex: 1, backgroundColor: 'white' }}>

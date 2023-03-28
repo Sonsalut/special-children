@@ -77,6 +77,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                         width: sizeWidth(85),
                         // alignSelf:'center',
                         marginLeft: sizeWidth(6.5),
+                        // marginVertical:10
                     }}
                     renderItem={({ item, index }) => {
                         return (
@@ -116,10 +117,11 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                 numColumns={3}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ 
-                    alignItems: 'center', 
+                    // alignItems: 'center', 
                     width: '95%', 
                     alignSelf: 'center', 
-                    justifyContent: 'space-around'
+                    justifyContent: 'space-around',
+                    // borderWidth:1
                 }}
                 renderItem={({ item, index }) => {
                     return (

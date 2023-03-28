@@ -142,6 +142,7 @@ class ApiClient {
         });
         const token = store.getState().authReducer?.user.accessToken;
         const refresh_token = store.getState().authReducer?.user.refreshToken;
+        
         if (token && token.length > 0) {
           if (!configTemp?.headers) {
             throw new Error(
@@ -159,6 +160,7 @@ class ApiClient {
     const responseInterceptor = Axios.interceptors.response.use(
       async response => {
         // hideLoading();
+        const originalRequest = response.config
         if (response.status) {
           if (
             response.status === ResponseCode.SUCCESS ||
@@ -168,6 +170,7 @@ class ApiClient {
             hideLoading();
             return response;
           }
+          
           return Promise.reject(response.status);
         }
         return Promise.reject();
@@ -188,7 +191,7 @@ class ApiClient {
             if (status === 200) {
               const accountInfo = data?.data?.accountInfo;
               const accessToken = data?.data?.jwtToken;
-              store.dispatch(
+             store.dispatch(
                 authSlice.actions.setUser({
                   accessToken: accessToken,
                   accountInfo: accountInfo,

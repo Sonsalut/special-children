@@ -59,6 +59,7 @@ const AddEditModal = ({
         width: '90%',
         marginLeft: '5%',
         alignSelf:'center',
+        overflow:'hidden'
       }}
       onDismiss={onDismiss}
     >

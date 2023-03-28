@@ -8,7 +8,7 @@ export default StyleSheet.create({
     wordJoinView: {
         borderRadius: sizeWidth(5),
         width: '95%',
-        height: sizeHeight(45),
+        height: sizeHeight(46),
         // justifyContent: 'center',
         alignSelf: 'center',
         // alignContent: 'center',

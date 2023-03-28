@@ -36,8 +36,8 @@ const ChoiceTab = ({
                 }}
                 onDismiss={onDismiss}
             >
-                <Menu.Item titleStyle={{ fontSize: 18, color: '#2D5672' }} leadingIcon="file-document-edit-outline" onPress={editCategory} title="Chỉnh sửa chủ đề" />
-                <Menu.Item titleStyle={{ fontSize: 18, color: '#2D5672' }} leadingIcon="eye-off-outline" onPress={deleteCategory} title="Xóa chủ đề" />
+                <Menu.Item titleStyle={{ fontSize: 18, color: '#2D5672' }} leadingIcon="file-document-edit-outline" onPress={editCategory} title="Chỉnh sửa đối tượng" />
+                <Menu.Item titleStyle={{ fontSize: 18, color: '#2D5672' }} leadingIcon="eye-off-outline" onPress={deleteCategory} title="Xóa đối tượng" />
                 {/* <Menu.Item titleStyle={{ fontSize: 18, color: '#2D5672' }} leadingIcon="book-check" onPress={() => { showToast("Chưa hỗ trợ", 'warning') }} title="Đánh dấu đã học" /> */}
                 <Menu.Item titleStyle={{ color: 'red', fontSize: 18 }} leadingIcon="archive-cancel" onPress={cancel} title="Hủy bỏ" />
             </Modal>

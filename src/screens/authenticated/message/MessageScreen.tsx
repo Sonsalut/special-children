@@ -12,6 +12,7 @@ import { Modal, RadioButton } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import ConfirmModal from 'components/modal/ConfirmModal';
+import { useIsFocused } from '@react-navigation/native';
 
 const MessageScreen = ({ }: StackNavigationProps<
   Routes,
@@ -40,10 +41,17 @@ const MessageScreen = ({ }: StackNavigationProps<
     };
     setIsSwitchOn(getFingerPrint());
   }, []);
-
+ 
+  const isFocused = useIsFocused()
   React.useEffect(() => {
-    getVoiceInfor()
-  }, [])
+
+    isFocused ? getVoiceInfor() : null;
+    // const token = store.getState().authReducer.user.accessToken
+    // const payload = token.split('.')[1];
+    // const decodedPayload = Buffer.from(payload, 'base64');
+    
+    // console.log(decodedPayload)
+  }, [isFocused])
 
   return (
     <Container style={styles.container}>
@@ -86,65 +94,65 @@ const MessageScreen = ({ }: StackNavigationProps<
           </TouchableOpacity>
         </View>
       </View>
-        {/* Popups shows */}
-        <Modal
-          visible={visible}
-          style={styles.modalVoice}
-          onDismiss={() => {
-            setShow(false)
-            setVisible(false)
-          }}
-        >
-          <View style={styles.voiceView}>
-            <TouchableOpacity onPress={handleReturn} style={styles.returnButton}>
-              <Icon name='arrow-back-outline' size={25} />
-            </TouchableOpacity>
-            {/* gender choice */}
-            <View style={styles.genderView}>
+      {/* Popups shows */}
+      <Modal
+        visible={visible}
+        style={styles.modalVoice}
+        onDismiss={() => {
+          setShow(false)
+          setVisible(false)
+        }}
+      >
+        <View style={styles.voiceView}>
+          <TouchableOpacity onPress={handleReturn} style={styles.returnButton}>
+            <Icon name='arrow-back-outline' size={25} />
+          </TouchableOpacity>
+          {/* gender choice */}
+          <View style={styles.genderView}>
 
-              <Text style={styles.genderText}>Giới tính:</Text>
-              <RadioButton.Group onValueChange={value => setGenderValue(value)} value={gendervalue}>
+            <Text style={styles.genderText}>Giới tính:</Text>
+            <RadioButton.Group onValueChange={value => setGenderValue(value)} value={gendervalue}>
 
-                <RadioButton.Item label="Nam" value="MALE" labelStyle={styles.selectedGenderText} />
-                <RadioButton.Item label="Nữ" value="FEMALE" labelStyle={styles.selectedGenderText} />
-              </RadioButton.Group>
-            </View>
-            {/* Regionchoice */}
-            <View style={styles.regionView}>
-              <Text style={styles.selectedRegionText}>Vùng miền:</Text>
-              <RadioButton.Group onValueChange={value => setRegionValue(value)} value={regionvalue}>
+              <RadioButton.Item label="Nam" value="MALE" labelStyle={styles.selectedGenderText} />
+              <RadioButton.Item label="Nữ" value="FEMALE" labelStyle={styles.selectedGenderText} />
+            </RadioButton.Group>
+          </View>
+          {/* Regionchoice */}
+          <View style={styles.regionView}>
+            <Text style={styles.selectedRegionText}>Vùng miền:</Text>
+            <RadioButton.Group onValueChange={value => setRegionValue(value)} value={regionvalue}>
 
-                <RadioButton.Item label="Bắc" value="NORTHERN" labelStyle={styles.selectedGenderText} />
-                <RadioButton.Item label="Trung" value="MIDDLE" labelStyle={styles.selectedGenderText} />
-                <RadioButton.Item label="Nam" value="SOUTHERN" labelStyle={styles.selectedGenderText} />
-              </RadioButton.Group>
-            </View>
-
-            <View style={styles.changeButtonView}>
-              <TouchableOpacity
-                style={styles.changeButton}
-                onPress={handleChangeInfor}
-                activeOpacity={0.7}>
-                <Text
-                  style={styles.confirmText}>Xác nhận
-                </Text>
-              </TouchableOpacity>
-            </View>
+              <RadioButton.Item label="Bắc" value="NORTHERN" labelStyle={styles.selectedGenderText} />
+              <RadioButton.Item label="Trung" value="MIDDLE" labelStyle={styles.selectedGenderText} />
+              <RadioButton.Item label="Nam" value="SOUTHERN" labelStyle={styles.selectedGenderText} />
+            </RadioButton.Group>
           </View>
 
-        </Modal>
-        <ConfirmModal
+          <View style={styles.changeButtonView}>
+            <TouchableOpacity
+              style={styles.changeButton}
+              onPress={handleChangeInfor}
+              activeOpacity={0.7}>
+              <Text
+                style={styles.confirmText}>Xác nhận
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+      </Modal>
+      <ConfirmModal
         visible={logOutvisible}
         onDismiss={() => {
-            setLogOutShow(false);
-            setlogOutvisible(false)
+          setLogOutShow(false);
+          setlogOutvisible(false)
         }}
         text1={"Bạn có chắc chắn muốn đăng xuất"}
         text2={"không"}
         handleCancel={handleCancelLogOut}
         handleConfirm={cofirmHandleLogOut}
         confirmText={"Đăng xuất"}
-        />
+      />
     </Container>
   );
 };
@@ -152,3 +160,5 @@ const MessageScreen = ({ }: StackNavigationProps<
 
 
 export default MessageScreen;
+
+
