@@ -80,7 +80,7 @@ const AddEditModal = ({
           </View>
           {/* content */}
           <View style={{ width: '90%', justifyContent: 'space-around', height: sizeHeight(63), alignSelf: 'center', paddingBottom: 15, bottom: 15 }}>
-            <TouchableOpacity onPress={handleChoiceCamera}>
+            <TouchableOpacity isDoubleTap={true} onPress={handleChoiceCamera}>
               <View
                 style={{
                   borderWidth: 1,
