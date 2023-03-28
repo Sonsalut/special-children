@@ -70,9 +70,9 @@ const AddEditModal = ({
           {/* title */}
           <View style={{ width: '90%', height: sizeHeight(8), alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <TouchableOpacity onPress={cancel}>
-              <Text style={{ fontSize: fontSize(2.5), color: 'red' }}>Hủy bỏ</Text>
+              <Text style={{ fontSize: fontSize(3.5), color: 'red' }}>Hủy bỏ</Text>
             </TouchableOpacity>
-            <Text style={{ fontSize: fontSize(3.5), color: '#2D5672', fontWeight: "400", paddingRight: 20 }}>{title}</Text>
+            <Text style={{ fontSize: fontSize(4.5), color: '#2D5672', fontWeight: "400", paddingRight: 20 }}>{title}</Text>
             <TouchableOpacity isDoubleTap={true} onPress={handleSubmit}>
               <Icon name="checkmark-outline" size={sizeHeight(3)} />
             </TouchableOpacity>
