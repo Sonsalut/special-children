@@ -60,40 +60,106 @@ const HeaderWithBack = ({
     }
   }
   return (
-    <GlobalHeader style={[outerStyle]}>
-      <StatusBar backgroundColor={statusBarbackgroundColor} showHideTransition={'none'} />
+    // <GlobalHeader style={[outerStyle]}>
+    <>
+      {/* <StatusBar 
+        backgroundColor={statusBarbackgroundColor} 
+        showHideTransition={'none'} 
+      /> */}
       <RowContainer style={[styles.container, containerStyle]}>
-        <ViewCondition isVisible={hasBack} >
-          <TouchableOpacity onPress={onGoBack} style={leftIconStyle}>
-            <Image source={leftIconSrc ?? images.navBackLeft} />
-          </TouchableOpacity>
+        <View 
+          style={{
+            height:sizeHeight(5),
+            width: sizeWidth(100),
+            flexDirection: 'row', 
+            alignItems: 'center',
+            marginBottom: sizeHeight(1),
+          }}
+        >
           
-        </ViewCondition>
-        <HeaderTitle style={[styles.title, titleStyle]}>
-          {title ?? `Header title`}
-        </HeaderTitle>
-        {rightComponent ?? <View style={{ flex: 0.106,}} />}
-        <ViewCondition isVisible={hasBack} style={{ width:sizeWidth(5), height:sizeHeight(5)}} >
-          {
-            rightIconShow 
-            ?<TouchableOpacity onPress={handle} style={leftIconStyle}>
+{/* left icon */}
+          <ViewCondition isVisible={hasBack} >
+            <TouchableOpacity 
+              onPress={onGoBack} 
+              style={{ 
+                ...leftIconStyle, 
+                paddingTop: sizeHeight(2),
+                width: sizeWidth(5),
+                height: sizeHeight(5),
+                marginRight: sizeWidth(5),
+                marginLeft: sizeWidth(1),
+              }}
+            >
               <Image 
-                resizeMode='contain' 
+                source={leftIconSrc ?? images.navBackLeft}
                 style={{
-                  width:sizeWidth(6), 
-                  height:sizeHeight(6)
-                }} 
-                  source={hasDone? images.done: images.action} 
+                  width: sizeWidth(3),
+                  height: sizeHeight(3),
+                }}
               />
-              
-            </TouchableOpacity> 
-            : null
-          }
-          
-          
-        </ViewCondition>
+            </TouchableOpacity>
+          </ViewCondition>
+
+{/* title */}
+          <View
+            style={{
+              // height: sizeHeight(10),
+              // width: sizeWidth(80),
+              // alignContent: 'flex-end',
+              // paddingTop: sizeHeight(5),
+              alignSelf: 'center',
+              alignItems: 'center',
+              alignContent: 'center',
+              width:sizeWidth(75),
+              // paddingBottom: sizeHeight(2)
+            }}
+          >
+            <HeaderTitle style={[styles.title, titleStyle]}>
+              {title ?? `Header title`}
+            </HeaderTitle>
+          </View>
+
+{/* right icon */}
+          {rightComponent ?? 
+          <View 
+            style={{
+              marginLeft: sizeWidth(8),
+              borderWidth:1,
+              // paddingTop: sizeHeight(2)
+            }} />}
+          <ViewCondition 
+            isVisible={hasBack} 
+            // style={{ 
+            //   width: sizeWidth(5), 
+            //   height: sizeHeight(4), 
+            //   borderWidth:1 
+            // }} 
+          >
+            {
+              rightIconShow
+                ? <TouchableOpacity 
+                  onPress={handle} 
+                  style={leftIconStyle}
+                >
+                  <Image
+                    resizeMode='contain'
+                    style={{
+                      paddingTop: sizeHeight(2),
+                      width: sizeWidth(5),
+                      height: sizeHeight(4),
+                    }}
+                    source={hasDone ? images.done : images.action}
+                  />
+
+                </TouchableOpacity>
+                : null
+            }
+          </ViewCondition>
+
+
+        </View>
       </RowContainer>
-    </GlobalHeader>
+    </>
   )
 }
 
@@ -101,21 +167,22 @@ export default HeaderWithBack;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: sizeWidth(5),
-    justifyContent: 'center',
-    // backgroundColor: '#87C2E4',
-    // flex:1,
-    // paddingTop: sizeHeight(4),
-    // borderWidth:1,
-    marginTop: sizeHeight(4)
+    // paddingHorizontal: sizeWidth(5),
+    backgroundColor: colors.title_blue,
+    height: sizeHeight(10),
+    width: sizeWidth(100),
+    flexDirection: 'column',
+    justifyContent:'flex-end',
+    // paddingTop:sizeHeight(4)
   },
   title: {
-    flex: 1.107,
     textAlign: 'center',
     fontSize: fontSize(5),
     fontWeight: 'bold',
-    alignSelf: 'center'
-    
+    color: '#F1F1F2',
+    alignSelf: 'center',
+    // marginBottom: sizeHeight(2),
+    // borderWidth:1
   },
   
 })

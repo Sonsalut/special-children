@@ -13,7 +13,7 @@ import AddCategory from 'screens/authenticated/category/AddCategory';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
-import { sizeHeight } from 'utils/Utils';
+import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import { addWordToStorage } from 'redux/storageWord/action';
 
 import NavigationService from './NavigationService';
@@ -40,23 +40,23 @@ const CommonStackNavigator = ({}) => {
           headerShown:true,
           headerStyle: {
             backgroundColor: colors.title_blue,
-          
+            height: sizeHeight(10)  
           },
-          headerTitleStyle: {
-            color: colors.header_title,
-            fontWeight: 'bold',
-            fontSize: 21
+          headerTitleStyle: {  
+            color: '#F1F1F2', 
+            fontWeight: 'bold', 
+            fontSize: fontSize(5), 
+            paddingBottom: sizeHeight(2)
           },
           headerLeftLabelVisible:false,
           headerTintColor:'black',
-          // headerBackImage:images.navBackLeft,
           headerRight: () => (
             show ? 
               <TouchableOpacity onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddWord)}>
                 <Icon 
                   name='pencil-outline' 
                   size={sizeHeight(3)} 
-                  style={{right:5}}
+                  style={{right:sizeWidth(1.5),}}
                 />
               </TouchableOpacity>
             : null
@@ -68,10 +68,7 @@ const CommonStackNavigator = ({}) => {
         name={AuthenticatedScreens.AddCategory}
         component={AddCategory}
       />
-      {/* <Stack.Screen
-        name={AuthenticatedScreens.AddWord}
-        component={}
-      /> */}
+      
       <Stack.Screen
         name={AuthenticatedScreens.AddWord}
         component={AddWord}
