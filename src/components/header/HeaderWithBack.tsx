@@ -69,29 +69,34 @@ const HeaderWithBack = ({
       <RowContainer style={[styles.container, containerStyle]}>
         <View 
           style={{
-            height:sizeHeight(7),
+            height:sizeHeight(5),
             width: sizeWidth(100),
             flexDirection: 'row', 
-            alignContent: 'flex-end',
-            justifyContent:'center',
-            // paddingTop: 5,
-            alignSelf: 'center',
-            // alignItems: 'center',
-            borderWidth:1
+            alignItems: 'center',
+            marginBottom: sizeHeight(1),
           }}
         >
+          
 {/* left icon */}
           <ViewCondition isVisible={hasBack} >
             <TouchableOpacity 
               onPress={onGoBack} 
               style={{ 
                 ...leftIconStyle, 
-                paddingTop: 5, 
-                borderWidth:1,
-                width: sizeWidth(5) 
+                paddingTop: sizeHeight(2),
+                width: sizeWidth(5),
+                height: sizeHeight(5),
+                marginRight: sizeWidth(5),
+                marginLeft: sizeWidth(1),
               }}
             >
-              <Image source={leftIconSrc ?? images.navBackLeft} />
+              <Image 
+                source={leftIconSrc ?? images.navBackLeft}
+                style={{
+                  width: sizeWidth(3),
+                  height: sizeHeight(3),
+                }}
+              />
             </TouchableOpacity>
           </ViewCondition>
 
@@ -105,8 +110,8 @@ const HeaderWithBack = ({
               alignSelf: 'center',
               alignItems: 'center',
               alignContent: 'center',
-              width:sizeWidth(80),
-              borderWidth:1
+              width:sizeWidth(75),
+              // paddingBottom: sizeHeight(2)
             }}
           >
             <HeaderTitle style={[styles.title, titleStyle]}>
@@ -115,7 +120,13 @@ const HeaderWithBack = ({
           </View>
 
 {/* right icon */}
-          {rightComponent ?? <View style={{ }} />}
+          {rightComponent ?? 
+          <View 
+            style={{
+              marginLeft: sizeWidth(8),
+              borderWidth:1,
+              // paddingTop: sizeHeight(2)
+            }} />}
           <ViewCondition 
             isVisible={hasBack} 
             // style={{ 
@@ -128,16 +139,14 @@ const HeaderWithBack = ({
               rightIconShow
                 ? <TouchableOpacity 
                   onPress={handle} 
-                  style={
-                    leftIconStyle
-                  }
+                  style={leftIconStyle}
                 >
                   <Image
                     resizeMode='contain'
                     style={{
+                      paddingTop: sizeHeight(2),
                       width: sizeWidth(5),
                       height: sizeHeight(4),
-                      borderWidth:1
                     }}
                     source={hasDone ? images.done : images.action}
                   />
@@ -163,7 +172,7 @@ const styles = StyleSheet.create({
     height: sizeHeight(10),
     width: sizeWidth(100),
     flexDirection: 'column',
-    justifyContent:'flex-end'
+    justifyContent:'flex-end',
     // paddingTop:sizeHeight(4)
   },
   title: {
@@ -171,7 +180,9 @@ const styles = StyleSheet.create({
     fontSize: fontSize(5),
     fontWeight: 'bold',
     color: '#F1F1F2',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    // marginBottom: sizeHeight(2),
+    // borderWidth:1
   },
   
 })

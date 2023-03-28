@@ -42,9 +42,6 @@ const CommonStackNavigator = ({}) => {
             backgroundColor: colors.title_blue,
             height: sizeHeight(10)  
           },
-          // headerLeftContainerStyle:{
-          //   borderWidth:1
-          // },
           headerTitleStyle: {  
             color: '#F1F1F2', 
             fontWeight: 'bold', 
@@ -53,8 +50,6 @@ const CommonStackNavigator = ({}) => {
           },
           headerLeftLabelVisible:false,
           headerTintColor:'black',
-          
-          // headerBackImage:images.navBackLeft,
           headerRight: () => (
             show ? 
               <TouchableOpacity onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddWord)}>
