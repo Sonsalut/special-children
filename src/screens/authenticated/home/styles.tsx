@@ -14,6 +14,7 @@ export default StyleSheet.create({
     width: '95%',
     alignSelf: 'center',
     alignItems: 'center',
+    marginTop:sizeHeight(2.5),
   },
   searchBar: {
     borderWidth: 1,
