@@ -24,6 +24,7 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     height: sizeHeight(6),
     marginVertical: 5,
+    
 
     
 

@@ -51,6 +51,7 @@ const HomeScreen = ({ }: StackNavigationProps<
                 value={searchValue}
                 onChangeText={(e) => setSearchValue(e)}
                 spellCheck={false}
+                inputStyle={{alignSelf:'center'}}
               />
               : null
           }

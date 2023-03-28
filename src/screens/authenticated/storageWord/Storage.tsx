@@ -4,7 +4,7 @@ import { Image } from 'react-native';
 import { Text, View } from 'react-native';
 import React from 'react';
 import { store } from 'redux/store';
-import { sizeHeight, sizeWidth } from 'utils/Utils';
+import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import { FlatList, RefreshControl } from 'react-native-gesture-handler';
 import { Container } from 'components';
 import { Searchbar } from 'react-native-paper';
@@ -65,8 +65,10 @@ const Storage = ({ }: StackNavigationProps<
       >
         <Searchbar value={searchValue}
           onChangeText={(e) => setSearchValue(e)}
-          inputStyle={{ fontSize: 13 }}
-          spellCheck={false} style={styles.searchbar} placeholder='Nhập từ để tìm kiếm' /> 
+          inputStyle={{ fontSize: fontSize(3.5) ,alignSelf:'center'}}
+          spellCheck={false} style={styles.searchbar} placeholder='Nhập từ để tìm kiếm'
+          
+          /> 
         {
           // khi hiển thị tìm kiếm sẽ mất hết catagory
           searchValue === ""
