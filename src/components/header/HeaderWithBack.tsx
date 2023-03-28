@@ -124,7 +124,6 @@ const HeaderWithBack = ({
           <View 
             style={{
               marginLeft: sizeWidth(8),
-              borderWidth:1,
               // paddingTop: sizeHeight(2)
             }} />}
           <ViewCondition 
