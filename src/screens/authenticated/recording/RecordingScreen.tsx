@@ -279,7 +279,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                         <View style={{ alignItems: 'center', marginBottom: sizeHeight(-45)}}>
                                             <TouchableOpacity onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
                                                 <Image style={{
-                                                    resizeMode: 'contain',
+                                                    resizeMode: 'stretch',
                                                     height: sizeHeight(60), width: sizeWidth(80),
                                                     alignSelf: 'center',
                                                     borderRadius: sizeWidth(14),
