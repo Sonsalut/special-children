@@ -20,7 +20,7 @@ import RecordingScreen from 'screens/authenticated/recording/RecordingScreen';
 import { Image } from 'react-native';
 import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { sizeHeight } from 'utils/Utils';
+import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import NavigationService from './NavigationService';
 
 const Drawer = createDrawerNavigator();
@@ -33,15 +33,23 @@ const DrawerNavigator = ({}) => {
         component={HomeScreens}
         options={{
           title: 'Học từ',
-          headerStyle: { backgroundColor: colors.title_blue },        
-          headerTitleStyle: {  color: '#F1F1F2', fontWeight: 'bold', fontSize: 22, marginBottom: 10 },
+          headerStyle: { 
+            backgroundColor: colors.title_blue,
+            height: sizeHeight(10),
+          },        
+          headerTitleStyle: {  
+            color: '#F1F1F2', 
+            fontWeight: 'bold', 
+            fontSize: fontSize(5), 
+            paddingBottom: sizeHeight(2)
+          },
           headerRight: () => (
             show ? 
             <TouchableOpacity onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddCategory)}>
               <Icon 
                 name='pencil-outline' 
                 size={sizeHeight(3)} 
-                style={{right:5}}
+                style={{right:sizeWidth(1.5)}}
               />
             </TouchableOpacity>
             :null
@@ -53,8 +61,16 @@ const DrawerNavigator = ({}) => {
         component={StoreNavigator}
         options={{ 
           title: 'Kho ghép từ', 
-          headerStyle: { backgroundColor: colors.title_blue },
-          headerTitleStyle: { color: '#F1F1F2', fontWeight: 'bold', fontSize: 22, marginBottom: 10 },
+          headerStyle: { 
+            backgroundColor: colors.title_blue,
+            height: sizeHeight(10)  
+          }, 
+          headerTitleStyle: {  
+            color: '#F1F1F2', 
+            fontWeight: 'bold', 
+            fontSize: fontSize(5), 
+            paddingBottom: sizeHeight(2)
+          },          
           headerPressOpacity: 1
         }}
 
@@ -63,17 +79,33 @@ const DrawerNavigator = ({}) => {
         component={JoinWordScreen}
         options={{ 
           title: 'Ghép từ', 
-          headerStyle: { backgroundColor: colors.title_blue },
-          headerTitleStyle: { color: '#F1F1F2', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }
+          headerStyle: { 
+            backgroundColor: colors.title_blue,
+            height: sizeHeight(10)  
+          }, 
+          headerTitleStyle: {  
+            color: '#F1F1F2', 
+            fontWeight: 'bold', 
+            fontSize: fontSize(5), 
+            paddingBottom: sizeHeight(2)
+          },        
         }}
 
       />
       <Drawer.Screen name={AuthenticatedScreens.MessageScreen}
         component={MessageScreen}
         options={{ 
-          title: 'Cài đặt', 
-          headerStyle: { backgroundColor: colors.title_blue },
-          headerTitleStyle: { color: '#F1F1F2', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }        
+          title: 'Cài đặt',
+          headerStyle: { 
+            backgroundColor: colors.title_blue,
+            height: sizeHeight(10)  
+          }, 
+          headerTitleStyle: {  
+            color: '#F1F1F2', 
+            fontWeight: 'bold', 
+            fontSize: fontSize(5), 
+            paddingBottom: sizeHeight(2)
+          },        
         }}
       />
       {/* <Drawer.Screen name={AuthenticatedScreens.RecordingScreen}
