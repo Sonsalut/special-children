@@ -41,7 +41,7 @@ const CommonStackNavigator = ({}) => {
           headerStyle: {
             backgroundColor: colors.title_blue,
             height: sizeHeight(10)  ,
-            borderWidth:1
+            // borderWidth:1
             // justifyContent:'center'
             
             // borderWidth:1

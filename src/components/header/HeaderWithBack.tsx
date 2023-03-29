@@ -89,7 +89,7 @@ const HeaderWithBack = ({
                 width: sizeWidth(5),
                 height: sizeHeight(5),
                 marginRight: sizeWidth(5),
-                marginLeft: sizeWidth(1),
+                marginLeft:Platform.OS==='android'?sizeWidth(4) :sizeWidth(1),
               }}
             >
               <Image
@@ -104,12 +104,13 @@ const HeaderWithBack = ({
 
           {/* title */}
           <View
-            style={{
-
+            style={
+{
               alignSelf: 'center',
               alignItems: 'center',
               alignContent: 'center',
-              paddingRight: Platform.OS === 'android' ? sizeWidth(56) : 0,
+             
+              paddingRight: Platform.OS === 'android' ? sizeWidth(50) : 0,
               right: Platform.OS === 'android' ? sizeWidth(5) : 0,
               width: Platform.OS === 'android' ? sizeWidth(75) : 0,
               // borderWidth:1,
