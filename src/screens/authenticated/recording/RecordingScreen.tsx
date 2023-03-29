@@ -38,7 +38,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
     React.useEffect(() => {
         navigation.setOptions({ headerTitle: `${route?.params?.data?.name}` })
         dispatch(getCateId(route?.params?.data?.id))
-        loadData();
+        // loadData();
         // FastImage.clearMemoryCache()
         // .then(res => console.log( res))
     }, [])
@@ -168,26 +168,15 @@ const RecordingScreen = ({ route, navigation }: any) => {
 
         }, 2000);
     }, []);
-    const [urlList, setUrlList] = useState([])
-    const preloads=(item) =>{
-        FastImage.preload([
-            {
-                uri:ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`,
-                headers: { Authorization: store.getState().authReducer.user.accessToken },
-
-            }
-        ])
-    }
-      React.useEffect(() => {
+    React.useEffect(() => {
         if(isFocused) {
 
-            let masp = data.map(item=>{
-                preloads(item)
-                
-            })
+           loadData()
         }
       }, [isFocused])
       
+      
+    
    
     return (
 
