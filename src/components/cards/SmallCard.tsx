@@ -5,12 +5,14 @@ import images from 'res/images';
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import { store } from 'redux/store';
 import Icon from 'react-native-vector-icons/Ionicons';
+import FastImage from 'react-native-fast-image';
 interface CardProps {
     onPress?: () => void,
     isDoubleTap?: boolean,
     source?: ImageSourcePropType,
     title?: string,
-    disabled?: boolean
+    disabled?: boolean,
+    uri?:any
 }
 
 const SmallCard = ({
@@ -18,7 +20,8 @@ const SmallCard = ({
     isDoubleTap,
     source,
     title,
-    disabled=false
+    disabled=false,
+    uri
 }: CardProps) => {
   return (
     <>
@@ -29,10 +32,20 @@ const SmallCard = ({
             activeOpacity={0.7}
             style={{ ...styles.cardStyle }}
         >  
-            <Image
-                style={[styles.imageStyle]}
-                source={source ?? images.eye_slash}
-            />
+
+            <FastImage
+                    style={[styles.imageStyle]}
+                 
+                  source={{
+                    uri: uri,
+                    // method: 'GET',
+                    headers: {Authorization: store.getState().authReducer.user.accessToken ,
+                        
+                    },
+                    cache:FastImage.cacheControl.web,
+                    priority: FastImage.priority.high,
+                    
+                  }}/>
             <Text style={styles.textStyle}>{title}</Text>
         </TouchableOpacity>
     </>

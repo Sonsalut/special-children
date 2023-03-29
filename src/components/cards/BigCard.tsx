@@ -5,11 +5,14 @@ import images from 'res/images';
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import { store } from 'redux/store';
 import Icon from 'react-native-vector-icons/Ionicons';
+import FastImage from 'react-native-fast-image';
+import { userInfo } from 'os';
 interface CardProps {
     onPress?: () => void,
     isDoubleTap?: boolean,
     source?: ImageSourcePropType,
     title?: String,
+    uri : any
   
 }
 const BigCard = ({
@@ -17,7 +20,9 @@ const BigCard = ({
     isDoubleTap,
     source,
     title,
+    uri
 }: CardProps) => {
+  
    
     
     return (
@@ -29,17 +34,36 @@ const BigCard = ({
                 style={{...styles.categoryCards}}
             >
                 
-                <Image
+                {/* <Image
                     style={[styles.imageCategory]}
                     source={source ?? images.eye_slash}
-                />
+                    // onLoadStart={()=>console.log('Loading')}
+                    // onLoadEnd={()=>console.log('suuc')}    
+                    // onLoad={()=>{
+                    //     return<Text>LOAD</Text>
+                    // }}  
+                              
+                /> */}
+                <FastImage
+                    style={[styles.imageCategory]}
+                 
+                  source={{
+                    uri: uri,
+                    // method: 'GET',
+                    headers: {Authorization: store.getState().authReducer.user.accessToken ,
+                        cache:'reload'
+                    },
+                    cache:FastImage.cacheControl.web,
+                    priority: FastImage.priority.high,
+                    
+                  }}/>
                 <Text style={styles.categoryText}>{title}</Text>
             </TouchableOpacity>
         </>
     )
 }
 
-export default memo(BigCard)
+export default BigCard
 
 const styles = StyleSheet.create({
     categoryCards: {

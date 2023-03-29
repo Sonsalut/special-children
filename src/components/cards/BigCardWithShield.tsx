@@ -3,6 +3,8 @@ import React from 'react'
 import TouchableOpacity from 'components/button/TouchableOpacity'
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils'
 import Icon from 'react-native-vector-icons/Ionicons'
+import FastImage from 'react-native-fast-image'
+import { store } from 'redux/store'
 
 
 
@@ -12,7 +14,8 @@ interface BigCardWithShieldProps {
     source?: any,
     title?: String,
     isClicked?: boolean,
-    type?: string
+    type?: string,
+    uri?: any
 
 }
 const BigCardWithShield = ({
@@ -21,7 +24,8 @@ const BigCardWithShield = ({
     isClicked = true,
     source,
     title,
-    type
+    type,
+    uri
 
 
 }: BigCardWithShieldProps) => {
@@ -59,21 +63,24 @@ const BigCardWithShield = ({
                         ? <Icon
                             name='shield-sharp'
                             size={sizeHeight(4.5), sizeWidth(6)}
-                            style={{ alignSelf: 'flex-end', color: 'orange', height: sizeHeight(4.5)}} />
+                            style={{ alignSelf: 'flex-end', color: 'orange', height: sizeHeight(4.5) }} />
                         : null
                 }
             </View>
-            <Image
-                style={{
-                    height: sizeHeight(18),
-                    width: sizeWidth(32),
-                    resizeMode: 'stretch',
-                    borderRadius: sizeWidth(3),
-                    alignSelf: 'center',
-                    marginTop: sizeHeight(-3),
-                    padding: 15,
-                }}
-                source={source} />
+            <FastImage
+                style={[styles.imageStyle]}
+
+                source={{
+                    uri: uri,
+                    // method: 'GET',
+                    headers: {
+                        Authorization: store.getState().authReducer.user.accessToken,
+
+                    },
+                    cache: FastImage.cacheControl.web,
+                    priority: FastImage.priority.high,
+
+                }} />
 
             <Text style={{
                 fontSize: fontSize(4.5),
@@ -90,4 +97,18 @@ const BigCardWithShield = ({
 
 export default BigCardWithShield
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+    imageStyle: {
+        height: sizeHeight(18),
+        width: sizeWidth(32),
+        resizeMode: 'stretch',
+        borderRadius: sizeWidth(3),
+        alignSelf: 'center',
+        marginTop: sizeHeight(-3),
+        padding: 15,
+
+
+    }
+
+})

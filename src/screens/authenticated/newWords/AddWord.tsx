@@ -432,11 +432,7 @@ const AddWord = ({ }: StackNavigationProps<
               type={item?.type}
               title={item?.word}
               isClicked={item?.isActive}
-              source={{
-                uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${random}`,
-                method: 'GET',
-                headers: { Authorization: store.getState().authReducer.user.accessToken }
-              }}
+              uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`}
             />
 
           )}
@@ -466,7 +462,7 @@ const AddWord = ({ }: StackNavigationProps<
         handleSubmit={handleDoneEdit}
         source={dataImage ? { uri: dataImage?.uri }
           : {
-            uri: ApiConstants.HOST + `ext/files/download?id=${personData?.pictureFileId}&file-size=ORIGINAL&${random}`,
+            uri: ApiConstants.HOST + `ext/files/download?id=${personData?.pictureFileId}&file-size=MEDIUM&${random}`,
             method: 'GET',
             headers: { Authorization: store.getState().authReducer.user.accessToken }
           }

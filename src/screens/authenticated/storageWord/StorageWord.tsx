@@ -96,13 +96,9 @@ const StorageWord = ({ }: StackNavigationProps<
 
             <MediumCard
               disabled={true}
-              source={{
-                uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&`,
-                method: 'GET',
-                headers: {
-                  Authorization: store.getState().authReducer.user.accessToken
-                }
-              }}
+  
+                uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`}
+               
               title={`${item?.word}`}
 
             />

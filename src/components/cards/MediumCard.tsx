@@ -5,19 +5,22 @@ import images from 'res/images';
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import { store } from 'redux/store';
 import Icon from 'react-native-vector-icons/Ionicons';
+import FastImage from 'react-native-fast-image';
 interface CardProps {
     onPress?: () => void,
     isDoubleTap?: boolean,
     source?: ImageSourcePropType,
     title?: String,
-    disabled?: boolean
+    disabled?: boolean,
+    uri?:any
 }
 const MediumCard = ({
     onPress,
     isDoubleTap,
     source,
     title,
-    disabled= false
+    disabled= false,
+    uri
 }: CardProps) => {
    
     
@@ -30,10 +33,20 @@ const MediumCard = ({
                 activeOpacity={0.7}
                 style={{...styles.cardStyle}}
             >
-                <Image
+                
+                <FastImage
                     style={[styles.imageStyle]}
-                    source={source ?? images.eye_slash}
-                />
+                 
+                  source={{
+                    uri: uri,
+                    // method: 'GET',
+                    headers: {Authorization: store.getState().authReducer.user.accessToken ,
+                        
+                    },
+                    cache:FastImage.cacheControl.web,
+                    priority: FastImage.priority.high,
+                    
+                  }}/>
                 <Text style={styles.textStyle}>{title}</Text>
                 
             </TouchableOpacity>
@@ -41,7 +54,7 @@ const MediumCard = ({
     )
 }
 
-export default memo(MediumCard)
+export default MediumCard
 
 const styles = StyleSheet.create({
     cardStyle: {

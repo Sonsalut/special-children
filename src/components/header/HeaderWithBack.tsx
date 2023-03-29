@@ -124,19 +124,21 @@ const HeaderWithBack = ({
           </View>
 
           {/* right icon */}
-          {rightComponent ??
+          {/* {rightComponent ??
             <View
               style={{
                 marginLeft: sizeWidth(8),
+                borderWidth:1
                 // paddingTop: sizeHeight(2)
-              }} />}
+              }} />} */}
           <ViewCondition
             isVisible={hasBack}
-          // style={{ 
-          //   width: sizeWidth(5), 
-          //   height: sizeHeight(4), 
-          //   borderWidth:1 
-          // }} 
+          style={{ 
+           
+            top: Platform.OS === 'android' ? sizeHeight(1) : 0
+   
+          
+          }} 
           >
             {
               rightIconShow

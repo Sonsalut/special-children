@@ -25,7 +25,7 @@ import { store } from 'redux/store';
   
         setData(response.data?.categories)
 
-        // console.log(data)
+        console.log(data)
         // console.log(store.getState().authReducer.user.refreshToken)
         // console.log(store.getState().authReducer.user.accessToken)
 

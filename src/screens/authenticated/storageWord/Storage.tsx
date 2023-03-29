@@ -16,6 +16,7 @@ import { useLogicStorage } from './useLogicStorage';
 import styles from './styles';
 import { ApiConstants } from 'network/ApiConstants';
 import SmallCard from 'components/cards/SmallCard';
+import FastImage from 'react-native-fast-image';
 
 const Storage = ({ }: StackNavigationProps<
   Routes,
@@ -114,14 +115,18 @@ const Storage = ({ }: StackNavigationProps<
 
                           <View style={styles.cardView}
                           >
-                            <Image
+                            <FastImage
                               style={styles.wordImage}
                               source={{
-                                uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
-                                method: 'GET',
+                                uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`,
+              
                                 headers: {
                                   Authorization: store.getState().authReducer.user.accessToken
-                                }
+
+                                },
+                                cache:FastImage.cacheControl.web,
+                                priority: FastImage.priority.high,
+
                               }}
                             />
                             <Text
@@ -154,13 +159,7 @@ const Storage = ({ }: StackNavigationProps<
                     <View >
                       <SmallCard
                         disabled={true}
-                        source={{
-                          uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM`,
-                          method: 'GET',
-                          headers: {
-                            Authorization: store.getState().authReducer.user.accessToken
-                          }
-                        }}
+                          uri={ ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`}
                         title={item?.word}
                       />
                       

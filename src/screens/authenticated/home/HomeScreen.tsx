@@ -13,7 +13,8 @@ import { useIsFocused } from '@react-navigation/native';
 import { useLogicHome } from './useLogicHome';
 import { ApiConstants } from 'network/ApiConstants';
 import BigCard from 'components/cards/BigCard';
-import { sizeHeight } from 'utils/Utils';
+import { sizeHeight, sizeWidth } from 'utils/Utils';
+import FastImage from 'react-native-fast-image';
 
 
 
@@ -22,14 +23,23 @@ const HomeScreen = ({ }: StackNavigationProps<
   AuthenticatedScreens.HomeScreen
 >) => {
   const { data, getCategory, dispatch, show, handleShow, refreshing, onRefresh, searchValue, setSearchValue, filterData, } = useLogicHome()
+ 
+  // React.useEffect(() => {
 
+  //   getCategory()
+
+  // }, [])
   const isFocused = useIsFocused()
+
   React.useEffect(() => {
-    if(isFocused) {
+    if (isFocused) {
       getCategory()
-      setRandom(Math.random())
+      // setRandom(Math.random())
+    // getCategory()
+
+      
     }
-    
+
   }, [isFocused])
 
   const [random, setRandom] = React.useState(Math.random)
@@ -37,7 +47,7 @@ const HomeScreen = ({ }: StackNavigationProps<
 
     <Container isBottomTab={false} style={styles.container}>
       <TouchableWithoutFeedback
-        onPress={handleShow}
+        // onPress={handleShow}
         onLongPress={handleShow}
       >
 
@@ -51,7 +61,7 @@ const HomeScreen = ({ }: StackNavigationProps<
                 value={searchValue}
                 onChangeText={(e) => setSearchValue(e)}
                 spellCheck={false}
-                inputStyle={{alignSelf:'center'}}
+                inputStyle={{ alignSelf: 'center' }}
               />
               : null
           }
@@ -62,7 +72,11 @@ const HomeScreen = ({ }: StackNavigationProps<
             numColumns={2}
             showsVerticalScrollIndicator={false}
             scrollToOverflowEnabled={false}
-            contentContainerStyle={{paddingBottom: sizeHeight(10)}}
+            contentContainerStyle={{ paddingBottom: sizeHeight(10) }}
+            removeClippedSubviews={true}
+            initialNumToRender={2} // Reduce initial render amount
+            maxToRenderPerBatch={1} // Reduce number in each render batch
+            updateCellsBatchingPeriod={5}
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}
@@ -70,17 +84,13 @@ const HomeScreen = ({ }: StackNavigationProps<
                 colors={[colors.blue]}
               />
             }
-            renderItem={({ item }) => (
-
+            renderItem={({ item, index }) => (
+           
               <BigCard
                 onPress={() => NavigationService.navigate(AuthenticatedScreens.RecordingScreen, { data: item })}
                 isDoubleTap={false}
-                source={{
-                  uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
-                  method: 'GET',
-                  headers: { Authorization: store.getState().authReducer.user.accessToken }
-                }}
-                title={`${item?.name}`}
+                uri={ ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`}
+          title={`${item?.name}`}
               />
 
             )}

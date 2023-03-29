@@ -21,9 +21,11 @@ import { useToast } from 'hooks/useToast';
 import { ApiConstants } from 'network/ApiConstants';
 import axios from 'axios';
 import BigCard from 'components/cards/BigCard';
+import FastImage from 'react-native-fast-image';
+import { url } from 'inspector';
 
 const RecordingScreen = ({ route, navigation }: any) => {
-  
+
     const cancel = require('.././../../../src/assets/images/goback.png')
     const [image, setImage] = React.useState("");
     const [show, setShow] = React.useState(false);
@@ -36,9 +38,11 @@ const RecordingScreen = ({ route, navigation }: any) => {
         navigation.setOptions({ headerTitle: `${route?.params?.data?.name}` })
         dispatch(getCateId(route?.params?.data?.id))
         loadData();
+        // FastImage.clearMemoryCache()
+        // .then(res => console.log( res))
     }, [])
     const isFocused = useIsFocused()
-   
+
     const handle = () => {
         setShow(!show)
         setVisible(!visible)
@@ -64,6 +68,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
 
             // console.log(response.data)
             setData(response.data?.words)
+
             // dispatch(setStorage(response.data?.words))
         }
         else {
@@ -75,53 +80,52 @@ const RecordingScreen = ({ route, navigation }: any) => {
         let filePath = '';
         let isFileSucceeded = false
         let url = AuthApis.GetVoice + encodeURIComponent(audioWord);
-          axios.get(url, {
-            headers:{
+        axios.get(url, {
+            headers: {
                 "Authorization": store.getState().authReducer.user.accessToken,
                 'Accept': '*/*',
                 'Content-Type': 'application/json'
             }
-            
+
 
         }).then(response => {
-            if(response.status===200)
-            {
-               RNFetchBlob.config({
-            fileCache: true,
-            appendExt: 'mp3',
-        })
-            .fetch("GET", url, {
-                Authorization: store.getState().authReducer.user.accessToken,
-                'Accept': '*/*',
-                'Content-Type': 'application/octet-stream'
-            })
-            .then((res) => {
-                // console.log(res);
-                // console.log("The file saved to ", res.path())
-                console.log(res.respInfo)
-                console.log("The file saved to ", res.path());
-                filePath = res.path();
-                RNFetchBlob.fs.exists(filePath).then((exists) => {
-                    try {
-                    SoundPlayer.playUrl('file://' + filePath)
-                        
-                    } catch (error) {
-                        showToast("ERROR",'danger')
-                    }
+            if (response.status === 200) {
+                RNFetchBlob.config({
+                    fileCache: true,
+                    appendExt: 'mp3',
                 })
-                .finally(() => {
-                RNFetchBlob.fs.unlink('file://' + filePath)
-                })
-            })
+                    .fetch("GET", url, {
+                        Authorization: store.getState().authReducer.user.accessToken,
+                        'Accept': '*/*',
+                        'Content-Type': 'application/octet-stream'
+                    })
+                    .then((res) => {
+                        // console.log(res);
+                        // console.log("The file saved to ", res.path())
+                        console.log(res.respInfo)
+                        console.log("The file saved to ", res.path());
+                        filePath = res.path();
+                        RNFetchBlob.fs.exists(filePath).then((exists) => {
+                            try {
+                                SoundPlayer.playUrl('file://' + filePath)
+
+                            } catch (error) {
+                                showToast("ERROR", 'danger')
+                            }
+                        })
+                            .finally(() => {
+                                RNFetchBlob.fs.unlink('file://' + filePath)
+                            })
+                    })
             }
-           
-        
+
+
 
         })
-        .catch(err=>{
-            showToast("Đang load", 'warning')
-            console.log(err?.message)
-        })
+            .catch(err => {
+                showToast("Đang load", 'warning')
+                console.log(err?.message)
+            })
     }
     const addNewRecording = () => {
         let temp = data;
@@ -150,6 +154,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
         setVisible(true)
         setIndex(index)
         playSound(item?.audioWord)
+        // console.log(item?.updatedAt.slice())
     }
     const [index, setIndex] = React.useState(0)
     const [refreshing, setRefreshing] = React.useState(false);
@@ -162,42 +167,64 @@ const RecordingScreen = ({ route, navigation }: any) => {
 
         }, 2000);
     }, []);
+    const [urlList, setUrlList] = useState([])
+    const preloads=(item) =>{
+        FastImage.preload([
+            {
+                uri:ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`,
+                headers: { Authorization: store.getState().authReducer.user.accessToken },
 
+            }
+        ])
+    }
+      React.useEffect(() => {
+        if(isFocused) {
+
+            let masp = data.map(item=>{
+                preloads(item)
+                
+            })
+        }
+      }, [isFocused])
+      
+   
     return (
 
         <Container isBottomTab={false} style={styles.container}>
             <TouchableWithoutFeedback
-                onPress={() => console.log('Pressed')}
+                // onPress={aa}
                 onLongPress={handleShow}
             >
                 <View style={styles.mainView}>
                     {
                         shows ?
                             <Searchbar
-                                style={{ borderWidth: 1,
+                                style={{
+                                    borderWidth: 1,
                                     // bottom: 5,
                                     borderColor: '#C1EBEA',
                                     borderRadius: 15,
                                     width: sizeWidth(80),
                                     backgroundColor: 'white',
                                     height: sizeHeight(6),
-                                    marginTop: 5,}}
+                                    marginTop: 5,
+                                }}
                                 placeholder="Tìm kiếm từ"
                                 placeholderTextColor={'gray'}
-                              inputStyle={{alignSelf:'center'}}
+                                inputStyle={{ alignSelf: 'center' }}
                                 value={searchValue}
                                 onChangeText={(e) => setSearchValue(e)}
                                 spellCheck={false}
                             />
                             : null
                     }
-                    <View 
-                        style={{ 
-                            width: sizeWidth(94), 
-                            height: sizeHeight(92), 
-                            alignItems: 'center', 
-                            alignSelf: 'center', 
-                            paddingTop:20,
+                    <View
+                        style={{
+                            width: sizeWidth(94),
+                            height: sizeHeight(92),
+                            alignItems: 'center',
+                            alignSelf: 'center',
+                            paddingTop: 20,
                         }}
                     >
                         <FlatList
@@ -205,7 +232,11 @@ const RecordingScreen = ({ route, navigation }: any) => {
                             keyExtractor={(_, index) => index.toString()}
                             showsVerticalScrollIndicator={false}
                             numColumns={2}
-                            contentContainerStyle={{paddingBottom: sizeHeight(10)}}
+                            contentContainerStyle={{ paddingBottom: sizeHeight(10) }}
+                            removeClippedSubviews={true}
+                            initialNumToRender={2} // Reduce initial render amount
+                            maxToRenderPerBatch={1} // Reduce number in each render batch
+                            updateCellsBatchingPeriod={5}
                             refreshControl={
                                 <RefreshControl
                                     refreshing={refreshing}
@@ -216,13 +247,12 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                 <BigCard
                                     onPress={() => { chooseWord(item, index) }}
                                     isDoubleTap={false}
-                                    source={{
-                                        uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${new Date()}`,
-                                        method: 'GET',
-                                        headers: { Authorization: store.getState().authReducer.user.accessToken }
-                                    }}
+                                    uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`}
+
                                     title={`${item?.word}`}
                                 />
+
+
 
                             )}
                         />
@@ -240,7 +270,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                     marginTop: sizeHeight(15),
                     width: sizeWidth(90),
                     // marginHorizontal: sizeHeight(10),
-                    marginLeft:sizeWidth(5)
+                    marginLeft: sizeWidth(5)
                 }}
                 onDismiss={() => {
                     setShow(false)
@@ -252,7 +282,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                     width: "100%",
                     height: "100%",
                     borderRadius: 15,
-                    
+
                 }}>
 
                     <View style={{ height: '100%' }}>
@@ -276,21 +306,24 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                                 <Image resizeMode='contain' source={cancel} style={{ width: sizeWidth(5), height: sizeHeight(3) }} />
                                             </TouchableOpacity>
                                         </View>
-                                        <View style={{ alignItems: 'center', marginBottom: sizeHeight(-45)}}>
+                                        <View style={{ alignItems: 'center', marginBottom: sizeHeight(-45) }}>
                                             <TouchableOpacity onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
-                                                <Image style={{
-                                                    resizeMode: 'stretch',
+                                                <FastImage style={{
+                                                    
                                                     height: sizeHeight(60), width: sizeWidth(80),
                                                     alignSelf: 'center',
                                                     borderRadius: sizeWidth(14),
                                                     maxHeight: sizeHeight(40)
                                                 }}
+                                                resizeMode='stretch'
                                                     source={{
-                                                        uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL`,
-                                                        method: 'GET',
+                                                        uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`,
+                                                        // method: 'GET',
                                                         headers: {
                                                             Authorization: store.getState().authReducer.user.accessToken
-                                                        }
+                                                        },
+                                                        cache: FastImage.cacheControl.web,
+                                                        priority: FastImage.priority.normal,
                                                     }}
                                                 />
                                             </TouchableOpacity>

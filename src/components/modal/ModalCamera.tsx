@@ -37,9 +37,9 @@ cancel
         }}
         onDismiss={onDismiss}
       >
-        <Menu.Item titleStyle={{ fontSize: fontSize(2), color:'#2D5672' }} leadingIcon="camera" onPress={takePhoto} title="Chụp ảnh" />
-        <Menu.Item titleStyle={{ fontSize: fontSize(2), color:'#2D5672' }} leadingIcon="store-settings" onPress={chooseImage} title="Chọn ảnh từ thư viện" />
-        <Menu.Item titleStyle={{ color: 'red', fontSize: fontSize(2) }} leadingIcon="archive-cancel" onPress={cancel} title="Hủy bỏ" />
+        <Menu.Item titleStyle={{ fontSize: fontSize(3.5), color:'#2D5672' }} leadingIcon="camera" onPress={takePhoto} title="Chụp ảnh" />
+        <Menu.Item titleStyle={{ fontSize: fontSize(3.5), color:'#2D5672' }} leadingIcon="store-settings" onPress={chooseImage} title="Chọn ảnh từ thư viện" />
+        <Menu.Item titleStyle={{ color: 'red', fontSize: fontSize(3.5) }} leadingIcon="archive-cancel" onPress={cancel} title="Hủy bỏ" />
       </Modal>
       </>
   )

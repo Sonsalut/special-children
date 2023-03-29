@@ -97,7 +97,7 @@ const AddCategory = ({ }: StackNavigationProps<
   const getCategory = async (values: any) => {
     const response = await RecordingAPI.GetFullCategory<GetFullCategory>({
       pageIndex: 1,
-      pageSize: 20,
+      pageSize: 50,
       name: null,
       isActive: true,
 
@@ -263,7 +263,7 @@ const AddCategory = ({ }: StackNavigationProps<
         setEditPopupVisivle(!editPopupVisivle)
         getCategory()
         setDataImage('')
-        setRandom(Math.random())
+        // setRandom(Math.random())
       }
       else {
         showToast("ERROR", 'warning')
@@ -286,12 +286,15 @@ const AddCategory = ({ }: StackNavigationProps<
         "file-image",
         {
           uri: dataImage?.uri,
+          // name: 'image.png',
           name: dataImage?.fileName,
+
           type: dataImage?.type
+          // type: "image/png"
         }
       )
     }
-
+// console.log(imageData)
     let url = ApiConstants.HOST + 'ext/category/user' + `?name=${name}`
     fetch(url, {
       method: 'POST',
@@ -367,6 +370,10 @@ const AddCategory = ({ }: StackNavigationProps<
               colors={[colors.blue]}
             />
           }
+          removeClippedSubviews={true}
+          initialNumToRender={2} // Reduce initial render amount
+    maxToRenderPerBatch={1} // Reduce number in each render batch
+    updateCellsBatchingPeriod={100}
           renderItem={({ item, index }) => (
             <BigCardWithShield
               onPress={() => handleOnclick(item)}
@@ -374,13 +381,7 @@ const AddCategory = ({ }: StackNavigationProps<
               type={item?.type}
               title={item?.name}
               isClicked={item?.isActive}
-              source={item?.pictureFileId !== null ? {
-                uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=ORIGINAL&${random}`,
-                method: 'GET',
-                headers: { Authorization: store.getState().authReducer.user.accessToken }
-              } :
-                require('../../.././assets/images/no.png')
-              }
+              uri ={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`}
             />
           )}
         />
@@ -395,7 +396,7 @@ const AddCategory = ({ }: StackNavigationProps<
         handleSubmit={handleDoneEdit}
         source={dataImage ? { uri: dataImage?.uri }
           : {
-            uri: ApiConstants.HOST + `ext/files/download?id=${personData?.pictureFileId}&file-size=ORIGINAL&${random}`,
+            uri: ApiConstants.HOST + `ext/files/download?id=${personData?.pictureFileId}&file-size=MEDIUM${personData?.updatedAt}`,
             method: 'GET',
 
             headers: { Authorization: store.getState().authReducer.user.accessToken }
