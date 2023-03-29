@@ -40,14 +40,24 @@ const CommonStackNavigator = ({}) => {
           headerShown:true,
           headerStyle: {
             backgroundColor: colors.title_blue,
-            height: sizeHeight(10)  
+            height: sizeHeight(10)  ,
+            borderWidth:1
+            // justifyContent:'center'
+            
+            // borderWidth:1
           },
+          
           headerTitleStyle: {  
             color: '#F1F1F2', 
             fontWeight: 'bold', 
             fontSize: fontSize(5), 
-            paddingBottom: sizeHeight(2)
+            // textAlign:'center'
+            // borderWidth:1,
+            
+            // paddingBottom: sizeHeight(2)
+            // alignSelf:'center'
           },
+        
           headerLeftLabelVisible:false,
           headerTintColor:'black',
           headerRight: () => (

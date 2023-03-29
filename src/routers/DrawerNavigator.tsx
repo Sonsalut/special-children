@@ -41,7 +41,7 @@ const DrawerNavigator = ({}) => {
             color: '#F1F1F2', 
             fontWeight: 'bold', 
             fontSize: fontSize(5), 
-            paddingBottom: sizeHeight(2)
+            // paddingBottom: sizeHeight(2)
           },
           headerRight: () => (
             show ? 
@@ -69,7 +69,7 @@ const DrawerNavigator = ({}) => {
             color: '#F1F1F2', 
             fontWeight: 'bold', 
             fontSize: fontSize(5), 
-            paddingBottom: sizeHeight(2)
+            // paddingBottom: sizeHeight(2)
           },          
           headerPressOpacity: 1
         }}
@@ -87,7 +87,7 @@ const DrawerNavigator = ({}) => {
             color: '#F1F1F2', 
             fontWeight: 'bold', 
             fontSize: fontSize(5), 
-            paddingBottom: sizeHeight(2)
+            // paddingBottom: sizeHeight(2)
           },        
         }}
 
@@ -104,7 +104,7 @@ const DrawerNavigator = ({}) => {
             color: '#F1F1F2', 
             fontWeight: 'bold', 
             fontSize: fontSize(5), 
-            paddingBottom: sizeHeight(2)
+            // paddingBottom: sizeHeight(2)
           },        
         }}
       />

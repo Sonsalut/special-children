@@ -5,7 +5,7 @@ import RowContainer from 'components/container/RowContainer';
 import ViewCondition from 'components/container/ViewCondition';
 import NavigationService from 'routers/NavigationService';
 import GlobalHeader from './GlobalHeader';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
 import images from 'res/images';
 import HeaderTitle from 'components/text/HeaderTitle';
 import colors from 'res/colors';
@@ -21,10 +21,10 @@ interface HeaderWithBackProps {
   rightComponent?: React.ReactNode,
   leftIconSrc?: ImageSourcePropType,
   leftIconStyle?: ImageStyle,
-  rightIconSrc?:ImageSourcePropType,
+  rightIconSrc?: ImageSourcePropType,
   rightIconStyle?: ImageStyle,
   onCallBack?: void,
-  handle?:()=> void,
+  handle?: () => void,
   hasDone?: boolean,
   rightIconShow?: boolean,
 
@@ -45,9 +45,9 @@ const HeaderWithBack = ({
   rightIconSrc,
   rightIconStyle,
   handle,
-  hasDone= false,
-  rightIconShow=true,
-  
+  hasDone = false,
+  rightIconShow = true,
+
   ...props
 }: HeaderWithBackProps) => {
   const onGoBack = () => {
@@ -67,22 +67,24 @@ const HeaderWithBack = ({
         showHideTransition={'none'} 
       /> */}
       <RowContainer style={[styles.container, containerStyle]}>
-        <View 
+        <View
           style={{
-            height:sizeHeight(5),
+            height: sizeHeight(5),
             width: sizeWidth(100),
-            flexDirection: 'row', 
+            flexDirection: 'row',
             alignItems: 'center',
             marginBottom: sizeHeight(1),
+            // borderWidth:1,
+            alignContent: 'center'
           }}
         >
-          
-{/* left icon */}
+
+          {/* left icon */}
           <ViewCondition isVisible={hasBack} >
-            <TouchableOpacity 
-              onPress={onGoBack} 
-              style={{ 
-                ...leftIconStyle, 
+            <TouchableOpacity
+              onPress={onGoBack}
+              style={{
+                ...leftIconStyle,
                 paddingTop: sizeHeight(2),
                 width: sizeWidth(5),
                 height: sizeHeight(5),
@@ -90,7 +92,7 @@ const HeaderWithBack = ({
                 marginLeft: sizeWidth(1),
               }}
             >
-              <Image 
+              <Image
                 source={leftIconSrc ?? images.navBackLeft}
                 style={{
                   width: sizeWidth(3),
@@ -100,17 +102,18 @@ const HeaderWithBack = ({
             </TouchableOpacity>
           </ViewCondition>
 
-{/* title */}
+          {/* title */}
           <View
             style={{
-              // height: sizeHeight(10),
-              // width: sizeWidth(80),
-              // alignContent: 'flex-end',
-              // paddingTop: sizeHeight(5),
+
               alignSelf: 'center',
               alignItems: 'center',
               alignContent: 'center',
-              width:sizeWidth(75),
+              paddingRight: Platform.OS === 'android' ? sizeWidth(56) : 0,
+              right: Platform.OS === 'android' ? sizeWidth(5) : 0,
+              width: Platform.OS === 'android' ? sizeWidth(75) : 0,
+              // borderWidth:1,
+              top: Platform.OS === 'android' ? sizeHeight(1) : 0
               // paddingBottom: sizeHeight(2)
             }}
           >
@@ -119,25 +122,25 @@ const HeaderWithBack = ({
             </HeaderTitle>
           </View>
 
-{/* right icon */}
-          {rightComponent ?? 
-          <View 
-            style={{
-              marginLeft: sizeWidth(8),
-              // paddingTop: sizeHeight(2)
-            }} />}
-          <ViewCondition 
-            isVisible={hasBack} 
-            // style={{ 
-            //   width: sizeWidth(5), 
-            //   height: sizeHeight(4), 
-            //   borderWidth:1 
-            // }} 
+          {/* right icon */}
+          {rightComponent ??
+            <View
+              style={{
+                marginLeft: sizeWidth(8),
+                // paddingTop: sizeHeight(2)
+              }} />}
+          <ViewCondition
+            isVisible={hasBack}
+          // style={{ 
+          //   width: sizeWidth(5), 
+          //   height: sizeHeight(4), 
+          //   borderWidth:1 
+          // }} 
           >
             {
               rightIconShow
-                ? <TouchableOpacity 
-                  onPress={handle} 
+                ? <TouchableOpacity
+                  onPress={handle}
                   style={leftIconStyle}
                 >
                   <Image
@@ -171,7 +174,7 @@ const styles = StyleSheet.create({
     height: sizeHeight(10),
     width: sizeWidth(100),
     flexDirection: 'column',
-    justifyContent:'flex-end',
+    justifyContent: 'flex-end',
     // paddingTop:sizeHeight(4)
   },
   title: {
@@ -183,5 +186,5 @@ const styles = StyleSheet.create({
     // marginBottom: sizeHeight(2),
     // borderWidth:1
   },
-  
+
 })
