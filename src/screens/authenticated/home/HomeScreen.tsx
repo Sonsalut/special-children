@@ -15,6 +15,7 @@ import { ApiConstants } from 'network/ApiConstants';
 import BigCard from 'components/cards/BigCard';
 import { sizeHeight, sizeWidth } from 'utils/Utils';
 import FastImage from 'react-native-fast-image';
+import { FILE_SIZE } from 'utils/Constant';
 
 
 
@@ -23,7 +24,7 @@ const HomeScreen = ({ }: StackNavigationProps<
   AuthenticatedScreens.HomeScreen
 >) => {
   const { data, getCategory, dispatch, show, handleShow, refreshing, onRefresh, searchValue, setSearchValue, filterData, } = useLogicHome()
- 
+
   // React.useEffect(() => {
 
   //   getCategory()
@@ -35,9 +36,9 @@ const HomeScreen = ({ }: StackNavigationProps<
     if (isFocused) {
       getCategory()
       // setRandom(Math.random())
-    // getCategory()
+      // getCategory()
 
-      
+
     }
 
   }, [isFocused])
@@ -85,12 +86,12 @@ const HomeScreen = ({ }: StackNavigationProps<
               />
             }
             renderItem={({ item, index }) => (
-           
+
               <BigCard
                 onPress={() => NavigationService.navigate(AuthenticatedScreens.RecordingScreen, { data: item })}
                 isDoubleTap={false}
-                uri={ ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`}
-          title={`${item?.name}`}
+                uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
+                title={`${item?.name}`}
               />
 
             )}

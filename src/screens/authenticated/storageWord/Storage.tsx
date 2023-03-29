@@ -17,6 +17,7 @@ import styles from './styles';
 import { ApiConstants } from 'network/ApiConstants';
 import SmallCard from 'components/cards/SmallCard';
 import FastImage from 'react-native-fast-image';
+import { FILE_SIZE } from 'utils/Constant';
 
 const Storage = ({ }: StackNavigationProps<
   Routes,
@@ -41,11 +42,11 @@ const Storage = ({ }: StackNavigationProps<
     searchValue, setSearchValue } = useLogicStorage()
   const isFocused = useIsFocused();
   React.useEffect(() => {
-    if(isFocused) {
+    if (isFocused) {
       getStorageWords()
       getCategory()
     }
-   
+
   }, [isFocused])
 
   return (
@@ -66,10 +67,10 @@ const Storage = ({ }: StackNavigationProps<
       >
         <Searchbar value={searchValue}
           onChangeText={(e) => setSearchValue(e)}
-          inputStyle={{ fontSize: fontSize(3.5) ,alignSelf:'center'}}
+          inputStyle={{ fontSize: fontSize(3.5), alignSelf: 'center' }}
           spellCheck={false} style={styles.searchbar} placeholder='Nhập từ để tìm kiếm'
-          
-          /> 
+
+        />
         {
           // khi hiển thị tìm kiếm sẽ mất hết catagory
           searchValue === ""
@@ -77,7 +78,7 @@ const Storage = ({ }: StackNavigationProps<
             <FlatList
               data={category}
               showsVerticalScrollIndicator={false}
-              contentContainerStyle={{paddingBottom: '10%'}}
+              contentContainerStyle={{ paddingBottom: '10%' }}
               refreshControl={
                 <RefreshControl
                   refreshing={refreshing}
@@ -118,13 +119,13 @@ const Storage = ({ }: StackNavigationProps<
                             <FastImage
                               style={styles.wordImage}
                               source={{
-                                uri: ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`,
-              
+                                uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`,
+
                                 headers: {
                                   Authorization: store.getState().authReducer.user.accessToken
 
                                 },
-                                cache:FastImage.cacheControl.web,
+                                cache: FastImage.cacheControl.web,
                                 priority: FastImage.priority.high,
 
                               }}
@@ -159,10 +160,10 @@ const Storage = ({ }: StackNavigationProps<
                     <View >
                       <SmallCard
                         disabled={true}
-                          uri={ ApiConstants.HOST+ `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`}
+                        uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
                         title={item?.word}
                       />
-                      
+
                     </View>
                     {
                       hasDone ? <CheckBox style={styles.checkbox} value={!item?.isActive} onValueChange={() => handleChoose(item)} /> : null

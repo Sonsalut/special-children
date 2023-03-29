@@ -18,6 +18,7 @@ import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import { ApiConstants } from 'network/ApiConstants';
 import MediumCard from '../../../components/cards/MediumCard';
 import AddButton from 'components/button/AddButton';
+import { FILE_SIZE } from 'utils/Constant';
 
 
 const StorageWord = ({ }: StackNavigationProps<
@@ -97,7 +98,7 @@ const StorageWord = ({ }: StackNavigationProps<
             <MediumCard
               disabled={true}
   
-                uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`}
+                uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
                
               title={`${item?.word}`}
 

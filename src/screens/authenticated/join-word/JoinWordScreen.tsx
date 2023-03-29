@@ -15,6 +15,7 @@ import colors from 'res/colors';
 import MediumCard from 'components/cards/MediumCard';
 import SmallCard from 'components/cards/SmallCard';
 import { truncate } from 'fs';
+import { FILE_SIZE } from 'utils/Constant';
 
 const JoinWordScreen = ({ }: StackNavigationProps<
     Routes,
@@ -84,7 +85,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                             <SmallCard
                                 isDoubleTap={true}
                                 onPress={() => { deleteWord(item) }}
-                                uri={ ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`}
+                                uri={ ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
                                 
                                 title={`${item?.word}`}
                             />
@@ -126,7 +127,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                             disabled={false}
                             isDoubleTap={true}
                            
-                                uri={ ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`}
+                                uri={ ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
                               
                             title={`${item?.word}`}
                             onPress={() => {

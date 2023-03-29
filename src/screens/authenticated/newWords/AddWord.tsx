@@ -22,6 +22,7 @@ import { CAMERA_OPTION, IMAGE_LIBRARY_OPTION } from '../category/constant';
 import { requestCameraPermission } from '../category/Permission';
 import ChoiceTab from '../category/component/ChoiceTab';
 import AddEditModal from 'components/modal/AddEditModal';
+import { FILE_SIZE } from 'utils/Constant';
 
 
 
@@ -267,7 +268,7 @@ const AddWord = ({ }: StackNavigationProps<
         setEditPopupVisivle(!editPopupVisivle)
         loadData()
         setDataImage('')
-        setRandom(Math.random())
+        // setRandom(Math.random())
       }
       else {
         showToast("ERROR", 'warning')
@@ -432,7 +433,7 @@ const AddWord = ({ }: StackNavigationProps<
               type={item?.type}
               title={item?.word}
               isClicked={item?.isActive}
-              uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`}
+              uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
             />
 
           )}
@@ -462,7 +463,7 @@ const AddWord = ({ }: StackNavigationProps<
         handleSubmit={handleDoneEdit}
         source={dataImage ? { uri: dataImage?.uri }
           : {
-            uri: ApiConstants.HOST + `ext/files/download?id=${personData?.pictureFileId}&file-size=MEDIUM&${random}`,
+            uri: ApiConstants.HOST + `ext/files/download?id=${personData?.pictureFileId}&file-size=${FILE_SIZE}&${personData?.updatedAt}`,
             method: 'GET',
             headers: { Authorization: store.getState().authReducer.user.accessToken }
           }

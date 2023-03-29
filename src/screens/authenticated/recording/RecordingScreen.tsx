@@ -23,6 +23,7 @@ import axios from 'axios';
 import BigCard from 'components/cards/BigCard';
 import FastImage from 'react-native-fast-image';
 import { url } from 'inspector';
+import { FILE_SIZE } from 'utils/Constant';
 
 const RecordingScreen = ({ route, navigation }: any) => {
 
@@ -171,7 +172,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
     const preloads=(item) =>{
         FastImage.preload([
             {
-                uri:ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`,
+                uri:ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`,
                 headers: { Authorization: store.getState().authReducer.user.accessToken },
 
             }
@@ -247,7 +248,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                 <BigCard
                                     onPress={() => { chooseWord(item, index) }}
                                     isDoubleTap={false}
-                                    uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`}
+                                    uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
 
                                     title={`${item?.word}`}
                                 />
@@ -317,7 +318,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                                 }}
                                                 resizeMode='stretch'
                                                     source={{
-                                                        uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`,
+                                                        uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`,
                                                         // method: 'GET',
                                                         headers: {
                                                             Authorization: store.getState().authReducer.user.accessToken
