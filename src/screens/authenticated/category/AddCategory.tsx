@@ -24,6 +24,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import axios from 'axios';
 import { url } from 'inspector';
 import { json } from 'stream/consumers';
+import { FILE_SIZE } from 'utils/Constant';
 
 const AddCategory = ({ }: StackNavigationProps<
   Routes,
@@ -381,7 +382,7 @@ const AddCategory = ({ }: StackNavigationProps<
               type={item?.type}
               title={item?.name}
               isClicked={item?.isActive}
-              uri ={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=MEDIUM&${item?.updatedAt}`}
+              uri ={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
             />
           )}
         />
@@ -396,7 +397,7 @@ const AddCategory = ({ }: StackNavigationProps<
         handleSubmit={handleDoneEdit}
         source={dataImage ? { uri: dataImage?.uri }
           : {
-            uri: ApiConstants.HOST + `ext/files/download?id=${personData?.pictureFileId}&file-size=MEDIUM${personData?.updatedAt}`,
+            uri: ApiConstants.HOST + `ext/files/download?id=${personData?.pictureFileId}&file-size=${FILE_SIZE}&${personData?.updatedAt}`,
             method: 'GET',
 
             headers: { Authorization: store.getState().authReducer.user.accessToken }
