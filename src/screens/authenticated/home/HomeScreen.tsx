@@ -1,11 +1,10 @@
 import React from 'react';
-import { Container, Text, TouchableOpacity } from 'components';
+import { Container } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens } from 'routers/ScreenNames';
 import NavigationService from 'routers/NavigationService';
-import { View, Image, FlatList, TouchableWithoutFeedback } from 'react-native';
+import { View, FlatList, TouchableWithoutFeedback } from 'react-native';
 import styles from './styles';
-import { store } from 'redux/store';
 import colors from 'res/colors';
 import { RefreshControl } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
@@ -13,8 +12,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { useLogicHome } from './useLogicHome';
 import { ApiConstants } from 'network/ApiConstants';
 import BigCard from 'components/cards/BigCard';
-import { sizeHeight, sizeWidth } from 'utils/Utils';
-import FastImage from 'react-native-fast-image';
+import { sizeHeight } from 'utils/Utils';
 import { FILE_SIZE } from 'utils/Constant';
 
 
@@ -74,7 +72,7 @@ const HomeScreen = ({ }: StackNavigationProps<
             showsVerticalScrollIndicator={false}
             scrollToOverflowEnabled={false}
             contentContainerStyle={{ paddingBottom: sizeHeight(10) }}
-            removeClippedSubviews={true}
+       
             initialNumToRender={2} // Reduce initial render amount
             maxToRenderPerBatch={1} // Reduce number in each render batch
             updateCellsBatchingPeriod={5}

@@ -1,10 +1,9 @@
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens } from 'routers/ScreenNames';
-import { Image } from 'react-native';
 import { Text, View } from 'react-native';
 import React from 'react';
 import { store } from 'redux/store';
-import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
+import { fontSize } from 'utils/Utils';
 import { FlatList, RefreshControl } from 'react-native-gesture-handler';
 import { Container } from 'components';
 import { Searchbar } from 'react-native-paper';

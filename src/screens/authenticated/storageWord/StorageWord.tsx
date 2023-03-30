@@ -1,20 +1,18 @@
 
 import ResponseCode from 'network/ResponseCode';
-import { TouchableOpacity } from 'react-native';
-import { store } from 'redux/store';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens } from 'routers/ScreenNames';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import { Container } from 'components';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import { GetStorageWord } from 'network/subs/auth/recording/RecordingRequest';
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { FlatList, RefreshControl } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import colors from 'res/colors';
 import NavigationService from 'routers/NavigationService';
-import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
+import { sizeHeight } from 'utils/Utils';
 import { ApiConstants } from 'network/ApiConstants';
 import MediumCard from '../../../components/cards/MediumCard';
 import AddButton from 'components/button/AddButton';
