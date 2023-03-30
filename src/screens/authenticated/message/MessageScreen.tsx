@@ -46,12 +46,18 @@ const MessageScreen = ({ }: StackNavigationProps<
   React.useEffect(() => {
 
     isFocused ? getVoiceInfor() : null;
-    // const token = store.getState().authReducer.user.accessToken
-    // const payload = token.split('.')[1];
-    // const decodedPayload = Buffer.from(payload, 'base64');
-    
-    // console.log(decodedPayload)
   }, [isFocused])
+
+  React.useEffect(() => {
+    const getFingerPrint = () => {
+      if (store.getState().authReducer.fingerPrint) {
+        return true;
+      }
+      else
+        return false;
+    };
+    setIsSwitchOn(getFingerPrint());
+  }, []);
 
   return (
     <Container style={styles.container}>

@@ -14,6 +14,7 @@ import images from 'res/images';
 import { useLogicLogin } from './useLogicLogin';
 import styles from './styles';
 import { LogBox } from 'react-native';
+import { store } from 'redux/store';
 
 LogBox.ignoreAllLogs();
 const LoginScreen = ({ }: StackNavigationProps<
@@ -23,6 +24,8 @@ const LoginScreen = ({ }: StackNavigationProps<
   const { register, setError, handleSubmit, control, reset, formState: { errors } } = useForm();
   const { hidden, changeHiddenStatus, onPressLogin, onNavigateRegister, loginWithBiometric} = useLogicLogin();
   
+  const fingerPrint = store.getState().authReducer.fingerPrint
+  const name = store.getState().authReducer.Account.username
 
   return (
     
@@ -49,7 +52,7 @@ const LoginScreen = ({ }: StackNavigationProps<
                           iconLeftStyle={{ marginLeft: sizeWidth(5) }}
                           onBlur={onBlur}
                           onChangeText={value => onChange(value)}
-                          value={value}
+                          value={ fingerPrint ? name: value}
                           placeholder={'Tài khoản'}
                         />
                       )}

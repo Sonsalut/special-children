@@ -1,3 +1,4 @@
+import { FingerPrint } from 'network/subs/auth/AuthResponse';
 import React from 'react';
 import { MainScreens } from 'routers/ScreenNames';
 import TouchID from 'react-native-touch-id';
@@ -10,6 +11,7 @@ import { useToast } from 'hooks/useToast';
 import RecordingAPI from 'network/subs/auth/recording/RecordingAPI';
 import ResponseCode from 'network/ResponseCode';
 import { resetShow, showIcon } from 'redux/storageWord/action';
+import { useIsFocused } from '@react-navigation/native';
 
 const useLogicMessage = () => {
     const refPopUp: any = React.useRef(null);
@@ -25,6 +27,16 @@ const useLogicMessage = () => {
     const showUp = () => {
         refPopUp.current?.open();
     }
+    const isFocuse= useIsFocused()
+    React.useEffect(() => {
+      const fingerPrint = store.getState().authReducer.fingerPrint
+      if(fingerPrint)
+    {
+      setIsSwitchOn(true)
+     
+    }
+    }, [isFocuse])
+    
     const optionalConfigObject = {
         title: "Authentication Required", // Android
         color: "#e00606", // Android,
@@ -36,7 +48,7 @@ const useLogicMessage = () => {
                 .then((success: any) => {
                     dispatch(authSlice.actions.saveFingerPrint({ fingerPrint: !isSwitchOn }))
                     setIsSwitchOn(!isSwitchOn)
-                    console.log(isSwitchOn)
+                    // console.log(isSwitchOn)
                 })
                 .catch(error => {
                     console.log("test error"),
@@ -46,7 +58,7 @@ const useLogicMessage = () => {
         else {
             dispatch(authSlice.actions.saveFingerPrint({ fingerPrint: !isSwitchOn }))
             setIsSwitchOn(!isSwitchOn)
-            console.log(isSwitchOn)
+            // console.log(isSwitchOn)
         }
     };
     const dispatch = useDispatch();

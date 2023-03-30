@@ -21,7 +21,7 @@ const useLogicLogin = () => {
     const [password, setPassword] = React.useState('');
     const showToast = useToast();
     const [hidden, setHidden] = React.useState(true)
-    const FingerPrint = store.getState().authReducer.fingerPrint?.auth;
+    const FingerPrint = store.getState().authReducer.fingerPrint;
     const optionalConfigObject = {
       title: 'Authentication Required', // Android
       color: '#e00606', // Android,
@@ -77,12 +77,25 @@ const useLogicLogin = () => {
     const loginWithBiometric = () => {
         if (FingerPrint) {
           TouchID.authenticate('', optionalConfigObject)
-            .then((success: any) => {
+            .then(async(success: any) => {
               const account = {
-                username: store.getState().authReducer.user.accountInfo.user,
-                password: store.getState().authReducer.user.accountInfo.password,
+                username: store.getState().authReducer.Account.username,
+                password: store.getState().authReducer.Account.password,
               };
-              handleLoginWithEmail(account);
+              const response = await AuthenticationApi.loginWithEmail<LoginResponse>({
+                username: account.username?.trim(),
+                password: account.password?.trim(),
+            });
+            if(response.status === ResponseCode.SUCCESS)
+            {
+              dispatch(authSlice.actions.setUser({
+                accessToken: response?.data?.data?.jwtToken,
+                accountInfo: response?.data?.data?.accountInfo,
+                refreshToken: response?.data?.data?.refreshToken,
+              }));
+              NavigationService.reset(MainScreens.AuthenticatedNavigator);
+              showToast('Đăng nhập thành công!', 'success')
+            }
             })
             .catch((error: any) => {
               console.log(error);
