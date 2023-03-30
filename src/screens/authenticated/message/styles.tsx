@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import colors from 'res/colors';
-import { sizeHeight, sizeWidth } from 'utils/Utils';
+import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 
 export default StyleSheet.create({
   container: {
@@ -104,14 +104,20 @@ export default StyleSheet.create({
     height: '90%',
     width: '80%',
     borderRadius: 15,
-    backgroundColor: '#ADDDDC'
+    backgroundColor: '#ADDDDC',
+    // borderWidth:1
+    
   },
   confirmText: {
     alignSelf: 'center',
-    fontSize: 18,
+    fontSize: fontSize(5),
     color: '#2D5672',
     fontWeight: 'bold',
-    paddingTop: '5%'
+    paddingTop: '3%',
+    // borderWidth:1
+
+    
+   
   },
   logoutModal: {
     backgroundColor: '#E7F6FF',

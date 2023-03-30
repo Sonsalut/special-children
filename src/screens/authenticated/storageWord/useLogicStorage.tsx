@@ -8,8 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isClicked, setCategory, setStorage } from 'redux/storageWord/action';
 import NavigationService from 'routers/NavigationService';
 import { useToast } from 'hooks/useToast';
-import AuthApi from 'network/subs/auth/AuthApi';
-import authSlice from 'redux/slice/authSlice';
 
 
 
@@ -150,7 +148,7 @@ export const useLogicStorage = () => {
     fullStore.filter(word => word?.category?.id === item)
   )
   const searchData = () => (
-    fullStore.filter(item => encodeURIComponent(item?.word.toLowerCase()).includes(encodeURIComponent(searchValue.toLowerCase())))
+    fullStore.filter(item => encodeURIComponent(item?.word?.toLowerCase()).includes(encodeURIComponent(searchValue?.toLowerCase())))
 
   )
   const handleChoose = (item) => {
@@ -182,7 +180,7 @@ export const useLogicStorage = () => {
     }, 2000);
   }, []);
   const [show, setShow] = React.useState(false)
-  const [searchValue, setSearchValue] = React.useState('')
+  const [searchValue , setSearchValue] = React.useState('')
 
   return {
     personDataFromAPi, setPersonDataFromApi,

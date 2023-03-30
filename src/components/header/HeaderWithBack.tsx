@@ -144,7 +144,7 @@ const HeaderWithBack = ({
               rightIconShow
                 ? <TouchableOpacity
                   onPress={handle}
-                  style={leftIconStyle}
+                  style={{ width:sizeWidth(20), right:sizeWidth(10)}}
                 >
                   <Image
                     resizeMode='contain'
@@ -152,6 +152,8 @@ const HeaderWithBack = ({
                       paddingTop: sizeHeight(2),
                       width: sizeWidth(5),
                       height: sizeHeight(4),
+                      
+                      alignSelf:'flex-end'
                     }}
                     source={hasDone ? images.done : images.action}
                   />

@@ -45,11 +45,11 @@ const DrawerNavigator = ({}) => {
           },
           headerRight: () => (
             show ? 
-            <TouchableOpacity onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddCategory)}>
+            <TouchableOpacity style={{width:sizeWidth(20)}} onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddCategory)}>
               <Icon 
                 name='pencil-outline' 
                 size={sizeHeight(3)} 
-                style={{right:sizeWidth(1.5)}}
+                style={{right:sizeWidth(1.5), alignSelf:'flex-end'}}
               />
             </TouchableOpacity>
             :null

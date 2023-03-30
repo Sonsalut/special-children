@@ -36,6 +36,7 @@ cancel
 
         }}
         onDismiss={onDismiss}
+        dismissable={false}
       >
         <Menu.Item titleStyle={{ fontSize: fontSize(3.5), color:'#2D5672' }} leadingIcon="camera" onPress={takePhoto} title="Chụp ảnh" />
         <Menu.Item titleStyle={{ fontSize: fontSize(3.5), color:'#2D5672' }} leadingIcon="store-settings" onPress={chooseImage} title="Chọn ảnh từ thư viện" />

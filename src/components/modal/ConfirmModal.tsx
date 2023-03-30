@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, VirtualizedList } from 'react-native'
+import { StyleProp, StyleSheet, Text, View, ViewStyle, VirtualizedList } from 'react-native'
 import React from 'react'
 import { Modal } from 'react-native-paper'
 import colors from 'res/colors'
@@ -15,6 +15,7 @@ interface ConfirmModalProps {
     handleCancel?:()=>void,
     handleConfirm?:()=>void,
     confirmText?: string,
+    style?: StyleProp<ViewStyle>
 
 
 }
@@ -25,14 +26,17 @@ const ConfirmModal = ({
     text2,
     handleCancel,
     handleConfirm,
-    confirmText
+    confirmText,
+    style
 }: ConfirmModalProps) => {
     return (
         <>
             <Modal
                 visible={visible}
                 onDismiss={onDismiss}
-                style={styles.logoutModal}
+                style={[styles.logoutModal, style]}
+                dismissable={false}
+                
 
             >
                 <View style={styles.logOutView}>
@@ -68,9 +72,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#E7F6FF',
         borderRadius: 15,
         height: 200,
-        marginTop: sizeHeight(25),
+        marginTop: sizeHeight(35),
         width: '90%',
         marginHorizontal: 20,
+        alignSelf:'center'
     },
     logOutView: {
         top: 0,

@@ -103,15 +103,15 @@ const RecordingScreen = ({ route, navigation }: any) => {
                     .then((res) => {
                         // console.log(res);
                         // console.log("The file saved to ", res.path())
-                        console.log(res.respInfo)
-                        console.log("The file saved to ", res.path());
+                        // console.log(res.respInfo)
+                        // console.log("The file saved to ", res.path());
                         filePath = res.path();
                         RNFetchBlob.fs.exists(filePath).then((exists) => {
                             try {
                                 SoundPlayer.playUrl('file://' + filePath)
 
                             } catch (error) {
-                                showToast("ERROR", 'danger')
+                                showToast("Đang load file âm thanh...",'warning')
                             }
                         })
                             .finally(() => {
@@ -144,7 +144,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
     const filterData = () => (
         data.filter(
             item => (
-                encodeURIComponent(item?.audioWord.toLowerCase()).includes(encodeURIComponent(searchValue.toLowerCase()))
+                encodeURIComponent(item?.audioWord?.toLowerCase()).includes(encodeURIComponent(searchValue.toLowerCase()))
             )
         )
     )
@@ -297,7 +297,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                             </TouchableOpacity>
                                         </View>
                                         <View style={{ alignItems: 'center', marginBottom: sizeHeight(-45) }}>
-                                            <TouchableOpacity onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
+                                            <TouchableOpacity isDoubleTap={true} onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
                                                 <FastImage style={{
                                                     
                                                     height: sizeHeight(60), width: sizeWidth(80),

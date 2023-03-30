@@ -6,12 +6,11 @@ import { sizeHeight } from 'utils/Utils';
 import { View, FlatList } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import RecordingAPI, { AuthApis } from 'network/subs/auth/recording/RecordingAPI';
-import { AddWordForUser, DeleteWord, GetWordByCateID, UpdateWord } from 'network/subs/auth/recording/RecordingRequest';
+import { DeleteWord, GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
 import ResponseCode from 'network/ResponseCode';
 import { store } from 'redux/store';
 import colors from 'res/colors';
 import { RefreshControl } from 'react-native-gesture-handler';
-import { Menu, Modal } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import HeaderWithBack from 'components/header/HeaderWithBack';
 import { useToast } from 'hooks/useToast';
@@ -23,6 +22,7 @@ import { requestCameraPermission } from '../category/Permission';
 import ChoiceTab from '../category/component/ChoiceTab';
 import AddEditModal from 'components/modal/AddEditModal';
 import { FILE_SIZE } from 'utils/Constant';
+import ConfirmModal from 'components/modal/ConfirmModal';
 
 
 
@@ -75,14 +75,18 @@ const AddWord = ({ }: StackNavigationProps<
     else {
       // console.log("HIDE SUCCESS")
       setVisible(!visible)
+      setVisibleConfirmModal(!visibleConfirmModal)
       showToast('Xóa thành công', 'success')
       loadData()
 
     }
     console.log(response?.data)
   }
+  const [visibleConfirmModal, setVisibleConfirmModal] = React.useState(false)
 
-
+  const confirmDeleteWord = ()=>{
+    setVisibleConfirmModal(!visibleConfirmModal)
+}
   const handleHideWord = () => {
     let maps = data.filter(item => item?.isActive === false)
     let map = maps.map((item) => {
@@ -193,46 +197,7 @@ const AddWord = ({ }: StackNavigationProps<
 
   }
 
-  // Pop up thêm hình ảnh cho từ mới
-  const ModalCamera = () => {
-    return (
-      <Modal
-        visible={cameraOptionsVisble}
-        style={{
-          backgroundColor: '#E7F6FF',
-          borderRadius: 15,
-          height: 200,
-          marginTop: sizeHeight(46),
-          alignSelf: 'center',
-          width: '90%',
-          marginHorizontal: 20,
-        }}
-        onDismiss={() => {
-          setCameraOptionsVisble(!cameraOptionsVisble)
-        }}
-      >
-        <Menu.Item
-          titleStyle={{ fontSize: 18, color: '#2D5672' }}
-          leadingIcon="camera"
-          onPress={takePhoto}
-          title="Chụp ảnh"
-        />
-        <Menu.Item
-          titleStyle={{ fontSize: 18, color: '#2D5672' }}
-          leadingIcon="store-settings"
-          onPress={chooseImage}
-          title="Chọn ảnh từ thư viện"
-        />
-        <Menu.Item
-          titleStyle={{ color: 'red', fontSize: 18 }}
-          leadingIcon="archive-cancel"
-          onPress={() =>
-            setCameraOptionsVisble(!cameraOptionsVisble)}
-          title="Hủy bỏ"
-        />
-      </Modal>
-    )
-  }
+
 
   //block sửa từ start
   const updateWord = async (item: any) => {
@@ -267,6 +232,7 @@ const AddWord = ({ }: StackNavigationProps<
         showToast("Thay đổi thành công", 'success')
         setEditPopupVisivle(!editPopupVisivle)
         loadData()
+        textInputRef.current = null
         setDataImage('')
         // setRandom(Math.random())
       }
@@ -449,8 +415,9 @@ const AddWord = ({ }: StackNavigationProps<
           setVisible(false)
         }}
         editCategory={handleEditCategory}
-        deleteCategory={handleHideWord}
+        deleteCategory={confirmDeleteWord}
         cancel={handleCancel}
+        nameChoice='từ'
       />
 
 
@@ -501,6 +468,16 @@ const AddWord = ({ }: StackNavigationProps<
         handleChoiceCamera={() => setCameraOptionsVisble(!cameraOptionsVisble)}
         cancelModalCamera={() => { setCameraOptionsVisble(!cameraOptionsVisble) }}
         onModalCameraDismiss={() => setCameraOptionsVisble(!cameraOptionsVisble)}
+      />
+    <ConfirmModal
+         visible={visibleConfirmModal}
+         handleCancel={()=>setVisibleConfirmModal(!visibleConfirmModal)}
+         text1='Bạn có chắc chắn muốn xóa?'
+         confirmText='Xác nhận'
+         handleConfirm={handleHideWord}
+         style={{marginTop: sizeHeight(42)}}
+        //  style={{borderWidth:1}}
+      
       />
     </Container>
   )

@@ -62,11 +62,11 @@ const CommonStackNavigator = ({}) => {
           headerTintColor:'black',
           headerRight: () => (
             show ? 
-              <TouchableOpacity onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddWord)}>
+              <TouchableOpacity style={{ width:sizeWidth(20)}} onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddWord)}>
                 <Icon 
                   name='pencil-outline' 
                   size={sizeHeight(3)} 
-                  style={{right:sizeWidth(1.5),}}
+                  style={{right:sizeWidth(1.5),alignSelf:'flex-end'}}
                 />
               </TouchableOpacity>
             : null

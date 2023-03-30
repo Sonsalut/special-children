@@ -1,15 +1,13 @@
 import React from 'react';
 import { Container, TextInput, Button, } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
-import { AuthenticationScreens, AuthenticatedScreens, MainScreens } from 'routers/ScreenNames';
+import { AuthenticationScreens } from 'routers/ScreenNames';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { SvgUri } from 'react-native-svg';
 import { Controller, useForm } from 'react-hook-form';
 // import TouchID from 'react-native-touch-id';
 
-import { View, Image, Text, TouchableOpacity, ImageBackground} from 'react-native';
-import NavigationService from 'routers/NavigationService';
-import { checkIpad, fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
+import { View, Image, TouchableOpacity, ImageBackground } from 'react-native';
+import { sizeHeight, sizeWidth } from 'utils/Utils';
 import images from 'res/images';
 import { useLogicLogin } from './useLogicLogin';
 import styles from './styles';
@@ -21,7 +19,12 @@ const LoginScreen = ({ }: StackNavigationProps<
   Routes,
   AuthenticationScreens.LoginScreen
 >) => {
-  const { register, setError, handleSubmit, control, reset, formState: { errors } } = useForm();
+  const { register, setError, handleSubmit, control, reset, formState: { errors } } = useForm({
+    defaultValues:{
+      username: store.getState().authReducer.Account.username ,
+      password:''
+    }
+  });
   const { hidden, changeHiddenStatus, onPressLogin, onNavigateRegister, loginWithBiometric} = useLogicLogin();
   
   const fingerPrint = store.getState().authReducer.fingerPrint
@@ -47,12 +50,12 @@ const LoginScreen = ({ }: StackNavigationProps<
                   <View style={styles.form}>
                     <Controller
                       control={control}
-                      render={({ field: { onChange, onBlur, value=fingerPrint ? name: '' } }) => (
+                      render={({ field: { onChange, onBlur, value  } }) => (
                         <TextInput
                           iconLeftStyle={{ marginLeft: sizeWidth(5) }}
                           onBlur={onBlur}
                           onChangeText={value => onChange(value)}
-                          value={ value}
+                          value={value}
                           placeholder={'Tài khoản'}
                         />
                       )}
@@ -84,6 +87,7 @@ const LoginScreen = ({ }: StackNavigationProps<
                     <Button
                       style={styles.buttonLogin}
                       label='Đăng nhập'
+                      isDoubleTap={true}
                       onPress={handleSubmit(onPressLogin)} 
                     />
                     {/* create touch id*/}

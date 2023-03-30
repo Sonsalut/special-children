@@ -62,6 +62,7 @@ const AddEditModal = ({
         overflow:'hidden'
       }}
       onDismiss={onDismiss}
+      dismissable={false}
     >
       <ScrollView style={{ height: '100%',borderRadius:sizeWidth(3), }}>
         <KeyboardAvoidingView
@@ -91,15 +92,24 @@ const AddEditModal = ({
                   height: sizeHeight(40),
                   borderColor: '#60A2C8'
                 }}>
-                <Image
-                  style={{
-                    resizeMode: 'stretch',
-                    height: '100%',
-                    width: '100%',
-                    borderRadius: sizeWidth(3),
-                  }}
-                  source={source}
-                />
+                  {
+                    source ?
+                   ( <Image
+                    style={{
+                      resizeMode: 'stretch',
+                      height: '100%',
+                      width: '100%',
+                      borderRadius: sizeWidth(3),
+                    }}
+                    source={source}
+                  />)
+
+                    :(
+
+                      <Icon color={'#60A2C8'} style={{marginTop:sizeHeight(10)}} name='camera-outline' size={fontSize(25)}/>
+                    )
+                  }
+               
               </View>
             </TouchableOpacity>
             <View

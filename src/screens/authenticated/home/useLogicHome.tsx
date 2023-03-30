@@ -4,9 +4,6 @@ import { GetFullCategory } from 'network/subs/auth/recording/RecordingRequest';
 import ResponseCode from 'network/ResponseCode';
 import { useDispatch, useSelector } from 'react-redux';
 import { showIcon } from 'redux/storageWord/action';
-import { useIsFocused } from '@react-navigation/native';
-import axios, { Axios } from 'axios';
-import { store } from 'redux/store';
 
 
  export const useLogicHome =() => {
@@ -56,7 +53,7 @@ import { store } from 'redux/store';
       const [searchValue, setSearchValue] = React.useState('')
       const filterData= ()=>(
        
-        data.filter(item=> encodeURIComponent(item?.audioWord.toLowerCase()).includes( encodeURIComponent(searchValue.toLowerCase()) ))
+        data.filter(item=> encodeURIComponent(item?.audioWord?.toLowerCase()).includes( encodeURIComponent(searchValue.toLowerCase()) ))
         
       )
 return {

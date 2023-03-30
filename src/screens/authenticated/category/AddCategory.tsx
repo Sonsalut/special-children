@@ -5,7 +5,7 @@ import { AuthenticatedScreens } from 'routers/ScreenNames';
 import { sizeHeight } from 'utils/Utils';
 import { View, FlatList } from 'react-native';
 import RecordingAPI, { AuthApis } from 'network/subs/auth/recording/RecordingAPI';
-import { AddCategoryForUser, DeleteCategory, GetFullCategory, UpdateCategory } from 'network/subs/auth/recording/RecordingRequest';
+import { DeleteCategory, GetFullCategory } from 'network/subs/auth/recording/RecordingRequest';
 import ResponseCode from 'network/ResponseCode';
 import { store } from 'redux/store';
 import colors from 'res/colors';
@@ -20,11 +20,8 @@ import AddEditModal from '../../../components/modal/AddEditModal';
 import BigCardWithShield from '../../../components/cards/BigCardWithShield';
 import ChoiceTab from './component/ChoiceTab';
 import AddButton from 'components/button/AddButton';
-import RNFetchBlob from 'rn-fetch-blob';
-import axios from 'axios';
-import { url } from 'inspector';
-import { json } from 'stream/consumers';
 import { FILE_SIZE } from 'utils/Constant';
+import ConfirmModal from 'components/modal/ConfirmModal';
 
 const AddCategory = ({ }: StackNavigationProps<
   Routes,
@@ -183,9 +180,15 @@ const AddCategory = ({ }: StackNavigationProps<
     }
     else {
       setVisible(!visible)
+      setVisibleConfirmModal(!visibleConfirmModal)
       showToast('Xóa thành công', 'success')
 
     }
+  }
+  const [confirmDelete, setConfirmDelete] = React.useState(false)
+   const [visibleConfirmModal, setVisibleConfirmModal] = React.useState(false)
+  const confirmDeleteCategory = ()=>{
+       setVisibleConfirmModal(!visibleConfirmModal)
   }
   const handleHideCategory = () => {
     let maps = data.filter(item => item?.isActive === false)
@@ -264,6 +267,8 @@ const AddCategory = ({ }: StackNavigationProps<
         setEditPopupVisivle(!editPopupVisivle)
         getCategory()
         setDataImage('')
+          textInputRef.current = null
+
         // setRandom(Math.random())
       }
       else {
@@ -442,8 +447,17 @@ const AddCategory = ({ }: StackNavigationProps<
           setVisible(false)
         }}
         editCategory={handleEditCategory}
-        deleteCategory={handleHideCategory}
+        deleteCategory={confirmDeleteCategory}
         cancel={handleCancel}
+        nameChoice='chủ đề'
+      />
+      <ConfirmModal
+         visible={visibleConfirmModal}
+         handleCancel={()=>setVisibleConfirmModal(!visibleConfirmModal)}
+         text1='Bạn có chắc chắn muốn xóa?'
+         confirmText='Xác nhận'
+         handleConfirm={handleHideCategory}
+         style={{marginTop: sizeHeight(42)}}
       />
     </Container>
   );

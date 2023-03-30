@@ -11,9 +11,6 @@ import authSlice from 'redux/slice/authSlice';
 import { store } from 'redux/store';
 import TouchID from 'react-native-touch-id';
 import { Alert } from 'react-native';
-import { SuccessToast } from 'react-native-toast-message';
-import ToastCustom from 'components/toast/ToastCustom';
-import { options } from '@react-native-community/cli-platform-android/build/commands/buildAndroid';
 
 const useLogicLogin = () => {
     const dispatch = useDispatch();
@@ -35,6 +32,9 @@ const useLogicLogin = () => {
       refPopUp.current?.open();
     };
     const onPressLogin = async (values: any) => {
+      // console.log('====================================');
+      // console.log(values?.username);
+      // console.log('====================================');
         const response = await AuthenticationApi.loginWithEmail<LoginResponse>({
             username: values?.username?.trim(),
             password: values?.password?.trim(),
@@ -60,9 +60,6 @@ const useLogicLogin = () => {
 
         NavigationService.reset(MainScreens.AuthenticatedNavigator);
         showToast('Đăng nhập thành công!', 'success' );
-        
-      
-
        }
        else {
         showToast('Tài khoản hoặc mật khẩu không chính xác!', 'warning');
@@ -74,7 +71,7 @@ const useLogicLogin = () => {
     }
 
     //login with touch-id logic
-    const loginWithBiometric = () => {
+    const loginWithBiometric = (values) => {
         if (FingerPrint) {
           TouchID.authenticate('', optionalConfigObject)
             .then(async(success: any) => {
@@ -82,20 +79,30 @@ const useLogicLogin = () => {
                 username: store.getState().authReducer.Account.username,
                 password: store.getState().authReducer.Account.password,
               };
-              const response = await AuthenticationApi.loginWithEmail<LoginResponse>({
-                username: account.username?.trim(),
-                password: account.password?.trim(),
-            });
-            if(response.status === ResponseCode.SUCCESS)
-            {
-              dispatch(authSlice.actions.setUser({
-                accessToken: response?.data?.data?.jwtToken,
-                accountInfo: response?.data?.data?.accountInfo,
-                refreshToken: response?.data?.data?.refreshToken,
-              }));
-              NavigationService.reset(MainScreens.AuthenticatedNavigator);
-              showToast('Đăng nhập thành công!', 'success')
-            }
+              if(values?.username?.trim()!==account.username?.trim())
+              {
+              showToast('Phải đăng nhập để kích hoạt tính năng', 'warning')
+                  
+              }
+              else
+              {
+                const response = await AuthenticationApi.loginWithEmail<LoginResponse>({
+                  username: account.username?.trim(),
+                  password: account.password?.trim(),
+              });
+              if(response.status === ResponseCode.SUCCESS)
+              {
+                dispatch(authSlice.actions.setUser({
+                  accessToken: response?.data?.data?.jwtToken,
+                  accountInfo: response?.data?.data?.accountInfo,
+                  refreshToken: response?.data?.data?.refreshToken,
+                }));
+                NavigationService.reset(MainScreens.AuthenticatedNavigator);
+                showToast('Đăng nhập thành công!', 'success')
+              }
+
+              }
+              
             })
             .catch((error: any) => {
               console.log(error);
