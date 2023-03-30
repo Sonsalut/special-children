@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Menu, Modal } from 'react-native-paper'
-import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils'
+import { checkIpad, fontSize, sizeHeight, sizeWidth } from 'utils/Utils'
 
 interface ChoiceTabProps {
     visible?: boolean,
@@ -38,10 +38,10 @@ const ChoiceTab = ({
                 onDismiss={onDismiss}
                 dismissable={false}
             >
-                <Menu.Item titleStyle={{ fontSize: fontSize(2.3), color: '#2D5672' }} leadingIcon="file-document-edit-outline" onPress={editCategory} title={`Chỉnh sửa ${nameChoice}`} />
-                <Menu.Item titleStyle={{ fontSize: fontSize(2.3), color: '#2D5672' }} leadingIcon="eye-off-outline" onPress={deleteCategory} title={`Xóa ${nameChoice}`} />
+                <Menu.Item titleStyle={{ fontSize: checkIpad()? fontSize(2.3) : fontSize(4), color: '#2D5672' }} leadingIcon="file-document-edit-outline" onPress={editCategory} title={`Chỉnh sửa ${nameChoice}`} />
+                <Menu.Item titleStyle={{ fontSize: checkIpad()? fontSize(2.3) : fontSize(4), color: '#2D5672' }} leadingIcon="eye-off-outline" onPress={deleteCategory} title={`Xóa ${nameChoice}`} />
                 {/* <Menu.Item titleStyle={{ fontSize: 18, color: '#2D5672' }} leadingIcon="book-check" onPress={() => { showToast("Chưa hỗ trợ", 'warning') }} title="Đánh dấu đã học" /> */}
-                <Menu.Item titleStyle={{ color: 'red', fontSize: fontSize(2.3) }} leadingIcon="archive-cancel" onPress={cancel} title="Hủy bỏ" />
+                <Menu.Item titleStyle={{ color: 'red', fontSize: checkIpad()? fontSize(2.3) : fontSize(4) }} leadingIcon="archive-cancel" onPress={cancel} title="Hủy bỏ" />
             </Modal>
 
         </>

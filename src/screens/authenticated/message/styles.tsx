@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import colors from 'res/colors';
-import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
+import { checkIpad, fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 
 export default StyleSheet.create({
   container: {
@@ -77,8 +77,9 @@ export default StyleSheet.create({
   selectedGenderText: {
     fontSize: fontSize(4),
     width: sizeWidth(11),
-    height: sizeHeight(4),
-    paddingTop: sizeHeight(1.8),
+    height: sizeHeight(5),
+    paddingTop: checkIpad() ? sizeHeight(1.8) : sizeHeight(1),
+
   },
   regionView: {
     alignItems: 'center',
@@ -107,7 +108,7 @@ export default StyleSheet.create({
     width: '80%',
     borderRadius: 15,
     backgroundColor: '#ADDDDC',
-    
+
   },
   confirmText: {
     alignSelf: 'center',
@@ -118,8 +119,8 @@ export default StyleSheet.create({
 
     // borderWidth:1
 
-    
-   
+
+
   },
   logoutModal: {
     backgroundColor: '#E7F6FF',
@@ -174,5 +175,6 @@ export default StyleSheet.create({
   closeText: {
     alignSelf: 'center',
     fontSize: 15,
-    color:colors.blue}
+    color: colors.blue
+  }
 });

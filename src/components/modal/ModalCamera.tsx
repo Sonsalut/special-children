@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Menu, Modal } from 'react-native-paper'
-import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils'
+import { checkIpad, fontSize, sizeHeight, sizeWidth } from 'utils/Utils'
 
 
 interface ModalCameraProps {
@@ -38,9 +38,9 @@ cancel
         onDismiss={onDismiss}
         dismissable={false}
       >
-        <Menu.Item titleStyle={{ fontSize: fontSize(2.3), color:'#2D5672' }} leadingIcon="camera" onPress={takePhoto} title="Chụp ảnh" />
-        <Menu.Item titleStyle={{ fontSize: fontSize(2.3), color:'#2D5672' }} leadingIcon="store-settings" onPress={chooseImage} title="Chọn ảnh từ thư viện" />
-        <Menu.Item titleStyle={{ color: 'red', fontSize: fontSize(2.3) }} leadingIcon="archive-cancel" onPress={cancel} title="Hủy bỏ" />
+        <Menu.Item titleStyle={{ fontSize: checkIpad()? fontSize(2.3) : fontSize(4), color:'#2D5672' }} leadingIcon="camera" onPress={takePhoto} title="Chụp ảnh" />
+        <Menu.Item titleStyle={{ fontSize: checkIpad()? fontSize(2.3) : fontSize(4), color:'#2D5672' }} leadingIcon="store-settings" onPress={chooseImage} title="Chọn ảnh từ thư viện" />
+        <Menu.Item titleStyle={{ color: 'red', fontSize: checkIpad()? fontSize(2.3) : fontSize(4) }} leadingIcon="archive-cancel" onPress={cancel} title="Hủy bỏ" />
       </Modal>
       </>
   )
