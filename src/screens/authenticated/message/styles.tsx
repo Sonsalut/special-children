@@ -42,13 +42,12 @@ export default StyleSheet.create({
   modalVoice: {
     backgroundColor: '#E7F6FF',
     borderRadius: 15,
-    height: 450,
+    height: sizeHeight(60),
     marginTop: sizeHeight(10),
-    width: '90%',
-    marginHorizontal: 20,
+    width: sizeWidth(80),
+    marginLeft: sizeWidth(10)
   },
   voiceView: {
-    top: 0,
     alignItems: 'center',
     width: "100%",
     height: "100%",
@@ -57,7 +56,7 @@ export default StyleSheet.create({
   },
   returnButton: {
     width: '90%',
-    height: '8%'
+    height: '8%',
   },
   genderView: {
     bottom: 20,
@@ -70,13 +69,16 @@ export default StyleSheet.create({
   },
   genderText: {
     alignSelf: 'flex-start',
-    marginTop: 20,
-    fontSize: 15,
+    marginTop: sizeHeight(2),
+    fontSize: fontSize(4),
     color: colors.black,
-    width: '45%'
+    width: '45%',
   },
   selectedGenderText: {
-    fontSize: 15
+    fontSize: fontSize(4),
+    width: sizeWidth(11),
+    height: sizeHeight(4),
+    paddingTop: sizeHeight(1.8),
   },
   regionView: {
     alignItems: 'center',
@@ -89,31 +91,31 @@ export default StyleSheet.create({
   },
   selectedRegionText: {
     alignSelf: 'flex-start',
-    marginTop: 10,
-    fontSize: 15,
+    marginTop: sizeHeight(2),
+    fontSize: fontSize(4),
     color: colors.black,
     width: '45%'
   },
   changeButtonView: {
-    width: '80%',
-    height: 50,
+    width: sizeWidth(60),
+    height: sizeHeight(5),
     alignItems: 'center',
-    marginBottom: '5%'
+    marginBottom: '1%',
   },
   changeButton: {
     height: '90%',
     width: '80%',
     borderRadius: 15,
     backgroundColor: '#ADDDDC',
-    // borderWidth:1
     
   },
   confirmText: {
     alignSelf: 'center',
-    fontSize: fontSize(5),
+    fontSize: fontSize(3.5),
     color: '#2D5672',
     fontWeight: 'bold',
-    paddingTop: '3%',
+    marginTop: sizeHeight(0.5)
+
     // borderWidth:1
 
     
@@ -154,7 +156,6 @@ export default StyleSheet.create({
     width: '30%',
     height: 40,
     borderColor: colors.blue,
-    borderWidth: 1,
     borderRadius: 12,
     justifyContent: 'center'
   },
@@ -174,9 +175,4 @@ export default StyleSheet.create({
     alignSelf: 'center',
     fontSize: 15,
     color:colors.blue}
-  
-
-
-
-
 });

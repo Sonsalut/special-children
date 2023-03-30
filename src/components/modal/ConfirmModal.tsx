@@ -71,11 +71,10 @@ const styles = StyleSheet.create({
     logoutModal: {
         backgroundColor: '#E7F6FF',
         borderRadius: 15,
-        height: 200,
+        height: sizeHeight(20),
         marginTop: sizeHeight(35),
-        width: '90%',
-        marginHorizontal: 20,
-        alignSelf:'center'
+        width: sizeWidth(80),
+        marginHorizontal: sizeWidth(10),
     },
     logOutView: {
         top: 0,

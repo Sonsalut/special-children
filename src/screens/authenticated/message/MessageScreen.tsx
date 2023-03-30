@@ -7,7 +7,7 @@ import { Switch } from 'react-native-gesture-handler';
 import colors from 'res/colors';
 import { store } from 'redux/store';
 import { useLogicMessage } from './useLogicMessage';
-import { sizeWidth } from 'utils/Utils';
+import { fontSize, sizeWidth } from 'utils/Utils';
 import { Modal, RadioButton } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
@@ -111,7 +111,7 @@ const MessageScreen = ({ }: StackNavigationProps<
       >
         <View style={styles.voiceView}>
           <TouchableOpacity onPress={handleReturn} style={styles.returnButton}>
-            <Icon name='arrow-back-outline' size={25} />
+            <Icon name='arrow-back-outline' size={fontSize(6)} />
           </TouchableOpacity>
           {/* gender choice */}
           <View style={styles.genderView}>

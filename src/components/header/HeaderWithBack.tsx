@@ -74,7 +74,6 @@ const HeaderWithBack = ({
             flexDirection: 'row',
             alignItems: 'center',
             marginBottom: sizeHeight(1),
-            // borderWidth:1,
             alignContent: 'center'
           }}
         >
@@ -109,10 +108,9 @@ const HeaderWithBack = ({
               alignSelf: 'center',
               alignItems: 'center',
               alignContent: 'center',
-             
               paddingRight: Platform.OS === 'android' ? sizeWidth(50) : 0,
               right: Platform.OS === 'android' ? sizeWidth(5) : 0,
-              width: Platform.OS === 'android' ? sizeWidth(75) : 0,
+              width: sizeWidth(75),
               // borderWidth:1,
               top: Platform.OS === 'android' ? sizeHeight(1) : 0
               // paddingBottom: sizeHeight(2)
@@ -135,7 +133,8 @@ const HeaderWithBack = ({
             isVisible={hasBack}
           style={{ 
            
-            top: Platform.OS === 'android' ? sizeHeight(1) : 0
+            top: Platform.OS === 'android' ? sizeHeight(1) : 0,
+            
    
           
           }} 
@@ -144,7 +143,7 @@ const HeaderWithBack = ({
               rightIconShow
                 ? <TouchableOpacity
                   onPress={handle}
-                  style={{ width:sizeWidth(20), right:sizeWidth(10)}}
+                  style={{width:sizeWidth(20), right:sizeWidth(10)}}
                 >
                   <Image
                     resizeMode='contain'
