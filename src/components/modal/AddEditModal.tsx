@@ -74,7 +74,7 @@ const AddEditModal = ({
               <Text style={{ fontSize: fontSize(3.5), color: 'red' }}>Hủy bỏ</Text>
             </TouchableOpacity>
             <Text style={{ fontSize: fontSize(4.5), color: '#2D5672', fontWeight: "400", paddingRight: 20 }}>{title}</Text>
-            <TouchableOpacity isDoubleTap={true} onPress={handleSubmit}>
+            <TouchableOpacity isDoubleTap={false} onPress={handleSubmit}>
               <Icon name="checkmark-outline" size={sizeHeight(3)} />
             </TouchableOpacity>
           </View>

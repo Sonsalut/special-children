@@ -257,7 +257,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                     backgroundColor: '#ADDDDC',
                     borderRadius: 15,
                     height: sizeHeight(70),
-                    marginTop: sizeHeight(15),
+                    marginTop: sizeHeight(10),
                     width: sizeWidth(90),
                     // marginHorizontal: sizeHeight(10),
                     marginLeft: sizeWidth(5)

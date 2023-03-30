@@ -47,12 +47,12 @@ const LoginScreen = ({ }: StackNavigationProps<
                   <View style={styles.form}>
                     <Controller
                       control={control}
-                      render={({ field: { onChange, onBlur, value } }) => (
+                      render={({ field: { onChange, onBlur, value=fingerPrint ? name: '' } }) => (
                         <TextInput
                           iconLeftStyle={{ marginLeft: sizeWidth(5) }}
                           onBlur={onBlur}
                           onChangeText={value => onChange(value)}
-                          value={ fingerPrint ? name: value}
+                          value={ value}
                           placeholder={'Tài khoản'}
                         />
                       )}
@@ -61,6 +61,7 @@ const LoginScreen = ({ }: StackNavigationProps<
                     <Controller
                       control={control}
                       render={({ field: { onChange, onBlur, value } }) => (
+                        
                         <TextInput
                           isOnIconRightDoubleTap={true}
                           iconLeftStyle={{ marginLeft: sizeWidth(5),}}
@@ -95,7 +96,7 @@ const LoginScreen = ({ }: StackNavigationProps<
                           height: sizeHeight(8), 
                           width: sizeWidth(12),
                         }} 
-                        onPress={loginWithBiometric}>
+                        onPress={handleSubmit(loginWithBiometric)}>
                         <Image 
                           source={require('../../../assets/images/fingerprint.png')} 
                           style={{ 
