@@ -78,7 +78,7 @@ export default StyleSheet.create({
     fontSize: fontSize(4),
     width: sizeWidth(11),
     height: sizeHeight(5),
-    paddingTop: checkIpad() ? sizeHeight(1.8) : sizeHeight(1),
+    paddingTop: checkIpad() ? sizeHeight(2.3) : sizeHeight(1),
 
   },
   regionView: {
