@@ -106,11 +106,15 @@ const useLogicLogin = () => {
             })
             .catch((error: any) => {
               console.log(error);
+              showToast('Thiết bị không hỗ trợ vân tay','warning')
+              
               
             });
         } else {
           showUp();
-          Alert.alert('Vui lòng đăng nhập để kích hoạt tính năng');
+          // Alert.alert('Vui lòng đăng nhập để kích hoạt tính năng');
+          showToast('Vui lòng đăng nhập để kích hoạt tính năng','warning')
+
         }
     };
     return {

@@ -66,7 +66,7 @@ const AddCategory = ({ }: StackNavigationProps<
 
     });
   };
-  const [base64, setBase64] = React.useState()
+
 
   const takePhoto = async () => {
     if (await requestCameraPermission()) {
@@ -77,7 +77,7 @@ const AddCategory = ({ }: StackNavigationProps<
             console.log('CANCEL')
           }
           if (!response.errorMessage) {
-            // setImage(response?.assets?.[0]?.uri)
+           
             setCameraOptionsVisble(!cameraOptionsVisble)
             setDataImage(response?.assets?.[0])
             console.log(response?.assets[0])
