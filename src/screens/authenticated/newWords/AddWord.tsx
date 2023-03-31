@@ -298,55 +298,65 @@ const AddWord = ({ }: StackNavigationProps<
   const handleDoneEdit = () => {
     updateWord(personData)
   }
-  
+  const [isLoading, setIsLoading] = React.useState(false)
   const handleDoneAdd = async () => {
     let name = encodeURIComponent(textInputRef.current)
-
-    const imageData = new FormData()
-    if (dataImage) {
-      imageData.append(
-        "file-image",
-        {
-          uri: dataImage?.uri,
-          name: dataImage?.fileName,
-          type: dataImage?.type
-        }
-      )
+    if (textInputRef.current===null || !textInputRef.current) {
+      showToast("Bạn chưa nhập tên mục", "warning")
     }
-    let url = AuthApis.UpdateWord+`?categoryId=${id}&word=${name}&wordAudio=${name}`
-    
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        // 'Accept': 'application/json',
-        // 'Content-Type':'multipart/form-data',
-        Authorization: store.getState().authReducer.user.accessToken,
-      },
-      body: dataImage ? imageData : null
-    })
-      .then(res => {
-
-        if (res.status === 200) {
-          showToast("Thêm thành công", 'success')
-          setConfigModalvisible(!configModalvisible)
-          setDataImage('')
-           loadData()
-          textInputRef.current = null
-          
-
-        }
-        else {
+    else {
+      const imageData = new FormData()
+      setIsLoading(true)
+      if (dataImage) {
+        imageData.append(
+          "file-image",
+          {
+            uri: dataImage?.uri,
+            name: dataImage?.fileName,
+            type: dataImage?.type
+          }
+        )
+      }
+      let url = AuthApis.UpdateWord+`?categoryId=${id}&word=${name}&wordAudio=${name}`
+      
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          // 'Accept': 'application/json',
+          // 'Content-Type':'multipart/form-data',
+          Authorization: store.getState().authReducer.user.accessToken,
+        },
+        body: dataImage ? imageData : null
+      })
+        .then(res => {
+  
+          if (res.status === 200) {
+            showToast("Thêm thành công", 'success')
+            setConfigModalvisible(!configModalvisible)
+            setDataImage('')
+            setIsLoading(false)
+            loadData()
+            textInputRef.current = null
+            
+  
+          }
+          else {
+            showToast("ERROR", 'danger')
+            setIsLoading(false)
+          // console.log(res?.data)
+          console.log(res)
+  
+          }
+  
+        })
+        .catch(err =>{
           showToast("ERROR", 'danger')
-        // console.log(res?.data)
-        console.log(res)
+          setIsLoading(false)
+          console.log(err)
+        })
+    }
 
-        }
-
-      })
-      .catch(err =>{
-        showToast("ERROR", 'danger')
-        console.log(err)
-      })
+    
     
   }
   return (
@@ -426,6 +436,7 @@ const AddWord = ({ }: StackNavigationProps<
       <AddEditModal
         visible={editPopupVisivle}
         title={"Chỉnh sửa từ"}
+        isLoading={isLoading}
         onDismiss={() => { setEditPopupVisivle(!editPopupVisivle) }}
         handleSubmit={handleDoneEdit}
         source={dataImage ? { uri: dataImage?.uri }
@@ -454,6 +465,7 @@ const AddWord = ({ }: StackNavigationProps<
       <AddEditModal
         title={'Thêm từ'}
         visible={configModalvisible}
+        isLoading={isLoading}
         onDismiss={() => { setConfigModalvisible(!configModalvisible) }}
         source={dataImage ? { uri: dataImage?.uri } : null}
         handleSubmit={handleDoneAdd}
