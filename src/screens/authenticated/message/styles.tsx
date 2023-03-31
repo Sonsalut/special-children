@@ -22,7 +22,7 @@ export default StyleSheet.create({
     paddingLeft: 10,
     paddingTop: 2,
     fontSize: 18,
-    color: 'black'
+    color: 'black',
   },
   logText: {
     paddingLeft: 10,
@@ -78,7 +78,7 @@ export default StyleSheet.create({
   },
   selectedGenderText: {
     fontSize: fontSize(4),
-    width: sizeWidth(11),
+    width: sizeWidth(12),
     height: sizeHeight(5),
     paddingTop: checkIpad() ? sizeHeight(2.3) : sizeHeight(1),
 
@@ -148,7 +148,10 @@ export default StyleSheet.create({
     paddingLeft: sizeWidth(3)
   },
   warnText: {
-    fontSize: 17, color: colors.black, fontWeight: '500', alignSelf: 'center'
+    fontSize: 17, 
+    color: colors.black, 
+    fontWeight: '500', 
+    alignSelf: 'center'
   },
   buttonView: {
     width: '100%',
