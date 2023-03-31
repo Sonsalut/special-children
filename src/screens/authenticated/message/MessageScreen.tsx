@@ -7,7 +7,7 @@ import { Switch } from 'react-native-gesture-handler';
 import colors from 'res/colors';
 import { store } from 'redux/store';
 import { useLogicMessage } from './useLogicMessage';
-import { fontSize, sizeWidth } from 'utils/Utils';
+import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import { Modal, RadioButton } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
@@ -91,7 +91,8 @@ const MessageScreen = ({ }: StackNavigationProps<
 
         {/* Sign out button */}
         <View style={styles.view}>
-          <TouchableOpacity style={{ flexDirection: 'row' }} onPress={handleLogOut}>
+          <TouchableOpacity 
+            style={{ flexDirection: 'row' }} onPress={handleLogOut}>
             <Image
               source={require('../../../assets/images/logout.png')}
               style={styles.iconImg}
@@ -99,7 +100,24 @@ const MessageScreen = ({ }: StackNavigationProps<
             <Text style={styles.logText}>Đăng xuất</Text>
           </TouchableOpacity>
         </View>
+
+{/* test
+        <View>
+          <TouchableOpacity 
+            style={{
+              height:sizeHeight(10),
+              width: sizeWidth(10),
+              backgroundColor: 'blue',
+              shadowOpacity: 0,
+              shadowRadius: 2,
+              shadowOffset: {width:2, height:2}
+            }}
+          ></TouchableOpacity>
+        </View> */}
+
+
       </View>
+
       {/* Popups shows */}
       <Modal
         visible={visible}
@@ -111,7 +129,7 @@ const MessageScreen = ({ }: StackNavigationProps<
       >
         <View style={styles.voiceView}>
           <TouchableOpacity onPress={handleReturn} style={styles.returnButton}>
-            <Icon name='arrow-back-outline' size={fontSize(6)} />
+            <Icon name='arrow-back-outline' size={fontSize(6)}/>
           </TouchableOpacity>
           {/* gender choice */}
           <View style={styles.genderView}>
@@ -154,7 +172,7 @@ const MessageScreen = ({ }: StackNavigationProps<
           setlogOutvisible(false)
         }}
         text1={"Bạn có chắc chắn muốn đăng xuất"}
-        text2={"không"}
+        text2={"không?"}
         handleCancel={handleCancelLogOut}
         handleConfirm={cofirmHandleLogOut}
         confirmText={"Đăng xuất"}

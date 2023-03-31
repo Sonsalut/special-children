@@ -35,7 +35,11 @@ const styles = StyleSheet.create({
         marginTop: sizeHeight(2),
         backgroundColor: '#FFD19A',
         alignSelf: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        shadowOpacity: 1,
+        shadowColor: 'grey',
+        shadowRadius: 2,
+        shadowOffset: { width: 1, height: 1 }
     },
     text: {
         alignSelf: 'center',

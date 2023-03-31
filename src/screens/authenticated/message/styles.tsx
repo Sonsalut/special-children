@@ -37,7 +37,7 @@ export default StyleSheet.create({
   view: {
     flexDirection: 'row',
     paddingTop: 20,
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
   },
   modalVoice: {
     backgroundColor: '#E7F6FF',
@@ -45,7 +45,9 @@ export default StyleSheet.create({
     height: sizeHeight(60),
     marginTop: sizeHeight(10),
     width: sizeWidth(80),
-    marginLeft: sizeWidth(10)
+    marginLeft: sizeWidth(10),
+    textShadowRadius:0,
+    shadowRadius: 0
   },
   voiceView: {
     alignItems: 'center',
@@ -108,20 +110,22 @@ export default StyleSheet.create({
     width: '80%',
     borderRadius: 15,
     backgroundColor: '#ADDDDC',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    shadowOpacity: 1,
+    shadowColor: 'grey',
+    shadowRadius: 2,
+    shadowOffset: { width: 1, height: 1 }
 
   },
+
   confirmText: {
     alignSelf: 'center',
     fontSize: fontSize(3.5),
     color: '#2D5672',
     fontWeight: 'bold',
-    marginTop: sizeHeight(0.5)
-
-    // borderWidth:1
-
-
-
   },
+
   logoutModal: {
     backgroundColor: '#E7F6FF',
     borderRadius: 15,

@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     },
     warningIcon: {
         padding: sizeWidth(1),
-        paddingLeft: sizeWidth(3)
+        paddingLeft: sizeWidth(3),
     },
     warnText: {
         fontSize: 17, color: colors.black, fontWeight: '500', alignSelf: 'center'
@@ -105,7 +105,8 @@ const styles = StyleSheet.create({
         borderColor: colors.blue,
         borderWidth: 1,
         borderRadius: 12,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        
     },
     logOutButton: {
         width: '30%',
