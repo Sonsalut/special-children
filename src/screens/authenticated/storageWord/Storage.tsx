@@ -68,6 +68,7 @@ const Storage = ({ }: StackNavigationProps<
           onChangeText={(e) => setSearchValue(e)}
           inputStyle={{ fontSize: fontSize(3.5), alignSelf: 'center' }}
           spellCheck={false} style={styles.searchbar} placeholder='Nhập từ để tìm kiếm'
+          placeholderTextColor={colors.gray}
 
         />
         {

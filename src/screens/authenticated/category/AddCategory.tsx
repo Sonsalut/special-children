@@ -1,8 +1,8 @@
 import React from 'react';
-import { Container } from 'components';
+import { Container, LoadingParents } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens } from 'routers/ScreenNames';
-import { sizeHeight } from 'utils/Utils';
+import { sizeHeight, sizeWidth } from 'utils/Utils';
 import { View, FlatList } from 'react-native';
 import RecordingAPI, { AuthApis } from 'network/subs/auth/recording/RecordingAPI';
 import { DeleteCategory, GetFullCategory } from 'network/subs/auth/recording/RecordingRequest';
@@ -22,6 +22,7 @@ import ChoiceTab from './component/ChoiceTab';
 import AddButton from 'components/button/AddButton';
 import { FILE_SIZE } from 'utils/Constant';
 import ConfirmModal from 'components/modal/ConfirmModal';
+import Spinner from 'react-native-spinkit';
 
 const AddCategory = ({ }: StackNavigationProps<
   Routes,
@@ -77,7 +78,7 @@ const AddCategory = ({ }: StackNavigationProps<
             console.log('CANCEL')
           }
           if (!response.errorMessage) {
-           
+
             setCameraOptionsVisble(!cameraOptionsVisble)
             setDataImage(response?.assets?.[0])
             console.log(response?.assets[0])
@@ -164,10 +165,12 @@ const AddCategory = ({ }: StackNavigationProps<
     setData(tmp)
 
   }
+
   const showToast = useToast()
   const [configModalvisible, setConfigModalvisible] = React.useState(false)
   const handleAddCategory = () => {
     setConfigModalvisible(!configModalvisible)
+
   }
 
   const deleteCategory = async (id) => {
@@ -186,9 +189,9 @@ const AddCategory = ({ }: StackNavigationProps<
     }
   }
   const [confirmDelete, setConfirmDelete] = React.useState(false)
-   const [visibleConfirmModal, setVisibleConfirmModal] = React.useState(false)
-  const confirmDeleteCategory = ()=>{
-       setVisibleConfirmModal(!visibleConfirmModal)
+  const [visibleConfirmModal, setVisibleConfirmModal] = React.useState(false)
+  const confirmDeleteCategory = () => {
+    setVisibleConfirmModal(!visibleConfirmModal)
   }
   const handleHideCategory = () => {
     let maps = data.filter(item => item?.isActive === false)
@@ -239,6 +242,7 @@ const AddCategory = ({ }: StackNavigationProps<
       ? name = encodeURIComponent(textInputRef.current)
       : name = encodeURIComponent(item?.name)
     const imageData = new FormData()
+    setIsLoading(true)
     if (dataImage) {
 
       imageData.append(
@@ -250,8 +254,9 @@ const AddCategory = ({ }: StackNavigationProps<
       )
       special = true
     }
+
     //  console.log(special)
-    let url = AuthApis.UpdateCategory+`?categoryId=${item?.id}&name=${name}&desscription=edit`
+    let url = AuthApis.UpdateCategory + `?categoryId=${item?.id}&name=${name}&desscription=edit`
 
     fetch(url, {
       method: 'PUT',
@@ -260,30 +265,39 @@ const AddCategory = ({ }: StackNavigationProps<
       },
       body: dataImage ? imageData : null
     })
-    .then(response=>{
-      if (response.status === 200) {
-        console.log(" Update SUCCESS")
-        showToast("Thay đổi thành công", 'success')
-        setEditPopupVisivle(!editPopupVisivle)
-        getCategory()
-        setDataImage('')
+      .then(response => {
+        if (response.status === 200) {
+          console.log(" Update SUCCESS")
+          showToast("Thay đổi thành công", 'success')
+          setEditPopupVisivle(!editPopupVisivle)
+          getCategory()
+          setDataImage('')
           textInputRef.current = null
+          setIsLoading(false)
 
-        // setRandom(Math.random())
-      }
-      else {
+          // setRandom(Math.random())
+        }
+        else {
+          showToast("ERROR", 'warning')
+          setIsLoading(false)
+
+        }
+      })
+      .catch(err => {
         showToast("ERROR", 'warning')
-      }
-    })
-    .catch(err => {console.log(err)})
-   
+        setIsLoading(false)
+
+      })
+
   }
 
   const handleDoneEdit = () => {
     updateCategory(personData)
   }
-
+  const [isLoading, setIsLoading] = React.useState(false)
   const handleDoneAddCategory = async () => {
+    setIsLoading(true)
+
     // console.log(textInputRef.current)
     let name = encodeURIComponent(textInputRef.current)
     const imageData = new FormData()
@@ -300,7 +314,7 @@ const AddCategory = ({ }: StackNavigationProps<
         }
       )
     }
-// console.log(imageData)
+
     let url = ApiConstants.HOST + 'ext/category/user' + `?name=${name}`
     fetch(url, {
       method: 'POST',
@@ -319,25 +333,28 @@ const AddCategory = ({ }: StackNavigationProps<
           setDataImage('')
           getCategory()
           textInputRef.current = null
+          setIsLoading(false)
+
 
         }
         else {
           console.log(res)
           showToast("ERROR", 'danger')
-
+          setIsLoading(false)
         }
 
       })
-      .catch(err =>{
-
-
+      .catch(err => {
         showToast("ERROR", 'danger')
-        console.log(err)
-
+        setIsLoading(false)
       })
+
+
+
   }
   return (
     <Container style={{ flex: 1, backgroundColor: 'white' }}>
+
       <HeaderWithBack
         title={'Chủ đề'}
         titleStyle={{
@@ -349,6 +366,8 @@ const AddCategory = ({ }: StackNavigationProps<
         hasDone={showDoneIcon}
         handle={handle} />
       {/* Nút thêm chủ đề */}
+
+
       <AddButton
         onpress={handleAddCategory}
         text={"Thêm chủ đề"}
@@ -378,8 +397,8 @@ const AddCategory = ({ }: StackNavigationProps<
           }
           removeClippedSubviews={true}
           initialNumToRender={2} // Reduce initial render amount
-    maxToRenderPerBatch={1} // Reduce number in each render batch
-    updateCellsBatchingPeriod={100}
+          maxToRenderPerBatch={1} // Reduce number in each render batch
+          updateCellsBatchingPeriod={100}
           renderItem={({ item, index }) => (
             <BigCardWithShield
               onPress={() => handleOnclick(item)}
@@ -387,7 +406,7 @@ const AddCategory = ({ }: StackNavigationProps<
               type={item?.type}
               title={item?.name}
               isClicked={item?.isActive}
-              uri ={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
+              uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
             />
           )}
         />
@@ -409,7 +428,7 @@ const AddCategory = ({ }: StackNavigationProps<
           }
         }
         slogan={"Tên chủ đề:"}
-
+        isLoading={isLoading}
         cancel={() => { setEditPopupVisivle(!editPopupVisivle); setValue(''); setDataImage('') }}
         takePhoto={takePhoto}
         chooseImage={chooseImage}
@@ -427,7 +446,7 @@ const AddCategory = ({ }: StackNavigationProps<
           : null
         }
         slogan={"Tên chủ đề:"}
-
+        isLoading={isLoading}
         onDismiss={() => setConfigModalvisible(!configModalvisible)}
         handleSubmit={handleDoneAddCategory}
         cancel={() => { setConfigModalvisible(!configModalvisible); setValue(''); setDataImage('') }}
@@ -452,12 +471,12 @@ const AddCategory = ({ }: StackNavigationProps<
         nameChoice='chủ đề'
       />
       <ConfirmModal
-         visible={visibleConfirmModal}
-         handleCancel={()=>setVisibleConfirmModal(!visibleConfirmModal)}
-         text1='Bạn có chắc chắn muốn xóa?'
-         confirmText='Xác nhận'
-         handleConfirm={handleHideCategory}
-         style={{marginTop: sizeHeight(42)}}
+        visible={visibleConfirmModal}
+        handleCancel={() => setVisibleConfirmModal(!visibleConfirmModal)}
+        text1='Bạn có chắc chắn muốn xóa?'
+        confirmText='Xác nhận'
+        handleConfirm={handleHideCategory}
+        style={{ marginTop: sizeHeight(42) }}
       />
     </Container>
   );

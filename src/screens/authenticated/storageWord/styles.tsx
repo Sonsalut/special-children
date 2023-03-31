@@ -19,7 +19,8 @@ export default StyleSheet.create({
         borderWidth: 1,
         // bottom: 5,
         marginVertical: '1%',
-        borderColor: '#C1EBEA',
+    borderColor: '#2D5672',
+   
         borderRadius: 15,
         width: sizeWidth(80),
         backgroundColor: 'white',

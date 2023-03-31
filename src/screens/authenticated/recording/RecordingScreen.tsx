@@ -189,16 +189,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                     {
                         shows ?
                             <Searchbar
-                                style={{
-                                    borderWidth: 1,
-                                    // bottom: 5,
-                                    borderColor: '#C1EBEA',
-                                    borderRadius: 15,
-                                    width: sizeWidth(80),
-                                    backgroundColor: 'white',
-                                    height: sizeHeight(6),
-                                    marginTop: 5,
-                                }}
+                                style={styles.searchBar}
                                 placeholder="Tìm kiếm từ"
                                 placeholderTextColor={'gray'}
                                 inputStyle={{ alignSelf: 'center' }}
