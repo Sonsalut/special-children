@@ -236,58 +236,68 @@ const AddCategory = ({ }: StackNavigationProps<
 
   };
   const updateCategory = async (item: any) => {
-    let name = ''
-    let special = false
-    textInputRef.current
-      ? name = encodeURIComponent(textInputRef.current)
-      : name = encodeURIComponent(item?.name)
-    const imageData = new FormData()
-    setIsLoading(true)
-    if (dataImage) {
+    // let name = ''
+    // textInputRef.current
+    //   ? name = encodeURIComponent(textInputRef.current)
+    //   : name = encodeURIComponent(item?.name)
+    let name = encodeURIComponent(textInputRef.current)
+      if(name==='')
+      {
+        showToast("Vui lòng nhập tên mục", "warning")
 
-      imageData.append(
-        "file-image", {
-        uri: dataImage?.uri,
-        name: dataImage?.fileName,
-        type: dataImage?.type
       }
-      )
-      special = true
-    }
-
-    //  console.log(special)
-    let url = AuthApis.UpdateCategory + `?categoryId=${item?.id}&name=${name}&desscription=edit`
-
-    fetch(url, {
-      method: 'PUT',
-      headers: {
-        Authorization: store.getState().authReducer.user.accessToken,
-      },
-      body: dataImage ? imageData : null
-    })
-      .then(response => {
-        if (response.status === 200) {
-          console.log(" Update SUCCESS")
-          showToast("Thay đổi thành công", 'success')
-          setEditPopupVisivle(!editPopupVisivle)
-          getCategory()
-          setDataImage('')
-          textInputRef.current = null
-          setIsLoading(false)
-
-          // setRandom(Math.random())
+      else
+      {
+        const imageData = new FormData()
+        setIsLoading(true)
+        if (dataImage) {
+    
+          imageData.append(
+            "file-image", {
+            uri: dataImage?.uri,
+            name: dataImage?.fileName,
+            type: dataImage?.type
+          }
+          )
+      
         }
-        else {
-          showToast("ERROR", 'warning')
-          setIsLoading(false)
+        let url = AuthApis.UpdateCategory + `?categoryId=${item?.id}&name=${name}&desscription=edit`
+        fetch(url, {
+          method: 'PUT',
+          headers: {
+            Authorization: store.getState().authReducer.user.accessToken,
+          },
+          body: dataImage ? imageData : null
+        })
+          .then(response => {
+            if (response.status === 200) {
+              console.log(" Update SUCCESS")
+              showToast("Thay đổi thành công", 'success')
+              setEditPopupVisivle(!editPopupVisivle)
+              getCategory()
+              setDataImage('')
+              textInputRef.current = null
+              setIsLoading(false)
+    
+              // setRandom(Math.random())
+            }
+            else {
+              showToast("ERROR", 'warning')
+              setIsLoading(false)
+    
+            }
+          })
+          .catch(err => {
+            showToast("ERROR", 'warning')
+            setIsLoading(false)
+    
+          })
 
-        }
-      })
-      .catch(err => {
-        showToast("ERROR", 'warning')
-        setIsLoading(false)
 
-      })
+
+
+      }
+
 
   }
 
@@ -296,10 +306,15 @@ const AddCategory = ({ }: StackNavigationProps<
   }
   const [isLoading, setIsLoading] = React.useState(false)
   const handleDoneAddCategory = async () => {
-    setIsLoading(true)
-
-    // console.log(textInputRef.current)
     let name = encodeURIComponent(textInputRef.current)
+
+    if(name==='')
+    {
+      showToast("Bạn chưa nhập tên mục", 'warning')
+    }
+    else
+    {
+      setIsLoading(true)
     const imageData = new FormData()
     if (dataImage) {
       imageData.append(
@@ -310,7 +325,6 @@ const AddCategory = ({ }: StackNavigationProps<
           name: dataImage?.fileName,
 
           type: dataImage?.type
-          // type: "image/png"
         }
       )
     }
@@ -348,6 +362,9 @@ const AddCategory = ({ }: StackNavigationProps<
         showToast("ERROR", 'danger')
         setIsLoading(false)
       })
+
+    }
+    
 
 
 
