@@ -241,7 +241,7 @@ const AddCategory = ({ }: StackNavigationProps<
     //   ? name = encodeURIComponent(textInputRef.current)
     //   : name = encodeURIComponent(item?.name)
     let name = encodeURIComponent(textInputRef.current)
-      if(name==='')
+      if(textInputRef.current===null || ! textInputRef.current)
       {
         showToast("Vui lòng nhập tên mục", "warning")
 
@@ -308,7 +308,7 @@ const AddCategory = ({ }: StackNavigationProps<
   const handleDoneAddCategory = async () => {
     let name = encodeURIComponent(textInputRef.current)
 
-    if(name==='')
+    if(textInputRef.current===null || ! textInputRef.current)
     {
       showToast("Bạn chưa nhập tên mục", 'warning')
     }
