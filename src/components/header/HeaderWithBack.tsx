@@ -9,6 +9,7 @@ import GlobalHeader from './GlobalHeader';
 import images from 'res/images';
 import HeaderTitle from 'components/text/HeaderTitle';
 import colors from 'res/colors';
+import { brotliDecompressSync } from 'zlib';
 
 interface HeaderWithBackProps {
   outerStyle?: ViewStyle | ViewStyle[],
@@ -61,110 +62,127 @@ const HeaderWithBack = ({
   }
   return (
     // <GlobalHeader style={[outerStyle]}>
-    <>
-      {/* <StatusBar 
-        backgroundColor={statusBarbackgroundColor} 
-        showHideTransition={'none'} 
-      /> */}
-      <RowContainer style={[styles.container, containerStyle]}>
+
+
+    <RowContainer style={[styles.container, containerStyle]}>
+      <View
+        style={{
+          height: sizeHeight(5),
+          width: '100%',
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginBottom: sizeHeight(1),
+          alignContent: 'center',
+          // paddingLeft: checkIpad() ? null : sizeWidth(1.5),
+        }}
+      >
+
+
+
+
+        {/* left icon */}
+        {/* <ViewCondition isVisible={hasBack} > */}
         <View
           style={{
-            height: sizeHeight(5),
-            width: '100%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginBottom: sizeHeight(1),
-            alignContent: 'center',
-            // paddingLeft: checkIpad() ? null : sizeWidth(1.5),
+            width: '10%',
           }}
         >
-
-          {/* left icon */}
-          <ViewCondition isVisible={hasBack} >
-            <TouchableOpacity
-              onPress={onGoBack}
-              style={{
-                ...leftIconStyle,
-                paddingTop: sizeHeight(2),
-                width: sizeWidth(6),
-                height: sizeHeight(5),
-                marginRight: '7%',
-                marginLeft:Platform.OS==='android'?sizeWidth(4) :sizeWidth(1),
-              }}
-            >
-              <Image
-                source={leftIconSrc ?? images.navBackLeft}
-                style={{
-                  width: sizeWidth(3),
-                  height: sizeHeight(3),
-                }}
-              />
-            </TouchableOpacity>
-          </ViewCondition>
-
-          {/* title */}
-          <View
-            style={
-{
-              alignSelf: 'center',
-              alignItems: 'center',
-              alignContent: 'center',
-              paddingRight: Platform.OS === 'android' ? sizeWidth(50) : 0,
-              right: Platform.OS === 'android' ? sizeWidth(5) : 0,
-              width: '75%',
-              top: Platform.OS === 'android' ? sizeHeight(1) : 0
-              // paddingBottom: sizeHeight(2)
+          <TouchableOpacity
+            onPress={onGoBack}
+            style={{
+              paddingTop: sizeHeight(2),
+              width: sizeWidth(10),
+              alignItems:'center',
+              height: sizeHeight(5),
+              marginLeft: Platform.OS === 'android' ? sizeWidth(4) : null,
             }}
           >
-            <HeaderTitle style={[styles.title, titleStyle]}>
-              {title ?? `Header title`}
-            </HeaderTitle>
-          </View>
+            <Image
+              source={leftIconSrc ?? images.navBackLeft}
+              style={{
+                width: sizeWidth(3),
+                height: sizeHeight(3),
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+        {/* </ViewCondition> */}
 
-          {/* right icon */}
-          {/* {rightComponent ??
+
+
+
+        {/* title */}
+        <View
+          style={{
+            alignSelf: 'center',
+            alignItems: 'center',
+            alignContent: 'center',
+            justifyContent:'center',
+            paddingRight: Platform.OS === 'android' ? sizeWidth(50) : 0,
+            right: Platform.OS === 'android' ? sizeWidth(5) : 0,
+            width: '80%',
+            top: Platform.OS === 'android' ? sizeHeight(1) : 0
+            // paddingBottom: sizeHeight(2)
+          }}
+        >
+          <HeaderTitle style={[styles.title, titleStyle]}>
+            {title ?? `Header title`}
+          </HeaderTitle>
+        </View>
+
+        {/* right icon */}
+        {/* {rightComponent ??
             <View
               style={{
                 marginLeft: sizeWidth(8),
                 borderWidth:1
                 // paddingTop: sizeHeight(2)
               }} />} */}
-          <ViewCondition
-            isVisible={hasBack}
-          style={{ 
-            marginLeft:'10%',
+        
+        {/* <ViewCondition
+          isVisible={hasBack}
+          style={{
+            marginLeft: '10%',
+            // borderWidth:1,
             top: Platform.OS === 'android' ? sizeHeight(1) : 0,
-          }} 
-          >
-            {
-              rightIconShow
-                ? <TouchableOpacity
-                  onPress={handle}
+          }}
+        > */}
+        <View
+          style={{
+            marginLeft:5,
+            width: '10%'
+          }}
+        >
+          {
+            rightIconShow
+              ? <TouchableOpacity
+                onPress={handle}
+                style={{
+                  // marginTop: sizeHeight(1.5),
+                  paddingTop:10,
+                  width: sizeWidth(10),
+                  height: sizeHeight(5),
+                  alignSelf: 'flex-end',
+                }}
+              >
+                <Image
+                  resizeMode='contain'
                   style={{
-                    width:sizeWidth(10), 
-                    right:sizeWidth(10),
+                    paddingTop: sizeHeight(2),
+                    width: sizeWidth(5),
+                    height: sizeHeight(4),
                   }}
-                >
-                  <Image
-                    resizeMode='contain'
-                    style={{
-                      paddingTop: sizeHeight(2),
-                      width: sizeWidth(5),
-                      height: sizeHeight(4),
-                      alignSelf:'flex-end'
-                    }}
-                    source={hasDone ? images.done : images.action}
-                  />
+                  source={hasDone ? images.done : images.action}
+                />
 
-                </TouchableOpacity>
-                : null
-            }
-          </ViewCondition>
-
-
+              </TouchableOpacity>
+              : null
+          }
+        {/* </ViewCondition> */}
         </View>
-      </RowContainer>
-    </>
+      </View>
+    </RowContainer>
+
   )
 }
 
@@ -186,8 +204,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#F1F1F2',
     alignSelf: 'center',
-    paddingRight: sizeWidth(7)
-    // marginBottom: sizeHeight(2),
+    // marginTop: checkIpad()? null : sizeHeight(2.3),
+    marginRight: '7%',
   },
 
 })
