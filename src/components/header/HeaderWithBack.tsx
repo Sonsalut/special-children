@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Image, ImageSourcePropType, ImageStyle, Platform, StatusBar, StatusBarStyle, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewProps, ViewStyle } from 'react-native';
-import { fontSize, ratioW, sizeHeight, sizeWidth } from 'utils/Utils';
+import { checkIpad, fontSize, ratioW, sizeHeight, sizeWidth } from 'utils/Utils';
 import RowContainer from 'components/container/RowContainer';
 import ViewCondition from 'components/container/ViewCondition';
 import NavigationService from 'routers/NavigationService';
@@ -75,6 +75,7 @@ const HeaderWithBack = ({
             alignItems: 'center',
             marginBottom: sizeHeight(1),
             alignContent: 'center',
+            // paddingLeft: checkIpad() ? null : sizeWidth(1.5),
           }}
         >
 
@@ -87,7 +88,7 @@ const HeaderWithBack = ({
                 paddingTop: sizeHeight(2),
                 width: sizeWidth(6),
                 height: sizeHeight(5),
-                marginRight: '4%',
+                marginRight: '7%',
                 marginLeft:Platform.OS==='android'?sizeWidth(4) :sizeWidth(1),
               }}
             >
@@ -111,7 +112,6 @@ const HeaderWithBack = ({
               paddingRight: Platform.OS === 'android' ? sizeWidth(50) : 0,
               right: Platform.OS === 'android' ? sizeWidth(5) : 0,
               width: '75%',
-              // borderWidth:1,
               top: Platform.OS === 'android' ? sizeHeight(1) : 0
               // paddingBottom: sizeHeight(2)
             }}
@@ -132,7 +132,7 @@ const HeaderWithBack = ({
           <ViewCondition
             isVisible={hasBack}
           style={{ 
-            
+            marginLeft:'10%',
             top: Platform.OS === 'android' ? sizeHeight(1) : 0,
           }} 
           >
@@ -140,7 +140,10 @@ const HeaderWithBack = ({
               rightIconShow
                 ? <TouchableOpacity
                   onPress={handle}
-                  style={{width:sizeWidth(20), right:sizeWidth(10)}}
+                  style={{
+                    width:sizeWidth(10), 
+                    right:sizeWidth(10),
+                  }}
                 >
                   <Image
                     resizeMode='contain'
@@ -148,7 +151,6 @@ const HeaderWithBack = ({
                       paddingTop: sizeHeight(2),
                       width: sizeWidth(5),
                       height: sizeHeight(4),
-                      
                       alignSelf:'flex-end'
                     }}
                     source={hasDone ? images.done : images.action}
@@ -184,6 +186,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#F1F1F2',
     alignSelf: 'center',
+    paddingRight: sizeWidth(7)
     // marginBottom: sizeHeight(2),
   },
 
