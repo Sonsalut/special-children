@@ -382,7 +382,6 @@ const AddWord = ({ }: StackNavigationProps<
           height: sizeHeight(80),
           width: '95%',
           alignSelf: 'center',
-          alignItems: 'center',
           marginTop: 10,
         }}
       >
@@ -392,7 +391,7 @@ const AddWord = ({ }: StackNavigationProps<
           numColumns={2}
           showsVerticalScrollIndicator={false}
           scrollToOverflowEnabled={false}
-          contentContainerStyle={{paddingBottom: '5%'}}
+          contentContainerStyle={{alignSelf: 'center',paddingBottom: '5%'}}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -400,7 +399,7 @@ const AddWord = ({ }: StackNavigationProps<
               colors={[colors.blue]}
             />
           }
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
 
             <BigCardWithShield
               onPress={() => handleOnclick(item)}

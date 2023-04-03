@@ -3,7 +3,7 @@ import React from 'react'
 import { Modal } from 'react-native-paper'
 import TouchableOpacity from 'components/button/TouchableOpacity'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils'
+import { checkIpad, fontSize, sizeHeight, sizeWidth } from 'utils/Utils'
 import ModalCamera from './ModalCamera'
 import images from 'res/images'
 import Spinner from 'react-native-spinkit'
@@ -140,7 +140,7 @@ const AddEditModal = ({
                 height: sizeHeight(10),
               }}>
               <Text
-                style={{ fontSize: fontSize(3), color: '#2D5672' }}>{slogan} </Text>
+                style={{ fontSize: checkIpad() ? fontSize(3) : fontSize(3.5), color: '#2D5672' }}>{slogan} </Text>
               <TextInput
                 style={{
                   height: sizeHeight(7),

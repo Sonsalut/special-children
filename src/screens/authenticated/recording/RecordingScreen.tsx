@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Container, TouchableOpacity } from 'components';
-import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
+import { checkIpad, fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import { FlatList, Image, View, TouchableWithoutFeedback } from 'react-native';
 import styles from '../home/styles';
 import { Modal, Searchbar } from 'react-native-paper';
-import { RefreshControl } from 'react-native-gesture-handler';
+import { RefreshControl, ScrollView } from 'react-native-gesture-handler';
 import RecordingAPI, { AuthApis } from 'network/subs/auth/recording/RecordingAPI';
 import ResponseCode from 'network/ResponseCode';
 import { store } from 'redux/store';
@@ -69,7 +69,9 @@ const RecordingScreen = ({ route, navigation }: any) => {
 
             // console.log(response.data)
             setData(response.data?.words)
-
+           
+            
+ 
             // dispatch(setStorage(response.data?.words))
         }
         else {
@@ -181,65 +183,69 @@ const RecordingScreen = ({ route, navigation }: any) => {
     return (
 
         <Container isBottomTab={false} style={styles.container}>
-            <TouchableWithoutFeedback
-                // onPress={aa}
-                onLongPress={handleShow}
-            >
-                <View style={styles.mainView}>
-                    {
-                        shows ?
-                            <Searchbar
-                                style={styles.searchBar}
-                                placeholder="Tìm kiếm từ"
-                                placeholderTextColor={'gray'}
-                                inputStyle={{ alignSelf: 'center' }}
-                                value={searchValue}
-                                onChangeText={(e) => setSearchValue(e)}
-                                spellCheck={false}
-                            />
-                            : null
-                    }
-                    <View
-                        style={{
-                            width: sizeWidth(94),
-                            height: sizeHeight(92),
-                            alignItems: 'center',
-                            alignSelf: 'center',
-                            paddingTop: 20,
-                        }}
-                    >
-                        <FlatList
-                            data={filterData()}
-                            keyExtractor={(_, index) => index.toString()}
-                            showsVerticalScrollIndicator={false}
-                            numColumns={2}
-                            contentContainerStyle={{ paddingBottom: sizeHeight(10) }}
-                            removeClippedSubviews={true}
-                            initialNumToRender={2} // Reduce initial render amount
-                            maxToRenderPerBatch={1} // Reduce number in each render batch
-                            updateCellsBatchingPeriod={5}
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={refreshing}
-                                    onRefresh={onRefresh}
-                                    colors={[colors.blue]}
-                                />}
-                            renderItem={({ item, index }) => (
-                                <BigCard
-                                    onPress={() => { chooseWord(item, index) }}
-                                    isDoubleTap={false}
-                                    uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
-
-                                    title={`${item?.word}`}
+            <ScrollView>
+                <TouchableWithoutFeedback
+                    // onPress={aa}
+                    onLongPress={handleShow}
+                >
+                    <View style={styles.mainView}>
+                        {
+                            shows ?
+                                <Searchbar
+                                    style={styles.searchBar}
+                                    placeholder="Tìm kiếm từ"
+                                    placeholderTextColor={'gray'}
+                                    inputStyle={{ alignSelf: 'center' }}
+                                    value={searchValue}
+                                    onChangeText={(e) => setSearchValue(e)}
+                                    spellCheck={false}
                                 />
+                                : null
+                        }
+                        <View
+                            style={{
+                                width: sizeWidth(94),
+                                height: sizeHeight(92),
+                                alignSelf: 'center',
+                                paddingTop: 20,
+                            }}
+                        >
+                            <FlatList
+                                data={filterData()}
+                                keyExtractor={(_, index) => index.toString()}
+                                showsVerticalScrollIndicator={false}
+                                numColumns={2}
+                                contentContainerStyle={{
+                                    paddingBottom: sizeHeight(10),
+                                    paddingLeft: checkIpad() ? sizeWidth(3) : sizeWidth(0.5)
+                                }}
+                                removeClippedSubviews={true}
+                                initialNumToRender={2} // Reduce initial render amount
+                                maxToRenderPerBatch={1} // Reduce number in each render batch
+                                updateCellsBatchingPeriod={5}
+                                refreshControl={
+                                    <RefreshControl
+                                        refreshing={refreshing}
+                                        onRefresh={onRefresh}
+                                        colors={[colors.blue]}
+                                    />}
+                                renderItem={({ item, index }) => (
+                                    <BigCard
+                                        onPress={() => { chooseWord(item, index) }}
+                                        isDoubleTap={false}
+                                        uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
+
+                                        title={`${item?.word}`}
+                                    />
 
 
 
-                            )}
-                        />
+                                )}
+                            />
+                        </View>
                     </View>
-                </View>
-            </TouchableWithoutFeedback>
+                </TouchableWithoutFeedback>
+            </ScrollView>
             {/* Màn hình số  */}
             <Modal
                 visible={visible}

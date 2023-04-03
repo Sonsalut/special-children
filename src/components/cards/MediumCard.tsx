@@ -46,7 +46,9 @@ const MediumCard = ({
                     cache:FastImage.cacheControl.web,
                     priority: FastImage.priority.high,
                     
-                  }}/>
+                  }}
+                    resizeMode={FastImage.resizeMode.stretch}
+                />
                 <Text style={styles.textStyle}>{title}</Text>
                 
             </TouchableOpacity>
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
         borderWidth:2
     },
     imageStyle: {
-        resizeMode: 'stretch',
+        resizeMode: 'contain',
         height: '75%',
         width: sizeWidth(24),
         alignSelf: 'center',

@@ -1,7 +1,7 @@
 import { Image, ImageSourcePropType, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import TouchableOpacity from 'components/button/TouchableOpacity'
-import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils'
+import { checkIpad, fontSize, sizeHeight, sizeWidth } from 'utils/Utils'
 import Icon from 'react-native-vector-icons/Ionicons'
 import FastImage from 'react-native-fast-image'
 import { store } from 'redux/store'
@@ -37,7 +37,7 @@ const BigCardWithShield = ({
             style={{
 
                 width: sizeWidth(42),
-                height: sizeHeight(25),
+                height: checkIpad() ? sizeHeight(30) : sizeHeight(24),
                 borderRadius: sizeWidth(3),
                 marginHorizontal: 9,
                 alignSelf: 'center',
@@ -62,8 +62,8 @@ const BigCardWithShield = ({
                     type === 'ADMIN'
                         ? <Icon
                             name='shield-sharp'
-                            size={sizeHeight(4.5), sizeWidth(6)}
-                            style={{ alignSelf: 'flex-end', color: 'orange', height: sizeHeight(4.5) }} />
+                            size={fontSize(5)}
+                            style={{ alignSelf: 'flex-end', marginRight: sizeWidth(1), marginTop: sizeHeight(1),color: 'orange', height: sizeHeight(4.5) }} />
                         : null
                 }
             </View>
@@ -80,13 +80,15 @@ const BigCardWithShield = ({
                     cache: FastImage.cacheControl.web,
                     priority: FastImage.priority.high,
 
-                }} />
+                }}
+                resizeMode = {FastImage.resizeMode.stretch} 
+            />
 
             <Text style={{
                 fontSize: fontSize(4.5),
                 alignSelf: 'center',
                 fontWeight: 'bold',
-                marginTop: '3.5%',
+                marginTop: checkIpad() ? '2%' : '3.5%',
                 color: '#2D5672'
             }}>{title}</Text>
 
@@ -100,14 +102,13 @@ export default BigCardWithShield
 const styles = StyleSheet.create({
 
     imageStyle: {
-        height: sizeHeight(18),
-        width: sizeWidth(32),
+        height: checkIpad() ? sizeHeight(23) : sizeHeight(18),
+        width: checkIpad() ? sizeWidth(32) : sizeWidth(36),
         resizeMode: 'stretch',
         borderRadius: sizeWidth(3),
         alignSelf: 'center',
         marginTop: sizeHeight(-3),
         padding: 15,
-
 
     }
 

@@ -20,7 +20,7 @@ import RecordingScreen from 'screens/authenticated/recording/RecordingScreen';
 import { Image } from 'react-native';
 import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
+import { checkIpad, fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import NavigationService from './NavigationService';
 
 const Drawer = createDrawerNavigator();
@@ -28,7 +28,13 @@ const DrawerNavigator = ({}) => {
   const show= useSelector(store=>store.storeReducer.show)
   return (
 
-    <Drawer.Navigator initialRouteName={AuthenticatedScreens.HomeScreen}>
+    <Drawer.Navigator 
+      screenOptions= {{
+        drawerLabelStyle: 
+        checkIpad() ? {fontSize:fontSize(2.5)} 
+        : null
+      }} 
+    initialRouteName={AuthenticatedScreens.HomeScreen}>
       <Drawer.Screen name={AuthenticatedScreens.HomeScreens}
         component={HomeScreens}
         options={{

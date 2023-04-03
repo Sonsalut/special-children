@@ -129,6 +129,7 @@ const Storage = ({ }: StackNavigationProps<
                                 priority: FastImage.priority.high,
 
                               }}
+                                resizeMode={FastImage.resizeMode.stretch}
                             />
                             <Text
                               style={styles.wordText}>{item?.word}

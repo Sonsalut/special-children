@@ -2,7 +2,7 @@ import { Image, ImageRequireSource, ImageSourcePropType, StyleSheet, Text, View 
 import React, { memo } from 'react'
 import { TouchableOpacity } from 'components';
 import images from 'res/images';
-import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
+import { checkIpad, fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import { store } from 'redux/store';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FastImage from 'react-native-fast-image';
@@ -12,7 +12,8 @@ interface CardProps {
     isDoubleTap?: boolean,
     source?: ImageSourcePropType,
     title?: String,
-    uri : any
+    uri : any, 
+   
   
 }
 const BigCard = ({
@@ -20,7 +21,9 @@ const BigCard = ({
     isDoubleTap,
     source,
     title,
-    uri
+    uri, 
+    
+
 }: CardProps) => {
   
    
@@ -31,7 +34,7 @@ const BigCard = ({
                 onPress={onPress}
                 isDoubleTap={isDoubleTap}
                 activeOpacity={0.7}
-                style={{...styles.categoryCards}}
+                style={[styles.categoryCards]}
             >
                 
                 {/* <Image
@@ -47,16 +50,18 @@ const BigCard = ({
                 <FastImage
                     style={[styles.imageCategory]}
                  
-                  source={{
-                    uri: uri,
-                    // method: 'GET',
-                    headers: {Authorization: store.getState().authReducer.user.accessToken ,
-                        cache:'reload'
+                    source={{
+                        uri: uri,
+                        // method: 'GET',
+                        headers: {Authorization: store.getState().authReducer.user.accessToken ,
+                            cache:'reload'
                     },
                     cache:FastImage.cacheControl.web,
                     priority: FastImage.priority.high,
                     
-                  }}/>
+                  }}
+                  resizeMode = {FastImage.resizeMode.stretch}
+                  />
                 <Text style={styles.categoryText}>{title}</Text>
             </TouchableOpacity>
         </>
@@ -67,11 +72,11 @@ export default BigCard
 
 const styles = StyleSheet.create({
     categoryCards: {
-        width: sizeWidth(42),
-        height: sizeHeight(25),
+        width:  sizeWidth(42),
+        height: checkIpad() ? sizeHeight(30) : sizeHeight(24),
         borderRadius: sizeWidth(3),
         marginHorizontal: 9,
-        alignSelf: 'center',
+        // alignSelf: 'center',
         marginTop: 20,
         backgroundColor: '#C1EBEA',
         paddingTop: 5,
@@ -79,16 +84,11 @@ const styles = StyleSheet.create({
         borderWidth:2
     },
     imageCategory: {
-
-        resizeMode: 'stretch',
-        // height: '80%',
-        // width: '80%',
-        height: sizeHeight(18),
-        width: sizeWidth(32),
+        height: checkIpad() ? sizeHeight(23) : sizeHeight(18),
+        width: checkIpad() ? sizeWidth(32) : sizeWidth(36),
         alignSelf: 'center',
         marginTop: '1%',
         borderRadius: sizeWidth(3),
-       
         // padding: 15,
     },
     categoryText: {

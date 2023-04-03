@@ -33,19 +33,22 @@ const SmallCard = ({
             style={{ ...styles.cardStyle }}
         >  
 
-            <FastImage
-                    style={[styles.imageStyle]}
-                 
+              <FastImage
+                  style={[styles.imageStyle]}
+
                   source={{
-                    uri: uri,
-                    // method: 'GET',
-                    headers: {Authorization: store.getState().authReducer.user.accessToken ,
-                        
-                    },
-                    cache:FastImage.cacheControl.web,
-                    priority: FastImage.priority.high,
-                    
-                  }}/>
+                      uri: uri,
+                      // method: 'GET',
+                      headers: {
+                          Authorization: store.getState().authReducer.user.accessToken,
+
+                      },
+                      cache: FastImage.cacheControl.web,
+                      priority: FastImage.priority.high,
+
+                  }}
+                  resizeMode={FastImage.resizeMode.stretch}
+              />
             <Text style={styles.textStyle}>{title}</Text>
         </TouchableOpacity>
     </>
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
 
     imageStyle:{
         marginTop: '3.5%',
-        resizeMode: 'stretch',
+        resizeMode: 'contain',
         height: sizeHeight(12.5), width: sizeWidth(20),
         alignSelf: 'center',
         borderRadius: 10

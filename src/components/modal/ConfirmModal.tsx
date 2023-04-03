@@ -2,7 +2,7 @@ import { StyleProp, StyleSheet, Text, View, ViewStyle, VirtualizedList } from 'r
 import React from 'react'
 import { Modal } from 'react-native-paper'
 import colors from 'res/colors'
-import { sizeHeight, sizeWidth } from 'utils/Utils'
+import { checkIpad, fontSize, sizeHeight, sizeWidth } from 'utils/Utils'
 import TouchableOpacity from 'components/button/TouchableOpacity'
 import Icon from 'react-native-vector-icons/Ionicons'
 
@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
         paddingLeft: sizeWidth(3),
     },
     warnText: {
-        fontSize: 17, color: colors.black, fontWeight: '500', alignSelf: 'center'
+        fontSize: checkIpad() ? fontSize(2) : 17, 
+        color: colors.black, fontWeight: '500', alignSelf: 'center'
     },
     buttonView: {
         width: '100%',
@@ -117,12 +118,12 @@ const styles = StyleSheet.create({
     },
     logOutText: {
         alignSelf: 'center',
-        fontSize: 15,
+        fontSize: checkIpad() ? fontSize(2) :15,
         color: 'white'
     },
     closeText: {
         alignSelf: 'center',
-        fontSize: 15,
+        fontSize: checkIpad() ? fontSize(2) :15,
         color: colors.blue
     }
 })

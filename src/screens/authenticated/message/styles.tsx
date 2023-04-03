@@ -8,36 +8,41 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
   },
   containerView: {
-    width: '90%',
-    height: 600,
+    width: checkIpad() ? sizeWidth(80) : sizeWidth(90),
+    height: sizeHeight(50),
     alignSelf: 'center',
     backgroundColor: '#E7F6FF',
-    marginTop: 20,
+    paddingTop: sizeHeight(2),
+    marginTop: sizeHeight(2.5),
     borderRadius: 25
   },
   iconImg: {
-    width: 25, height: 25
+    width: sizeHeight(3), 
+    height: sizeHeight(3)
   },
   text: {
-    paddingLeft: 10,
+    paddingLeft: sizeWidth(2.5),
     paddingTop: 2,
-    fontSize: 18,
+    fontSize: checkIpad()? fontSize(3) : fontSize(4.5),
     color: 'black',
   },
   logText: {
-    paddingLeft: 10,
+    paddingLeft: sizeWidth(2.5),
     paddingTop: 2,
-    fontSize: 18,
+    fontSize: checkIpad()? fontSize(3) : fontSize(4.5),
     color: 'red'
   },
-  switch: {
-    paddingBottom: 10,
-    marginLeft: 30
+  switch: checkIpad() ? {
+    marginLeft: sizeWidth(28),
+    
+  } : {
+    marginLeft: sizeWidth(9)
   },
   view: {
     flexDirection: 'row',
-    paddingTop: 20,
-    paddingHorizontal: 15,
+    alignItems: 'center',
+    height: sizeHeight(5),
+    paddingHorizontal: sizeWidth(5),
   },
   modalVoice: {
     backgroundColor: '#E7F6FF',
@@ -46,8 +51,6 @@ export default StyleSheet.create({
     marginTop: sizeHeight(10),
     width: sizeWidth(80),
     marginLeft: sizeWidth(10),
-    textShadowRadius:0,
-    shadowRadius: 0
   },
   voiceView: {
     alignItems: 'center',

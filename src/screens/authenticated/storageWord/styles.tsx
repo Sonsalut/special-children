@@ -1,6 +1,6 @@
 import BigCardWithShield from "components/cards/BigCardWithShield";
 import { StyleSheet } from "react-native";
-import { fontSize, sizeHeight, sizeWidth } from "utils/Utils";
+import { checkIpad, fontSize, sizeHeight, sizeWidth } from "utils/Utils";
 
 export default StyleSheet.create({
     container: {
@@ -26,7 +26,17 @@ export default StyleSheet.create({
         backgroundColor: 'white',
         height: sizeHeight(5)
     },
-    titleView: {
+    
+    titleView: checkIpad() ? 
+    {
+        marginBottom: sizeHeight(2),
+        borderRadius: 25,
+        backgroundColor: '#E7F6FF',
+        paddingLeft: sizeWidth(3),
+        paddingRight: sizeWidth(3),
+        height: sizeHeight(26),
+    }
+    :{
         marginBottom: 22,
         paddingBottom: 15,
         borderRadius: 15,
@@ -34,6 +44,7 @@ export default StyleSheet.create({
         paddingLeft: 10,
         height: sizeHeight(26),
     },
+
     cateView: {
         width: sizeWidth(80),
         borderRadius: 10,
@@ -43,22 +54,21 @@ export default StyleSheet.create({
         alignSelf: 'center',
     },
     cateText: {
-        fontSize: 18,
+        fontSize: checkIpad() ? fontSize(4) : 18,
         color: '#897666',
         fontWeight: 'bold',
         alignSelf: "center",
     },
     wordview: {
         flexDirection: 'row',
-        marginTop: 8,
-        height: sizeHeight(21),
+        height: checkIpad()? sizeHeight(21) :sizeHeight(21),
         width:'100%',
         alignItems: 'center',
     },
     wordVsCheckboxView: {
         flexDirection: 'row',
         width: sizeWidth(30),
-        height: sizeHeight(19),
+        height: checkIpad()? sizeHeight(19) : sizeHeight(19),
     },
 
     cardView: {
@@ -67,7 +77,7 @@ export default StyleSheet.create({
         width: sizeWidth(25),
         marginHorizontal: 5,
         borderRadius: sizeWidth(2),
-        height: sizeHeight(17.3),
+        height: checkIpad()? sizeHeight(18) : sizeHeight(17.3),
     },
     wordImage: {
         marginTop: '3.5%',
@@ -86,7 +96,7 @@ export default StyleSheet.create({
     checkbox: {
         right: 20,
         top:2,
-        height: 20
+        height: 20,
 
     },
     resultSearchView: {

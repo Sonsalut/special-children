@@ -70,11 +70,11 @@ const HeaderWithBack = ({
         <View
           style={{
             height: sizeHeight(5),
-            width: sizeWidth(100),
+            width: '100%',
             flexDirection: 'row',
             alignItems: 'center',
             marginBottom: sizeHeight(1),
-            alignContent: 'center'
+            alignContent: 'center',
           }}
         >
 
@@ -85,9 +85,9 @@ const HeaderWithBack = ({
               style={{
                 ...leftIconStyle,
                 paddingTop: sizeHeight(2),
-                width: sizeWidth(5),
+                width: sizeWidth(6),
                 height: sizeHeight(5),
-                marginRight: sizeWidth(5),
+                marginRight: '4%',
                 marginLeft:Platform.OS==='android'?sizeWidth(4) :sizeWidth(1),
               }}
             >
@@ -110,7 +110,7 @@ const HeaderWithBack = ({
               alignContent: 'center',
               paddingRight: Platform.OS === 'android' ? sizeWidth(50) : 0,
               right: Platform.OS === 'android' ? sizeWidth(5) : 0,
-              width: sizeWidth(75),
+              width: '75%',
               // borderWidth:1,
               top: Platform.OS === 'android' ? sizeHeight(1) : 0
               // paddingBottom: sizeHeight(2)
@@ -132,11 +132,8 @@ const HeaderWithBack = ({
           <ViewCondition
             isVisible={hasBack}
           style={{ 
-           
-            top: Platform.OS === 'android' ? sizeHeight(1) : 0,
             
-   
-          
+            top: Platform.OS === 'android' ? sizeHeight(1) : 0,
           }} 
           >
             {
@@ -176,7 +173,7 @@ const styles = StyleSheet.create({
     // paddingHorizontal: sizeWidth(5),
     backgroundColor: colors.title_blue,
     height: sizeHeight(10),
-    width: sizeWidth(100),
+    width: '100%',
     flexDirection: 'column',
     justifyContent: 'flex-end',
     // paddingTop:sizeHeight(4)
@@ -188,7 +185,6 @@ const styles = StyleSheet.create({
     color: '#F1F1F2',
     alignSelf: 'center',
     // marginBottom: sizeHeight(2),
-    // borderWidth:1
   },
 
 })
