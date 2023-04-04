@@ -360,7 +360,10 @@ const AddWord = ({ }: StackNavigationProps<
     
   }
   return (
-    <Container style={{ backgroundColor: 'white'}}>
+    <Container 
+      style={{ backgroundColor: 'white'}}
+      isBottomTab={false}
+    >
       <HeaderWithBack
         title={'Từ vựng'}
         titleStyle={{
@@ -394,7 +397,10 @@ const AddWord = ({ }: StackNavigationProps<
           numColumns={2}
           
           scrollToOverflowEnabled={false}
-          contentContainerStyle={{alignSelf: 'center',paddingBottom: '5%'}}
+          contentContainerStyle={{
+            alignSelf: 'center',
+            paddingBottom: sizeHeight(5)
+          }}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}

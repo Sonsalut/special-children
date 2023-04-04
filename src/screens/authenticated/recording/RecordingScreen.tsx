@@ -182,10 +182,10 @@ const RecordingScreen = ({ route, navigation }: any) => {
    
     return (
 
-        <Container isBottomTab={false} style={styles.container}>
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-            >
+        <Container 
+            isBottomTab={false} 
+            style={styles.container}>
+            
                 <TouchableWithoutFeedback
                     // onPress={aa}
                     onLongPress={handleShow}
@@ -209,13 +209,14 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                 width: sizeWidth(94),
                                 height: sizeHeight(92),
                                 alignSelf: 'center',
-                                paddingTop: 20,
+                                paddingTop: sizeHeight(1),
                             }}
                         >
                             <FlatList
                                 data={filterData()}
                                 keyExtractor={(_, index) => index.toString()}
                                 showsVerticalScrollIndicator={false}
+                                showsHorizontalScrollIndicator={false}
                                 numColumns={2}
                                 contentContainerStyle={{
                                     paddingBottom: sizeHeight(10),
@@ -247,7 +248,8 @@ const RecordingScreen = ({ route, navigation }: any) => {
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
-            </ScrollView>
+            
+
             {/* Màn hình số  */}
             <Modal
                 visible={visible}

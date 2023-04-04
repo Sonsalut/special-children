@@ -16,21 +16,27 @@ import MediumCard from 'components/cards/MediumCard';
 import SmallCard from 'components/cards/SmallCard';
 import { truncate } from 'fs';
 import { FILE_SIZE } from 'utils/Constant';
+import { Dimensions } from 'react-native';
+
+
 
 const JoinWordScreen = ({ }: StackNavigationProps<
     Routes,
     AuthenticatedScreens.RecordingScreen
 >) => {
     const isFocused = useIsFocused();
-    
-    React.useEffect(() => {    
-       if(isFocused)
-       {
-           getStorageWords()
+    const isPortrait = () => {
+        const {height, width} = Dimensions.get('window')
+        return height > width;
+    };
+
+    React.useEffect(() => {
+        if (isFocused) {
+            getStorageWords()
             setID('')
-             setWords([])
-       }
-}, [isFocused])
+            setWords([])
+        }
+    }, [isFocused])
     const {
         id,
         setID,
@@ -45,16 +51,17 @@ const JoinWordScreen = ({ }: StackNavigationProps<
         playSimpleSound,
         playSound,
         getStorageWords, } = useLogicJoinWord()
-        const [refresh, setRefresh] = React.useState(false)
-        const onRefresh =()=>{
-            setRefresh(true);
+    const [refresh, setRefresh] = React.useState(false)
+    const onRefresh = () => {
+        setRefresh(true);
         setTimeout(() => {
-          setRefresh(false); 
-         
-        getStorageWords()
-          
+            setRefresh(false);
+
+            getStorageWords()
+
         }, 2000);
-        }
+    }
+    const orientation = isPortrait () ? 'portrait' : 'landscape';
     return (
         <Container isBottomTab={false} style={style.container}>
             {/* Word join board */}
@@ -65,15 +72,15 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                     keyExtractor={(_, index) => index.toString()}
                     refreshControl={
                         <RefreshControl
-                          refreshing={refresh}
-                          onRefresh={onRefresh}
-                          colors={[colors.blue]}
+                            refreshing={refresh}
+                            onRefresh={onRefresh}
+                            colors={[colors.blue]}
                         />
-                      }
+                    }
                     numColumns={3}
                     scrollEnabled={false}
-                    contentContainerStyle={{ 
-                        alignItems: 'flex-start', 
+                    contentContainerStyle={{
+                        alignItems: 'flex-start',
                         marginTop: sizeHeight(2),
                         width: sizeWidth(85),
                         // alignSelf:'center',
@@ -85,8 +92,8 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                             <SmallCard
                                 isDoubleTap={true}
                                 onPress={() => { deleteWord(item) }}
-                                uri={ ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
-                                
+                                uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
+
                                 title={`${item?.word}`}
                             />
                         )
@@ -115,10 +122,10 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                 numColumns={3}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{ 
+                contentContainerStyle={{
                     // alignItems: 'center', 
-                    width: '95%', 
-                    alignSelf: 'center', 
+                    width: '95%',
+                    alignSelf: 'center',
                     justifyContent: 'space-around',
                     // borderWidth:1
                 }}
@@ -127,9 +134,9 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                         <MediumCard
                             disabled={false}
                             isDoubleTap={true}
-                           
-                                uri={ ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
-                              
+
+                            uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
+
                             title={`${item?.word}`}
                             onPress={() => {
                                 addWord(item, index)
@@ -140,6 +147,8 @@ const JoinWordScreen = ({ }: StackNavigationProps<
             />
         </Container>
     );
+
+
 };
 
 export default JoinWordScreen;

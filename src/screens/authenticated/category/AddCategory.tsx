@@ -370,7 +370,10 @@ const AddCategory = ({ }: StackNavigationProps<
 
   }
   return (
-    <Container style={{ flex: 1, backgroundColor: 'white' }}>
+    <Container 
+      style={{ flex: 1, backgroundColor: 'white'}}
+      isBottomTab={false}
+    >
 
       <HeaderWithBack
         title={'Chủ đề'}
@@ -398,7 +401,6 @@ const AddCategory = ({ }: StackNavigationProps<
           alignSelf: 'center',
           alignItems: 'center',
           marginTop: sizeHeight(2),
-          borderWidth:1
         }}
       >
         <FlatList
@@ -406,7 +408,7 @@ const AddCategory = ({ }: StackNavigationProps<
           keyExtractor={(_, index) => index.toString()}
           numColumns={2}
           scrollToOverflowEnabled={false}
-          contentContainerStyle={{ paddingBottom: '5%' }}
+          contentContainerStyle={{ paddingBottom: sizeHeight(5) }}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}

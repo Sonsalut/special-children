@@ -44,11 +44,12 @@ const HomeScreen = ({ }: StackNavigationProps<
   const [random, setRandom] = React.useState(Math.random)
   return (
 
-    <Container isBottomTab={false} style={styles.container}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}  
-      >
+    <Container 
+      isBottomTab={false} 
+      style={styles.container}
+      
+    >
+      
         <TouchableWithoutFeedback
           // onPress={handleShow}
           onLongPress={handleShow}
@@ -69,15 +70,16 @@ const HomeScreen = ({ }: StackNavigationProps<
                 : null
             }
 
+
             <FlatList
               data={filterData()}
               key={'_'}
               keyExtractor={(_, index) => index.toString()}
               numColumns={2}
-              showsVerticalScrollIndicator={false}
               scrollToOverflowEnabled={false}
-              contentContainerStyle={{ paddingBottom: sizeHeight(10) }}
-
+              contentContainerStyle={{ paddingBottom: sizeHeight(10)}}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
               initialNumToRender={2} // Reduce initial render amount
               maxToRenderPerBatch={1} // Reduce number in each render batch
               updateCellsBatchingPeriod={5}
@@ -96,15 +98,11 @@ const HomeScreen = ({ }: StackNavigationProps<
                   uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
                   title={`${item?.name}`}
                 />
-
               )}
             />
-
-
           </View>
         </TouchableWithoutFeedback>
-      </ScrollView>
-    </Container>
+    </Container >
   );
 };
 
