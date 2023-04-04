@@ -12,7 +12,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { useLogicHome } from './useLogicHome';
 import { ApiConstants } from 'network/ApiConstants';
 import BigCard from 'components/cards/BigCard';
-import { sizeHeight } from 'utils/Utils';
+import { isPortrait, sizeHeight } from 'utils/Utils';
 import { FILE_SIZE } from 'utils/Constant';
 
 
@@ -77,7 +77,11 @@ const HomeScreen = ({ }: StackNavigationProps<
               keyExtractor={(_, index) => index.toString()}
               numColumns={2}
               scrollToOverflowEnabled={false}
-              contentContainerStyle={{ paddingBottom: sizeHeight(10)}}
+              contentContainerStyle={{ 
+                paddingBottom: sizeHeight(10),
+                flexDirection: isPortrait() ? 'column' : 'row'
+                
+              }}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
               initialNumToRender={2} // Reduce initial render amount

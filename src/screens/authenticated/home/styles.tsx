@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import colors from 'res/colors';
-import { fontSize, ratioW, sizeHeight, sizeWidth } from 'utils/Utils';
+import { fontSize, isPortrait, ratioW, sizeHeight, sizeWidth } from 'utils/Utils';
 
 export default StyleSheet.create({
   container: {
@@ -10,11 +10,10 @@ export default StyleSheet.create({
   },
 
   mainView: {
-    height: sizeHeight(95),
-    width: '95%',
+    height: isPortrait() ? sizeHeight(95) : '100%',
+    width: isPortrait() ? '95%' : '100%',
     alignSelf: 'center',
     alignItems: 'center',
-    
   },
   searchBar: {
     borderWidth: 1,
@@ -25,10 +24,6 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     height: sizeHeight(6),
     marginVertical: 5,
-    
-
-    
-
   },
   categoryCards: {
     width: sizeWidth(42),

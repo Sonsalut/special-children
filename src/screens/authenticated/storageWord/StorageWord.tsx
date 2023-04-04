@@ -84,6 +84,7 @@ const StorageWord = ({ }: StackNavigationProps<
           numColumns={3}
           contentContainerStyle={{paddingBottom: sizeHeight(8)}}
           showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     
   },
   storageView: {
-    width: '95%',
+    width: '100%',
     height: '92%',
     alignSelf: 'center',
     marginTop: 15,

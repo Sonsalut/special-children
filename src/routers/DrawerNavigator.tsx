@@ -20,7 +20,7 @@ import RecordingScreen from 'screens/authenticated/recording/RecordingScreen';
 import { Image } from 'react-native';
 import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { checkIpad, fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
+import { checkIpad, fontSize, isPortrait, sizeHeight, sizeWidth } from 'utils/Utils';
 import NavigationService from './NavigationService';
 
 const Drawer = createDrawerNavigator();
@@ -31,17 +31,17 @@ const DrawerNavigator = ({}) => {
     <Drawer.Navigator 
       screenOptions= {{
         drawerLabelStyle: 
-        checkIpad() ? {fontSize:fontSize(2.5)} 
-        : null
+        checkIpad() ? {fontSize:fontSize(2.5)} : null
       }} 
     initialRouteName={AuthenticatedScreens.HomeScreen}>
-      <Drawer.Screen name={AuthenticatedScreens.HomeScreens}
+      <Drawer.Screen 
+        name={AuthenticatedScreens.HomeScreens}
         component={HomeScreens}
         options={{
           title: 'Học từ',
           headerStyle: { 
             backgroundColor: colors.title_blue,
-            height: sizeHeight(10),
+            height: isPortrait() ? sizeHeight(10) : sizeHeight(5),
           },        
           headerTitleStyle: {  
             color: '#F1F1F2', 
@@ -51,7 +51,10 @@ const DrawerNavigator = ({}) => {
           },
           headerRight: () => (
             show ? 
-            <TouchableOpacity style={{width:sizeWidth(20)}} onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddCategory)}>
+            <TouchableOpacity 
+              style={{width:sizeWidth(20)}} 
+              onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddCategory)}
+            >
               <Icon 
                 name='pencil-outline' 
                 size={sizeHeight(3)} 
@@ -75,30 +78,30 @@ const DrawerNavigator = ({}) => {
             color: '#F1F1F2', 
             fontWeight: 'bold', 
             fontSize: fontSize(5), 
-            // paddingBottom: sizeHeight(2)
           },          
           headerPressOpacity: 1
         }}
 
       />
-      <Drawer.Screen name={AuthenticatedScreens.JoinWordScreen}
+      <Drawer.Screen 
+        name={AuthenticatedScreens.JoinWordScreen}
         component={JoinWordScreen}
         options={{ 
           title: 'Ghép từ', 
           headerStyle: { 
             backgroundColor: colors.title_blue,
-            height: sizeHeight(10)  
+            height: isPortrait() ? sizeHeight(10) : checkIpad() ? sizeHeight(10) :sizeHeight(5)  
           }, 
           headerTitleStyle: {  
             color: '#F1F1F2', 
             fontWeight: 'bold', 
             fontSize: fontSize(5), 
-            // paddingBottom: sizeHeight(2)
           },        
         }}
 
       />
-      <Drawer.Screen name={AuthenticatedScreens.MessageScreen}
+      <Drawer.Screen 
+        name={AuthenticatedScreens.MessageScreen}
         component={MessageScreen}
         options={{ 
           title: 'Cài đặt',
@@ -110,7 +113,6 @@ const DrawerNavigator = ({}) => {
             color: '#F1F1F2', 
             fontWeight: 'bold', 
             fontSize: fontSize(5), 
-            // paddingBottom: sizeHeight(2)
           },        
         }}
       />

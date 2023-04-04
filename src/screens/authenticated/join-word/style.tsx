@@ -1,11 +1,13 @@
 import { StyleSheet } from "react-native";
-import { checkIpad, fontSize, sizeHeight, sizeWidth } from "utils/Utils";
+import { checkIpad, fontSize, isPortrait, sizeHeight, sizeWidth } from "utils/Utils";
 
 export default StyleSheet.create({
     container: {
         backgroundColor: 'white'
     },
-    wordJoinView: {
+    wordJoinView: 
+    isPortrait() ? 
+    {
         borderRadius: sizeWidth(5),
         width: '95%',
         height: sizeHeight(46),
@@ -13,6 +15,16 @@ export default StyleSheet.create({
         marginTop: sizeHeight(2),
         backgroundColor: '#E7F6FF',
         borderWidth:1
+    } : 
+    {
+        borderRadius: sizeWidth(5),
+        width: '50%',
+        height: checkIpad() ? sizeHeight(60) : sizeHeight(40),
+        backgroundColor: '#E7F6FF',
+        borderWidth:1,
+        marginTop: sizeHeight(0.5),
+        marginLeft: sizeWidth(5),
+        flexDirection: checkIpad() ? 'row' : 'column'
     },
     wordcard: {
         backgroundColor: '#C1EBEA',

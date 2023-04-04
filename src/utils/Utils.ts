@@ -58,4 +58,8 @@ export const checkIpad=()=>{
   const { height, width } = Dimensions.get('window');
   const aspectRatio = height / width;
   return aspectRatio >1.6 ? false : true
+};
+export const isPortrait = () => {
+  const {height, width} = Dimensions.get('window');
+  return height > width;
 }

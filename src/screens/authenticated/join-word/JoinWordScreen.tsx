@@ -3,7 +3,7 @@ import { Container, Text, TouchableOpacity } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens } from 'routers/ScreenNames';
 import { FlatList, Image, ScrollView, View } from 'react-native';
-import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
+import { checkIpad, fontSize, isPortrait, sizeHeight, sizeWidth } from 'utils/Utils';
 import { store } from 'redux/store';
 import { useIsFocused } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -17,6 +17,7 @@ import SmallCard from 'components/cards/SmallCard';
 import { truncate } from 'fs';
 import { FILE_SIZE } from 'utils/Constant';
 import { Dimensions } from 'react-native';
+import { isPlain } from '@reduxjs/toolkit';
 
 
 
@@ -25,10 +26,10 @@ const JoinWordScreen = ({ }: StackNavigationProps<
     AuthenticatedScreens.RecordingScreen
 >) => {
     const isFocused = useIsFocused();
-    const isPortrait = () => {
-        const {height, width} = Dimensions.get('window')
-        return height > width;
-    };
+    // const isPortrait = () => {
+    //     const {height, width} = Dimensions.get('window')
+    //     return height > width;
+    // };
 
     React.useEffect(() => {
         if (isFocused) {
@@ -63,7 +64,13 @@ const JoinWordScreen = ({ }: StackNavigationProps<
     }
     const orientation = isPortrait () ? 'portrait' : 'landscape';
     return (
-        <Container isBottomTab={false} style={style.container}>
+        <Container 
+            isBottomTab={false} 
+            style={{
+                backgroundColor: 'white',
+                flexDirection: isPortrait() ? 'column' : 'row'
+            }}
+        >
             {/* Word join board */}
             <View style={style.wordJoinView}>
                 {/* Word added to board */}
@@ -81,11 +88,11 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                     scrollEnabled={false}
                     contentContainerStyle={{
                         alignItems: 'flex-start',
-                        marginTop: sizeHeight(2),
+                        // alignContent: 'flex-start',
+                        marginTop: isPortrait() ? sizeHeight(2) : sizeHeight(1),
+                        // flexDirection: isPortrait() ? 'column' : checkIpad() ? 'row' : 'column' ,
                         width: sizeWidth(85),
-                        // alignSelf:'center',
                         marginLeft: sizeWidth(6.5),
-                        // marginVertical:10
                     }}
                     renderItem={({ item, index }) => {
                         return (
@@ -117,7 +124,6 @@ const JoinWordScreen = ({ }: StackNavigationProps<
 
             <FlatList
                 data={data}
-
                 keyExtractor={(_, index) => index.toString()}
                 numColumns={3}
                 showsVerticalScrollIndicator={false}
@@ -127,16 +133,15 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                     width: '95%',
                     alignSelf: 'center',
                     justifyContent: 'space-around',
-                    // borderWidth:1
+                    paddingBottom: sizeHeight(4),
+                    marginRight: checkIpad() ? null : sizeHeight(1),
                 }}
                 renderItem={({ item, index }) => {
                     return (
                         <MediumCard
                             disabled={false}
                             isDoubleTap={true}
-
                             uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
-
                             title={`${item?.word}`}
                             onPress={() => {
                                 addWord(item, index)
