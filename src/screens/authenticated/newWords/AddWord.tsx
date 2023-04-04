@@ -3,7 +3,7 @@ import { Container } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens } from 'routers/ScreenNames';
 import { sizeHeight } from 'utils/Utils';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, ScrollView } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import RecordingAPI, { AuthApis } from 'network/subs/auth/recording/RecordingAPI';
 import { DeleteWord, GetWordByCateID } from 'network/subs/auth/recording/RecordingRequest';
@@ -377,19 +377,22 @@ const AddWord = ({ }: StackNavigationProps<
         text={'Thêm từ'}
       />
 
-      <View
-        style={{
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
           height: sizeHeight(80),
-          width: '95%',
+          width: '100%',
           alignSelf: 'center',
-          marginTop: 10,
+          alignItems: 'center',
+          marginTop: sizeHeight(2),
         }}
       >
         <FlatList
           data={data}
           keyExtractor={(_, index) => index.toString()}
           numColumns={2}
-          showsVerticalScrollIndicator={false}
+          
           scrollToOverflowEnabled={false}
           contentContainerStyle={{alignSelf: 'center',paddingBottom: '5%'}}
           refreshControl={
@@ -414,7 +417,7 @@ const AddWord = ({ }: StackNavigationProps<
           )}
 
         />
-      </View>
+      </ScrollView>
 
 
       {/* Choice tab */}

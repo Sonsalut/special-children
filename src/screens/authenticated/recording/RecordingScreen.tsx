@@ -183,7 +183,9 @@ const RecordingScreen = ({ route, navigation }: any) => {
     return (
 
         <Container isBottomTab={false} style={styles.container}>
-            <ScrollView>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+            >
                 <TouchableWithoutFeedback
                     // onPress={aa}
                     onLongPress={handleShow}

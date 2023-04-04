@@ -45,7 +45,10 @@ const HomeScreen = ({ }: StackNavigationProps<
   return (
 
     <Container isBottomTab={false} style={styles.container}>
-      <ScrollView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}  
+      >
         <TouchableWithoutFeedback
           // onPress={handleShow}
           onLongPress={handleShow}

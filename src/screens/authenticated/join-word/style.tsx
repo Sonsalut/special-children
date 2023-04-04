@@ -9,11 +9,10 @@ export default StyleSheet.create({
         borderRadius: sizeWidth(5),
         width: '95%',
         height: sizeHeight(46),
-        // justifyContent: 'center',
         alignSelf: 'center',
-        // alignContent: 'center',
-        marginTop: 20,
-        backgroundColor: '#E7F6FF'
+        marginTop: sizeHeight(2),
+        backgroundColor: '#E7F6FF',
+        borderWidth:1
     },
     wordcard: {
         backgroundColor: '#C1EBEA',

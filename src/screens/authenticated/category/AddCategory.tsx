@@ -3,7 +3,7 @@ import { Container, LoadingParents } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens } from 'routers/ScreenNames';
 import { sizeHeight, sizeWidth } from 'utils/Utils';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, ScrollView } from 'react-native';
 import RecordingAPI, { AuthApis } from 'network/subs/auth/recording/RecordingAPI';
 import { DeleteCategory, GetFullCategory } from 'network/subs/auth/recording/RecordingRequest';
 import ResponseCode from 'network/ResponseCode';
@@ -389,20 +389,22 @@ const AddCategory = ({ }: StackNavigationProps<
         onpress={handleAddCategory}
         text={"Thêm chủ đề"}
       />
-      <View
-        style={{
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false} 
+        contentContainerStyle={{
           height: sizeHeight(80),
-          width: '95%',
+          width: '100%',
           alignSelf: 'center',
           alignItems: 'center',
-          marginTop: 10
+          marginTop: sizeHeight(2),
+          borderWidth:1
         }}
       >
         <FlatList
           data={data}
           keyExtractor={(_, index) => index.toString()}
           numColumns={2}
-          showsVerticalScrollIndicator={false}
           scrollToOverflowEnabled={false}
           contentContainerStyle={{ paddingBottom: '5%' }}
           refreshControl={
@@ -427,7 +429,7 @@ const AddCategory = ({ }: StackNavigationProps<
             />
           )}
         />
-      </View>
+      </ScrollView>
       {/* Popup Edit chủ đề */}
       <AddEditModal
         title={"Chỉnh sửa chủ đề"}

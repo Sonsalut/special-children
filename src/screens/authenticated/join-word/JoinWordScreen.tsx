@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Text, TouchableOpacity } from 'components';
 import { Routes, StackNavigationProps } from 'routers/Navigation';
 import { AuthenticatedScreens } from 'routers/ScreenNames';
-import { FlatList, Image, View } from 'react-native';
+import { FlatList, Image, ScrollView, View } from 'react-native';
 import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import { store } from 'redux/store';
 import { useIsFocused } from '@react-navigation/native';
@@ -114,6 +114,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                 keyExtractor={(_, index) => index.toString()}
                 numColumns={3}
                 showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{ 
                     // alignItems: 'center', 
                     width: '95%', 

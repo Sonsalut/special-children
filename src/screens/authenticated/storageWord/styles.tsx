@@ -7,18 +7,16 @@ export default StyleSheet.create({
         backgroundColor: 'white', flex: 1
     },
     wordListContainer: {
-        // marginLeft: 10,
-        // paddingTop: 15,
         alignSelf: 'center',
         height: sizeHeight(94),
-        width: sizeWidth(95),
+        width: '95%',
         alignItems: 'center',
         paddingBottom: sizeHeight(5),
     },
     searchbar: {
         borderWidth: 1,
         // bottom: 5,
-        marginVertical: '1%',
+        marginVertical: sizeHeight(2),
     borderColor: '#2D5672',
    
         borderRadius: 15,
