@@ -51,7 +51,9 @@ const Storage = ({ }: StackNavigationProps<
   return (
 
 
-    <Container style={styles.container} isBottomTab={false}>
+    <Container 
+      style={styles.container} 
+      isBottomTab={false}>
 
       <HeaderWithBack
         outerStyle={{
@@ -141,9 +143,7 @@ const Storage = ({ }: StackNavigationProps<
                         </View>
                       )}
                     />
-
                   </View>
-
                 </View>
               )}
 

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Menu, Modal } from 'react-native-paper'
-import { checkIpad, fontSize, sizeHeight, sizeWidth } from 'utils/Utils'
+import { checkIpad, fontSize, isPortrait, sizeHeight, sizeWidth } from 'utils/Utils'
 
 interface ChoiceTabProps {
     visible?: boolean,
@@ -17,7 +17,7 @@ const ChoiceTab = ({
     editCategory,
     deleteCategory,
     cancel,
-    nameChoice =''
+    nameChoice = ''
 
 
 }: ChoiceTabProps) => {
@@ -26,22 +26,28 @@ const ChoiceTab = ({
             {/* Choice Tab */}
             <Modal
                 visible={visible}
-                style={{
+                style={isPortrait() ? {
                     backgroundColor: '#E7F6FF',
-                    borderRadius: 15,
+                    borderRadius: sizeWidth(3),
                     height: sizeHeight(20),
                     marginTop: sizeHeight(42),
                     width: sizeWidth(80),
                     marginLeft: sizeWidth(10),
-
+                } : {
+                    backgroundColor: '#E7F6FF',
+                    borderRadius: sizeWidth(3),
+                    height: sizeWidth(30),
+                    marginTop: sizeWidth(40),
+                    width: sizeHeight(60),
+                    marginLeft: sizeHeight(20),
                 }}
                 onDismiss={onDismiss}
                 dismissable={false}
             >
-                <Menu.Item titleStyle={{ fontSize: checkIpad()? fontSize(2.3) : fontSize(4), color: '#2D5672' }} leadingIcon="file-document-edit-outline" onPress={editCategory} title={`Chỉnh sửa ${nameChoice}`} />
-                <Menu.Item titleStyle={{ fontSize: checkIpad()? fontSize(2.3) : fontSize(4), color: '#2D5672' }} leadingIcon="eye-off-outline" onPress={deleteCategory} title={`Xóa ${nameChoice}`} />
+                <Menu.Item titleStyle={{ fontSize: checkIpad() ? fontSize(2.3) : fontSize(4), color: '#2D5672' }} leadingIcon="file-document-edit-outline" onPress={editCategory} title={`Chỉnh sửa ${nameChoice}`} />
+                <Menu.Item titleStyle={{ fontSize: checkIpad() ? fontSize(2.3) : fontSize(4), color: '#2D5672' }} leadingIcon="eye-off-outline" onPress={deleteCategory} title={`Xóa ${nameChoice}`} />
                 {/* <Menu.Item titleStyle={{ fontSize: 18, color: '#2D5672' }} leadingIcon="book-check" onPress={() => { showToast("Chưa hỗ trợ", 'warning') }} title="Đánh dấu đã học" /> */}
-                <Menu.Item titleStyle={{ color: 'red', fontSize: checkIpad()? fontSize(2.3) : fontSize(4) }} leadingIcon="archive-cancel" onPress={cancel} title="Hủy bỏ" />
+                <Menu.Item titleStyle={{ color: 'red', fontSize: checkIpad() ? fontSize(2.3) : fontSize(4) }} leadingIcon="archive-cancel" onPress={cancel} title="Hủy bỏ" />
             </Modal>
 
         </>

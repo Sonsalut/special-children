@@ -1,24 +1,23 @@
 import BigCardWithShield from "components/cards/BigCardWithShield";
 import { StyleSheet } from "react-native";
-import { checkIpad, fontSize, sizeHeight, sizeWidth } from "utils/Utils";
+import { checkIpad, isPortrait, fontSize, sizeHeight, sizeWidth } from "utils/Utils";
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: 'white', flex: 1
+        backgroundColor: 'white', 
+        flex: 1
     },
     wordListContainer: {
         alignSelf: 'center',
-        height: sizeHeight(94),
+        height: isPortrait()? sizeHeight(94) : '100%',
         width: '95%',
         alignItems: 'center',
         paddingBottom: sizeHeight(5),
     },
     searchbar: {
         borderWidth: 1,
-        // bottom: 5,
         marginVertical: sizeHeight(2),
-    borderColor: '#2D5672',
-   
+        borderColor: '#2D5672',
         borderRadius: 15,
         width: sizeWidth(80),
         backgroundColor: 'white',
@@ -41,6 +40,7 @@ export default StyleSheet.create({
         backgroundColor: '#E7F6FF',
         paddingLeft: 10,
         height: sizeHeight(26),
+        
     },
 
     cateView: {
@@ -59,14 +59,14 @@ export default StyleSheet.create({
     },
     wordview: {
         flexDirection: 'row',
-        height: checkIpad()? sizeHeight(21) :sizeHeight(21),
+        height: sizeHeight(21),
         width:'100%',
         alignItems: 'center',
     },
     wordVsCheckboxView: {
         flexDirection: 'row',
         width: sizeWidth(30),
-        height: checkIpad()? sizeHeight(19) : sizeHeight(19),
+        height: sizeHeight(19),
     },
 
     cardView: {
@@ -91,11 +91,16 @@ export default StyleSheet.create({
         alignSelf: "center",
         marginTop: '3%'
     },
-    checkbox: {
+    checkbox: checkIpad()?{
         right: 20,
         top:2,
         height: 20,
-
+    }
+    : {
+        right: 20,
+        top:2,
+        height: 20,
+        borderWidth:1
     },
     resultSearchView: {
         width: sizeWidth(90),
@@ -103,9 +108,4 @@ export default StyleSheet.create({
         height: sizeHeight(85),
         alignSelf: 'center',
     },
-    reusultWithCheckboxview: {
-
-    }
-
-
 })

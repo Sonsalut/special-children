@@ -51,5 +51,29 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     marginTop: '3.5%',
     color: '#2D5672'
+  },
+  flatListStyle: isPortrait() ? {
+    paddingBottom: sizeHeight(10),
+  }
+  : {
+    paddingBottom: sizeHeight(10),
+    paddingLeft: '17%',
+    width: sizeHeight(100),
+  },
+  wordModal: isPortrait() ? {
+    alignSelf: 'center',
+    backgroundColor: '#ADDDDC',
+    borderRadius: 15,
+    height: sizeHeight(70),
+    marginTop: sizeHeight(10),
+    width: sizeWidth(90),
+    marginLeft: sizeWidth(5)
+  } : {
+    alignSelf: 'center',
+    backgroundColor: '#ADDDDC',
+    borderRadius: 15,
+    width: sizeHeight(70),
+    height: sizeWidth(80),
+    marginLeft: sizeHeight(15)
   }
 });

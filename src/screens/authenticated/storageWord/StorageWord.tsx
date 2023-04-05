@@ -12,7 +12,7 @@ import { FlatList, RefreshControl } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import colors from 'res/colors';
 import NavigationService from 'routers/NavigationService';
-import { sizeHeight } from 'utils/Utils';
+import { isPortrait, sizeHeight, sizeWidth } from 'utils/Utils';
 import { ApiConstants } from 'network/ApiConstants';
 import MediumCard from '../../../components/cards/MediumCard';
 import AddButton from 'components/button/AddButton';
@@ -82,7 +82,7 @@ const StorageWord = ({ }: StackNavigationProps<
         <FlatList
           data={data}
           numColumns={3}
-          contentContainerStyle={{paddingBottom: sizeHeight(8)}}
+          contentContainerStyle={styles.flatListStyle}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           refreshControl={
@@ -122,4 +122,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  flatListStyle: isPortrait() ? {
+    paddingBottom: sizeHeight(8),
+  }
+  : {
+    paddingBottom: sizeHeight(8),
+    paddingLeft: '15%',
+    width: sizeHeight(100),
+  }
 })

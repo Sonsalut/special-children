@@ -41,7 +41,7 @@ const DrawerNavigator = ({}) => {
           title: 'Học từ',
           headerStyle: { 
             backgroundColor: colors.title_blue,
-            height: isPortrait() ? sizeHeight(10) : sizeHeight(5),
+            height: isPortrait() ? sizeHeight(10) : checkIpad() ? sizeHeight(10) :sizeHeight(5)  
           },        
           headerTitleStyle: {  
             color: '#F1F1F2', 
@@ -72,7 +72,7 @@ const DrawerNavigator = ({}) => {
           title: 'Kho ghép từ', 
           headerStyle: { 
             backgroundColor: colors.title_blue,
-            height: sizeHeight(10)  
+            height: isPortrait() ? sizeHeight(10) : checkIpad() ? sizeHeight(10) :sizeHeight(5)  
           }, 
           headerTitleStyle: {  
             color: '#F1F1F2', 
@@ -107,7 +107,7 @@ const DrawerNavigator = ({}) => {
           title: 'Cài đặt',
           headerStyle: { 
             backgroundColor: colors.title_blue,
-            height: sizeHeight(10)  
+            height: isPortrait() ? sizeHeight(10) : checkIpad() ? sizeHeight(10) :sizeHeight(5)  
           }, 
           headerTitleStyle: {  
             color: '#F1F1F2', 

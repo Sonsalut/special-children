@@ -77,11 +77,10 @@ const HomeScreen = ({ }: StackNavigationProps<
               keyExtractor={(_, index) => index.toString()}
               numColumns={2}
               scrollToOverflowEnabled={false}
-              contentContainerStyle={{ 
-                paddingBottom: sizeHeight(10),
-                flexDirection: isPortrait() ? 'column' : 'row'
-                
-              }}
+              contentContainerStyle={styles.flatListStyle}
+              // {{ 
+              //   paddingBottom: sizeHeight(10),
+              // }}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
               initialNumToRender={2} // Reduce initial render amount

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Menu, Modal } from 'react-native-paper'
-import { checkIpad, fontSize, sizeHeight, sizeWidth } from 'utils/Utils'
+import { checkIpad, fontSize, isPortrait, sizeHeight, sizeWidth } from 'utils/Utils'
 
 
 interface ModalCameraProps {
@@ -30,10 +30,8 @@ cancel
           borderRadius: 15,
           height: sizeHeight(20),
           marginTop: sizeHeight(40),
-          // alignSelf: 'center',
-          width: sizeWidth(80),
-          marginHorizontal: sizeWidth(5),
-
+          width: isPortrait()? sizeWidth(80): sizeHeight(60),
+          marginHorizontal: isPortrait()? sizeWidth(5) : sizeHeight(10.5),
         }}
         onDismiss={onDismiss}
         dismissable={false}

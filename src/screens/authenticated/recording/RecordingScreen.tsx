@@ -126,7 +126,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
 
         })
             .catch(err => {
-                showToast("Đang load", 'warning')
+                showToast("Đang tải nội dung", 'warning')
                 console.log(err?.message)
             })
     }
@@ -253,16 +253,8 @@ const RecordingScreen = ({ route, navigation }: any) => {
             {/* Màn hình số  */}
             <Modal
                 visible={visible}
-                style={{
-                    alignSelf: 'center',
-                    backgroundColor: '#ADDDDC',
-                    borderRadius: 15,
-                    height: sizeHeight(70),
-                    marginTop: sizeHeight(10),
-                    width: sizeWidth(90),
-                    // marginHorizontal: sizeHeight(10),
-                    marginLeft: sizeWidth(5)
-                }}
+                style={styles.wordModal}
+                
                 onDismiss={() => {
                     setShow(false)
                     setVisible(false)

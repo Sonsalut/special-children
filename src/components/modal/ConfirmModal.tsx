@@ -2,7 +2,7 @@ import { StyleProp, StyleSheet, Text, View, ViewStyle, VirtualizedList } from 'r
 import React from 'react'
 import { Modal } from 'react-native-paper'
 import colors from 'res/colors'
-import { checkIpad, fontSize, sizeHeight, sizeWidth } from 'utils/Utils'
+import { checkIpad, fontSize, isPortrait, sizeHeight, sizeWidth } from 'utils/Utils'
 import TouchableOpacity from 'components/button/TouchableOpacity'
 import Icon from 'react-native-vector-icons/Ionicons'
 
@@ -68,16 +68,23 @@ const ConfirmModal = ({
 export default ConfirmModal
 
 const styles = StyleSheet.create({
-    logoutModal: {
+    logoutModal: isPortrait() ? {
         backgroundColor: '#E7F6FF',
         borderRadius: 15,
         height: sizeHeight(20),
         marginTop: sizeHeight(35),
         width: sizeWidth(80),
         marginHorizontal: sizeWidth(10),
+    } : {
+        backgroundColor: '#E7F6FF',
+        borderRadius: 15,
+        height: sizeHeight(20),
+        marginTop: sizeWidth(30),
+        width: sizeHeight(50),
+        marginHorizontal: sizeHeight(25), 
     },
+
     logOutView: {
-        top: 0,
         alignItems: 'center',
         width: "100%",
         height: "100%",
@@ -91,7 +98,9 @@ const styles = StyleSheet.create({
     },
     warnText: {
         fontSize: checkIpad() ? fontSize(2) : 17, 
-        color: colors.black, fontWeight: '500', alignSelf: 'center'
+        color: colors.black, 
+        fontWeight: '500', 
+        alignSelf: 'center',
     },
     buttonView: {
         width: '100%',
