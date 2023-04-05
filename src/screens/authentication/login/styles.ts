@@ -14,6 +14,21 @@ export default StyleSheet.create({
     resizeMode: 'cover',
     justifyContent: 'center',
   },
+
+  superChildren:{
+    height: sizeHeight(100),
+    width: sizeWidth(90),
+    paddingBottom: sizeHeight(5),
+    justifyContent: 'flex-end'
+  },
+
+  fingerPrintOpacity: {
+    marginTop: sizeHeight(3.5),
+    alignItems: 'center',
+    borderRadius: 45,
+    height: sizeHeight(8),
+    width: sizeWidth(12),
+  },
   
   viewEmptyBackground: {
     height: ratioW(332),
@@ -44,9 +59,6 @@ export default StyleSheet.create({
     marginBottom: ratioW(30),
   },
   buttonLogin: {
-    // width: ratioW(210),
-    // width: '90%',
-    // marginBottom: ratioW(14),
     marginTop: sizeHeight(2.5),
     width: sizeWidth(75),
     alignSelf: 'center'

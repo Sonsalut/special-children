@@ -36,10 +36,12 @@ const ChoiceTab = ({
                 } : {
                     backgroundColor: '#E7F6FF',
                     borderRadius: sizeWidth(3),
-                    height: sizeWidth(30),
+                    height: checkIpad() ? sizeWidth(30) : sizeWidth(30),
                     marginTop: sizeWidth(40),
-                    width: sizeHeight(60),
-                    marginLeft: sizeHeight(20),
+                    width: checkIpad() ? sizeHeight(60) : sizeHeight(40),
+                    marginLeft: checkIpad() ? sizeHeight(20) : sizeWidth(10),
+                    borderWidth:1
+                    
                 }}
                 onDismiss={onDismiss}
                 dismissable={false}

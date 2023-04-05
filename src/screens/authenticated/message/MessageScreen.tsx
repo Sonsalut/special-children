@@ -62,7 +62,8 @@ const MessageScreen = ({ }: StackNavigationProps<
   return (
     <Container style={styles.container}>
       <View style={styles.containerView}>
-        {/* Touch ID on/off */}
+
+{/* TOUCH ID ON/OFF */}
         <View style={styles.view}>
           <Image
             source={require('../../../assets/images/fingerprint.png')}
@@ -78,7 +79,7 @@ const MessageScreen = ({ }: StackNavigationProps<
           />
         </View>
 
-        {/* Voice setting */}
+{/* VOICE SETTING */}
         <View style={styles.view}>
           <TouchableOpacity activeOpacity={0.7} onPress={handle} style={{ flexDirection: 'row' }} >
             <Image
@@ -89,7 +90,7 @@ const MessageScreen = ({ }: StackNavigationProps<
           </TouchableOpacity>
         </View>
 
-        {/* Sign out button */}
+{/* SIGN OUT BUTTON */}
         <View style={styles.view}>
           <TouchableOpacity 
             style={{ flexDirection: 'row' }} onPress={handleLogOut}>
@@ -101,24 +102,9 @@ const MessageScreen = ({ }: StackNavigationProps<
           </TouchableOpacity>
         </View>
 
-{/* test
-        <View>
-          <TouchableOpacity 
-            style={{
-              height:sizeHeight(10),
-              width: sizeWidth(10),
-              backgroundColor: 'blue',
-              shadowOpacity: 0,
-              shadowRadius: 2,
-              shadowOffset: {width:2, height:2}
-            }}
-          ></TouchableOpacity>
-        </View> */}
-
-
       </View>
 
-      {/* Popups shows */}
+{/* MODAL SHOW */}
       <Modal
         visible={visible}
         style={styles.modalVoice}
@@ -131,7 +117,7 @@ const MessageScreen = ({ }: StackNavigationProps<
           <TouchableOpacity onPress={handleReturn} style={styles.returnButton}>
             <Icon name='arrow-back-outline' size={fontSize(6)}/>
           </TouchableOpacity>
-          {/* gender choice */}
+{/* GENDER SETTING */}
           <View style={styles.genderView}>
 
             <Text style={styles.genderText}>Giới tính:</Text>
@@ -141,7 +127,7 @@ const MessageScreen = ({ }: StackNavigationProps<
               <RadioButton.Item label="Nữ" value="FEMALE" labelStyle={styles.selectedGenderText} />
             </RadioButton.Group>
           </View>
-          {/* Regionchoice */}
+{/* REGION SETTING */}
           <View style={styles.regionView}>
             <Text style={styles.selectedRegionText}>Vùng miền:</Text>
             <RadioButton.Group onValueChange={value => setRegionValue(value)} value={regionvalue}>
@@ -165,6 +151,8 @@ const MessageScreen = ({ }: StackNavigationProps<
         </View>
 
       </Modal>
+
+{/* LOG OUT MODAL */}
       <ConfirmModal
         visible={logOutvisible}
         onDismiss={() => {
@@ -180,9 +168,6 @@ const MessageScreen = ({ }: StackNavigationProps<
     </Container>
   );
 };
-
-
-
 export default MessageScreen;
 
 

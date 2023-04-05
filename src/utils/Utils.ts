@@ -54,12 +54,13 @@ export const getExtention = (path: string) => {
   return path.substring(path.lastIndexOf('.') + 1);
 };
 
-export const checkIpad=()=>{
+export const checkIpad = () => {
   const { height, width } = Dimensions.get('window');
   const aspectRatio = height / width;
   return aspectRatio >1.6 ? false : true
 };
 export const isPortrait = () => {
   const {height, width} = Dimensions.get('window');
-  return height > width;
-}
+  const orientation = height / width;
+  return orientation < 1 ? false : true;
+};

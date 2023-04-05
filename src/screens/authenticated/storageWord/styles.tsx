@@ -3,6 +3,9 @@ import { StyleSheet } from "react-native";
 import { checkIpad, isPortrait, fontSize, sizeHeight, sizeWidth } from "utils/Utils";
 
 export default StyleSheet.create({
+
+//styling for "Storage screen"
+
     container: {
         backgroundColor: 'white', 
         flex: 1
@@ -108,4 +111,24 @@ export default StyleSheet.create({
         height: sizeHeight(85),
         alignSelf: 'center',
     },
+
+    //styling for "StorageWord Screen"
+
+    storageView: {
+        width: '100%',
+        height: '92%',
+        alignSelf: 'center',
+        marginTop: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+
+      flatListStyle: isPortrait() ? {
+        paddingBottom: sizeHeight(8),
+      }
+      : {
+        paddingBottom: sizeHeight(8),
+        paddingLeft: '15%',
+        width: sizeHeight(100),
+      }
 })

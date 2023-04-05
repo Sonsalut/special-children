@@ -36,8 +36,6 @@ const ConfirmModal = ({
                 onDismiss={onDismiss}
                 style={[styles.logoutModal, style]}
                 dismissable={false}
-                
-
             >
                 <View style={styles.logOutView}>
                     <Icon name={'warning-outline'}

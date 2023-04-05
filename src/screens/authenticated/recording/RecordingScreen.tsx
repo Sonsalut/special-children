@@ -113,7 +113,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                 SoundPlayer.playUrl('file://' + filePath)
 
                             } catch (error) {
-                                showToast("Đang load file âm thanh...",'warning')
+                                showToast("Đang tải file âm thanh...",'warning')
                             }
                         })
                             .finally(() => {
@@ -205,12 +205,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                 : null
                         }
                         <View
-                            style={{
-                                width: sizeWidth(94),
-                                height: sizeHeight(92),
-                                alignSelf: 'center',
-                                paddingTop: sizeHeight(1),
-                            }}
+                            style={styles.cardsContainer}
                         >
                             <FlatList
                                 data={filterData()}
@@ -237,12 +232,8 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                         onPress={() => { chooseWord(item, index) }}
                                         isDoubleTap={false}
                                         uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
-
                                         title={`${item?.word}`}
                                     />
-
-
-
                                 )}
                             />
                         </View>
@@ -260,13 +251,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                     setVisible(false)
                 }}
             >
-                <View style={{
-                    alignItems: 'center',
-                    width: "100%",
-                    height: "100%",
-                    borderRadius: 15,
-
-                }}>
+                <View>
 
                     <View style={{ height: '100%' }}>
 
@@ -275,30 +260,22 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                 data.map((item, index) => (
                                     <View key={index}>
                                         <View
-                                            style={{
-                                                width: '93%',
-                                                marginBottom: 20,
-                                                paddingHorizontal: 10,
-                                                paddingTop: 6,
-                                                height: '15%',
-                                                flexDirection: 'row',
-                                                justifyContent: 'space-between',
-                                                alignSelf: 'center'
-                                            }}>
+                                            style={styles.wordModalHeader}>
                                             <TouchableOpacity onPress={handleCancel}>
-                                                <Image resizeMode='contain' source={cancel} style={{ width: sizeWidth(5), height: sizeHeight(3) }} />
+                                                <Image 
+                                                    resizeMode='contain' 
+                                                    source={cancel} 
+                                                    style={{ width: sizeWidth(5), height: sizeHeight(3) }} 
+                                                />
                                             </TouchableOpacity>
                                         </View>
                                         <View style={{ alignItems: 'center', marginBottom: sizeHeight(-45) }}>
-                                            <TouchableOpacity isDoubleTap={true} onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
-                                                <FastImage style={{
-                                                    
-                                                    height: sizeHeight(60), width: sizeWidth(80),
-                                                    alignSelf: 'center',
-                                                    borderRadius: sizeWidth(14),
-                                                    maxHeight: sizeHeight(40)
-                                                }}
-                                                resizeMode='stretch'
+                                            <TouchableOpacity 
+                                                isDoubleTap={true} 
+                                                onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
+                                                <FastImage 
+                                                    style={styles.wordModalImage}
+                                                    resizeMode='stretch'
                                                     source={{
                                                         uri: ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`,
                                                         // method: 'GET',
@@ -310,7 +287,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                                     }}
                                                 />
                                             </TouchableOpacity>
-                                            <Text style={{ fontSize: fontSize(12), flexDirection: 'row', color: '#2D5672', justifyContent: 'center', paddingTop: 3 }}>{item?.word}</Text>
+                                            <Text style={styles.wordModalText}>{item?.word}</Text>
                                         </View>
                                     </View>
                                 ))

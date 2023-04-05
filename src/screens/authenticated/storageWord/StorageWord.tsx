@@ -17,6 +17,7 @@ import { ApiConstants } from 'network/ApiConstants';
 import MediumCard from '../../../components/cards/MediumCard';
 import AddButton from 'components/button/AddButton';
 import { FILE_SIZE } from 'utils/Constant';
+import styles from './styles';
 
 
 const StorageWord = ({ }: StackNavigationProps<
@@ -38,13 +39,9 @@ const StorageWord = ({ }: StackNavigationProps<
       setData(response.data)
 
     }
-
   }
-
-  
   const isFocused = useIsFocused();
 
-  
   React.useEffect(() => {
     
    isFocused === true
@@ -109,25 +106,3 @@ const StorageWord = ({ }: StackNavigationProps<
 }
 
 export default StorageWord
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    
-  },
-  storageView: {
-    width: '100%',
-    height: '92%',
-    alignSelf: 'center',
-    marginTop: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  flatListStyle: isPortrait() ? {
-    paddingBottom: sizeHeight(8),
-  }
-  : {
-    paddingBottom: sizeHeight(8),
-    paddingLeft: '15%',
-    width: sizeHeight(100),
-  }
-})

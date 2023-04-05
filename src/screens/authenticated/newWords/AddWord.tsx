@@ -380,10 +380,8 @@ const AddWord = ({ }: StackNavigationProps<
         text={'Thêm từ'}
       />
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{
+      <View
+        style={{
           height: sizeHeight(80),
           width: '100%',
           alignSelf: 'center',
@@ -395,7 +393,8 @@ const AddWord = ({ }: StackNavigationProps<
           data={data}
           keyExtractor={(_, index) => index.toString()}
           numColumns={2}
-          
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
           scrollToOverflowEnabled={false}
           contentContainerStyle={{
             alignSelf: 'center',
@@ -423,7 +422,7 @@ const AddWord = ({ }: StackNavigationProps<
           )}
 
         />
-      </ScrollView>
+      </View>
 
 
       {/* Choice tab */}

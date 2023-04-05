@@ -101,7 +101,6 @@ const Storage = ({ }: StackNavigationProps<
                     <Text style={styles.cateText}>{item?.name}
                     </Text>
                   </View>
-
                   <View
                     key={index + 2}
                     style={styles.wordview}
@@ -114,8 +113,6 @@ const Storage = ({ }: StackNavigationProps<
                       renderItem={({ item, index }) => (
 
                         <View style={styles.wordVsCheckboxView}>
-
-
                           <View style={styles.cardView}
                           >
                             <FastImage
@@ -173,10 +170,7 @@ const Storage = ({ }: StackNavigationProps<
                 )}
               />
             </View>
-
-
         }
-
       </View>
 
     </Container>

@@ -47,10 +47,7 @@ const AddEditModal = ({
   slogan,
   isLoading=false
 
-
-
 }: AddEditModalProps) => {
-
 
   return (
     <Modal
@@ -89,7 +86,6 @@ const AddEditModal = ({
           keyboardVerticalOffset={82}
           style={styles.keyAvoidStyle}
         >
-
           <View 
             style={styles.modalTilteStyle}
           >
@@ -124,14 +120,10 @@ const AddEditModal = ({
                         borderRadius: sizeWidth(3),
                       }}
                       source={source}
-                    />)
-
-                    : (
-
+                    />) : (
                       <Icon color={'#60A2C8'} style={{ marginTop: sizeHeight(10) }} name='camera-outline' size={fontSize(25)} />
                     )
                 }
-
               </View>
             </TouchableOpacity>
             <View
@@ -144,7 +136,6 @@ const AddEditModal = ({
                 defaultValue={defaultValue}
                 onChangeText={onChangeText}
                 maxLength={14}
-
               />
             </View>
           </View>
@@ -214,7 +205,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center', 
     paddingBottom: 15, 
     bottom: 15 , 
-  }:{
+  } : {
     width: '90%', 
     justifyContent: 'space-around', 
     height: sizeHeight(60), 
@@ -248,7 +239,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize(3),  
   },
 
-  keyAvoidStyle:{ 
+  keyAvoidStyle: { 
     width: '100%', 
     height: isPortrait() ? '100%' : sizeWidth(90), 
     borderRadius: sizeWidth(3), 

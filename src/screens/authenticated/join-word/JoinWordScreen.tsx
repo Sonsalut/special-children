@@ -57,22 +57,35 @@ const JoinWordScreen = ({ }: StackNavigationProps<
         setRefresh(true);
         setTimeout(() => {
             setRefresh(false);
-
             getStorageWords()
 
         }, 2000);
     }
-    const orientation = isPortrait () ? 'portrait' : 'landscape';
+    // const orientation = isPortrait () ? 'portrait' : 'landscape';
     return (
-        <Container 
-            isBottomTab={false} 
-            style={{
-                backgroundColor: 'white',
-                flexDirection: isPortrait() ? 'column' : 'row'
-            }}
+        <Container
+            isBottomTab={false}
+            style={style.container}
         >
             {/* Word join board */}
-            <View style={style.wordJoinView}>
+            <View style={isPortrait() ? {
+                borderRadius: sizeWidth(5),
+                width: '95%',
+                height: sizeHeight(46),
+                alignSelf: 'center',
+                marginTop: sizeHeight(2),
+                backgroundColor: '#E7F6FF',
+                borderWidth: 1
+            } : {
+                borderRadius: sizeWidth(5),
+                width: '50%',
+                height: checkIpad() ? sizeHeight(60) : sizeHeight(40),
+                backgroundColor: '#E7F6FF',
+                borderWidth: 1,
+                marginTop: sizeHeight(0.5),
+                marginLeft: sizeWidth(5),
+                flexDirection: checkIpad() ? 'row' : 'column'
+            }}>
                 {/* Word added to board */}
                 <FlatList
                     data={words}
@@ -86,14 +99,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                     }
                     numColumns={3}
                     scrollEnabled={false}
-                    contentContainerStyle={{
-                        alignItems: 'flex-start',
-                        // alignContent: 'flex-start',
-                        marginTop: isPortrait() ? sizeHeight(2) : sizeHeight(1),
-                        // flexDirection: isPortrait() ? 'column' : checkIpad() ? 'row' : 'column' ,
-                        width: sizeWidth(85),
-                        marginLeft: sizeWidth(6.5),
-                    }}
+                    contentContainerStyle={style.joinWordFlatList}
                     renderItem={({ item, index }) => {
                         return (
                             <SmallCard
@@ -128,14 +134,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                 numColumns={3}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{
-                    // alignItems: 'center', 
-                    width: '95%',
-                    alignSelf: 'center',
-                    justifyContent: 'space-around',
-                    paddingBottom: sizeHeight(4),
-                    marginRight: checkIpad() ? null : sizeHeight(1),
-                }}
+                contentContainerStyle={style.reserveWordFlatList}
                 renderItem={({ item, index }) => {
                     return (
                         <MediumCard
@@ -152,8 +151,6 @@ const JoinWordScreen = ({ }: StackNavigationProps<
             />
         </Container>
     );
-
-
 };
 
 export default JoinWordScreen;

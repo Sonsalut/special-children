@@ -4,7 +4,6 @@ import { checkIpad, fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 
 export default StyleSheet.create({
   container: {
-
     backgroundColor: '#fff',
   },
   containerView: {
@@ -16,6 +15,8 @@ export default StyleSheet.create({
     marginTop: sizeHeight(2.5),
     borderRadius: 25
   },
+
+// SETTING OPTIONS
   iconImg: {
     width: sizeHeight(3), 
     height: sizeHeight(3)
@@ -44,13 +45,24 @@ export default StyleSheet.create({
     height: sizeHeight(5),
     paddingHorizontal: sizeWidth(5),
   },
-  modalVoice: {
+
+
+// VOICE SETTING MODAL
+  modalVoice: checkIpad() ? {
     backgroundColor: '#E7F6FF',
-    borderRadius: 15,
+    borderRadius: sizeHeight(3),
+    height: sizeHeight(50),
+    marginTop: sizeHeight(10),
+    width: sizeWidth(70),
+    marginLeft: sizeWidth(15)
+  } : {
+    backgroundColor: '#E7F6FF',
+    borderRadius: sizeHeight(3),
     height: sizeHeight(60),
     marginTop: sizeHeight(10),
     width: sizeWidth(80),
     marginLeft: sizeWidth(10),
+    borderWidth:1
   },
   voiceView: {
     alignItems: 'center',
@@ -75,12 +87,12 @@ export default StyleSheet.create({
   genderText: {
     alignSelf: 'flex-start',
     marginTop: sizeHeight(2),
-    fontSize: fontSize(4),
+    fontSize: checkIpad()? fontSize(3):fontSize(4),
     color: colors.black,
     width: '45%',
   },
   selectedGenderText: {
-    fontSize: fontSize(4),
+    fontSize: checkIpad()? fontSize(3):fontSize(4),
     width: sizeWidth(12),
     height: sizeHeight(5),
     paddingTop: checkIpad() ? sizeHeight(2.3) : sizeHeight(1),
@@ -91,16 +103,17 @@ export default StyleSheet.create({
     width: "90%",
     height: "40%",
     borderRadius: 15,
-    bottom: 20,
+    bottom:20,
     flexDirection: 'row',
-    paddingHorizontal: '15%'
+    paddingHorizontal: '15%',
   },
+  
   selectedRegionText: {
     alignSelf: 'flex-start',
     marginTop: sizeHeight(2),
-    fontSize: fontSize(4),
+    fontSize: checkIpad()? fontSize(3):fontSize(4),
     color: colors.black,
-    width: '45%'
+    width: '45%',
   },
   changeButtonView: {
     width: sizeWidth(60),
@@ -110,7 +123,7 @@ export default StyleSheet.create({
   },
   changeButton: {
     height: '90%',
-    width: '80%',
+    width: checkIpad() ? '60%' : '80%',
     borderRadius: 15,
     backgroundColor: '#ADDDDC',
     flexDirection: 'row',
@@ -121,70 +134,11 @@ export default StyleSheet.create({
     shadowOffset: { width: 1, height: 1 }
 
   },
-
   confirmText: {
     alignSelf: 'center',
-    fontSize: fontSize(3.5),
+    fontSize: checkIpad()? fontSize(3):fontSize(3.5),
     color: '#2D5672',
     fontWeight: 'bold',
   },
 
-  logoutModal: {
-    backgroundColor: '#E7F6FF',
-    borderRadius: 15,
-    height: 200,
-    marginTop: sizeHeight(25),
-    width: '90%',
-    marginHorizontal: 20,
-  },
-  logOutView: {
-    top: 0,
-    alignItems: 'center',
-    width: "100%",
-    height: "100%",
-    borderRadius: 15,
-
-    justifyContent: 'space-around'
-  },
-  warningIcon: {
-    padding: sizeWidth(1),
-    paddingLeft: sizeWidth(3)
-  },
-  warnText: {
-    fontSize: 17, 
-    color: colors.black, 
-    fontWeight: '500', 
-    alignSelf: 'center'
-  },
-  buttonView: {
-    width: '100%',
-    height: 60,
-    flexDirection: 'row',
-    justifyContent: "space-around",
-    alignItems: 'center'
-  },
-  closeButton: {
-    width: '30%',
-    height: 40,
-    borderColor: colors.blue,
-    borderRadius: 12,
-    justifyContent: 'center'
-  },
-  logOutButton: {
-    width: '30%',
-    height: 40,
-    backgroundColor: 'red',
-    borderRadius: 12,
-    justifyContent: 'center'
-  },
-  logOutText: {
-    alignSelf: 'center',
-    fontSize: 15,
-    color: 'white'
-  },
-  closeText: {
-    alignSelf: 'center',
-    fontSize: 15,
-    color: colors.blue
-  }
 });
