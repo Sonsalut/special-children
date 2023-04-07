@@ -12,7 +12,7 @@ export default StyleSheet.create({
     },
     wordListContainer: {
         alignSelf: 'center',
-        height: isPortrait()? sizeHeight(94) : '100%',
+        height: isPortrait() ? sizeHeight(94) : '100%',
         width: '95%',
         alignItems: 'center',
         paddingBottom: sizeHeight(5),

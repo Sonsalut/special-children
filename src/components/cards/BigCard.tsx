@@ -80,8 +80,11 @@ const styles = StyleSheet.create({
         marginTop: 20,
         backgroundColor: '#C1EBEA',
         paddingTop: 5,
+        shadowOffset: {width:1, height:1},
+        shadowOpacity: 1,
+        shadowColor: '#2D5672',
         borderColor:'#808080',
-        borderWidth:2
+        borderWidth:0
     },
     imageCategory: {
         height: checkIpad() ? sizeHeight(23) : sizeHeight(18),

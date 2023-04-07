@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import colors from 'res/colors';
-import { fontSize, isPortrait, ratioW, sizeHeight, sizeWidth } from 'utils/Utils';
+import { checkIpad, fontSize, isPortrait, ratioW, sizeHeight, sizeWidth } from 'utils/Utils';
 
 export default StyleSheet.create({
   container: {
@@ -52,6 +52,7 @@ export default StyleSheet.create({
     marginTop: 20,
     backgroundColor: '#C1EBEA',
     paddingTop: 5,
+    borderWidth:1
   },
 
   imageCategory: {
@@ -78,7 +79,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: '#ADDDDC',
     borderRadius: 15,
-    height: sizeHeight(70),
+    height: sizeHeight(65),
     marginTop: sizeHeight(10),
     width: sizeWidth(90),
     marginLeft: sizeWidth(5),
@@ -114,6 +115,6 @@ export default StyleSheet.create({
     flexDirection: 'row', 
     color: '#2D5672', 
     justifyContent: 'center', 
-    paddingTop: 3 
+    paddingTop: checkIpad() ? 3 : sizeHeight(5) 
   }
 });
