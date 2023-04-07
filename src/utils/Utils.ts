@@ -1,9 +1,7 @@
-
 import { Dimensions, StatusBar } from 'react-native';
 import { Constants } from 'common/Constants';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-
 const { width: screenWidth } = Dimensions.get('window');
 
 export const ratioW = (widthData: number) => {

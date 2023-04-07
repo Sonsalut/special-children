@@ -18,6 +18,7 @@ import { truncate } from 'fs';
 import { FILE_SIZE } from 'utils/Constant';
 import { Dimensions } from 'react-native';
 import { isPlain } from '@reduxjs/toolkit';
+import useOrientation from 'hooks/useOrientation';
 
 
 
@@ -26,10 +27,11 @@ const JoinWordScreen = ({ }: StackNavigationProps<
     AuthenticatedScreens.RecordingScreen
 >) => {
     const isFocused = useIsFocused();
-    // const isPortrait = () => {
-    //     const {height, width} = Dimensions.get('window')
-    //     return height > width;
-    // };
+    
+    //TEST RESPONSIVE ORIENTATION
+
+    const orientation = useOrientation();
+    
 
     React.useEffect(() => {
         if (isFocused) {

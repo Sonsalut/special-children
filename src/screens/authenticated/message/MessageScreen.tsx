@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import ConfirmModal from 'components/modal/ConfirmModal';
 import { useIsFocused } from '@react-navigation/native';
+import useOrientation from 'hooks/useOrientation';
 
 const MessageScreen = ({ }: StackNavigationProps<
   Routes,
@@ -41,6 +42,10 @@ const MessageScreen = ({ }: StackNavigationProps<
     };
     setIsSwitchOn(getFingerPrint());
   }, []);
+
+  //TEST RESPONSIVE ORIENTATION
+
+  const orientation = useOrientation();
  
   const isFocused = useIsFocused()
   React.useEffect(() => {

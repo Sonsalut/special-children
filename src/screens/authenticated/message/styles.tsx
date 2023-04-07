@@ -62,7 +62,6 @@ export default StyleSheet.create({
     marginTop: sizeHeight(10),
     width: sizeWidth(80),
     marginLeft: sizeWidth(10),
-    borderWidth:1
   },
   voiceView: {
     alignItems: 'center',
