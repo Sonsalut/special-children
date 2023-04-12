@@ -63,26 +63,35 @@ const BigCardWithShield = ({
                         ? <Icon
                             name='shield-sharp'
                             size={fontSize(5)}
-                            style={{ alignSelf: 'flex-end', marginRight: sizeWidth(1), marginTop: sizeHeight(1),color: 'orange', height: sizeHeight(4.5) }} />
+                            style={{ 
+                                alignSelf: 'flex-end', 
+                                marginRight: sizeWidth(1), 
+                                marginTop: sizeHeight(1),
+                                color: 'orange', 
+                                height: sizeHeight(4.5), 
+                            }}
+                        />
                         : null
                 }
             </View>
-            <FastImage
-                style={[styles.imageStyle]}
+            <View style={{zIndex:-1}}>
+                <FastImage
+                    style={[styles.imageStyle]}
 
-                source={{
-                    uri: uri,
-                    // method: 'GET',
-                    headers: {
-                        Authorization: store.getState().authReducer.user.accessToken,
+                    source={{
+                        uri: uri,
+                        // method: 'GET',
+                        headers: {
+                            Authorization: store.getState().authReducer.user.accessToken,
 
-                    },
-                    cache: FastImage.cacheControl.web,
-                    priority: FastImage.priority.high,
+                        },
+                        cache: FastImage.cacheControl.web,
+                        priority: FastImage.priority.high,
 
-                }}
-                resizeMode = {FastImage.resizeMode.stretch} 
-            />
+                    }}
+                    resizeMode = {FastImage.resizeMode.stretch} 
+                />
+            </View>
 
             <Text style={{
                 fontSize: fontSize(4.5),
@@ -109,7 +118,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginTop: sizeHeight(-3),
         padding: 15,
-
     }
 
 })

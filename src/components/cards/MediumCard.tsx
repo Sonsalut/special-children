@@ -67,8 +67,11 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         backgroundColor: '#C1EBEA',
         paddingTop: 5,
-        borderColor:'#808080',
-        borderWidth:2
+        shadowOffset: {width:1, height:1},
+        shadowOpacity: 1,
+        shadowColor: '#2D5672',
+        // borderColor:'#808080',
+        // borderWidth:2
     },
     imageStyle: {
         resizeMode: 'contain',
