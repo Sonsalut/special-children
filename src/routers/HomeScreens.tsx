@@ -1,6 +1,5 @@
 import React from 'react';
 import {AuthenticatedScreens} from './ScreenNames';
-import BottomTabNavigator from './BottomTabNavigator';
 import {Routes} from './Navigation';
 import {createStackNavigator} from '@react-navigation/stack';
 import JoinWordScreen from 'screens/authenticated/join-word/JoinWordScreen';
@@ -21,11 +20,6 @@ const HomeScreens= () => {
         component={HomeScreen}
         
       />
-       {/* <Stack.Screen
-        name={AuthenticatedScreens.RecordingScreen}
-        component={RecordingScreen}
-    
-      /> */}
       
     </Stack.Navigator>
   );

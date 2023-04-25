@@ -6,6 +6,8 @@ import { fontSize, sizeHeight, sizeWidth } from 'utils/Utils';
 import { store } from 'redux/store';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FastImage from 'react-native-fast-image';
+import colors from 'res/colors';
+import { color } from 'react-native-reanimated';
 interface CardProps {
     onPress?: () => void,
     isDoubleTap?: boolean,
@@ -65,7 +67,8 @@ const styles = StyleSheet.create({
         borderRadius: sizeWidth(3),
         marginHorizontal: sizeHeight(1),
         marginVertical: 10,
-        backgroundColor: '#C1EBEA',
+        backgroundColor: colors.card_blue,
+        // backgroundColor: '#C1EBEA',
         paddingTop: 5,
         shadowOffset: {width:1, height:1},
         shadowOpacity: 1,
@@ -85,6 +88,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontWeight: 'bold',
         marginTop: '3%',
-        color: '#2D5672'
+        color: colors.text_blue
+        // color: '#2D5672'
     }
 })

@@ -60,7 +60,7 @@ const Storage = ({ }: StackNavigationProps<
           backgroundColor: colors.title_blue
         }}
         title={'Kho từ'} handle={doneHandle} hasDone={true}
-        titleStyle={{ color: '#F1F1F2' }}
+        titleStyle={{ color: colors.text_blue }}
       />
       {/* Word list container */}
       <View

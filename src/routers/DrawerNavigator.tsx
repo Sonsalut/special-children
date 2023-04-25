@@ -1,14 +1,10 @@
 import * as React from 'react';
-import { Button, View, Text,TouchableOpacity } from 'react-native';
+import { Button, View, Text,TouchableOpacity, ImageBackground, Pressable } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Svg, {  Path } from "react-native-svg";
-
-
-
 import { Routes } from './Navigation';
 import { AuthenticatedScreens } from './ScreenNames';
-import DiscoveryScreen from 'screens/authenticated/discovery/DiscoveryScreen';
 import MessageScreen from 'screens/authenticated/message/MessageScreen';
 import JoinWordScreen from 'screens/authenticated/join-word/JoinWordScreen';
 import StorageWord from 'screens/authenticated/storageWord/StorageWord';
@@ -22,6 +18,7 @@ import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { checkIpad, fontSize, isPortrait, sizeHeight, sizeWidth } from 'utils/Utils';
 import NavigationService from './NavigationService';
+import { color } from 'react-native-reanimated';
 
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = ({}) => {
@@ -29,10 +26,27 @@ const DrawerNavigator = ({}) => {
   return (
 
     <Drawer.Navigator 
-      screenOptions= {{
+      screenOptions = {({ navigation }) => ({
+        headerLeft: () => (
+          
+          <Pressable onPress={navigation.toggleDrawer}>
+              <Image
+                source={require('../assets/images/nav.png')}
+                style={{
+                  left: sizeWidth(5.5),
+                  alignSelf: 'flex-start',
+                  resizeMode: 'contain',
+                  maxWidth: sizeWidth(5.5),
+                  maxHeight: sizeHeight(2.1),
+                }} />
+            </Pressable>
+          
+        ),
+          
+        
         drawerLabelStyle: 
         checkIpad() ? {fontSize:fontSize(2.5)} : null
-      }} 
+      })} 
     initialRouteName={AuthenticatedScreens.HomeScreen}>
       <Drawer.Screen 
         name={AuthenticatedScreens.HomeScreens}
@@ -40,29 +54,38 @@ const DrawerNavigator = ({}) => {
         options={{
           title: 'Học từ',
           headerStyle: { 
-            backgroundColor: colors.title_blue,
+            backgroundColor: colors.white,
+            // borderWidth:1,
             height: isPortrait() ? sizeHeight(10) : checkIpad() ? sizeHeight(10) :sizeHeight(5)  
           },        
           headerTitleStyle: {  
-            color: '#F1F1F2', 
+            color: colors.text_blue, 
             fontWeight: 'bold', 
             fontSize: fontSize(5), 
-            // paddingBottom: sizeHeight(2)
           },
           headerRight: () => (
-            show ? 
+            
             <TouchableOpacity 
-              style={{width:sizeWidth(20)}} 
+              style={{
+                width:sizeWidth(7), 
+                height: sizeHeight(3),
+                marginRight: sizeWidth(4.5),
+                justifyContent: 'center',
+              }} 
               onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddCategory)}
             >
-              <Icon 
-                name='pencil-outline' 
-                size={sizeHeight(3)} 
-                style={{right:sizeWidth(1.5), alignSelf:'flex-end'}}
+              <Image
+                source={require('../assets/images/edit.png')}
+                
+                style={{
+                  resizeMode: 'contain',
+                  maxWidth: sizeWidth(6.5),
+                  maxHeight: sizeHeight(2.7),
+                }}
               />
             </TouchableOpacity>
-            :null
-          ),  
+            
+          ),
         }}
       />
     
@@ -71,15 +94,16 @@ const DrawerNavigator = ({}) => {
         options={{ 
           title: 'Kho ghép từ', 
           headerStyle: { 
-            backgroundColor: colors.title_blue,
+            backgroundColor: colors.white,
             height: isPortrait() ? sizeHeight(10) : checkIpad() ? sizeHeight(10) :sizeHeight(5)  
           }, 
           headerTitleStyle: {  
-            color: '#F1F1F2', 
+            color: colors.text_blue, 
             fontWeight: 'bold', 
             fontSize: fontSize(5), 
           },          
-          headerPressOpacity: 1
+          headerPressOpacity: 1,
+          
         }}
 
       />
@@ -89,14 +113,39 @@ const DrawerNavigator = ({}) => {
         options={{ 
           title: 'Ghép từ', 
           headerStyle: { 
-            backgroundColor: colors.title_blue,
+            backgroundColor: colors.white,
             height: isPortrait() ? sizeHeight(10) : checkIpad() ? sizeHeight(10) :sizeHeight(5)  
           }, 
           headerTitleStyle: {  
-            color: '#F1F1F2', 
+            color: colors.text_blue, 
             fontWeight: 'bold', 
             fontSize: fontSize(5), 
-          },        
+          },
+          headerRight: () => (
+            
+            <TouchableOpacity 
+              style={{
+                width:sizeWidth(7), 
+                height: sizeHeight(3),
+                marginRight: sizeWidth(3.5),
+                justifyContent: 'center',
+              }} 
+              // onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddCategory)}
+            >
+              
+                <Image
+                  source={require('../assets/images/setup.png')}
+                  style={{
+                    resizeMode: 'contain',
+                    maxWidth: sizeWidth(6.5),
+                    maxHeight: sizeHeight(2.7),
+                  }}
+                  
+                  
+                />
+            </TouchableOpacity>
+            
+          ),       
         }}
 
       />
@@ -106,24 +155,16 @@ const DrawerNavigator = ({}) => {
         options={{ 
           title: 'Cài đặt',
           headerStyle: { 
-            backgroundColor: colors.title_blue,
+            backgroundColor: colors.white,
             height: isPortrait() ? sizeHeight(10) : checkIpad() ? sizeHeight(10) :sizeHeight(5)  
           }, 
           headerTitleStyle: {  
-            color: '#F1F1F2', 
+            color: colors.text_blue, 
             fontWeight: 'bold', 
             fontSize: fontSize(5), 
           },        
         }}
       />
-      {/* <Drawer.Screen name={AuthenticatedScreens.RecordingScreen}
-        component={RecordingScreen}
-        options={{ 
-          title: 'Chữ cái', 
-          headerStyle: { backgroundColor: colors.title_blue },
-          headerTitleStyle: { color: '#2D5672', fontWeight: 'bold', fontSize: 22, marginBottom: 10 }        
-        }}
-      /> */}
 
     </Drawer.Navigator>
 

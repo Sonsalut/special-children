@@ -378,8 +378,7 @@ const AddCategory = ({ }: StackNavigationProps<
       <HeaderWithBack
         title={'Chủ đề'}
         titleStyle={{
-          color: colors.header_title,
-          marginLeft: '7%'
+          color: colors.text_blue,
         }}
         outerStyle={{ backgroundColor: colors.title_blue }}
         rightIconShow={!showDoneIcon}

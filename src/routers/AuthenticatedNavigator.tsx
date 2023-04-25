@@ -19,6 +19,7 @@ import { addWordToStorage } from 'redux/storageWord/action';
 import NavigationService from './NavigationService';
 import AddWord from 'screens/authenticated/newWords/AddWord';
 import images from 'res/images';
+import { Image } from 'react-native';
 const Stack = createStackNavigator<Routes>();
 const CommonStackNavigator = ({}) => {
   const show = useSelector(store=>store.storeReducer.show)
@@ -39,38 +40,42 @@ const CommonStackNavigator = ({}) => {
         options={{
           headerShown:true,
           headerStyle: {
-            backgroundColor: colors.title_blue,
-            height: sizeHeight(10)  ,
-            // borderWidth:1
-            // justifyContent:'center'
-            
-            // borderWidth:1
+            backgroundColor: 'white',
+            height: sizeHeight(10),
           },
           
           headerTitleStyle: {  
-            color: '#F1F1F2', 
+            color: colors.text_blue, 
             fontWeight: 'bold', 
+            // borderWidth: 1,
             fontSize: fontSize(5), 
-            // textAlign:'center'
-            // borderWidth:1,
-            
-            // paddingBottom: sizeHeight(2)
-            // alignSelf:'center'
           },
         
           headerLeftLabelVisible:false,
           headerTintColor:'black',
           headerRight: () => (
-            show ? 
-              <TouchableOpacity style={{ width:sizeWidth(20)}} onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddWord)}>
-                <Icon 
-                  name='pencil-outline' 
-                  size={sizeHeight(3)} 
-                  style={{right:sizeWidth(1.5),alignSelf:'flex-end'}}
-                />
-              </TouchableOpacity>
-            : null
-          )
+            
+            <TouchableOpacity 
+              style={{
+                width:sizeWidth(7), 
+                height: sizeHeight(3),
+                marginRight: sizeWidth(4.5),
+                justifyContent: 'center',
+              }} 
+              onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddWord)}
+            >
+              <Image
+                source={require('../assets/images/edit.png')}
+                style={{
+                  resizeMode: 'contain',
+                  maxWidth: sizeWidth(6.5),
+                  maxHeight: sizeHeight(2.7),
+                }}
+              />
+            </TouchableOpacity>
+            
+          ),
+          
         }}
       />
 

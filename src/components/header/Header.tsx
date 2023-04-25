@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: ratioW(22),
     paddingRight: ratioW(22),
+    borderWidth:1
     // backgroundColor: colors.violet
   },
   viewIconHorizontal: {
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
     fontSize: ratioW(18),
     lineHeight: ratioW(24),
     fontWeight: Platform.OS === 'ios' ? '700' : 'bold',
-    color: colors.text1,
+    color: colors.text_blue,
   },
 });
 

@@ -7,6 +7,7 @@ import { store } from 'redux/store';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FastImage from 'react-native-fast-image';
 import { userInfo } from 'os';
+import colors from 'res/colors';
 interface CardProps {
     onPress?: () => void,
     isDoubleTap?: boolean,
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 9,
         // alignSelf: 'center',
         marginTop: 20,
-        backgroundColor: '#C1EBEA',
+        backgroundColor: colors.card_blue,
         paddingTop: 5,
         shadowOffset: {width:1, height:1},
         shadowOpacity: 1,
@@ -96,9 +97,10 @@ const styles = StyleSheet.create({
     },
     categoryText: {
         fontSize: fontSize(4.5),
-        alignSelf: 'center',
+        alignSelf: 'flex-start',
+        marginLeft: '8%',
         fontWeight: 'bold',
         marginTop: '3.5%',
-        color: '#2D5672'
+        color: colors.text_blue
     }
 })

@@ -24,10 +24,11 @@ import BigCard from 'components/cards/BigCard';
 import FastImage from 'react-native-fast-image';
 import { url } from 'inspector';
 import { FILE_SIZE } from 'utils/Constant';
+import HeaderWithBack from 'components/header/HeaderWithBack';
 
 const RecordingScreen = ({ route, navigation }: any) => {
 
-    const cancel = require('.././../../../src/assets/images/goback.png')
+    const cancel = require('.././../../../src/assets/images/back.png')
     const [image, setImage] = React.useState("");
     const [show, setShow] = React.useState(false);
     const [content, setContent] = React.useState("");
@@ -69,9 +70,9 @@ const RecordingScreen = ({ route, navigation }: any) => {
 
             // console.log(response.data)
             setData(response.data?.words)
-           
-            
- 
+
+
+
             // dispatch(setStorage(response.data?.words))
         }
         else {
@@ -113,7 +114,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                 SoundPlayer.playUrl('file://' + filePath)
 
                             } catch (error) {
-                                showToast("Đang tải file âm thanh...",'warning')
+                                showToast("Đang tải file âm thanh...", 'warning')
                             }
                         })
                             .finally(() => {
@@ -171,81 +172,75 @@ const RecordingScreen = ({ route, navigation }: any) => {
         }, 2000);
     }, []);
     React.useEffect(() => {
-        if(isFocused) {
+        if (isFocused) {
 
-           loadData()
+            loadData()
         }
-      }, [isFocused])
-      
-      
-    
-   
+    }, [isFocused])
+
+
+
+
     return (
 
-        <Container 
-            isBottomTab={false} 
+        <Container
+            isBottomTab={false}
             style={styles.container}>
             
-                <TouchableWithoutFeedback
-                    // onPress={aa}
-                    onLongPress={handleShow}
-                >
-                    <View style={styles.mainView}>
-                        {
-                            shows ?
-                                <Searchbar
-                                    style={styles.searchBar}
-                                    placeholder="Tìm kiếm từ"
-                                    placeholderTextColor={'gray'}
-                                    inputStyle={{ alignSelf: 'center' }}
-                                    value={searchValue}
-                                    onChangeText={(e) => setSearchValue(e)}
-                                    spellCheck={false}
+            <View style={styles.mainView}>
+
+                <Searchbar
+                    style={styles.searchBar}
+                    placeholder="Tìm kiếm từ"
+                    placeholderTextColor={'gray'}
+                    inputStyle={{ alignSelf: 'center' }}
+                    value={searchValue}
+                    onChangeText={(e) => setSearchValue(e)}
+                    spellCheck={false}
+                />
+
+
+                <View
+                        style={styles.cardsContainer}
+                    >
+                        <FlatList
+                            data={filterData()}
+                            keyExtractor={(_, index) => index.toString()}
+                            showsVerticalScrollIndicator={false}
+                            showsHorizontalScrollIndicator={false}
+                            numColumns={2}
+                            contentContainerStyle={{
+                                paddingBottom: sizeHeight(10),
+                                paddingLeft: checkIpad() ? sizeWidth(3) : sizeWidth(0.5)
+                            }}
+                            removeClippedSubviews={true}
+                            initialNumToRender={2} // Reduce initial render amount
+                            maxToRenderPerBatch={1} // Reduce number in each render batch
+                            updateCellsBatchingPeriod={5}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={onRefresh}
+                                    colors={[colors.blue]}
+                                />}
+                            renderItem={({ item, index }) => (
+                                <BigCard
+                                    onPress={() => { chooseWord(item, index) }}
+                                    isDoubleTap={false}
+                                    uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
+                                    title={`${item?.word}`}
                                 />
-                                : null
-                        }
-                        <View
-                            style={styles.cardsContainer}
-                        >
-                            <FlatList
-                                data={filterData()}
-                                keyExtractor={(_, index) => index.toString()}
-                                showsVerticalScrollIndicator={false}
-                                showsHorizontalScrollIndicator={false}
-                                numColumns={2}
-                                contentContainerStyle={{
-                                    paddingBottom: sizeHeight(10),
-                                    paddingLeft: checkIpad() ? sizeWidth(3) : sizeWidth(0.5)
-                                }}
-                                removeClippedSubviews={true}
-                                initialNumToRender={2} // Reduce initial render amount
-                                maxToRenderPerBatch={1} // Reduce number in each render batch
-                                updateCellsBatchingPeriod={5}
-                                refreshControl={
-                                    <RefreshControl
-                                        refreshing={refreshing}
-                                        onRefresh={onRefresh}
-                                        colors={[colors.blue]}
-                                    />}
-                                renderItem={({ item, index }) => (
-                                    <BigCard
-                                        onPress={() => { chooseWord(item, index) }}
-                                        isDoubleTap={false}
-                                        uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
-                                        title={`${item?.word}`}
-                                    />
-                                )}
-                            />
-                        </View>
+                            )}
+                        />
                     </View>
-                </TouchableWithoutFeedback>
-            
+                </View>
+
 
             {/* Màn hình số  */}
             <Modal
                 visible={visible}
                 style={styles.wordModal}
-                
+
                 onDismiss={() => {
                     setShow(false)
                     setVisible(false)
@@ -262,18 +257,18 @@ const RecordingScreen = ({ route, navigation }: any) => {
                                         <View
                                             style={styles.wordModalHeader}>
                                             <TouchableOpacity onPress={handleCancel}>
-                                                <Image 
-                                                    resizeMode='contain' 
-                                                    source={cancel} 
-                                                    style={{ width: sizeWidth(5), height: sizeHeight(3) }} 
+                                                <Image
+                                                    resizeMode='contain'
+                                                    source={cancel}
+                                                    style={{ width: sizeWidth(5), height: sizeHeight(3) }}
                                                 />
                                             </TouchableOpacity>
                                         </View>
                                         <View style={{ alignItems: 'center', marginBottom: sizeHeight(-45) }}>
-                                            <TouchableOpacity 
-                                                isDoubleTap={true} 
+                                            <TouchableOpacity
+                                                isDoubleTap={true}
                                                 onPress={() => playSound(item?.audioWord)} activeOpacity={0.7}>
-                                                <FastImage 
+                                                <FastImage
                                                     style={styles.wordModalImage}
                                                     resizeMode='stretch'
                                                     source={{

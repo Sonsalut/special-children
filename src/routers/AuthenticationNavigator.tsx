@@ -15,11 +15,6 @@ const AuthenticationNavigator = () => {
         component={LoginScreen}
         options={{headerShown: false}}
       />
-      {/* <Stack.Screen
-        name={AuthenticationScreens.RegisterScreen}
-        component={RegisterScreen}
-        options={{headerShown: false}}
-      /> */}
     </Stack.Navigator>
   );
 };

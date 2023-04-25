@@ -18,5 +18,6 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: CONTENT_STANDARD / 1.75,
     top: 0,
+    borderWidth:1
   },
 });

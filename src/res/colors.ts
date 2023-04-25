@@ -18,11 +18,12 @@ const colors = new (class {
   white_gray='#FDF8EF';
   blue = '#0096FF';
   title_blue = '#6AA7CB';
-  text_blue = '#2D5672';
+  text_blue = '#1D3140';
   btn_blue = '#60A2C8';
   tag_blue = '#99C8E4';
   bgr_blue = '#E7F6FF';
   header_title = '#F1F1F2';
+  card_blue = '#76C3FF'
 
   whiteWithOpacity = (opacity: number) => `rgba(255, 255, 255, ${opacity})`;
   blackWithOpacity = (opacity: number) => `rgba(0, 0, 0, ${opacity})`;

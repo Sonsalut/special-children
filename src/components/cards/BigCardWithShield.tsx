@@ -5,6 +5,7 @@ import { checkIpad, fontSize, sizeHeight, sizeWidth } from 'utils/Utils'
 import Icon from 'react-native-vector-icons/Ionicons'
 import FastImage from 'react-native-fast-image'
 import { store } from 'redux/store'
+import colors from 'res/colors'
 
 
 
@@ -42,7 +43,8 @@ const BigCardWithShield = ({
                 marginHorizontal: 9,
                 alignSelf: 'center',
                 marginTop: 20,
-                backgroundColor: '#C1EBEA',
+                backgroundColor: colors.card_blue,
+                // backgroundColor: '#C1EBEA',
                 paddingTop: 5,
                 borderWidth: isClicked ? 0 : 2
             }}
@@ -95,10 +97,11 @@ const BigCardWithShield = ({
 
             <Text style={{
                 fontSize: fontSize(4.5),
-                alignSelf: 'center',
+                alignSelf: 'flex-start',
                 fontWeight: 'bold',
+                marginLeft: '8%',
                 marginTop: checkIpad() ? '2%' : '3.5%',
-                color: '#2D5672'
+                color: colors.text_blue
             }}>{title}</Text>
 
 

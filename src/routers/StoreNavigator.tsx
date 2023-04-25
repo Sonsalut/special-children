@@ -1,6 +1,5 @@
 import React from 'react';
 import {AuthenticatedScreens} from './ScreenNames';
-import BottomTabNavigator from './BottomTabNavigator';
 import {Routes} from './Navigation';
 import {createStackNavigator} from '@react-navigation/stack';
 import JoinWordScreen from 'screens/authenticated/join-word/JoinWordScreen';
@@ -21,10 +20,6 @@ const StoreNavigator = () => {
         name={AuthenticatedScreens.StorageWord}
         component={StorageWord}
       />
-       {/* <Stack.Screen
-        name={AuthenticatedScreens.Storage}
-        component={Storage}
-      /> */}
       
     </Stack.Navigator>
   );
