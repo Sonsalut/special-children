@@ -66,7 +66,6 @@ const HeaderWithBack = ({
     <RowContainer style={[styles.container, containerStyle]}>
       <View
         style={{
-          // borderWidth:1,
           // marginTop: checkIpad() ? null : sizeHeight(),
           height: sizeHeight(5),
           width: '100%',
@@ -112,7 +111,6 @@ const HeaderWithBack = ({
         {/* title */}
         <View
           style={{
-            // borderWidth: 1,
             alignSelf: 'center',
             alignItems: 'center',
             alignContent: 'center',
@@ -128,15 +126,38 @@ const HeaderWithBack = ({
           </HeaderTitle>
         </View>
 
+      {/* right icon */}
         <View
           style={{
-            // borderWidth: 1,
-            width: '20%',
-            height: sizeHeight(5),
+            width: '12%',
+            justifyContent: 'flex-end',
+            marginLeft: 'auto',
           }}
         >
+          {
+            rightIconShow
+              ? <TouchableOpacity
+                onPress={handle}
+                style={{
+                  width:sizeWidth(7), 
+                  height: sizeHeight(3),
+                  marginLeft: sizeWidth(0.5),
+                  justifyContent: 'center',
+                }}
+              >
+                <Image
+                  resizeMode='contain'
+                  style={{
+                    paddingTop: sizeHeight(2),
+                    maxWidth: sizeWidth(6.5),
+                    maxHeight: sizeHeight(2.7),
+                  }}
+                  source={images.edit}
+                />
 
-          {/* </ViewCondition> */}
+              </TouchableOpacity>
+              : null
+          }
         </View>
       </View>
     </RowContainer>

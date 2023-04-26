@@ -12,7 +12,8 @@ const images = {
   done:require('../assets/images/done.png'),
   plus:require('../assets/images/plus.png'),
   action: require('../assets/images/actions.png'),
-  back: require('../assets/images/back.png')
-  
+  back: require('../assets/images/back.png'),
+  setup: require('../assets/images/setup.png'),
+  edit: require('../assets/images/edit.png')
 };
 export default images;

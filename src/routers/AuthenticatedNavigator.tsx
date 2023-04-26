@@ -80,6 +80,7 @@ const CommonStackNavigator = ({}) => {
                 height: sizeHeight(3),
                 marginRight: sizeWidth(4.5),
                 justifyContent: 'center',
+                // borderWidth:1
               }} 
               onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddWord)}
             >
