@@ -26,24 +26,23 @@ export default StyleSheet.create({
     },
     playButton: {
         alignSelf: 'flex-end',
-        shadowColor: 'grey',
-        backgroundColor: '#FFD19A',
-        height: sizeHeight(5),
-        width: sizeHeight(5),
-        borderRadius: sizeWidth(2),
+        height: sizeHeight(6.5),
+        width: sizeHeight(6.5),
+        borderRadius: sizeWidth(6),
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom:sizeHeight(2),
-        marginRight:sizeHeight(2),
-        borderWidth:1
+        marginBottom:sizeHeight(1),
+        marginRight:sizeHeight(1.7),
+        // borderWidth:1
     },
 
 //CARD ON BOARD VIEW
     joinWordFlatList:{
         alignItems: 'flex-start',
-        marginTop: isPortrait() ? sizeHeight(2) : sizeHeight(1),
-        width: sizeWidth(85),
-        marginLeft: sizeWidth(6.5),
+        marginTop: isPortrait() ? sizeHeight(0.5) : sizeHeight(1),
+        width: sizeWidth(100),
+        paddingLeft: sizeWidth(1.1),
+        // borderWidth:1
     },
 
 //CARD STYLING

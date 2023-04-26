@@ -31,6 +31,7 @@ const DrawerNavigator = ({}) => {
           
           <Pressable onPress={navigation.toggleDrawer}>
               <Image
+              // source={require('../')}
                 source={require('../assets/images/nav.png')}
                 style={{
                   left: sizeWidth(5.5),
@@ -38,7 +39,8 @@ const DrawerNavigator = ({}) => {
                   resizeMode: 'contain',
                   maxWidth: sizeWidth(5.5),
                   maxHeight: sizeHeight(2.1),
-                }} />
+                }} 
+              />
             </Pressable>
           
         ),
@@ -128,9 +130,10 @@ const DrawerNavigator = ({}) => {
                 width:sizeWidth(7), 
                 height: sizeHeight(3),
                 marginRight: sizeWidth(3.5),
+                marginTop: sizeHeight(0.5),
                 justifyContent: 'center',
               }} 
-              // onPress={()=>NavigationService.navigate(AuthenticatedScreens.AddCategory)}
+              onPress={()=>NavigationService.navigate(AuthenticatedScreens.StorageWord)}
             >
               
                 <Image

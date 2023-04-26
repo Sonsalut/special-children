@@ -367,8 +367,7 @@ const AddWord = ({ }: StackNavigationProps<
       <HeaderWithBack
         title={'Từ vựng'}
         titleStyle={{
-          color: colors.header_title,
-          marginLeft: '7%'
+          color: colors.text_blue,
         }}
         outerStyle={{ backgroundColor: colors.title_blue }}
         rightIconShow={!showDoneIcon}

@@ -1,5 +1,6 @@
 import BigCardWithShield from "components/cards/BigCardWithShield";
 import { StyleSheet } from "react-native";
+import colors from "res/colors";
 import { checkIpad, isPortrait, fontSize, sizeHeight, sizeWidth } from "utils/Utils";
 
 export default StyleSheet.create({
@@ -29,36 +30,39 @@ export default StyleSheet.create({
     
     titleView: checkIpad() ? 
     {
-        marginBottom: sizeHeight(2),
+        // marginBottom: sizeHeight(2),
         borderRadius: 25,
-        backgroundColor: '#E7F6FF',
+        // backgroundColor: '#E7F6FF',
         paddingLeft: sizeWidth(3),
         paddingRight: sizeWidth(3),
         height: sizeHeight(26),
+        
     }
     :{
-        marginBottom: 22,
-        paddingBottom: 15,
+        // marginBottom: 22,
+        // paddingBottom: 15,
         borderRadius: 15,
-        backgroundColor: '#E7F6FF',
+        // backgroundColor: '#E7F6FF',
         paddingLeft: 10,
         height: sizeHeight(26),
-        
     },
 
     cateView: {
-        width: sizeWidth(80),
+        width: sizeWidth(90),
         borderRadius: 10,
         marginVertical: 5,
         marginBottom: -3,
         marginTop: 8,
         alignSelf: 'center',
+        
     },
     cateText: {
         fontSize: checkIpad() ? fontSize(4) : 18,
-        color: '#897666',
-        fontWeight: 'bold',
-        alignSelf: "center",
+        // color: '#897666',
+        color: colors.text_blue,
+        // fontWeight: 'bold',
+        alignSelf: 'flex-start',
+        paddingLeft: sizeHeight(1)
     },
     wordview: {
         flexDirection: 'row',
@@ -103,7 +107,6 @@ export default StyleSheet.create({
         right: 20,
         top:2,
         height: 20,
-        borderWidth:1
     },
     resultSearchView: {
         width: sizeWidth(90),

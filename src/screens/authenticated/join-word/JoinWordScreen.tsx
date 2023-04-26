@@ -71,18 +71,18 @@ const JoinWordScreen = ({ }: StackNavigationProps<
         >
             {/* Word join board */}
             <View style={isPortrait() ? {
-                borderRadius: sizeWidth(5),
-                width: '95%',
-                height: sizeHeight(46),
+                width: '100%',
+                height: sizeHeight(50),
                 alignSelf: 'center',
                 marginTop: sizeHeight(2),
-                backgroundColor: '#E7F6FF',
-                borderWidth: 1
+                backgroundColor: '#EFEFEF',
+                
+                // borderWidth: 1
             } : {
                 borderRadius: sizeWidth(5),
                 width: '50%',
                 height: checkIpad() ? sizeHeight(60) : sizeHeight(40),
-                backgroundColor: '#E7F6FF',
+                backgroundColor: '#EFEFEF',
                 borderWidth: 1,
                 marginTop: sizeHeight(0.5),
                 marginLeft: sizeWidth(5),
@@ -104,7 +104,7 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                     contentContainerStyle={style.joinWordFlatList}
                     renderItem={({ item, index }) => {
                         return (
-                            <SmallCard
+                            <MediumCard
                                 isDoubleTap={true}
                                 onPress={() => { deleteWord(item) }}
                                 uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
@@ -122,8 +122,24 @@ const JoinWordScreen = ({ }: StackNavigationProps<
                 >
                     {
                         stop
-                            ? <Icon color={'#2D5672'} size={sizeHeight(4)} name="stop-outline"></Icon>
-                            : <Icon color={'#2D5672'} size={sizeHeight(4)} name="play-outline"></Icon>
+                            ? <Image
+                                source={require('../../../assets/images/pause-btn.png')}
+                                resizeMode='contain'
+                                style={{
+                                    height: sizeHeight(13),
+                                    width: sizeWidth(13)
+                                }}
+                            />
+                            
+                            : <Image
+                                source={require('../../../assets/images/play-btn.png')}
+                                resizeMode='contain'
+                                style={{
+                                    height: sizeHeight(13),
+                                    width: sizeWidth(13)
+                                }}
+                            />
+                            
                     }
 
                 </TouchableOpacity>

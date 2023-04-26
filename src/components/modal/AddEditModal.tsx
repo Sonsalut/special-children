@@ -156,7 +156,8 @@ export default AddEditModal
 
 const styles = StyleSheet.create({
   mainModal: isPortrait() ? {
-    backgroundColor: '#E7F6FF',
+    // backgroundColor: '#E7F6FF',
+    backgroundColor: '#FFFFFF',
     borderRadius: sizeWidth(3),
     height: '70%',
     marginTop: sizeHeight(20),

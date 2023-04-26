@@ -148,7 +148,7 @@ const AddCategory = ({ }: StackNavigationProps<
   const [count, setCount] = React.useState(1)
 
   const handleOnclick = (item) => {
-    // checkDone()
+    checkDone()
     // console.log(item)
     if (item?.isActive === true) {
       setCount(count + 1)

@@ -17,6 +17,7 @@ import { ApiConstants } from 'network/ApiConstants';
 import SmallCard from 'components/cards/SmallCard';
 import FastImage from 'react-native-fast-image';
 import { FILE_SIZE } from 'utils/Constant';
+import { Image } from 'react-native-paper/lib/typescript/components/Avatar/Avatar';
 
 const Storage = ({ }: StackNavigationProps<
   Routes,
@@ -135,7 +136,18 @@ const Storage = ({ }: StackNavigationProps<
                             </Text>
                           </View>
                           {
-                            hasDone ? <CheckBox style={styles.checkbox} value={!item?.isActive} onValueChange={() => handleChoose(item)} /> : null
+                            hasDone ? 
+                              // <Image
+                              //   source={require('../../../assets/images/tick.png')}
+                              //   value={!item?.isActive} 
+                              //   onValueChange={() => handleChoose(item)} 
+                              // />
+                              <CheckBox 
+                                style={styles.checkbox} 
+                                value={!item?.isActive} 
+                                onValueChange={() => handleChoose(item)} 
+                              /> 
+                            : null
                           }
                         </View>
                       )}

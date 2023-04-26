@@ -85,9 +85,10 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         fontSize: fontSize(3.8),
-        alignSelf: 'center',
+        alignSelf: 'flex-start',
         fontWeight: 'bold',
         marginTop: '3%',
+        marginLeft: '10%',
         color: colors.text_blue
         // color: '#2D5672'
     }

@@ -1,6 +1,5 @@
 import React from 'react';
 import {AuthenticatedScreens} from './ScreenNames';
-import BottomTabNavigator from './BottomTabNavigator';
 import {Routes} from './Navigation';
 import {createStackNavigator} from '@react-navigation/stack';
 import JoinWordScreen from 'screens/authenticated/join-word/JoinWordScreen';
@@ -19,7 +18,7 @@ import { addWordToStorage } from 'redux/storageWord/action';
 import NavigationService from './NavigationService';
 import AddWord from 'screens/authenticated/newWords/AddWord';
 import images from 'res/images';
-import { Image } from 'react-native';
+import { Image, Platform } from 'react-native';
 const Stack = createStackNavigator<Routes>();
 const CommonStackNavigator = ({}) => {
   const show = useSelector(store=>store.storeReducer.show)
@@ -50,9 +49,29 @@ const CommonStackNavigator = ({}) => {
             // borderWidth: 1,
             fontSize: fontSize(5), 
           },
-        
-          headerLeftLabelVisible:false,
-          headerTintColor:'black',
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={()=>NavigationService.navigate(AuthenticatedScreens.HomeScreen)}
+              style={{
+                width: sizeWidth(10),
+                height: sizeHeight(5),
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+                // borderWidth: 1,
+                marginLeft: sizeWidth(5)
+                // marginLeft: Platform.OS === 'android' ? sizeWidth(4) : sizeWidth(4),
+            }}
+          >
+            <Image
+              source={require('../assets/images/back.png')}
+              style={{
+                resizeMode: 'contain',
+                maxWidth: sizeWidth(6.5),
+                maxHeight: sizeHeight(4),
+              }}
+            />
+          </TouchableOpacity>
+          ),
           headerRight: () => (
             
             <TouchableOpacity 

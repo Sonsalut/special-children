@@ -10,7 +10,8 @@ export default StyleSheet.create({
     width: checkIpad() ? sizeWidth(80) : sizeWidth(90),
     height: sizeHeight(50),
     alignSelf: 'center',
-    backgroundColor: '#E7F6FF',
+    // backgroundColor: '#E7F6FF',
+    backgroundColor: '#C7EAFF',
     paddingTop: sizeHeight(2),
     marginTop: sizeHeight(2.5),
     borderRadius: 25
