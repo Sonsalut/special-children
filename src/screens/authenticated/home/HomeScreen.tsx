@@ -12,7 +12,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { useLogicHome } from './useLogicHome';
 import { ApiConstants } from 'network/ApiConstants';
 import BigCard from 'components/cards/BigCard';
-import { isPortrait, sizeHeight } from 'utils/Utils';
+import { fontSize, isPortrait, sizeHeight } from 'utils/Utils';
 import { FILE_SIZE } from 'utils/Constant';
 
 
@@ -57,17 +57,18 @@ const HomeScreen = ({ }: StackNavigationProps<
 
           <View style={styles.mainView}>
             {
-              show ?
                 <Searchbar
                   style={styles.searchBar}
-                  placeholder="Tìm kiếm chủ đề"
+                  placeholder="Tìm kiếm"
                   placeholderTextColor={'gray'}
                   value={searchValue}
                   onChangeText={(e) => setSearchValue(e)}
                   spellCheck={false}
-                  inputStyle={{ alignSelf: 'center' }}
+                  inputStyle={{alignSelf: 'center'}}
+                  icon={require('../../../assets/images/magni.png')}
+                  iconColor={colors.text_blue}
+                  elevation={0}
                 />
-                : null
             }
 
 

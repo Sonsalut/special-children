@@ -20,13 +20,13 @@ export default StyleSheet.create({
     },
     searchbar: {
         borderWidth: 1,
-        marginVertical: sizeHeight(2),
-        borderColor: '#2D5672',
-        borderRadius: 15,
-        width: sizeWidth(80),
-        backgroundColor: 'white',
-        height: sizeHeight(5)
-    },
+        borderColor: colors.text_blue,
+        borderRadius: sizeWidth(10),
+        width: sizeWidth(60),
+        backgroundColor: colors.search_bgr,
+        height: sizeHeight(5),
+        marginVertical: 5,
+      },
     
     titleView: checkIpad() ? 
     {

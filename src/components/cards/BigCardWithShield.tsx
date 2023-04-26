@@ -36,7 +36,6 @@ const BigCardWithShield = ({
             isDoubleTap={isDoubleTap}
             activeOpacity={0.7}
             style={{
-
                 width: sizeWidth(42),
                 height: checkIpad() ? sizeHeight(30) : sizeHeight(24),
                 borderRadius: sizeWidth(3),
@@ -44,37 +43,81 @@ const BigCardWithShield = ({
                 alignSelf: 'center',
                 marginTop: 20,
                 backgroundColor: colors.card_blue,
-                // backgroundColor: '#C1EBEA',
                 paddingTop: 5,
-                borderWidth: isClicked ? 0 : 2
+                shadowOffset: {width:1, height:1},
+                shadowOpacity: 1,
+                shadowColor: '#2D5672',
+                // borderWidth: isClicked ? 0 : 2
             }}
         >
-
-
             <View
                 style={{
-                    marginHorizontal: -10,
-                    width: '100%',
+                    marginTop: -2,
+                    width: '98%',
                     alignSelf: 'center',
-                    height: sizeHeight(4.5),
+                    height: sizeHeight(4),
                     paddingRight: sizeWidth(1),
+                    flexDirection: 'row',
                 }}
             >
+                <View
+                    style={{
+                        paddingTop: sizeHeight(0.5),
+                        paddingLeft: sizeWidth(1),
+                        height: sizeHeight(4),
+                        width: sizeWidth(7),
+                        alignSelf: 'flex-start',
+                    }}
+                >
                 {
                     type === 'ADMIN'
                         ? <Icon
                             name='shield-sharp'
                             size={fontSize(5)}
                             style={{ 
-                                alignSelf: 'flex-end', 
-                                marginRight: sizeWidth(1), 
-                                marginTop: sizeHeight(1),
+                                alignSelf: 'center', 
+                                // marginLeft: sizeWidth(1.5), 
                                 color: 'orange', 
-                                height: sizeHeight(4.5), 
+                                height: sizeHeight(3), 
                             }}
                         />
                         : null
                 }
+                </View>
+                <View
+                    style={{
+                        height: sizeHeight(4),
+                        width: sizeWidth(7),
+                        alignSelf: 'flex-start',
+                        marginLeft: 'auto',
+                        zIndex: 99,
+                    }}
+                >
+                {
+                    isClicked ? null : 
+                    <View 
+                        style={{
+                            backgroundColor: colors.card_blue,
+                            height: sizeHeight(4),
+                            width: sizeWidth(8),
+                            borderRadius: sizeWidth(3),
+                            // borderWidth:1
+                        }}
+                    >
+                    <Image
+                        source={require('../../assets/images/tick.png')}
+                        style={{
+                            height: sizeHeight(3.5),
+                            width: sizeWidth(6),
+                            resizeMode: 'contain',
+                            alignSelf: 'center'
+                            // alignSelf: 'flex-end',
+                        }}
+                    />
+                    </View>
+                }
+                </View>
+                
             </View>
             <View style={{zIndex:-1}}>
                 <FastImage

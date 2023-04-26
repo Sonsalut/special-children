@@ -23,7 +23,8 @@ const colors = new (class {
   tag_blue = '#99C8E4';
   bgr_blue = '#E7F6FF';
   header_title = '#F1F1F2';
-  card_blue = '#76C3FF'
+  card_blue = '#76C3FF';
+  search_bgr = '#ECECEC'
 
   whiteWithOpacity = (opacity: number) => `rgba(255, 255, 255, ${opacity})`;
   blackWithOpacity = (opacity: number) => `rgba(0, 0, 0, ${opacity})`;

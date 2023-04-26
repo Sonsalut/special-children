@@ -17,14 +17,15 @@ export default StyleSheet.create({
   },
   searchBar: {
     borderWidth: 1,
-    // bottom: 5,
-    borderColor: '#2D5672',
-    borderRadius: 15,
-    width: sizeWidth(80),
-    backgroundColor: 'white',
-    height: sizeHeight(6),
+    borderColor: colors.text_blue,
+    borderRadius: sizeWidth(10),
+    width: sizeWidth(60),
+    backgroundColor: colors.search_bgr,
+    height: sizeHeight(5),
     marginVertical: 5,
   },
+
+  
 
   cardsContainer: {
     width: sizeWidth(94),

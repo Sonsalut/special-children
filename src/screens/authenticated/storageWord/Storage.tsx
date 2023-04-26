@@ -67,12 +67,17 @@ const Storage = ({ }: StackNavigationProps<
       <View
         style={styles.wordListContainer}
       >
-        <Searchbar value={searchValue}
+        <Searchbar 
+          value={searchValue}
           onChangeText={(e) => setSearchValue(e)}
-          inputStyle={{ fontSize: fontSize(3.5), alignSelf: 'center' }}
-          spellCheck={false} style={styles.searchbar} placeholder='Nhập từ để tìm kiếm'
-          placeholderTextColor={colors.gray}
-
+          inputStyle={{  alignSelf: 'center' }}
+          spellCheck={false}
+          style={styles.searchbar} 
+          placeholder='Tìm kiếm'
+          icon={require('../../../assets/images/magni.png')}
+          iconColor={colors.text_blue}
+          placeholderTextColor={'gray'}
+          elevation={0}
         />
         {
           // khi hiển thị tìm kiếm sẽ mất hết catagory

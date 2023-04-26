@@ -191,12 +191,15 @@ const RecordingScreen = ({ route, navigation }: any) => {
 
                 <Searchbar
                     style={styles.searchBar}
-                    placeholder="Tìm kiếm từ"
+                    placeholder="Tìm kiếm"
                     placeholderTextColor={'gray'}
                     inputStyle={{ alignSelf: 'center' }}
                     value={searchValue}
                     onChangeText={(e) => setSearchValue(e)}
                     spellCheck={false}
+                    icon={require('../../../assets/images/magni.png')}
+                    iconColor={colors.text_blue}
+                    elevation={0}
                 />
 
 
