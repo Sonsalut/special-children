@@ -105,6 +105,11 @@ export const useLogicStorage = () => {
   }
 
   const [hasDone, setHasDone] = React.useState(true)
+  const testChoose = () => {
+    // setHasDone = (false);
+    console.log('testChoose')
+    setHasDone(false)
+  }
 
 
   const isExits = (fullStore, personalStore) => {
@@ -151,12 +156,15 @@ export const useLogicStorage = () => {
     fullStore.filter(item => encodeURIComponent(item?.word?.toLowerCase()).includes(encodeURIComponent(searchValue?.toLowerCase())))
 
   )
+
+  //FUNCTION CHOOSE WORD TO ADD INTO JOIN STORAGE
   const handleChoose = (item) => {
     if (item?.isActive === false) {
       dispatch(isClicked({
         ...item,
         isActive: true
       }))
+      console.log('chon')
     }
     else {
       //   addWordToStorage(item?.id)
@@ -165,6 +173,7 @@ export const useLogicStorage = () => {
         ...item,
         isActive: false
       }))
+      console.log('bo chon')
     }
     // console.log(item)
   }
@@ -193,7 +202,9 @@ export const useLogicStorage = () => {
     loadData,
     hasDone, setHasDone,
     isExits,
+    isClicked,
     doneHandle,
+    testChoose,
     filterDatas,
     searchData,
     handleChoose,

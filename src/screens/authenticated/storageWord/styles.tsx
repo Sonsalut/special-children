@@ -62,42 +62,74 @@ export default StyleSheet.create({
         color: colors.text_blue,
         // fontWeight: 'bold',
         alignSelf: 'flex-start',
-        paddingLeft: sizeHeight(1)
+        paddingLeft: sizeHeight(1),
     },
     wordview: {
         flexDirection: 'row',
-        height: sizeHeight(21),
+        height: sizeHeight(22),
         width:'100%',
         alignItems: 'center',
     },
     wordVsCheckboxView: {
         flexDirection: 'row',
         width: sizeWidth(30),
-        height: sizeHeight(19),
+        height: sizeHeight(21),
     },
 
     cardView: {
-        backgroundColor: '#C1EBEA',
-        alignSelf: 'center',
-        width: sizeWidth(25),
-        marginHorizontal: 5,
-        borderRadius: sizeWidth(2),
-        height: checkIpad()? sizeHeight(18) : sizeHeight(17.3),
+        width: sizeWidth(28),
+        height: sizeHeight(18.5),
+        borderRadius: sizeWidth(3),
+        marginHorizontal: sizeHeight(1),
+        marginVertical: 10,
+        backgroundColor: colors.card_blue,
+        shadowOffset: {width:1, height:1},
+        shadowOpacity: 1,
+        shadowColor: '#2D5672',
     },
+    // {
+    //     backgroundColor: '#C1EBEA',
+    //     alignSelf: 'center',
+    //     width: sizeWidth(25),
+    //     marginHorizontal: 5,
+    //     borderRadius: sizeWidth(2),
+    //     borderWidth:1,
+    //     height: checkIpad()? sizeHeight(18) : sizeHeight(17.3),
+    // },
     wordImage: {
-        marginTop: '3.5%',
-        resizeMode: 'stretch',
-        height: sizeHeight(12.5), width: sizeWidth(20),
+        resizeMode: 'contain',
+        height: '91%',
+        marginTop: sizeHeight(-2),
+        width: sizeWidth(24),
         alignSelf: 'center',
-        borderRadius: 10
+        borderRadius: 10,
+        // borderWidth:1
     },
+    // {
+    //     marginTop: '3.5%',
+    //     resizeMode: 'stretch',
+    //     height: sizeHeight(12.5), width: sizeWidth(20),
+    //     alignSelf: 'center',
+    //     borderRadius: 10,
+    //     borderWidth:1,
+    // },
+        
+    
     wordText: {
         fontSize: fontSize(3.8),
-        color: '#2D5672',
+        alignSelf: 'flex-start',
         fontWeight: 'bold',
-        alignSelf: "center",
-        marginTop: '3%'
+        marginTop: sizeHeight(-2.5),
+        marginLeft: '10%',
+        color: colors.text_blue
     },
+    // {
+    //     fontSize: fontSize(3.8),
+    //     color: '#2D5672',
+    //     fontWeight: 'bold',
+    //     alignSelf: "center",
+    //     marginTop: '3%'
+    // },
     checkbox: checkIpad()?{
         right: 20,
         top:2,
@@ -109,7 +141,7 @@ export default StyleSheet.create({
         height: 20,
     },
     resultSearchView: {
-        width: sizeWidth(90),
+        width: sizeWidth(93),
         paddingTop: 15,
         height: sizeHeight(85),
         alignSelf: 'center',
