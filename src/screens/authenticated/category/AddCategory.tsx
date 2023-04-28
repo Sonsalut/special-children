@@ -406,6 +406,7 @@ const AddCategory = ({ }: StackNavigationProps<
           data={data}
           keyExtractor={(_, index) => index.toString()}
           numColumns={2}
+          showsVerticalScrollIndicator={false}
           scrollToOverflowEnabled={false}
           contentContainerStyle={{ paddingBottom: sizeHeight(5) }}
           refreshControl={

@@ -34,7 +34,6 @@ const Storage = ({ }: StackNavigationProps<
     deleteWordToStorage,
     loadData,
     hasDone, setHasDone,
-    testChoose,
     isClicked,
     isExits,
     doneHandle,

@@ -105,11 +105,6 @@ export const useLogicStorage = () => {
   }
 
   const [hasDone, setHasDone] = React.useState(true)
-  const testChoose = () => {
-    // setHasDone = (false);
-    console.log('testChoose')
-    setHasDone(false)
-  }
 
 
   const isExits = (fullStore, personalStore) => {
@@ -164,7 +159,6 @@ export const useLogicStorage = () => {
         ...item,
         isActive: true
       }))
-      console.log('chon')
     }
     else {
       //   addWordToStorage(item?.id)
@@ -173,7 +167,6 @@ export const useLogicStorage = () => {
         ...item,
         isActive: false
       }))
-      console.log('bo chon')
     }
     // console.log(item)
   }
@@ -204,7 +197,6 @@ export const useLogicStorage = () => {
     isExits,
     isClicked,
     doneHandle,
-    testChoose,
     filterDatas,
     searchData,
     handleChoose,
