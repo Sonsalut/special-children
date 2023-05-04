@@ -27,14 +27,16 @@ const ChoiceTab = ({
             <Modal
                 visible={visible}
                 style={isPortrait() ? {
-                    backgroundColor: '#E7F6FF',
+                    backgroundColor: 'white',
+                    // backgroundColor: '#E7F6FF',
                     borderRadius: sizeWidth(3),
                     height: sizeHeight(20),
                     marginTop: sizeHeight(42),
                     width: sizeWidth(80),
                     marginLeft: sizeWidth(10),
                 } : {
-                    backgroundColor: '#E7F6FF',
+                    backgroundColor: 'white',
+                    // backgroundColor: '#E7F6FF',
                     borderRadius: sizeWidth(3),
                     height: checkIpad() ? sizeWidth(30) : sizeWidth(30),
                     marginTop: sizeWidth(40),
