@@ -239,7 +239,7 @@ const RecordingScreen = ({ route, navigation }: any) => {
                 </View>
 
 
-            {/* Màn hình số  */}
+            {/* Popup đọc từ  */}
             <Modal
                 visible={visible}
                 style={styles.wordModal}

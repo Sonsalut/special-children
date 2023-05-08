@@ -23,6 +23,7 @@ import ChoiceTab from '../category/component/ChoiceTab';
 import AddEditModal from 'components/modal/AddEditModal';
 import { FILE_SIZE } from 'utils/Constant';
 import ConfirmModal from 'components/modal/ConfirmModal';
+import BottomSheet from 'components/BottomSheet';
 
 
 
@@ -298,6 +299,9 @@ const AddWord = ({ }: StackNavigationProps<
   const handleDoneEdit = () => {
     updateWord(personData)
   }
+  // const handleShowBottomSheet = () => {
+
+  // }
   const [isLoading, setIsLoading] = React.useState(false)
   const handleDoneAdd = async () => {
     let name = encodeURIComponent(textInputRef.current)
@@ -423,9 +427,21 @@ const AddWord = ({ }: StackNavigationProps<
         />
       </View>
 
+      <BottomSheet
+        visible={visible}
+        editCategory={handleEditCategory}
+        onDismiss={() => {
+          setVisible(false)
+        }}
+        onModalHide={() => setVisible(false)}
+
+        cancel={handleCancel}
+        deleteCategory={confirmDeleteWord}
+      />
+
 
       {/* Choice tab */}
-      <ChoiceTab
+      {/* <ChoiceTab
         visible={visible}
         onDismiss={() => {
           setVisible(false)
@@ -434,7 +450,7 @@ const AddWord = ({ }: StackNavigationProps<
         deleteCategory={confirmDeleteWord}
         cancel={handleCancel}
         nameChoice='từ'
-      />
+      /> */}
 
 
 

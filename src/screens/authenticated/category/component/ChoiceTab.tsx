@@ -34,6 +34,7 @@ const ChoiceTab = ({
                     marginTop: sizeHeight(42),
                     width: sizeWidth(80),
                     marginLeft: sizeWidth(10),
+                    // borderWidth:1
                 } : {
                     backgroundColor: 'white',
                     // backgroundColor: '#E7F6FF',
