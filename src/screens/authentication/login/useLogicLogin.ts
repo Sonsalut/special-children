@@ -11,6 +11,7 @@ import authSlice from 'redux/slice/authSlice';
 import { store } from 'redux/store';
 import TouchID from 'react-native-touch-id';
 import { Alert } from 'react-native';
+import { hideLoading } from 'components';
 
 const useLogicLogin = () => {
     const dispatch = useDispatch();
@@ -101,9 +102,7 @@ const useLogicLogin = () => {
                 NavigationService.reset(MainScreens.AuthenticatedNavigator);
                 showToast('Đăng nhập thành công!', 'success')
               }
-
               }
-              
             })
             .catch((error: any) => {
               console.log(error);

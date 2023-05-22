@@ -23,6 +23,7 @@ import AddButton from 'components/button/AddButton';
 import { FILE_SIZE } from 'utils/Constant';
 import ConfirmModal from 'components/modal/ConfirmModal';
 import Spinner from 'react-native-spinkit';
+import BottomSheet from 'components/BottomSheet';
 
 const AddCategory = ({ }: StackNavigationProps<
   Routes,
@@ -480,8 +481,8 @@ const AddCategory = ({ }: StackNavigationProps<
         cancelModalCamera={() => setCameraOptionsVisble(!cameraOptionsVisble)}
         onModalCameraDismiss={() => setCameraOptionsVisble(!cameraOptionsVisble)}
       />
-      {/* Choice Tab */}
-      <ChoiceTab
+      
+      {/* <ChoiceTab
         visible={visible}
         onDismiss={() => {
           setVisible(false)
@@ -490,6 +491,20 @@ const AddCategory = ({ }: StackNavigationProps<
         deleteCategory={confirmDeleteCategory}
         cancel={handleCancel}
         nameChoice='chủ đề'
+      /> */}
+
+
+{/* Add and edit category */}
+      <BottomSheet
+        visible={visible}
+        editCategory={handleEditCategory}
+        deleteCategory={confirmDeleteCategory}
+        onDismiss={() => {
+          setVisible(false)
+        }}
+        onModalHide={() => setVisible(false)}
+        cancel={handleCancel}
+        
       />
       <ConfirmModal
         visible={visibleConfirmModal}

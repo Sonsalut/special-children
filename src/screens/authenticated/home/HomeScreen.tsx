@@ -21,7 +21,7 @@ const HomeScreen = ({ }: StackNavigationProps<
   Routes,
   AuthenticatedScreens.HomeScreen
 >) => {
-  const { data, getCategory, dispatch, show, handleShow, refreshing, onRefresh, searchValue, setSearchValue, filterData, } = useLogicHome()
+  const { data, dataColor, getCategory, dispatch, show, handleShow, refreshing, onRefresh, searchValue, setSearchValue, filterData } = useLogicHome()
 
   // React.useEffect(() => {
 
@@ -101,6 +101,7 @@ const HomeScreen = ({ }: StackNavigationProps<
                   isDoubleTap={false}
                   uri={ApiConstants.HOST + `ext/files/download?id=${item?.pictureFileId}&file-size=${FILE_SIZE}&${item?.updatedAt}`}
                   title={`${item?.name}`}
+                  
                 />
               )}
             />

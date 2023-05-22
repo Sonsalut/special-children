@@ -9,7 +9,14 @@ import { showIcon } from 'redux/storageWord/action';
  export const useLogicHome =() => {
     const [data, setData] = React.useState([])
     // const [datas, setDatas] = React.useState([])
-  
+   
+    //render categries in differrent colors
+    const dataColor = [
+      { id: '1', color: 'blue' },
+      { id: '2', color: 'red' },
+      { id: '3', color: 'green' },
+      // Add more items with different colors
+    ];
     const getCategory = async (values: any) => {
       const response = await RecordingAPI.GetFullCategory<GetFullCategory>({
         pageIndex: 1,
@@ -58,6 +65,7 @@ import { showIcon } from 'redux/storageWord/action';
       )
 return {
     data,
+    dataColor,
     getCategory,
     dispatch,
     show,

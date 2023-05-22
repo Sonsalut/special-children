@@ -481,7 +481,16 @@ const AddWord = ({ }: StackNavigationProps<
 
 
       />
-
+      <ConfirmModal
+         visible={visibleConfirmModal}
+         handleCancel={()=>setVisibleConfirmModal(!visibleConfirmModal)}
+         text1='Bạn có chắc chắn muốn xóa?'
+         confirmText='Xác nhận'
+         handleConfirm={handleHideWord}
+         style={{marginTop: sizeHeight(42)}}
+        //  style={{borderWidth:1}}
+      
+      />
 
       {/* Pop up thêm từ */}
       <AddEditModal
@@ -503,16 +512,7 @@ const AddWord = ({ }: StackNavigationProps<
         cancelModalCamera={() => { setCameraOptionsVisble(!cameraOptionsVisble) }}
         onModalCameraDismiss={() => setCameraOptionsVisble(!cameraOptionsVisble)}
       />
-    <ConfirmModal
-         visible={visibleConfirmModal}
-         handleCancel={()=>setVisibleConfirmModal(!visibleConfirmModal)}
-         text1='Bạn có chắc chắn muốn xóa?'
-         confirmText='Xác nhận'
-         handleConfirm={handleHideWord}
-         style={{marginTop: sizeHeight(42)}}
-        //  style={{borderWidth:1}}
       
-      />
     </Container>
   )
 };

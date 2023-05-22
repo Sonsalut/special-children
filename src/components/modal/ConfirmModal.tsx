@@ -30,12 +30,13 @@ const ConfirmModal = ({
     style
 }: ConfirmModalProps) => {
     return (
-        <>
+        // <>
             <Modal
                 visible={visible}
                 onDismiss={onDismiss}
                 style={[styles.logoutModal, style]}
                 dismissable={false}
+                
             >
                 <View style={styles.logOutView}>
                     <Icon name={'warning-outline'}
@@ -59,7 +60,7 @@ const ConfirmModal = ({
                 </View>
             </Modal>
 
-        </>
+        // </>
     )
 }
 
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
         height: sizeHeight(20),
         marginTop: sizeWidth(30),
         width: sizeHeight(50),
-        marginHorizontal: sizeHeight(25), 
+        marginHorizontal: sizeHeight(25),
     },
 
     logOutView: {

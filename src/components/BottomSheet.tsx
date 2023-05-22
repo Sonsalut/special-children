@@ -32,14 +32,15 @@ const BottomSheet = ({
   return (
       <ReactNativeModal
         // hasBackdrop={false}
-        backdropColor='transparent'
+        backdropColor='gray'
         coverScreen={false}
+        
         isVisible={visible}
         style={styles.container}
         onDismiss={onDismiss}
         onModalHide={onModalHide}
-        // onSwipeCancel={Swiper}
-        
+        onBackdropPress={cancel}
+        // onSwipeCancel={Swiper} 
       >
         
         <View style={styles.buttonCarrier}>
@@ -65,8 +66,6 @@ const BottomSheet = ({
           </TouchableOpacity>
         </View>
         
-
-        {/* <Text>BottomSheet</Text> */}
       </ReactNativeModal>
   )
 }
@@ -83,7 +82,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'space-around',
     marginTop: sizeHeight(92),
-    marginBottom: sizeHeight(-20)
+    marginBottom: sizeHeight(-20),
   },
   buttonCarrier:{
     justifyContent: 'center',
