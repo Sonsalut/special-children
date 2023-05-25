@@ -32,7 +32,7 @@ const BottomSheet = ({
   return (
       <ReactNativeModal
         // hasBackdrop={false}
-        backdropColor='gray'
+        backdropColor='transparent'
         coverScreen={false}
         
         isVisible={visible}

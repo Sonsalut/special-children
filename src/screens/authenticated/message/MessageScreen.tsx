@@ -14,6 +14,8 @@ import styles from './styles';
 import ConfirmModal from 'components/modal/ConfirmModal';
 import { useIsFocused } from '@react-navigation/native';
 import useOrientation from 'hooks/useOrientation';
+import ReactNativeModal from 'react-native-modal';
+
 
 const MessageScreen = ({ }: StackNavigationProps<
   Routes,
@@ -110,9 +112,10 @@ const MessageScreen = ({ }: StackNavigationProps<
       </View>
 
 {/* MODAL SHOW */}
-      <Modal
-        visible={visible}
+      <ReactNativeModal
+        isVisible={visible}
         style={styles.modalVoice}
+        onBackdropPress={handleReturn}
         onDismiss={() => {
           setShow(false)
           setVisible(false)
@@ -155,7 +158,7 @@ const MessageScreen = ({ }: StackNavigationProps<
           </View>
         </View>
 
-      </Modal>
+      </ReactNativeModal>
 
 {/* LOG OUT MODAL */}
       <ConfirmModal

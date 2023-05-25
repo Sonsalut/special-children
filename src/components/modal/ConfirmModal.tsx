@@ -5,6 +5,8 @@ import colors from 'res/colors'
 import { checkIpad, fontSize, isPortrait, sizeHeight, sizeWidth } from 'utils/Utils'
 import TouchableOpacity from 'components/button/TouchableOpacity'
 import Icon from 'react-native-vector-icons/Ionicons'
+import ReactNativeModal from 'react-native-modal';
+
 
 
 interface ConfirmModalProps {
@@ -31,19 +33,19 @@ const ConfirmModal = ({
 }: ConfirmModalProps) => {
     return (
         // <>
-            <Modal
-                visible={visible}
+            <ReactNativeModal
+                isVisible={visible}
                 onDismiss={onDismiss}
-                style={[styles.logoutModal, style]}
-                dismissable={false}
-                
+                style={styles.logoutModal}
+                backdropColor='gray'
+                backdropOpacity={0.6}
             >
                 <View style={styles.logOutView}>
-                    <Icon name={'warning-outline'}
+                    {/* <Icon name={'warning-outline'}
                         size={sizeWidth(8)}
                         color={"#FF4444"}
-                        style={styles.warningIcon} />
-                    <View style={{ width: '90%', height: 50 }}>
+                        style={styles.warningIcon} /> */}
+                    <View style={{ marginTop: '7%',width: '100%', height: 50 }}>
                         <Text style={styles.warnText}>{text1}</Text>
                         <Text style={styles.warnText}>{text2}</Text>
 
@@ -58,7 +60,7 @@ const ConfirmModal = ({
                         </TouchableOpacity>
                     </View>
                 </View>
-            </Modal>
+            </ReactNativeModal>
 
         // </>
     )
@@ -68,17 +70,19 @@ export default ConfirmModal
 
 const styles = StyleSheet.create({
     logoutModal: isPortrait() ? {
-        backgroundColor: '#E7F6FF',
-        borderRadius: 15,
-        height: sizeHeight(20),
-        marginTop: sizeHeight(35),
-        width: sizeWidth(80),
-        marginHorizontal: sizeWidth(10),
+        backgroundColor: 'white',
+        borderRadius: 10,
+        // borderWidth:1,
+        marginTop: sizeHeight(85),
+        marginBottom: sizeHeight(0),
+        width: '100%',
+        alignSelf: 'center'
+        // marginHorizontal: sizeWidth(-1),
     } : {
-        backgroundColor: '#E7F6FF',
+        backgroundColor: 'white',
         borderRadius: 15,
-        height: sizeHeight(20),
-        marginTop: sizeWidth(30),
+        marginTop: sizeHeight(42),
+        marginBottom: sizeHeight(45),
         width: sizeHeight(50),
         marginHorizontal: sizeHeight(25),
     },
@@ -96,31 +100,34 @@ const styles = StyleSheet.create({
     },
     warnText: {
         fontSize: checkIpad() ? fontSize(2) : 17, 
-        color: colors.black, 
+        color: colors.text_blue, 
         fontWeight: '500', 
         alignSelf: 'center',
+        // borderWidth:1
     },
     buttonView: {
         width: '100%',
-        height: 60,
+        height: sizeHeight(5),
         flexDirection: 'row',
         justifyContent: "space-around",
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: sizeHeight(3),
+        // borderWidth:1
     },
     closeButton: {
         width: '30%',
-        height: 40,
-        borderColor: colors.blue,
+        height: sizeHeight(4),
+        borderColor: colors.orange,
         borderWidth: 1,
-        borderRadius: 12,
+        borderRadius: sizeHeight(1),
         justifyContent: 'center',
         
     },
     logOutButton: {
         width: '30%',
-        height: 40,
-        backgroundColor: 'red',
-        borderRadius: 12,
+        height: sizeHeight(4),
+        backgroundColor: '#DE4841',
+        borderRadius: sizeHeight(1),
         justifyContent: 'center'
     },
     logOutText: {
@@ -131,6 +138,6 @@ const styles = StyleSheet.create({
     closeText: {
         alignSelf: 'center',
         fontSize: checkIpad() ? fontSize(2) :15,
-        color: colors.blue
+        color: colors.orange
     }
 })

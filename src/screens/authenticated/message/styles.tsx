@@ -59,10 +59,11 @@ export default StyleSheet.create({
   } : {
     backgroundColor: '#E7F6FF',
     borderRadius: sizeHeight(3),
-    height: sizeHeight(60),
-    marginTop: sizeHeight(10),
-    width: sizeWidth(80),
-    marginLeft: sizeWidth(10),
+    width: sizeWidth(100),
+    alignSelf: 'center',
+    marginTop: sizeHeight(55),
+    marginBottom: sizeHeight(-10),
+    paddingBottom: sizeHeight(12)
   },
   voiceView: {
     alignItems: 'center',
@@ -73,7 +74,9 @@ export default StyleSheet.create({
   },
   returnButton: {
     width: '90%',
-    height: '8%',
+    height: '10%',
+    
+    borderWidth:1
   },
   genderView: {
     bottom: 20,
