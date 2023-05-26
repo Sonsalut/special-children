@@ -17,6 +17,7 @@ interface ConfirmModalProps {
     handleCancel?:()=>void,
     handleConfirm?:()=>void,
     confirmText?: string,
+    onModalHide?: () => void,
     style?: StyleProp<ViewStyle>
 
 
@@ -29,6 +30,7 @@ const ConfirmModal = ({
     handleCancel,
     handleConfirm,
     confirmText,
+    onModalHide,
     style
 }: ConfirmModalProps) => {
     return (
@@ -36,6 +38,7 @@ const ConfirmModal = ({
             <ReactNativeModal
                 isVisible={visible}
                 onDismiss={onDismiss}
+                onModalHide={onModalHide}
                 style={styles.logoutModal}
                 backdropColor='gray'
                 backdropOpacity={0.6}

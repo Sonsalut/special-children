@@ -23,7 +23,7 @@ const MessageScreen = ({ }: StackNavigationProps<
 >) => {
   const { logOut,
     onToggleSwitch, cancelLogOut,
-    refPopUp, name, setIsSwitchOn, isSwitchOn, onPopUpClose, confirmLogOut, show, setShow, visible, setVisible,
+    refPopUp, name, setIsSwitchOn, isSwitchOn, onPopUpClose,  show, setShow, visible, setVisible,
     handle, gendervalue, setGenderValue, regionvalue, setRegionValue,
     getVoiceInfor,
     PostVoiceInfor,
@@ -48,7 +48,11 @@ const MessageScreen = ({ }: StackNavigationProps<
   //TEST RESPONSIVE ORIENTATION
 
   const orientation = useOrientation();
- 
+  const [visibleConfirmModal, setVisibleConfirmModal] = React.useState(false)
+
+  const confirmLogOut = ()=>{
+    setVisibleConfirmModal(!visibleConfirmModal)
+}
   const isFocused = useIsFocused()
   React.useEffect(() => {
 
@@ -116,20 +120,26 @@ const MessageScreen = ({ }: StackNavigationProps<
         isVisible={visible}
         style={styles.modalVoice}
         onBackdropPress={handleReturn}
+        
         onDismiss={() => {
           setShow(false)
           setVisible(false)
         }}
       >
         <View style={styles.voiceView}>
-          <TouchableOpacity onPress={handleReturn} style={styles.returnButton}>
+          <View style={styles.voiceTitle}>
+            <Text style={{fontSize: fontSize(4.8),alignSelf: 'center'}}>Giọng đọc</Text>
+          </View>
+          {/* <TouchableOpacity onPress={handleReturn} style={styles.returnButton}>
             <Icon name='arrow-back-outline' size={fontSize(6)}/>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+
+
 {/* GENDER SETTING */}
           <View style={styles.genderView}>
 
             <Text style={styles.genderText}>Giới tính:</Text>
-            <RadioButton.Group onValueChange={value => setGenderValue(value)} value={gendervalue}>
+            <RadioButton.Group style={styles.radioButtonGroup} onValueChange={value => setGenderValue(value)} value={gendervalue}>
 
               <RadioButton.Item label="Nam" value="MALE" labelStyle={styles.selectedGenderText} />
               <RadioButton.Item label="Nữ" value="FEMALE" labelStyle={styles.selectedGenderText} />
@@ -138,11 +148,13 @@ const MessageScreen = ({ }: StackNavigationProps<
 {/* REGION SETTING */}
           <View style={styles.regionView}>
             <Text style={styles.selectedRegionText}>Vùng miền:</Text>
-            <RadioButton.Group onValueChange={value => setRegionValue(value)} value={regionvalue}>
+            <RadioButton.Group style={styles.radioButtonGroup} onValueChange={value => setRegionValue(value)} value={regionvalue}>
 
-              <RadioButton.Item label="Bắc" value="NORTHERN" labelStyle={styles.selectedGenderText} />
-              <RadioButton.Item label="Trung" value="MIDDLE" labelStyle={styles.selectedGenderText} />
-              <RadioButton.Item label="Nam" value="SOUTHERN" labelStyle={styles.selectedGenderText} />
+              
+              <RadioButton.Item label="Bắc" style={{height:sizeHeight(6)}} value="NORTHERN" labelStyle={styles.selectedGenderText} />
+              
+              <RadioButton.Item label="Trung" style={{height:sizeHeight(6)}} value="MIDDLE" labelStyle={styles.selectedGenderText} />
+              <RadioButton.Item label="Nam" style={{height:sizeHeight(6)}} value="SOUTHERN" labelStyle={styles.selectedGenderText} />
             </RadioButton.Group>
           </View>
 
@@ -167,8 +179,8 @@ const MessageScreen = ({ }: StackNavigationProps<
           setLogOutShow(false);
           setlogOutvisible(false)
         }}
-        text1={"Bạn có chắc chắn muốn đăng xuất"}
-        text2={"không?"}
+        text1={"Chắc chắn muốn đăng xuất?"}
+        // text2={"không?"}
         handleCancel={handleCancelLogOut}
         handleConfirm={cofirmHandleLogOut}
         confirmText={"Đăng xuất"}

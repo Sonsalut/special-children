@@ -50,14 +50,14 @@ export default StyleSheet.create({
 
 // VOICE SETTING MODAL
   modalVoice: checkIpad() ? {
-    backgroundColor: '#E7F6FF',
+    backgroundColor: 'white',
     borderRadius: sizeHeight(3),
     height: sizeHeight(50),
     marginTop: sizeHeight(10),
     width: sizeWidth(70),
     marginLeft: sizeWidth(15)
   } : {
-    backgroundColor: '#E7F6FF',
+    backgroundColor: 'white',
     borderRadius: sizeHeight(3),
     width: sizeWidth(100),
     alignSelf: 'center',
@@ -72,20 +72,29 @@ export default StyleSheet.create({
     borderRadius: 15,
     justifyContent: 'space-around'
   },
+  voiceTitle: {
+    width: '90%',
+    height: sizeHeight(6),
+    justifyContent: 'center',
+    borderBottomColor: '#1D3140',
+    borderBottomWidth: 1
+  },
   returnButton: {
     width: '90%',
     height: '10%',
     
-    borderWidth:1
+    // borderWidth:1
   },
   genderView: {
-    bottom: 20,
+    // bottom: 20,
     alignItems: 'center',
     width: "90%",
-    height: "30%",
+    height: "25%",
     borderRadius: 15,
     flexDirection: 'row',
-    paddingHorizontal: '15%'
+    paddingHorizontal: '15%',
+    marginTop: sizeHeight(-2),
+    // borderWidth:1
   },
   genderText: {
     alignSelf: 'flex-start',
@@ -94,21 +103,27 @@ export default StyleSheet.create({
     color: colors.black,
     width: '45%',
   },
+  radioButtonGroup:{
+    borderWidth:1,
+    height: 10
+  },
   selectedGenderText: {
     fontSize: checkIpad()? fontSize(3):fontSize(4),
-    width: sizeWidth(12),
-    height: sizeHeight(5),
+    width: sizeWidth(30),
+    height: sizeHeight(4),
     paddingTop: checkIpad() ? sizeHeight(2.3) : sizeHeight(1),
-
+    // borderWidth:1
   },
   regionView: {
     alignItems: 'center',
     width: "90%",
-    height: "40%",
+    height: "35%",
     borderRadius: 15,
-    bottom:20,
+    // bottom:20,
     flexDirection: 'row',
     paddingHorizontal: '15%',
+    marginTop: sizeHeight(-1),
+    // borderWidth:1
   },
   
   selectedRegionText: {
@@ -117,6 +132,7 @@ export default StyleSheet.create({
     fontSize: checkIpad()? fontSize(3):fontSize(4),
     color: colors.black,
     width: '45%',
+    // borderWidth:1
   },
   changeButtonView: {
     width: sizeWidth(60),
@@ -127,8 +143,8 @@ export default StyleSheet.create({
   changeButton: {
     height: '90%',
     width: checkIpad() ? '60%' : '80%',
-    borderRadius: 15,
-    backgroundColor: '#ADDDDC',
+    borderRadius: 20,
+    backgroundColor: 'orange',
     flexDirection: 'row',
     justifyContent: 'center',
     shadowOpacity: 1,
@@ -140,7 +156,7 @@ export default StyleSheet.create({
   confirmText: {
     alignSelf: 'center',
     fontSize: checkIpad()? fontSize(3):fontSize(3.5),
-    color: '#2D5672',
+    color: 'white',
     fontWeight: 'bold',
   },
 

@@ -135,6 +135,7 @@ const cofirmHandleLogOut =()=>{
   dispatch(authSlice.actions.logout())
   dispatch(resetShow())
   NavigationService.navigate(MainScreens.AuthenticationNavigator)
+  setlogOutvisible(false)
 }
 const handleReturn =()=>{
   setShow(false)

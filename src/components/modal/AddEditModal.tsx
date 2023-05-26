@@ -1,14 +1,18 @@
-import { Image, ImageSourcePropType, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Image, FlatList, ImageSourcePropType, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import React from 'react'
 import { Modal, shadow } from 'react-native-paper'
 import TouchableOpacity from 'components/button/TouchableOpacity'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { checkIpad, fontSize, isPortrait, sizeHeight, sizeWidth } from 'utils/Utils'
 import ModalCamera from './ModalCamera'
+import { RefreshControl } from 'react-native-gesture-handler';
+
 import images from 'res/images'
 import Spinner from 'react-native-spinkit'
 import colors from 'res/colors'
 import style from 'screens/authenticated/join-word/style'
+import RadioButton from 'react-native-paper'
+import ColorPicker from 'components/button/ColorPicker'
 
 interface AddEditModalProps {
   visible?: boolean,
@@ -142,45 +146,20 @@ const AddEditModal = ({
                 {/* <Image soure=/> */}
               </TextInput>
 
+
+{/* CHOOSE COLOR FOR CARD (FUNCTION ON PROGRESS) */}
               <View
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-around',
                   paddingTop: sizeHeight(2)
                 }}>
-                <TouchableOpacity
-                  style={{
-                    height: sizeHeight(5),
-                    width: sizeHeight(5),
-                    borderRadius: 180, backgroundColor: '#CCF6C8'
-                  }}
-                ></TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                    height: sizeHeight(5),
-                    width: sizeHeight(5),
-                    borderRadius: 180, backgroundColor: '#C7E9F1'
-                  }}></TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                    height: sizeHeight(5),
-                    width: sizeHeight(5),
-                    borderRadius: 180, backgroundColor: '#E6E6FA'
-                  }}></TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                    height: sizeHeight(5),
-                    width: sizeHeight(5),
-                    borderRadius: 180, backgroundColor: '#6BEEA9'
-                  }}></TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                    height: sizeHeight(5),
-                    width: sizeHeight(5),
-                    borderRadius: 180, backgroundColor: '#8D8DE8'
-                  }}></TouchableOpacity>
-              </View>
-
+                  <ColorPicker/>
+                  <ColorPicker/>
+                  <ColorPicker/>
+                  <ColorPicker/>
+                  <ColorPicker/>
+                </View>
               <View
                 style={styles.buttonView}>
                 <TouchableOpacity
@@ -269,7 +248,7 @@ const styles = StyleSheet.create({
     height: sizeHeight(50),
     alignSelf: 'center',
     paddingBottom: sizeHeight(5),
-    paddingTop:sizeHeight(1)
+    paddingTop: sizeHeight(1)
     // bottom: 15 , 
     // borderWidth: 1
   } : {
